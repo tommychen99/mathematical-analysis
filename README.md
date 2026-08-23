@@ -68,11 +68,10 @@ policy imposed by the intended university, repository, publisher, or platform.
 
 ## License and copyright
 
-© 2026 Tommy Chen.
-
-This work is licensed under the Creative Commons Attribution 4.0
-International License (CC BY 4.0). See the [LICENSE](LICENSE) file
-for details.
+Copyright \(\copyright\) 2026 Tommy Chen. This work is licensed under the
+[Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+You may share and adapt the notes under the terms of that license, with
+appropriate attribution.
 
 ## Errors and errata
 
