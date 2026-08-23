@@ -1,0 +1,59 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black,
+  hypertexnames=false,
+  pdftitle={Lecture Notes on Mathematical Analysis: Single and Multivariable Calculus},
+  pdfauthor={Tommy Chen},
+  pdfsubject={Rigorous undergraduate mathematical analysis and calculus},
+  pdfkeywords={mathematical analysis, calculus, real analysis, multivariable calculus, Stokes theorem}
+}
+\newcommand{\notesversion}{Version 1.0 Release Candidate}
+\newcommand{\notesdate}{August 23, 2026}
+\newcommand{\noteslicense}{License to be selected before public release}
+\setlist[enumerate]{label=(\alph*),itemsep=0.35em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\newtheoremstyle{analysisplain}
+  {\topsep}
+  {\topsep}
+  {\upshape}
+  {}
+  {\bfseries}
+  {.}
+  {.5em}
+  {}
+\theoremstyle{analysisplain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[chapter]
+\AtBeginEnvironment{definition}{\let\emph\textbf}
+\crefname{construction}{construction}{constructions}
+\Crefname{construction}{Construction}{Constructions}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
