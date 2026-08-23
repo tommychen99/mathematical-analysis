@@ -1,6 +1,6 @@
 # Errata
 
-No errata have been recorded for the current release candidate.
+No errata have been recorded for Version 1.0.
 
 ## Entry format
 
