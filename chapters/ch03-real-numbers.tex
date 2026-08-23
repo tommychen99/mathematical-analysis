@@ -1,0 +1,742 @@
+\chapter{The Real Number System}
+\label{ch:reals}
+
+\section{Ordered Fields and the Problem to Be Solved}
+
+Chapter~\ref{ch:foundations} constructs the arithmetic chain
+\[
+\N\longrightarrow\Z\longrightarrow\Q.
+\]
+The first extension permits subtraction, and the second permits division by a
+nonzero element.  The rational numbers nevertheless have gaps: as
+Chapter~\ref{ch:motivation} observed, no rational number has square \(2\).
+This chapter completes the chain
+\[
+\N\longrightarrow\Z\longrightarrow\Q\longrightarrow\R
+\]
+by constructing a system without those analytic and order-theoretic gaps.
+We begin by isolating the algebraic and order structure that the final system
+must possess.
+
+\begin{definition}[Field]
+A \textbf{field} is a set $F$ with elements $0,1$ ($0\ne1$) and operations $+$ and $\cdot$ such that, for all $a,b,c\in F$, addition and multiplication are associative and commutative, multiplication distributes over addition, $0+a=a$, $1a=a$, every $a$ has an additive inverse $-a$, and every nonzero $a$ has a multiplicative inverse $a^{-1}$.
+\end{definition}
+
+\begin{definition}[Ordered field]
+An \textbf{ordered field} is a field $F$ equipped with a total order
+\(\leq\), in the sense of Chapter~\ref{ch:foundations}, that is compatible
+with its field operations: for all $a,b,c\in F$,
+\[
+a\leq b
+\quad\Longrightarrow\quad
+a+c\leq b+c,
+\]
+and
+\[
+0\leq a\text{ and }0\leq b
+\quad\Longrightarrow\quad
+0\leq ab.
+\]
+\end{definition}
+
+\begin{proposition}[Positive-cone characterization]
+\label{prop:positive-cone-characterization}
+Let $F$ be a field. An ordered-field structure on $F$ is equivalently
+specified by a subset
+\[
+P=\{x\in F:x>0\}
+\]
+such that
+\[
+P+P\subseteq P,
+\qquad
+PP\subseteq P,
+\]
+where
+\[
+P+P=\{p+q:p,q\in P\},
+\qquad
+PP=\{pq:p,q\in P\},
+\]
+and, for every $x\in F$, exactly one of
+\[
+x=0,
+\qquad
+x\in P,
+\qquad
+-x\in P
+\]
+holds. Conversely, such a subset defines an ordered-field structure by
+\[
+x\leq y
+\quad\Longleftrightarrow\quad
+x=y\text{ or }y-x\in P.
+\]
+\end{proposition}
+\begin{proof}
+Suppose first that $F$ is an ordered field. If $a,b>0$, compatibility with
+addition gives $a+b\geq a>0$; equality $a+b=a$ would force $b=0$.
+Compatibility with multiplication gives
+\(ab\geq0\). If $ab=0$, multiplication by $a^{-1}$ gives $b=0$,
+contradicting $b>0$; hence \(ab>0\). Totality gives the displayed
+trichotomy.
+
+Conversely, let $P$ satisfy the stated conditions. The trichotomy for zero
+shows that $0\notin P$. The displayed relation is reflexive. If both
+\(x\leq y\) and \(y\leq x\) hold and $x\ne y$, then both $y-x$ and
+\(x-y$ belong to $P$, so closure under addition would put $0$ in $P$, a
+contradiction; hence the relation is antisymmetric. Closure under addition
+also gives transitivity, and the trichotomy for $y-x$ gives totality. Its
+compatibility with addition is immediate from
+\[
+(y+c)-(x+c)=y-x.
+\]
+Finally, if $0\leq a$ and $0\leq b$, then either factor is zero or both
+belong to $P$, in which case $ab\in P$. Thus multiplication preserves
+nonnegativity, as required.
+\end{proof}
+
+\begin{definition}[Absolute value]
+In an ordered field, define $\abs{x}=x$ if $x\geq0$ and $\abs{x}=-x$ if $x<0$.
+\end{definition}
+
+\begin{proposition}[Basic order rules]
+\label{prop:ordered-field-rules}
+In an ordered field, $<$ is the strict order associated with a transitive
+total order. If $a<b$, then $a+c<b+c$ for every $c$; if $a<b$ and $0<c$, then $ac<bc$. Also $a^2\geq0$ for every $a$, and
+\[
+\abs{a+b}\leq\abs{a}+\abs{b},\qquad \abs{ab}=\abs{a}\abs{b}
+\]
+for all $a,b$.
+\end{proposition}
+\begin{proof}
+The total-order axioms give totality and transitivity. Addition compatibility
+gives $a+c\leq b+c$, and equality would imply $a=b$ after cancellation;
+hence $a+c<b+c$. If $a<b$ and $0<c$, then
+\[
+0\leq(b-a)c.
+\]
+If this product were zero, multiplication by $(b-a)^{-1}$ would give
+\(c=0\), a contradiction. Thus $bc-ac>0$ and $ac<bc$. Totality gives either
+$a\geq0$ or $-a\geq0$, and multiplication compatibility then gives
+$a^2\geq0$. The four possible sign combinations for $a$ and $b$ prove the
+product formula for absolute values. Applying the order rules to
+\[
+-\abs{a}\leq a\leq\abs{a},\qquad -\abs{b}\leq b\leq\abs{b}
+\]
+gives
+\[
+-\abs{a}-\abs{b}\leq a+b\leq\abs{a}+\abs{b},
+\]
+which is the triangle inequality.
+\end{proof}
+
+\begin{definition}[Upper bounds and completeness]
+Let $S\subseteq F$. An element $u\in F$ is an \textbf{upper bound} of $S$ if $s\leq u$ for every $s\in S$. A \textbf{least upper bound} of $S$ is an upper bound $u$ with $u\leq v$ for every upper bound $v$ of $S$. An ordered field has the \textbf{least-upper-bound property} if every nonempty set having an upper bound has a least upper bound.
+\end{definition}
+
+\begin{definition}[Complete ordered field]
+An ordered field having the least-upper-bound property is called a \textbf{complete ordered field}. This is a characterization, not a construction: it says what the real numbers are like, but does not yet exhibit them.
+\end{definition}
+
+\section{Rational Numbers, Completeness, and Uniqueness}
+
+The preceding axioms describe the target.  Before constructing a model, we
+show that they already determine its arithmetic and order uniquely.  The key
+is that every ordered field contains a forced copy of the rational numbers.
+
+\begin{definition}[Field homomorphisms and isomorphisms]
+Let \(F\) and \(G\) be fields.  A \textbf{field homomorphism} is a map
+\[
+\phi:F\longrightarrow G
+\]
+such that
+\[
+\phi(1_F)=1_G,\qquad
+\phi(x+y)=\phi(x)+\phi(y),\qquad
+\phi(xy)=\phi(x)\phi(y).
+\]
+A bijective field homomorphism is a \textbf{field isomorphism}.  Between
+ordered fields, a homomorphism is \textbf{order preserving} if
+\[
+x<y\quad\Longrightarrow\quad\phi(x)<\phi(y).
+\]
+An order-preserving field isomorphism is called an \textbf{ordered-field
+isomorphism}.
+\end{definition}
+
+\begin{theorem}[Canonical rational copy]
+\label{thm:canonical-rationals}
+Every ordered field \(F\) has a unique order-preserving field homomorphism
+\[
+\iota_F:\Q\longrightarrow F.
+\]
+It is injective, and its image is an ordered subfield of \(F\).  Thus we
+identify \(\Q\) with its image in \(F\).
+\end{theorem}
+\begin{proof}
+For \(n\in\N\), let \(n_F\) be the sum of \(n\) copies of \(1_F\).
+For negative integers, use additive inverses to define \(m_F\). Induction
+gives \(n_F>0\), hence \(n_F\ne0\). Define
+\[
+\iota_F(m/n)=m_F(n_F)^{-1}
+\qquad(m\in\Z,\ n\in\N).
+\]
+To check well definedness, suppose
+\[
+\frac mn=\frac pq.
+\]
+Then \(mq=np\), so the corresponding integer elements of \(F\) satisfy
+\[
+m_Fq_F=n_Fp_F.
+\]
+Multiplying by \((n_F)^{-1}(q_F)^{-1}\) gives
+\[
+m_F(n_F)^{-1}=p_F(q_F)^{-1}.
+\]
+Thus the definition does not depend on the chosen fraction. The field laws
+then directly show that \(\iota_F\) preserves addition and multiplication.
+
+If \(u>0\) in an ordered field, then \(u^{-1}>0\): it is nonzero, and if
+\(u^{-1}<0\), multiplication of this inequality by \(u>0\) would give
+\[
+1=u^{-1}u<0,
+\]
+contrary to \(1=1^2>0\). A positive rational has a representation \(m/n\)
+with \(m,n\in\N\), so \(m_F>0\) and \((n_F)^{-1}>0\); hence its image is
+positive. Therefore \(\iota_F\) is order preserving and thus injective.
+Any field homomorphism fixes \(1\), then every integer, and then every
+quotient of integers; uniqueness follows.
+\end{proof}
+
+\begin{theorem}[Archimedean properties]
+\label{thm:complete-fields-archimedean}
+Let \(F\) be a complete ordered field.  Then:
+\begin{enumerate}
+\item for every \(x\in F\), there is \(N\in\N\) such that
+\[
+x<N;
+\]
+\item for every \(\varepsilon>0\), there is \(N\in\N\) such that
+\[
+\frac1N<\varepsilon.
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Identify \(\Q\) with its canonical copy.  If \(\N\) had an upper bound, let
+\(s=\sup\N\).  Since \(s-1\) is not an upper bound, some \(n\in\N\) satisfies
+\[
+s-1<n.
+\]
+Then \(s<n+1\), contradicting that \(s\) is an upper bound.  Thus \(\N\) is
+unbounded above, which proves (a).  Apply (a) to \(1/\varepsilon\) to obtain
+\(N>1/\varepsilon\), proving (b).
+\end{proof}
+
+\begin{theorem}[Rational density]
+\label{thm:complete-field-rational-density}
+Let \(F\) be a complete ordered field and let \(x<y\) in \(F\).  Then there
+is \(q\in\Q\) such that
+\[
+x<q<y.
+\]
+\end{theorem}
+\begin{proof}
+Choose \(N\in\N\) with
+\[
+N(y-x)>1.
+\]
+Choose \(M\in\N\) with \(M>-Nx\).  The set
+\[
+E=\set{n\in\N:n>Nx+M}
+\]
+is nonempty and has a least member \(k\).  Minimality gives
+\[
+k-1\leq Nx+M<k,
+\]
+and hence
+\[
+Nx<k-M<Nx+1<Ny.
+\]
+Divide by the positive integer \(N\) and take
+\[
+q=\frac{k-M}{N}.
+\]
+\end{proof}
+
+\begin{lemma}[Rational cuts determine points]
+\label{lem:rational-cuts-determine-points}
+If \(F\) is a complete ordered field and \(x,y\in F\) satisfy
+\[
+\set{q\in\Q:q<x}=\set{q\in\Q:q<y},
+\]
+then \(x=y\).
+\end{lemma}
+\begin{proof}
+If \(x<y\), rational density gives a rational strictly between them, which
+belongs to exactly one of the two sets.  The case \(y<x\) is symmetric.
+\end{proof}
+
+\begin{theorem}[Uniqueness of complete ordered fields]
+\label{thm:unique-complete-ordered-field}
+If \(F\) and \(G\) are complete ordered fields, there is a unique
+order-preserving field isomorphism
+\[
+\Phi:F\longrightarrow G
+\]
+which identifies their canonical rational copies.
+\end{theorem}
+\begin{proof}
+Identify both rational copies with \(\Q\).  For \(x\in F\), let
+\[
+L_F(x)=\set{q\in\Q:q<x}.
+\]
+The Archimedean property and rational density make this set nonempty and
+bounded above in \(G\).  Define
+\[
+\Phi(x)=\sup_G L_F(x).
+\]
+For every rational \(q\),
+\[
+q<\Phi(x)\quad\Longleftrightarrow\quad q<x.
+\tag{*}
+\]
+Indeed, if \(q<x\), choose \(r\in\Q\) with \(q<r<x\), so
+\(q<r\leq\Phi(x)\).  Conversely, if \(x\leq q\), then \(q\) is an upper
+bound of \(L_F(x)\).
+
+The equivalence (*) shows that \(\Phi\) is strictly order preserving and
+fixes \(\Q\).  It also proves additivity: for a rational \(q\),
+\[
+q<x+y
+\]
+holds exactly when there are rationals \(p<x\) and \(r<y\) with
+\[
+q=p+r.
+\]
+For the nontrivial implication, choose \(p\in\Q\) between \(q-y\) and \(x\)
+and put \(r=q-p\).  Apply (*) in both fields and then use the preceding
+lemma to conclude
+\[
+\Phi(x+y)=\Phi(x)+\Phi(y).
+\]
+
+For positive \(x,y\), we next compare the lower cuts of the products.  If
+\[
+q<0,
+\]
+then automatically \(q<xy\), and the same is true of
+\[
+\Phi(x)\Phi(y).
+\]
+Now let \(q\in\Q\) satisfy
+\[
+q\geq0.
+\]
+We claim that
+\[
+q<xy
+\]
+if and only if there are positive rationals \(p,r\) such that
+\[
+0<p<x,\qquad 0<r<y,\qquad q<pr.
+\tag{**}
+\]
+The reverse implication follows from the order rules.  Conversely, if
+\[
+q<xy,
+\]
+then
+\[
+\frac{q}{y}<x.
+\]
+Rational density gives a positive rational \(p\) with
+\[
+\frac{q}{y}<p<x.
+\]
+Because \(p>q/y\), one has \(q/p<y\); rational density again gives a positive
+rational \(r\) with
+\[
+\frac{q}{p}<r<y.
+\]
+Thus \(q<pr\), proving (**).
+
+The equivalence (*) transfers the inequalities
+\[
+p<x,\qquad r<y
+\]
+exactly to
+\[
+p<\Phi(x),\qquad r<\Phi(y).
+\]
+Applying (**) in \(F\) and in \(G\) therefore shows that \(xy\) and
+\(\Phi(x)\Phi(y)\) have the same rational lower cut.  By
+\cref{lem:rational-cuts-determine-points},
+\[
+\Phi(xy)=\Phi(x)\Phi(y)
+\]
+when \(x,y>0\).  Additivity gives
+\[
+\Phi(-x)=-\Phi(x).
+\]
+If one factor is zero, multiplicativity is immediate.  If exactly one factor
+is negative, apply the positive case to its negative and use this identity;
+if both are negative, apply it twice.  Hence multiplicativity holds for all
+\[
+x,y\in F.
+\]
+Thus \(\Phi\) is an order-preserving field homomorphism.
+
+Construct \(\Psi:G\to F\) in the same way.  By (*), the maps
+\(\Psi\Phi\) and the identity of \(F\) have the same rational lower cuts, so
+they are equal by \cref{lem:rational-cuts-determine-points}; similarly
+\(\Phi\Psi\) is the identity of \(G\).  Hence \(\Phi\) is an isomorphism.
+Finally, any order-preserving field isomorphism fixing \(\Q\) has property
+(*), because it preserves rational lower cuts; therefore it equals \(\Phi\).
+\end{proof}
+
+\begin{definition}[The real number system]
+\label{def:real-by-characterization}
+The \textbf{real number system}, denoted by \(\R\), is a complete ordered
+field.  The preceding theorem makes this definition unambiguous up to the
+unique order-preserving field isomorphism fixing \(\Q\).  The construction
+below proves that such a field exists.
+\end{definition}
+
+
+\section{Cauchy Sequences of Rational Numbers}
+
+The preceding discussion gives the intended abstract meaning of $\R$ and proves that such a field, if it exists, is unique. We now supply existence by constructing a concrete complete ordered field from rational Cauchy sequences. The uniqueness theorem will then identify this model with the real-number system just characterized.
+
+We use the usual ordered-field properties of $\Q$, which Chapter~\ref{ch:foundations} establishes from its construction as equivalence classes of integer pairs $(p,q)$ with $q\ne0$.  No completeness property of $\Q$ will be used.
+
+\begin{definition}[Cauchy sequence in $\Q$]
+\label{def:rational-cauchy}
+A sequence $(q_n)_{n\in\N}$ in $\Q$ is \textbf{Cauchy} if, for every rational $\eps>0$, there is $N\in\N$ such that $m,n\geq N$ implies $\abs{q_m-q_n}<\eps$.
+\end{definition}
+
+\begin{lemma}[Elementary Cauchy facts]
+\label{lem:cauchy-facts-q}
+Let $(q_n)$ and $(r_n)$ be Cauchy sequences in $\Q$.
+\begin{enumerate}
+\item Each sequence is bounded: there is $M\in\Q$ with $\abs{q_n}\leq M$ for all $n$.
+\item The sequences $(q_n+r_n)$ and $(q_nr_n)$ are Cauchy.
+\item If $(q_n)\sim(q_n')$ and $(r_n)\sim(r_n')$, then
+\[
+(q_n+r_n)\sim(q_n'+r_n')
+\quad\hbox{and}\quad
+(q_nr_n)\sim(q_n'r_n').
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Choose $N$ such that $m,n\geq N$ gives $\abs{q_m-q_n}<1$. Then $\abs{q_n}\leq\abs{q_N}+1$ for $n\geq N$; enlarge this rational bound to cover the finitely many earlier terms. For sums, apply the triangle inequality. For products, take a common bound $M$ for both sequences and use
+\[
+\abs{q_mr_m-q_nr_n}\leq\abs{q_m}\abs{r_m-r_n}+\abs{r_n}\abs{q_m-q_n}\leq M\bigl(\abs{r_m-r_n}+\abs{q_m-q_n}\bigr).
+\]
+For the final assertion, the triangle inequality gives the sum statement. Choose a common rational bound $M$ for the four sequences. The identity
+\[
+q_nr_n-q_n'r_n' =q_n(r_n-r_n')+r_n'(q_n-q_n')
+\]
+then gives
+\[
+\abs{q_nr_n-q_n'r_n'}\leq M\abs{r_n-r_n'}+M\abs{q_n-q_n'},
+\]
+which tends to $0$.
+\end{proof}
+
+\begin{definition}[Null equivalence]
+For rational Cauchy sequences $(q_n)$ and $(r_n)$, write $(q_n)\sim(r_n)$ if, for every $\eps\in\Q$ with $\eps>0$, there is $N$ such that $n\geq N$ implies $\abs{q_n-r_n}<\eps$.
+\end{definition}
+
+\begin{lemma}
+\label{lem:null-equivalence}
+The relation $\sim$ is an equivalence relation on the set of rational Cauchy sequences.
+\end{lemma}
+\begin{proof}
+Reflexivity and symmetry are immediate. If $q\sim r$ and $r\sim s$, then for a given $\eps>0$, both $\abs{q_n-r_n}<\eps/2$ and $\abs{r_n-s_n}<\eps/2$ eventually hold. The triangle inequality gives $\abs{q_n-s_n}<\eps$, proving transitivity.
+\end{proof}
+
+\begin{lemma}[Eventual Separation]
+\label{lem:eventual-separation}
+Let $(q_n)$ be a rational Cauchy sequence that is not null-equivalent to the zero sequence. Then there are $\delta>0$ in $\Q$ and $N\in\N$ such that either $q_n\geq\delta$ for every $n\geq N$, or $q_n\leq-\delta$ for every $n\geq N$.
+\end{lemma}
+\begin{proof}
+Since $(q_n)$ is not null, there is $\eta>0$ for which $\abs{q_n}\geq\eta$ for infinitely many $n$. Choose $N$ so that $\abs{q_m-q_n}<\eta/2$ whenever $m,n\geq N$, and choose $k\geq N$ with $\abs{q_k}\geq\eta$. If $q_k\geq\eta$, then $q_n>\eta/2$ for every $n\geq N$. If $q_k\leq-\eta$, then $q_n< -\eta/2$ for every $n\geq N$. Take $\delta=\eta/2$.
+\end{proof}
+
+\begin{construction}[The set of real numbers]
+\label{con:real-cauchy}
+Define $\R$ to be the set of equivalence classes $[(q_n)]$ under $\sim$. Define
+\[
+[(q_n)]+[(r_n)]=[(q_n+r_n)],\qquad
+[(q_n)]\,[(r_n)]=[(q_nr_n)],\qquad
+-[(q_n)]=[(-q_n)].
+\]
+For $a\in\Q$, define $\iota(a)=[(a,a,a,\ldots)]$.
+\end{construction}
+
+\begin{proposition}[Algebra of the construction]
+\label{prop:real-algebra}
+The operations in \cref{con:real-cauchy} are well defined. With $0=\iota(0)$ and $1=\iota(1)$, they make $\R$ a field, and $\iota:\Q\to\R$ is an injective field homomorphism.
+\end{proposition}
+\begin{proof}
+The last part of \cref{lem:cauchy-facts-q} proves well-definedness of addition and multiplication; it also proves that the displayed sequences are Cauchy. All associative, commutative, distributive, and identity laws hold term by term for rational sequences and therefore for their classes. Additive inverses are termwise. If $x=[(q_n)]\ne0$, \cref{lem:eventual-separation} gives $\delta>0$ and $N$ such that $\abs{q_n}\geq\delta$ for every $n\geq N$. Define
+\[
+p_n=
+\begin{cases}
+1,&n<N,\\
+q_n^{-1},&n\geq N.
+\end{cases}
+\]
+The estimate
+\[
+\abs{p_m-p_n}=\frac{\abs{q_m-q_n}}{\abs{q_mq_n}}\leq\frac{1}{\delta^2}\abs{q_m-q_n}
+\]
+for $m,n\geq N$ shows that $(p_n)$ is Cauchy. Since $q_np_n=1$ for every $n\geq N$, its product class is $1$; hence $[(p_n)]$ is the multiplicative inverse of $x$. Finally, constant-sequence operations show that $\iota$ is a homomorphism; if $\iota(a)=\iota(b)$, then the constant difference $a-b$ is smaller in absolute value than every positive rational, which is possible only when $a=b$.
+\end{proof}
+
+\section{Order and Completeness}
+
+\begin{definition}[Order on $\R$]
+For $x=[(q_n)]\in\R$, write $x>0$ if there are rational numbers $\delta>0$ and $N$ such that $q_n>\delta$ for every $n\geq N$. Define $x<y$ to mean $y-x>0$.
+\end{definition}
+
+\begin{lemma}
+\label{lem:real-order}
+The preceding definition is independent of the chosen representative. It makes $\R$ an ordered field, and $\iota$ preserves order.
+\end{lemma}
+\begin{proof}
+If $q_n>\delta$ eventually and $q\sim r$, then $\abs{q_n-r_n}<\delta/2$ eventually, so $r_n>\delta/2$ eventually. Thus positivity is well defined. Positive eventual lower bounds are closed under addition and multiplication. For a nonzero class, \cref{lem:eventual-separation} gives exactly one eventual sign. Therefore \cref{prop:positive-cone-characterization} makes the resulting relation a compatible total order, and \cref{prop:ordered-field-rules} supplies its basic rules. Constant sequences visibly preserve rational order.
+\end{proof}
+
+\begin{theorem}[Archimedean property]
+\label{thm:archimedean}
+For every $x\in\R$, there is $N\in\N$ with $x<N$. Consequently, for every $\eps>0$, there is $N\in\N$ with $1/N<\eps$.
+\end{theorem}
+\begin{proof}
+Let $x=[(q_n)]$. By \cref{lem:cauchy-facts-q}, the rational sequence $(q_n)$ has a rational upper bound $M$. Choose an integer $N>M$, using the Archimedean property of $\Q$. Then $q_n<N$ for all $n$, hence $x\leq N$; replacing $N$ by $N+1$ yields $x<N+1$. For the consequence choose $N>1/\eps$.
+\end{proof}
+
+\begin{lemma}[Integer-Part Lemma]
+\label{lem:integer-part}
+For every $x\in\R$, there is an integer $k\in\Z$ such that
+\[
+k\leq x<k+1.
+\]
+\end{lemma}
+\begin{proof}
+By \cref{thm:archimedean}, choose $M\in\N$ with $M>-x$. The nonempty set
+\[
+E=\set{n\in\N:n>x+M}
+\]
+has a least element $n$ by well ordering. Since $n-1\notin E$ when $n>1$, one has $n-1\leq x+M<n$. The case $n=1$ gives the same left inequality because $x+M>0$. Thus $k=n-M-1$ is an integer satisfying $k\leq x<k+1$.
+\end{proof}
+
+\begin{theorem}[Density of the Rational Numbers]
+\label{thm:rational-density}
+If $x,y\in\R$ and $x<y$, then there is $q\in\Q$ such that
+\[
+x<\iota(q)<y.
+\]
+\end{theorem}
+\begin{proof}
+By \cref{thm:archimedean}, choose $N\in\N$ with $N(y-x)>1$. Apply \cref{lem:integer-part} to $Nx$ to obtain $k\in\Z$ with $k\leq Nx<k+1$. Then
+\[
+Nx<k+1<Nx+1<Ny.
+\]
+Dividing by the positive integer $N$ gives the result for $q=(k+1)/N$.
+\end{proof}
+
+\begin{definition}[Convergence of a real sequence]
+Let $(x_n)$ be a sequence in $\R$, and let $x\in\R$. We say that $(x_n)$ \emph{converges to} $x$, and write
+\[
+\lim_{n\to\infty}x_n=x,
+\]
+if for every $\eps>0$ there is $N\in\N$ such that
+\[
+n\geq N\quad\Longrightarrow\quad \abs{x_n-x}<\eps.
+\]
+\end{definition}
+
+\begin{definition}[Cauchy sequence in $\R$]
+A real sequence $(x_n)$ is \emph{Cauchy} if, for every $\eps>0$, there is $N\in\N$ such that $m,n\geq N$ implies $\abs{x_m-x_n}<\eps$.
+\end{definition}
+
+\begin{lemma}[Tail Estimates for Classes]
+\label{lem:tail-estimates-classes}
+Let $(u_n)$ be a rational Cauchy sequence, let $u=[(u_n)]$, and let $e\in\Q$ satisfy $e>0$.
+\begin{enumerate}
+\item If $\abs{u_n}<e$ for every sufficiently large $n$, then
+\[
+\abs{u}<\iota(e).
+\]
+\item If $(u_n)$ is eventually bounded below by $a\in\Q$ and eventually bounded above by $b\in\Q$, then
+\[
+\iota(a)\leq u\leq\iota(b).
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For the first assertion, the inequalities $\abs{u_n}<e$ imply
+\[
+e-u_n>0,\qquad e+u_n>0
+\]
+eventually. In fact both quantities are eventually greater than $e/2$. Thus $\iota(e)-u>0$ and $\iota(e)+u>0$, which says precisely that $\abs{u}<\iota(e)$. For the second assertion, $u_n\geq a$ eventually implies that $\iota(a)-u$ cannot be positive: otherwise the definition of positivity would give $a-u_n>\delta>0$ eventually, contradicting $u_n\geq a$. Hence $\iota(a)\leq u$. The upper estimate is analogous.
+\end{proof}
+
+\begin{lemma}[Rational Approximation from a Representative]
+\label{lem:rational-representatives-converge}
+Let $x=[(q_n)]\in\R$. Then
+\[
+\lim_{n\to\infty}\iota(q_n)=x.
+\]
+Consequently, for every $\eps>0$ there is a rational $q$ such that
+\[
+\abs{\iota(q)-x}<\eps.
+\]
+\end{lemma}
+\begin{proof}
+Let $\eps>0$. By \cref{thm:rational-density}, choose $e\in\Q$ with
+\[
+0<\iota(e)<\eps.
+\]
+Cauchyness of $(q_n)$ supplies $N$ such that
+\[
+m,n\geq N\quad\Longrightarrow\quad\abs{q_m-q_n}<e.
+\]
+For a fixed $n\geq N$, the real number $\iota(q_n)-x$ is represented by the sequence $(q_n-q_k)_{k\in\N}$, whose tail has absolute value less than $e$. By \cref{lem:tail-estimates-classes},
+\[
+\abs{\iota(q_n)-x}<\iota(e)<\eps.
+\]
+This proves the convergence. Taking one sufficiently large $n$ proves the final assertion.
+\end{proof}
+
+\begin{theorem}[Cauchy completeness of the construction]
+\label{thm:real-cauchy-complete}
+Every Cauchy sequence in $\R$ converges to an element of $\R$.
+\end{theorem}
+\begin{proof}
+Let $(x_j)$ be Cauchy. By \cref{lem:rational-representatives-converge}, choose $r_j\in\Q$ with
+\[
+\abs{\iota(r_j)-x_j}<\iota(2^{-j}).
+\]
+We claim that $(r_j)$ is a rational Cauchy sequence. Given $e\in\Q$ with $e>0$, choose $J$ with $2^{-J}<e/3$. Since $(x_j)$ is Cauchy, there is $K$ such that
+\[
+j,k\geq K\quad\Longrightarrow\quad\abs{x_j-x_k}<\iota(e/3).
+\]
+Hence, for $j,k\geq\max\{J,K\}$,
+\[
+\abs{\iota(r_j)-\iota(r_k)}
+\leq\abs{\iota(r_j)-x_j}+\abs{x_j-x_k}+\abs{x_k-\iota(r_k)}
+<\iota(e).
+\]
+Because $\iota$ preserves order, this is exactly $\abs{r_j-r_k}<e$.
+
+Let $x=[(r_j)]\in\R$. Given $\eps>0$, choose a rational $e>0$ with
+\[
+\iota(3e)<\eps.
+\]
+The convergence in \cref{lem:rational-representatives-converge} supplies $J$ such that
+\[
+\abs{\iota(r_J)-x}<\iota(e).
+\]
+Increasing $J$ if necessary, we may also arrange $2^{-J}<e$ and hence
+\[
+\abs{\iota(r_J)-x_J}<\iota(e).
+\]
+Choose $K$ so that
+\[
+j\geq K\quad\Longrightarrow\quad\abs{x_j-x_J}<\iota(e).
+\]
+For $j\geq K$, the triangle inequality gives
+\[
+\abs{x_j-x}
+\leq\abs{x_j-x_J}+\abs{x_J-\iota(r_J)}+\abs{\iota(r_J)-x}
+<\iota(3e)<\eps.
+\]
+Thus $x_j\to x$.
+\end{proof}
+
+\begin{theorem}[Completeness of the constructed field]
+\label{thm:real-lub}
+The ordered field $\R$ of \cref{con:real-cauchy} has the least-upper-bound property.
+\end{theorem}
+
+\begin{proof}
+Let $S\subseteq\R$ be nonempty and bounded above. Choose $s_0\in S$ and an upper bound $u_0$. If $s_0$ is an upper bound, then it is a maximum of $S$ and hence its least upper bound. Otherwise $s_0$ is not an upper bound. Since every element of $S$ is at most $u_0$, one has $s_0<u_0$. Bisect $[s_0,u_0]$: at stage $n$, let $m_n=(s_n+u_n)/2$; if $m_n$ is an upper bound of $S$, put $(s_{n+1},u_{n+1})=(s_n,m_n)$, and otherwise put $(s_{n+1},u_{n+1})=(m_n,u_n)$. Then $s_n$ is not an upper bound, $u_n$ is an upper bound, and $u_n-s_n=2^{-n}(u_0-s_0)$.
+
+The sequence $(s_n)$ is Cauchy: for $m\geq n$, $0\leq s_m-s_n\leq u_n-s_n=2^{-n}(u_0-s_0)$, and the right side tends to $0$ by \cref{thm:archimedean}. By \cref{thm:real-cauchy-complete}, let $s_n\to a$. The triangle inequality shows directly that $u_n\to a$, because $\abs{u_n-a}\leq\abs{u_n-s_n}+\abs{s_n-a}$. Finally, for fixed $n$, the inequalities $s_n\leq s_m\leq u_m\leq u_n$ for $m\geq n$ pass to the limit: if, for example, $s_n>a$, then $s_m$ cannot lie within $(s_n-a)/2$ of $a$ for any $m\geq n$. Hence $s_n\leq a\leq u_n$.
+
+If $t\in S$ and $t>a$, choose $n$ with $u_n-s_n<t-a$; then $t>u_n$, contradicting that $u_n$ is an upper bound. Thus $a$ is an upper bound. If $v<a$, choose $n$ with $u_n-s_n<a-v$; then $v<s_n$. Since $s_n$ is not an upper bound, neither is $v$. Hence $a$ is the least upper bound.
+\end{proof}
+
+The construction has now supplied the existence promised in \cref{def:real-by-characterization}. Therefore the ordered field constructed in \cref{con:real-cauchy} is, up to the unique order-preserving field isomorphism fixing $\Q$, the real number system. The remaining results record useful equivalent forms and consequences of its completeness.
+
+Other standard descriptions---Dedekind cuts, suitable decimal expansions, and
+nested-interval models---are not constructed in full here.  The uniqueness
+theorem does not by itself prove that such descriptions are equivalent to
+this model: for each one, it remains necessary to prove the field, order, and
+completeness properties.  Once that has been done, however, the uniqueness
+theorem supplies its canonical order-preserving field isomorphism with the
+Cauchy-sequence model and hence with \(\R\).
+
+\begin{theorem}[Greatest-Lower-Bound Property]
+\label{thm:real-glb}
+Every nonempty subset of $\R$ that is bounded below has a greatest lower bound.
+\end{theorem}
+\begin{proof}
+Let $S\subseteq\R$ be nonempty and bounded below. Define
+\[
+-S=\set{-s:s\in S}.
+\]
+Then $-S$ is nonempty and bounded above. By \cref{thm:real-lub}, let $u=\sup(-S)$, and put $\ell=-u$. For every $s\in S$, one has $-s\leq u$, hence $\ell\leq s$; thus $\ell$ is a lower bound. If $v$ is any lower bound of $S$, then $-s\leq-v$ for every $s\in S$, so $-v$ is an upper bound of $-S$. Therefore $u\leq-v$, or $v\leq\ell$. Hence $\ell$ is the greatest lower bound.
+\end{proof}
+
+\begin{theorem}[Nested-Interval Property]
+\label{thm:nested-interval}
+Let
+\[
+[a_1,b_1]\supseteq[a_2,b_2]\supseteq\cdots
+\]
+be nested closed intervals in $\R$, and suppose
+\[
+\lim_{n\to\infty}(b_n-a_n)=0.
+\]
+Then there is exactly one real number belonging to every interval.
+\end{theorem}
+\begin{proof}
+The sequence $(a_n)$ is increasing and bounded above by $b_1$, so its range has a least upper bound $c$. For every fixed $n$, nesting gives $a_m\leq a_n\leq b_n$ when $m<n$, and $a_m\leq b_m\leq b_n$ when $m\geq n$. Thus $b_n$ is an upper bound of the whole range, so $c\leq b_n$. Also $a_n\leq c$ by definition of upper bound. Hence $c\in[a_n,b_n]$ for every $n$.
+
+If $d$ belongs to every interval, then $\abs{c-d}\leq b_n-a_n$ for every $n$. Taking the limit gives $\abs{c-d}=0$, so $c=d$. Thus the common point is unique.
+\end{proof}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Use the least-upper-bound property to prove the greatest-lower-bound property by applying it to
+\[
+-S=\set{-s:s\in S}.
+\]
+State precisely the hypotheses on $S$.
+\end{exercise}
+
+\begin{exercise}
+Let
+\[
+S=\set{x\in\R:x^2<2,\ x\geq0}.
+\]
+Use completeness and the algebraic order rules to prove that
+\[
+\sup S
+\]
+has square $2$.
+\end{exercise}
+
+\begin{exercise}
+Let $F$ be a complete ordered field. Prove that every nonempty open interval in $F$ contains a rational element.
+\end{exercise}

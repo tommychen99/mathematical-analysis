@@ -1,0 +1,634 @@
+\chapter{Infinite Series}
+\label{ch:series}
+
+\section{Series, Partial Sums, and the Cauchy Criterion}
+
+An infinite sum is never formed by adding infinitely many terms at once.
+Its mathematical meaning is the limit of finite partial sums, so all
+questions about series begin with the sequence theory already developed.
+
+\begin{definition}[Series]
+Let $(a_n)$ be a real sequence. Its $N$th \textbf{partial sum} is
+\[
+s_N=\sum_{n=1}^{N}a_n.
+\]
+The \textbf{series} with terms $(a_n)$ is denoted by
+\[
+\sum_{n=1}^{\infty}a_n.
+\]
+It \textbf{converges} when $(s_N)$ converges; its sum is then
+\[
+\sum_{n=1}^{\infty}a_n=\lim_{N\to\infty}s_N.
+\]
+\end{definition}
+
+\begin{theorem}[Cauchy Criterion for Series]
+\label{thm:series-cauchy}
+The series
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges if and only if, for every $\eps>0$, there is $N\in\N$ such that
+\[
+m>n\geq N
+\quad\Longrightarrow\quad
+\abs{\sum_{k=n+1}^{m}a_k}<\eps.
+\]
+\end{theorem}
+\begin{proof}
+For $m>n$,
+\[
+s_m-s_n=\sum_{k=n+1}^{m}a_k.
+\]
+Thus the stated condition says exactly that the partial sums are Cauchy. Apply \cref{thm:cauchy-criterion}.
+\end{proof}
+
+\begin{proposition}[Finite Changes and Telescoping]
+\label{prop:finite-changes-telescoping}
+Changing finitely many terms of a series does not affect convergence. If
+\[
+a_n=b_n-b_{n+1},
+\]
+then
+\[
+\sum_{n=1}^{N}a_n=b_1-b_{N+1}.
+\]
+Consequently, this telescoping series converges if and only if $(b_n)$ converges, and its sum is
+\[
+b_1-\lim_{n\to\infty}b_n.
+\]
+\end{proposition}
+\begin{proof}
+Partial sums after a finite change differ by a constant from some point onward. The displayed finite identity follows by cancellation; its limit proves the last assertion.
+\end{proof}
+
+\begin{proposition}[Necessary Condition]
+\label{prop:series-terms-zero}
+If a series converges, then its terms tend to zero.
+\end{proposition}
+\begin{proof}
+If $s_N\to s$, then
+\[
+a_N=s_N-s_{N-1}
+\qquad(N\geq2).
+\]
+The algebra of limits gives $a_N\to0$.
+\end{proof}
+
+\section{Nonnegative Series and Comparison}
+
+When terms are nonnegative, partial sums can only increase.  This lets order
+and completeness convert estimates by simpler benchmark series into decisive
+convergence tests.
+
+\begin{theorem}[Comparison Test]
+\label{thm:comparison-test}
+Let
+\[
+0\leq a_n\leq b_n
+\qquad(n\in\N).
+\]
+If
+\[
+\sum_{n=1}^{\infty}b_n
+\]
+converges, then
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges. If the latter series diverges, then the former diverges.
+\end{theorem}
+\begin{proof}
+The partial sums of $(a_n)$ are increasing and bounded above by the sum of the series with terms $b_n$. Apply \cref{thm:monotone-convergence}. The second statement is the contrapositive.
+\end{proof}
+
+\begin{theorem}[Limit Comparison Test]
+\label{thm:limit-comparison}
+Let $a_n,b_n>0$ eventually, and suppose
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=L
+\]
+with
+\[
+0<L<\infty.
+\]
+Then the series with terms $a_n$ converges if and only if the series with terms $b_n$ converges.
+\end{theorem}
+\begin{proof}
+Eventually,
+\[
+\frac L2b_n<a_n<\frac{3L}{2}b_n.
+\]
+The conclusion follows from two applications of \cref{thm:comparison-test} and \cref{prop:finite-changes-telescoping}.
+\end{proof}
+
+\begin{theorem}[Geometric Series]
+\label{thm:geometric-series}
+For $r\in\R$, the series with terms $r^n$, beginning at $n=0$, converges if and only if
+\[
+\abs r<1.
+\]
+In that case,
+\[
+\sum_{n=0}^{\infty}r^n=\frac{1}{1-r}.
+\]
+\end{theorem}
+\begin{proof}
+For $r\ne1$,
+\[
+\sum_{n=0}^{N}r^n=\frac{1-r^{N+1}}{1-r}.
+\]
+If $r=0$, the conclusion is immediate. If $0<r<1$, write $r=1/(1+h)$ with $h>0$. Bernoulli's inequality gives
+\[
+(1+h)^N\geq1+Nh,
+\]
+so
+\[
+0\leq r^N\leq\frac{1}{1+Nh}\longrightarrow0.
+\]
+The same conclusion holds whenever $\abs r<1$, because
+\[
+\abs{r^N}=\abs r^N.
+\]
+Taking limits proves the formula. If $\abs r\geq1$, the terms do not tend to zero, so \cref{prop:series-terms-zero} proves divergence.
+\end{proof}
+
+\begin{theorem}[Cauchy Condensation Test]
+\label{thm:cauchy-condensation}
+Let $(b_n)$ be a nonincreasing sequence of nonnegative real numbers. Then
+\[
+\sum_{n=1}^{\infty}b_n
+\]
+converges if and only if
+\[
+\sum_{k=0}^{\infty}2^k b_{2^k}
+\]
+converges.
+\end{theorem}
+\begin{proof}
+For every $k\geq0$,
+\[
+2^k b_{2^{k+1}}
+\leq
+\sum_{n=2^k}^{2^{k+1}-1}b_n
+\leq
+2^k b_{2^k}.
+\]
+Summing the right inequalities proves that convergence of the condensed series implies convergence of the original series. Summing the left inequalities gives
+\[
+\frac12\sum_{k=1}^{m+1}2^k b_{2^k}
+\leq
+\sum_{n=1}^{2^{m+1}-1}b_n.
+\]
+Hence boundedness of the original partial sums implies boundedness of the condensed partial sums. Both series have nonnegative terms, so monotone convergence completes the proof.
+\end{proof}
+
+\section{Absolute Convergence and Products}
+
+Signs permit cancellation, which is useful but dangerous: a series can look
+small only because large positive and negative tails offset each other.
+Absolute convergence rules out that instability and will justify changing
+orders and multiplying series.
+
+\begin{definition}[Absolute and Conditional Convergence]
+A series with real terms $a_n$ \textbf{converges absolutely} if
+\[
+\sum_{n=1}^{\infty}\abs{a_n}
+\]
+converges. It \textbf{converges conditionally} if it converges but does not converge absolutely.
+\end{definition}
+
+Absolute convergence controls the total size of the terms; this is why it will justify rearrangement. Conditional convergence is weaker, so changing the order of its terms requires separate care.
+
+\begin{theorem}[Absolute Convergence Test]
+\label{thm:absolute-convergence}
+Absolute convergence implies convergence.
+\end{theorem}
+\begin{proof}
+For $m>n$,
+\[
+\abs{\sum_{k=n+1}^{m}a_k}
+\leq
+\sum_{k=n+1}^{m}\abs{a_k}.
+\]
+The Cauchy criterion for the absolute-value series and \cref{thm:series-cauchy} show that the original partial sums are Cauchy.
+\end{proof}
+
+\begin{theorem}[Rearrangement of an Absolutely Convergent Series]
+\label{thm:absolute-rearrangement}
+Let
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converge absolutely, and let $(a_{\sigma(n)})$ be a rearrangement, where $\sigma:\N\to\N$ is a bijection. Then the rearranged series converges absolutely and has the same sum.
+\end{theorem}
+\begin{proof}
+Let
+\[
+A=\sum_{n=1}^{\infty}\abs{a_n}.
+\]
+Every finite rearranged absolute partial sum is at most $A$, so the rearranged absolute-value series converges. Given $\eps>0$, choose $N$ such that
+\[
+\sum_{n=N+1}^{\infty}\abs{a_n}<\frac{\eps}{2}.
+\]
+Choose $M$ so that
+\[
+\{1,\ldots,N\}\subseteq\{\sigma(1),\ldots,\sigma(M)\}.
+\]
+For $m\geq M$, cancellation of the common first $N$ terms shows that the difference between the $m$th rearranged partial sum and the original sum has absolute value less than $\eps$. Thus the sums agree.
+\end{proof}
+
+\begin{theorem}[Cauchy Product]
+\label{thm:cauchy-product}
+Suppose that
+\[
+\sum_{n=0}^{\infty}a_n
+\quad\hbox{and}\quad
+\sum_{n=0}^{\infty}b_n
+\]
+converge absolutely. Define
+\[
+c_n=\sum_{k=0}^{n}a_kb_{n-k}.
+\]
+Then
+\[
+\sum_{n=0}^{\infty}c_n
+\]
+converges absolutely and
+\[
+\left(\sum_{n=0}^{\infty}a_n\right)
+\left(\sum_{n=0}^{\infty}b_n\right)
+=\sum_{n=0}^{\infty}c_n.
+\]
+\end{theorem}
+\begin{proof}
+The partial sums of
+\[
+\sum_{n=0}^{\infty}\abs{c_n}
+\]
+are bounded by the product of the two absolute sums, because
+\[
+\sum_{n=0}^{N}\abs{c_n}
+\leq
+\sum_{\substack{j,k\geq0\\j+k\leq N}}\abs{a_j}\abs{b_k}.
+\]
+Thus the Cauchy product converges absolutely. Let $\eps>0$. Choose $K$ so large that
+\[
+\left(\sum_{j=K+1}^{\infty}\abs{a_j}\right)
+\left(\sum_{k=0}^{\infty}\abs{b_k}\right)
++
+\left(\sum_{j=0}^{\infty}\abs{a_j}\right)
+\left(\sum_{k=K+1}^{\infty}\abs{b_k}\right)
+<\eps.
+\]
+For $N\geq2K$, every pair $(j,k)$ with
+\[
+0\leq j,k\leq N,\qquad j+k>N
+\]
+has either $j>K$ or $k>K$. Thus the difference between the finite product and the $N$th Cauchy-product partial sum is less than $\eps$ in absolute value. Passing to limits proves the formula.
+\end{proof}
+
+\section{Ratio, Root, and Alternating Tests}
+
+Many series are best compared not term by term with a fixed model, but by
+examining how consecutive terms or their roots behave.  The following tests
+make that asymptotic comparison precise.
+
+\begin{definition}[Positive Roots]
+For $x\geq0$ and $n\in\N$, $n\geq1$, write
+\[
+x^{1/n}
+\]
+for the unique nonnegative number whose $n$th power is $x$. Existence follows from the Intermediate Value Theorem applied to
+\[
+t\longmapsto t^n
+\]
+on a sufficiently large compact interval; uniqueness follows from strict increase on $[0,\infty)$.
+\end{definition}
+
+\begin{definition}[Rational Powers]
+Let
+\[
+x>0,
+\qquad
+p\in\Q.
+\]
+Choose integers $a$ and $b$ with
+\[
+b>0,
+\qquad
+p=\frac ab,
+\]
+and define
+\[
+x^p=(x^a)^{1/b}.
+\]
+The next lemma proves that this does not depend on the chosen representation of $p$.
+\end{definition}
+
+\begin{lemma}[Elementary Laws of Rational Powers]
+\label{lem:rational-power-laws}
+For $x>0$ and $p,q\in\Q$, rational powers are well defined and satisfy
+\[
+x^{p+q}=x^px^q,
+\qquad
+(x^m)^p=x^{mp}
+\qquad(m\in\Z).
+\]
+If
+\[
+0<x<y
+\qquad\text{and}\qquad
+0<p,
+\]
+then
+\[
+x^p<y^p.
+\]
+\end{lemma}
+\begin{proof}
+Suppose
+\[
+\frac ab=\frac cd
+\qquad(b,d>0).
+\]
+If
+\[
+u=(x^a)^{1/b},
+\qquad
+v=(x^c)^{1/d},
+\]
+then $u,v>0$ and
+\[
+u^{bd}=x^{ad}=x^{bc}=v^{bd}.
+\]
+Uniqueness of positive roots gives $u=v$, so the definition is independent of the representation. Writing rational exponents over a common positive denominator and raising both sides to that denominator proves the two displayed laws, again by uniqueness of positive roots.
+
+For the order statement, put
+\[
+z=\frac yx>1.
+\]
+The power laws give
+\[
+\frac{y^p}{x^p}=z^p.
+\]
+Writing
+\[
+p=\frac ab
+\qquad(a,b\in\N),
+\]
+one has
+\[
+(z^p)^b=z^a>1.
+\]
+Thus $z^p>1$, for otherwise its positive $b$th power would be at most $1$. Hence $y^p>x^p$.
+\end{proof}
+
+\begin{theorem}[Rational $p$-Series Test]
+\label{thm:rational-p-series-test}
+Let
+\[
+p\in\Q.
+\]
+Then
+\[
+\sum_{n=1}^{\infty}\frac{1}{n^p}
+\]
+converges if and only if
+\[
+p>1.
+\]
+\end{theorem}
+\begin{proof}
+Suppose first that
+\[
+p>0.
+\]
+By \cref{lem:rational-power-laws}, the sequence
+\[
+b_n=n^{-p}
+\]
+is nonincreasing. The Cauchy Condensation Test gives convergence precisely when
+\[
+\sum_{k=0}^{\infty}2^k(2^k)^{-p}
+=\sum_{k=0}^{\infty}2^{k(1-p)}
+\]
+converges. This is a geometric series with positive ratio
+\[
+2^{1-p};
+\]
+by the order statement in \cref{lem:rational-power-laws}, that ratio is less than $1$ exactly when
+\[
+p>1.
+\]
+If
+\[
+p\leq0,
+\]
+then
+\[
+n^{-p}\geq1
+\qquad(n\in\N),
+\]
+so the terms do not tend to zero. The necessary condition in \cref{prop:series-terms-zero} proves divergence.
+\end{proof}
+
+
+\begin{theorem}[Ratio Test]
+\label{thm:ratio-test}
+Let $a_n\ne0$ eventually. If there are $r<1$ and $N$ such that
+\[
+\abs{a_{n+1}/a_n}\leq r
+\qquad(n\geq N),
+\]
+then the series with terms $a_n$ converges absolutely. If there are $r>1$ and $N$ such that
+\[
+\abs{a_{n+1}/a_n}\geq r
+\qquad(n\geq N),
+\]
+then the series diverges.
+\end{theorem}
+\begin{proof}
+The first inequality gives
+\[
+\abs{a_{N+k}}\leq\abs{a_N}r^k,
+\]
+so geometric comparison applies. The second makes the absolute values eventually increasing and nonzero, so the terms cannot tend to zero.
+\end{proof}
+
+\begin{theorem}[Root Test]
+\label{thm:root-test}
+Let $(a_n)$ be a real sequence. If there are $r$ and $N$ such that
+\[
+0\leq r<1
+\]
+and
+\[
+\abs{a_n}^{1/n}\leq r
+\qquad(n\geq N),
+\]
+then the series with terms $a_n$ converges absolutely. If there are $r>1$ and $N$ such that
+\[
+\abs{a_n}^{1/n}\geq r
+\qquad(n\geq N),
+\]
+then the series diverges.
+\end{theorem}
+\begin{proof}
+The first inequality gives
+\[
+\abs{a_n}\leq r^n
+\qquad(n\geq N),
+\]
+so geometric comparison applies. The second gives
+\[
+\abs{a_n}\geq r^n\geq1
+\]
+eventually, so the terms do not tend to zero.
+\end{proof}
+
+\begin{theorem}[Alternating-Series Test]
+\label{thm:alternating-test}
+Let $b_n\geq0$ decrease to $0$. Then
+\[
+\sum_{n=1}^{\infty}(-1)^{n+1}b_n
+\]
+converges.
+\end{theorem}
+\begin{proof}
+The even partial sums are increasing and the odd partial sums are decreasing. Each even sum is at most each later odd sum, so both are bounded. Their limits differ by $b_{2n+1}$, which tends to zero. Hence all partial sums have one common limit.
+\end{proof}
+
+\paragraph{Forward reference: the Integral Test and real exponents.}
+The Integral Test compares a decreasing sequence of positive terms with an improper integral, so it belongs in Chapter~\ref{ch:riemann}. The rational $p$-series criterion above uses only Chapter~7 material. Arbitrary real powers have not yet been defined; after Chapter~\ref{ch:differentiation} constructs them from $\exp$ and $\log$, Chapter~\ref{ch:riemann} gives an analytic rederivation of the $p$-series criterion for every real exponent.
+
+\section{Power Series}
+
+Power series are infinite polynomials.  Their special feature is a sharp
+radius inside which convergence is uniform on smaller intervals, allowing
+algebra and later differentiation to be recovered from finite polynomials.
+
+\begin{definition}[Power Series]
+For real coefficients $(c_n)$ and center $a\in\R$, a \textbf{power series} is
+\[
+\sum_{n=0}^{\infty}c_n(x-a)^n.
+\]
+\end{definition}
+
+\begin{theorem}[Radius of Convergence]
+\label{thm:radius}
+Every power series has a number
+\[
+R\in[0,\infty]
+\]
+such that it converges absolutely for
+\[
+\abs{x-a}<R
+\]
+and diverges for
+\[
+\abs{x-a}>R.
+\]
+\end{theorem}
+\begin{proof}
+Let $E$ be the set of $t\geq0$ for which
+\[
+\sum_{n=0}^{\infty}\abs{c_n}t^n
+\]
+converges, with $0^0=1$. Then $0\in E$. If $t\in E$ and $0\leq u<t$, comparison shows that $u\in E$. Let
+\[
+R=\sup E,
+\]
+with $R=\infty$ if $E$ is unbounded. If $\abs{x-a}<R$, choose $t\in E$ with
+\[
+\abs{x-a}<t;
+\]
+comparison gives absolute convergence.
+
+Conversely, suppose the series converges at a point with
+\[
+z=\abs{x-a}>0.
+\]
+Its terms tend to zero and are eventually bounded by some $M$. Thus, for $0\leq t<z$ and all sufficiently large $n$,
+\[
+\abs{c_n}t^n\leq M\left(\frac tz\right)^n.
+\]
+Geometric comparison gives $t\in E$. If $z>R$, choosing $t$ strictly between $R$ and $z$ contradicts the definition of $R$. Hence the series diverges outside its radius.
+\end{proof}
+
+The theorem intentionally makes no assertion at points satisfying
+\[
+\abs{x-a}=R.
+\]
+Endpoint behavior depends on the particular coefficients and must be examined separately.
+
+\begin{theorem}[Uniform Convergence Inside the Radius]
+\label{thm:power-uniform-inside}
+Let a power series have radius $R$, and let
+\[
+0\leq\rho<R.
+\]
+Then it converges uniformly on
+\[
+[a-\rho,a+\rho].
+\]
+\end{theorem}
+\begin{proof}
+Choose $t$ with
+\[
+\rho<t<R.
+\]
+The series
+\[
+\sum_{n=0}^{\infty}\abs{c_n}t^n
+\]
+converges. For $\abs{x-a}\leq\rho$,
+\[
+\abs{c_n(x-a)^n}\leq\abs{c_n}t^n.
+\]
+The uniform Cauchy criterion of Chapter~\ref{ch:function-sequences} proves the assertion.
+\end{proof}
+
+\paragraph{Power-series operations deferred.}
+On every closed interval strictly inside its radius, a power series is uniformly convergent. Termwise differentiation and integration require additional theorems and are proved in Chapters~\ref{ch:differentiation} and~\ref{ch:riemann}.
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Use \cref{thm:rational-p-series-test} to prove that
+\[
+\sum_{n=1}^{\infty}\frac{1}{n^2}
+\]
+converges and that the harmonic series diverges. Identify the dyadic blocks responsible for the latter conclusion.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:alternating-test} and \cref{thm:rational-p-series-test} to show that
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}
+\]
+converges conditionally.
+\end{exercise}
+
+\begin{exercise}
+Find the radius of convergence of
+\[
+\sum_{n=0}^{\infty}3^n(x-2)^n.
+\]
+What does \cref{thm:radius} leave undecided at the two endpoints?
+\end{exercise}
+
+\begin{exercise}
+Let
+\[
+\sum_{n=0}^{\infty}c_n(x-a)^n
+\]
+have radius of convergence $R>0$. Prove that it converges absolutely at every point satisfying
+\[
+\abs{x-a}<R.
+\]
+Which step in the proof of \cref{thm:radius} gives this conclusion?
+\end{exercise}

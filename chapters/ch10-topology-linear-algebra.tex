@@ -1,0 +1,1204 @@
+\chapter{Necessary Topology and Linear Algebra}
+\label{ch:topology-linear-algebra}
+
+\section{Metric Spaces and Topological Spaces}
+
+The metric language of Part~I was developed mainly for subsets of the real
+line.  The Euclidean distance on \(\R^n\) is the direct analogue of the
+absolute-value distance on \(\R\), and the epsilon--delta definition of
+continuity is unchanged once distance is available.  Multivariable analysis
+also needs spaces that are not naturally subsets of Euclidean space, so we
+separate the ideas of distance and openness before returning to vector spaces.
+
+\begin{definition}[Metric space]
+A \textbf{metric} on a set $X$ is a function
+\[
+d:X\times X\longrightarrow[0,\infty)
+\]
+such that, for all $x,y,z\in X$,
+\[
+d(x,y)=0\Longleftrightarrow x=y,\qquad d(x,y)=d(y,x),
+\qquad d(x,z)\leq d(x,y)+d(y,z).
+\]
+The pair $(X,d)$ is a \textbf{metric space}.  For $r>0$, write
+\[
+B_d(x,r)=\set{y\in X:d(x,y)<r}.
+\]
+\end{definition}
+
+\begin{theorem}[Cauchy--Schwarz inequality]
+\label{thm:cauchy-schwarz}
+For $x,y\in\R^n$,
+\[
+\left\lvert\sum_{j=1}^{n}x_jy_j\right\rvert
+\leq
+\left(\sum_{j=1}^{n}x_j^2\right)^{1/2}
+\left(\sum_{j=1}^{n}y_j^2\right)^{1/2}.
+\]
+Consequently,
+\[
+d_2(x,y)=\left(\sum_{j=1}^{n}(x_j-y_j)^2\right)^{1/2}
+\]
+is a metric on $\R^n$.
+\end{theorem}
+\begin{proof}
+For $y\ne0$, the nonnegativity, for every $t\in\R$, of
+\[
+\sum_{j=1}^{n}(x_j-ty_j)^2
+\]
+says that the discriminant of this quadratic in $t$ is nonpositive.  This
+gives the displayed inequality after taking square roots.  Expanding
+\[
+d_2(x,z)^2
+=\sum_{j=1}^{n}\bigl((x_j-y_j)+(y_j-z_j)\bigr)^2
+\]
+and applying Cauchy--Schwarz proves the triangle inequality.  The other
+metric axioms are immediate.
+\end{proof}
+
+\begin{definition}[Open and closed sets]
+Let $(X,d)$ be a metric space.  A set $U\subseteq X$ is \textbf{open} if for
+every $x\in U$ there is $r>0$ such that $B_d(x,r)\subseteq U$.
+A set $F\subseteq X$ is \textbf{closed} if its complement
+\[
+X\setminus F
+\]
+is open.
+\end{definition}
+
+\begin{proposition}[Metric open sets]
+\label{prop:metric-open-sets}
+The empty set and the whole metric space are open.  Arbitrary unions of open
+sets are open, and finite intersections of open sets are open.
+\end{proposition}
+\begin{proof}
+The first statement is immediate.  If $x$ belongs to a union of open sets, it
+belongs to one member of the union and hence has a ball contained in that
+member.  If $x$ belongs to each of
+\[
+U_1,\ldots,U_m,
+\]
+choose balls of radii $r_1,\ldots,r_m$ about $x$ contained in the respective
+sets.  The ball of radius
+\[
+\min\set{r_1,\ldots,r_m}
+\]
+lies in their intersection.
+\end{proof}
+
+\begin{definition}[Topological space]
+A \textbf{topology} on a set $X$ is a family of subsets containing
+$\varnothing$ and $X$, closed under arbitrary unions and finite intersections.
+Its members are \textbf{open}, and $(X,\mathcal T)$ is a
+\textbf{topological space}.
+\end{definition}
+
+\begin{remark}
+\Cref{prop:metric-open-sets} says that every metric determines a topology.
+The definitions below make sense in every topological space; a metric is
+needed only for statements explicitly involving distance, sequences, or
+epsilon--delta estimates.
+\end{remark}
+
+\begin{definition}[Subspaces, interior, closure, and boundary]
+Let $Y\subseteq X$, where $X$ is a topological space.  The \textbf{subspace
+topology} on $Y$ has as its open sets all sets
+\[
+Y\cap U
+\]
+with $U$ open in $X$.  For $E\subseteq X$, define
+\[
+E^\circ=\bigcup\set{U:U\text{ is open and }U\subseteq E},
+\]
+\[
+\overline E=\bigcap\set{F:F\text{ is closed and }E\subseteq F},
+\qquad
+\partial E=\overline E\setminus E^\circ.
+\]
+These are respectively the \textbf{interior}, \textbf{closure}, and
+\textbf{boundary} of $E$.
+\end{definition}
+
+\begin{proposition}[Closure characterizations]
+\label{prop:closure-characterizations}
+Let $E\subseteq X$, where $X$ is a topological space.  Then $E^\circ$ is the
+largest open subset of $E$, and $\overline E$ is the smallest closed superset
+of $E$.  Moreover,
+\[
+x\in\overline E
+\]
+if and only if every open neighborhood of $x$ meets $E$.  In particular,
+\[
+E\text{ is closed}\Longleftrightarrow\overline E=E.
+\]
+\end{proposition}
+\begin{proof}
+The axioms show that the defining union is open and the defining intersection
+is closed; their extremal properties are immediate.  If
+\[
+x\notin\overline E,
+\]
+then the open set $X\setminus\overline E$ contains $x$ and misses $E$.
+Conversely, if an open neighborhood $U$ of $x$ misses $E$, then
+$X\setminus U$ is a closed superset of $E$, so $x\notin\overline E$.  The
+last assertion follows from the extremal property.
+\end{proof}
+
+\begin{theorem}[Sequential closure criterion]
+\label{thm:sequential-closure}
+Let $(X,d)$ be a metric space and $E\subseteq X$.  Then
+\[
+x\in\overline E
+\]
+if and only if there is a sequence $(x_n)$ in $E$ satisfying
+\[
+\lim_{n\to\infty}x_n=x.
+\]
+Thus $E$ is closed if and only if it contains every limit of a convergent
+sequence in $E$.
+\end{theorem}
+\begin{proof}
+If $x_n\to x$, every ball about $x$ contains some $x_n$, so the neighborhood
+characterization applies.  Conversely, choose
+\[
+x_n\in E\cap B_d\left(x,\frac1n\right),
+\]
+which is possible when $x\in\overline E$.  Then $d(x_n,x)<1/n$.  The final
+claim follows from \cref{prop:closure-characterizations}.
+\end{proof}
+
+\begin{definition}[Convergence and continuity]
+For metric spaces $(X,d_X)$ and $(Y,d_Y)$, a sequence $(x_n)$ converges to
+$x$ if, for every $\eps>0$,
+\[
+n\geq N\Longrightarrow d_X(x_n,x)<\eps
+\]
+for some $N$.  A map $f:X\to Y$ is \textbf{continuous at $x$} if for every
+$\eps>0$ there is $\delta>0$ such that
+\[
+d_X(x,y)<\delta\Longrightarrow d_Y(f(x),f(y))<\eps.
+\]
+\end{definition}
+
+\begin{theorem}[Topological characterization of continuity]
+\label{thm:topological-continuity}
+A map $f:X\to Y$ of topological spaces is continuous if and only if
+\[
+f^{-1}(V)
+\]
+is open in $X$ for every open $V\subseteq Y$.  For metric spaces, this is
+equivalent to epsilon--delta continuity at every point.
+\end{theorem}
+\begin{proof}
+If all inverse images of open sets are open and $f(x)\in V$, take
+\[
+U=f^{-1}(V).
+\]
+Conversely, if each point of $f^{-1}(V)$ has an open neighborhood contained
+in $f^{-1}(V)$, that inverse image is a union of open sets.  In metric
+spaces, an epsilon-ball about $f(x)$ is contained in $V$ precisely when the
+usual epsilon--delta argument supplies the needed ball about $x$.
+\end{proof}
+
+\begin{definition}[Homeomorphisms]
+\label{def:homeomorphism}
+Let \(X\) and \(Y\) be topological spaces.  A map
+\[
+h:X\longrightarrow Y
+\]
+is a \textbf{homeomorphism} if it is bijective, continuous, and its inverse
+\[
+h^{-1}:Y\longrightarrow X
+\]
+is continuous.  In that case, \(X\) and \(Y\) are said to be
+\textbf{homeomorphic}.  A homeomorphism identifies spaces that have the same
+open-set structure, even when their elements or their ambient descriptions
+differ.
+\end{definition}
+
+\begin{proposition}[Sequential continuity]
+\label{prop:sequential-continuity}
+A map $f:X\to Y$ between metric spaces is continuous at $x$ if and only if
+\[
+x_n\to x\Longrightarrow f(x_n)\to f(x).
+\]
+\end{proposition}
+\begin{proof}
+The forward implication is the epsilon--delta definition.  If continuity
+fails, some $\eps_0>0$ permits, for every $n$, a choice
+\[
+d_X(x_n,x)<\frac1n,
+\qquad
+d_Y(f(x_n),f(x))\geq\eps_0.
+\]
+This contradicts the stated sequential property.
+\end{proof}
+
+
+
+
+
+\section{Products, Compactness, and Connectedness}
+
+Open intervals and compact intervals in Part~I are the first examples of
+these notions: open intervals are open in \(\R\), and the crucial finite
+subcover property of \([a,b]\) is compactness.  The next definitions retain
+that property in spaces where intervals are unavailable.  In metric spaces,
+the Bolzano--Weierstrass viewpoint of Part~I reappears as sequential
+compactness.
+
+\begin{definition}[Product topology]
+For topological spaces $X$ and $Y$, the \textbf{product topology} on
+\[
+X\times Y
+\]
+is the topology whose basic open sets are
+\[
+U\times V,
+\]
+where $U$ is open in $X$ and $V$ is open in $Y$.  The coordinate projections
+are
+\[
+\pi_X(x,y)=x,
+\qquad
+\pi_Y(x,y)=y.
+\]
+\end{definition}
+
+\begin{proposition}[Maps into products]
+\label{prop:product-continuity}
+A map
+\[
+f:Z\longrightarrow X\times Y
+\]
+is continuous if and only if both
+\[
+\pi_X\circ f
+\qquad\text{and}\qquad
+\pi_Y\circ f
+\]
+are continuous.
+\end{proposition}
+\begin{proof}
+The projections are continuous since
+\[
+\pi_X^{-1}(U)=U\times Y,
+\qquad
+\pi_Y^{-1}(V)=X\times V.
+\]
+Conversely,
+\[
+f^{-1}(U\times V)
+=(\pi_X\circ f)^{-1}(U)\cap(\pi_Y\circ f)^{-1}(V),
+\]
+which is open.  Basic open sets generate the product topology.
+\end{proof}
+
+\begin{definition}[Compactness]
+Let \(X\) be a topological space.  An \textbf{open cover} of \(X\) is a
+family of open subsets
+\[
+\set{U_\alpha:\alpha\in I}
+\]
+such that
+\[
+X\subseteq\bigcup_{\alpha\in I}U_\alpha.
+\]
+A \textbf{subcover} is a subfamily with the same covering property; it is a
+\textbf{finite subcover} if it has the form
+\[
+\set{U_{\alpha_1},\ldots,U_{\alpha_m}}
+\]
+for finitely many indices.  The space \(X\) is \textbf{compact} if every open
+cover of \(X\) has a finite subcover.  A subset is compact when it is compact
+in its subspace topology.
+\end{definition}
+
+\paragraph{Hausdorff spaces.}
+A topological space $X$ is \textbf{Hausdorff} if, for every two distinct
+points $x,y\in X$, there are disjoint open sets $U,V$ such that
+\[
+x\in U,
+\qquad
+y\in V.
+\]
+Thus a Hausdorff space has enough open sets to separate distinct points.  In
+particular, every metric space is Hausdorff: if $x\ne y$, balls about $x$ and
+$y$ of radius less than $d(x,y)/2$ are disjoint.
+
+\begin{theorem}[Basic compactness theorems]
+\label{thm:basic-compactness}
+Let $X$ and $Y$ be topological spaces.
+\begin{enumerate}
+\item A closed subset of a compact space is compact.
+\item The continuous image of a compact space is compact.
+\item A compact subset of a Hausdorff space is closed.  Hence compact subsets
+of metric spaces are closed.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+For (a), adjoin $X\setminus F$ to an open cover of the closed subspace $F$ and
+use compactness of $X$.  For (b), pull an open cover of $f(X)$ back along $f$
+and choose a finite subcover of $X$.
+For (c), if $y\notin K$, separate $y$ from each $x\in K$ by disjoint
+neighborhoods.  Finitely many neighborhoods of the $x$ cover $K$; the
+intersection of the corresponding neighborhoods of $y$ misses $K$.  Thus
+$X\setminus K$ is open.  Distinct points in a metric space have disjoint
+small balls.
+\end{proof}
+
+\begin{theorem}[Metric compactness]
+\label{thm:metric-compact-sequential}
+For a metric space $X$, the following are equivalent:
+\begin{enumerate}
+\item $X$ is compact;
+\item every sequence in $X$ has a convergent subsequence with limit in $X$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Assume (a) and let $(x_n)$ be a sequence.  Put
+\[
+F_N=\overline{\set{x_n:n\geq N}}.
+\]
+Every $F_N$ is nonempty because the corresponding tail contains $x_N$; it is
+closed by \cref{prop:closure-characterizations}.  Moreover,
+\[
+F_{N+1}\subseteq F_N,
+\]
+because the $(N+1)$st tail is contained in the $N$th tail.  Thus the family
+$(F_N)$ has the finite-intersection property: a finite intersection is its
+member with the largest index.  Compactness implies
+\[
+\bigcap_{N=1}^{\infty}F_N\ne\varnothing.
+\]
+Indeed, if this intersection were empty, the open complements of the $F_N$
+would cover $X$; a finite subcover would force the corresponding finite
+intersection, hence one $F_N$, to be empty.  Choose
+\[
+x\in\bigcap_{N=1}^{\infty}F_N,
+\]
+so the closure characterization in \cref{prop:closure-characterizations}
+shows that every ball about $x$ meets every tail.  Choose $n_1$ with
+\[
+d(x_{n_1},x)<1.
+\]
+Having chosen $n_k$, apply this fact to the tail beginning at $n_k+1$ and the
+ball of radius $1/(k+1)$ to choose
+\[
+n_{k+1}>n_k,
+\qquad
+d(x_{n_{k+1}},x)<\frac{1}{k+1}.
+\]
+Recursively, this gives increasing indices $n_k$ satisfying
+\[
+d(x_{n_k},x)<\frac1k.
+\]
+This proves (b).
+
+Conversely, first we show directly that, for every $\eps>0$, finitely many
+balls of radius $\eps$ cover $X$.  If this failed for some $\eps>0$, choose
+$x_1\in X$, and, having chosen $x_1,\ldots,x_{n-1}$, choose $x_n$ outside
+their balls of radius $\eps$.  Then
+\[
+d(x_j,x_k)\geq\eps
+\qquad(j\ne k),
+\]
+so no subsequence converges.  We next show directly that every open cover
+has a number $\lambda>0$ such that each ball of radius $\lambda$ is contained
+in a member of the cover.  If no such $\lambda$ existed, choose $x_n$ such
+that
+\[
+B_d\left(x_n,\frac1n\right)
+\]
+lies in no member of the cover.  Let $(x_{n_j})$ be a convergent subsequence
+with limit $x$.  A member $U$ of the cover containing $x$ contains a ball
+$B_d(x,r)$.  For all sufficiently large $j$,
+\[
+B_d\left(x_{n_j},\frac1{n_j}\right)\subseteq B_d(x,r)\subseteq U,
+\]
+a contradiction.  The preceding finite-ball property now yields the desired
+finite subcover: choose finitely many balls of radius $\lambda/2$ covering
+$X$.
+Each is contained in the ball of radius $\lambda$ with the same center, and
+that larger ball is contained in a member of the original cover.
+\end{proof}
+
+\begin{lemma}[Lebesgue number for a compact metric space]
+\label{lem:compact-metric-lebesgue-number}
+Let \(K\) be a compact metric space and let
+\[
+\set{U_1,\ldots,U_N}
+\]
+be a finite open cover of \(K\).  There is \(\lambda>0\) such that every
+subset \(E\subseteq K\) satisfying
+\[
+\operatorname{diam}(E)<\lambda
+\]
+is contained in one of the sets \(U_i\).
+\end{lemma}
+\begin{proof}
+Suppose that no such number exists.  For every \(k\in\N\), choose a nonempty
+set \(E_k\subseteq K\) with
+\[
+\operatorname{diam}(E_k)<\frac1k
+\]
+which is contained in no \(U_i\), and choose \(x_k\in E_k\).  By
+\cref{thm:metric-compact-sequential}, a subsequence \(x_{k_j}\) converges to
+some \(x\in K\).  Choose \(U_i\) containing \(x\).  Since \(U_i\) is open
+in \(K\), there is \(r>0\) such that
+\[
+B(x,r)\cap K\subseteq U_i.
+\]
+For all sufficiently large \(j\),
+\[
+d(x_{k_j},x)<\frac r2,
+\qquad
+\operatorname{diam}(E_{k_j})<\frac r2.
+\]
+If \(z\in E_{k_j}\), then
+\[
+d(z,x)
+\leq d(z,x_{k_j})+d(x_{k_j},x)<r,
+\]
+so \(E_{k_j}\subseteq U_i\), a contradiction.
+\end{proof}
+
+\begin{theorem}[Uniform continuity on compact metric spaces]
+\label{thm:compact-uniform-continuity}
+Let $X$ be a compact metric space, let $Y$ be a metric space, and let
+\[
+f:X\longrightarrow Y
+\]
+be continuous.  Then $f$ is uniformly continuous.
+\end{theorem}
+\begin{proof}
+Suppose that $f$ is not uniformly continuous.  Then there are
+\[
+\varepsilon_0>0
+\]
+and points $x_n,y_n\in X$ satisfying
+\[
+d_X(x_n,y_n)<\frac1n,
+\qquad
+d_Y(f(x_n),f(y_n))\geq\varepsilon_0.
+\]
+By \cref{thm:metric-compact-sequential}, a subsequence of $(x_n)$ converges
+to some $x\in X$.  Along the corresponding indices, the triangle inequality
+shows that $y_n\to x$ as well.  Continuity of $f$ at $x$ gives
+\[
+f(x_n)\longrightarrow f(x),
+\qquad
+f(y_n)\longrightarrow f(x),
+\]
+contradicting the displayed lower bound.
+\end{proof}
+
+\begin{theorem}[Heine--Borel theorem]
+\label{thm:heine-borel-rn}
+A subset of $\R^n$ with its Euclidean metric is compact if and only if it is
+closed and bounded.
+\end{theorem}
+\begin{proof}
+A compact set is closed by \cref{thm:basic-compactness}, and the balls
+\[
+B_{d_2}(0,m)
+\qquad(m\in\N)
+\]
+give an open cover that proves boundedness.  Conversely, let $K$ be closed
+and bounded.  Every coordinate sequence of a sequence in $K$ is bounded.
+Repeated use of \cref{thm:bolzano-weierstrass} produces a subsequence for
+which all coordinates converge.  Its coordinatewise limit is its Euclidean
+limit, since
+\[
+d_2(x^{(r)},x)^2=\sum_{j=1}^{n}\abs{x_j^{(r)}-x_j}^2.
+\]
+Closedness puts that limit in $K$, and
+\cref{thm:metric-compact-sequential} completes the proof.
+\end{proof}
+
+\begin{definition}[Connectedness and paths]
+A topological space is \textbf{connected} if it cannot be expressed as the
+union of two disjoint nonempty open sets.  A \textbf{path} from $x$ to $y$ is
+a continuous map
+\[
+\gamma:[0,1]\longrightarrow X
+\]
+with $\gamma(0)=x$ and $\gamma(1)=y$.  The space is \textbf{path connected}
+if every two points are joined by a path.
+\end{definition}
+
+\begin{proposition}[Connectedness]
+\label{prop:connectedness}
+Continuous images of connected spaces are connected, every path-connected
+space is connected, and a subset of $\R$ is connected if and only if it is an
+interval.
+\end{proposition}
+\begin{proof}
+The inverse images of a separation of $f(X)$ would separate $X$.  A separation
+of a path-connected space pulls back along a path joining points in its two
+pieces, contradicting connectedness of $[0,1]$, which follows from
+\cref{thm:ivt}.  Finally, a noninterval subset of $\R$ is separated by a
+missing point between two of its points.  Conversely, if an interval were
+separated, the supremum of one piece after restricting to two points in
+different pieces would contradict relative openness, exactly as in the usual
+proof of the Intermediate Value Theorem.
+\end{proof}
+
+
+
+
+
+\section{Finite-Dimensional Vector Spaces and Linear Maps}
+
+The geometric objects of multivariable calculus have both an intrinsic and a
+coordinate description.  Vectors describe directions and linear maps describe
+the first-order approximations that will become derivatives in Chapter~11.
+Choosing a basis turns those maps into arrays of real numbers---matrices---so
+that composition can be computed explicitly.  The point of this section is
+to move fluently between these two descriptions.
+
+\begin{definition}[Real vector space]
+A \textbf{real vector space} is a set \(V\) equipped with an addition
+\[
+V\times V\longrightarrow V,
+\qquad
+(v,w)\longmapsto v+w,
+\]
+and scalar multiplication
+\[
+\R\times V\longrightarrow V,
+\qquad
+(c,v)\longmapsto cv,
+\]
+such that, for all \(u,v,w\in V\) and \(a,b\in\R\),
+\[
+(u+v)+w=u+(v+w),
+\qquad
+u+v=v+u,
+\]
+there is a vector \(0\in V\) with \(v+0=v\), and every \(v\in V\) has an
+additive inverse \(-v\).  In addition,
+\[
+a(u+v)=au+av,
+\qquad
+(a+b)v=av+bv,
+\]
+\[
+(ab)v=a(bv),
+\qquad
+1v=v.
+\]
+\end{definition}
+
+\begin{definition}[Bases and dimension]
+A finite set
+\[
+\set{v_1,\ldots,v_n}
+\]
+in a real vector space $V$ \textbf{spans} $V$ if every $v\in V$ is a linear
+combination of its members.  It is \textbf{linearly independent} if
+\[
+a_1v_1+\cdots+a_nv_n=0
+\]
+implies that all $a_j$ vanish.  A \textbf{basis} is an independent spanning
+set.  A space having a finite spanning set is \textbf{finite dimensional}.
+\end{definition}
+
+\begin{lemma}[Basis reduction]
+\label{lem:basis-reduction}
+Every finite spanning set contains a basis.
+\end{lemma}
+\begin{proof}
+Remove a vector whenever it is a linear combination of the others.  Its
+removal does not alter the span.  The finite process ends with an independent
+spanning set.
+\end{proof}
+
+\begin{theorem}[Exchange theorem]
+\label{thm:exchange}
+If an independent list of $m$ vectors lies in a space spanned by $n$ vectors,
+then
+\[
+m\leq n.
+\]
+Consequently, all bases of a finite-dimensional vector space have the same
+number of elements.
+\end{theorem}
+\begin{proof}
+Inductively replace $m$ members of the given spanning list by the independent
+vectors while preserving span.  At the $k$th step, the $k$th independent
+vector has an expression involving an unreplaced member of the old list;
+otherwise it would lie in the span of the preceding independent vectors.
+Solve for that old member and replace it.  Thus $m\leq n$.  Applying the
+inequality in both directions to two bases proves the consequence.
+\end{proof}
+
+\begin{definition}[Finite direct sums]
+\label{def:finite-direct-sum}
+Let
+\[
+V_1,\ldots,V_r
+\]
+be real vector spaces.  Their \textbf{(external) direct sum} is the Cartesian
+product
+\[
+V_1\oplus\cdots\oplus V_r=V_1\times\cdots\times V_r
+\]
+with componentwise operations:
+\[
+(v_1,\ldots,v_r)+(w_1,\ldots,w_r)
+=
+(v_1+w_1,\ldots,v_r+w_r),
+\]
+\[
+c(v_1,\ldots,v_r)=(cv_1,\ldots,cv_r).
+\]
+For each \(j\), the \textbf{canonical injection} and \textbf{canonical
+projection} are the maps
+\[
+\iota_j:V_j\longrightarrow V_1\oplus\cdots\oplus V_r,
+\qquad
+\pi_j:V_1\oplus\cdots\oplus V_r\longrightarrow V_j,
+\]
+defined by inserting a vector in the \(j\)th component and zeros elsewhere,
+and by selecting the \(j\)th component, respectively.
+\end{definition}
+
+\begin{proposition}[Basic properties of finite direct sums]
+\label{prop:finite-direct-sum}
+The direct sum in \cref{def:finite-direct-sum} is a real vector space, and
+every element has the unique decomposition
+\[
+(v_1,\ldots,v_r)
+=
+\iota_1(v_1)+\cdots+\iota_r(v_r).
+\]
+Each \(\iota_j\) and \(\pi_j\) is linear, and
+\[
+\pi_i\circ\iota_j=
+\begin{cases}
+\operatorname{id}_{V_j},&i=j,\\
+0,&i\ne j.
+\end{cases}
+\]
+If every \(V_j\) is finite dimensional, then
+\[
+\dim(V_1\oplus\cdots\oplus V_r)
+=
+\sum_{j=1}^{r}\dim V_j.
+\]
+\end{proposition}
+\begin{proof}
+The vector-space axioms hold componentwise.  The displayed decomposition is
+obtained by adding the vectors with one nonzero component, and applying
+\(\pi_j\) to any such decomposition proves uniqueness.  The formulas for
+the injections and projections show directly that they are linear and give
+the stated composite.
+
+For each \(j\), choose a basis
+\[
+(v_{j,1},\ldots,v_{j,n_j})
+\]
+of \(V_j\).  The vectors
+\[
+\iota_j(v_{j,\ell})
+\qquad
+(1\leq j\leq r,\ 1\leq\ell\leq n_j)
+\]
+span the direct sum by the unique decomposition.  A linear relation among
+them becomes, after applying each \(\pi_j\), a linear relation in the basis
+of \(V_j\); all its coefficients therefore vanish.  Thus these vectors form
+a basis, and counting them gives the dimension formula.
+\end{proof}
+
+\begin{definition}[Coordinates, linear maps, and matrices]
+The common size of the bases of a finite-dimensional space is its
+\textbf{dimension}.  Relative to an ordered basis
+\[
+\mathcal B=(v_1,\ldots,v_n),
+\]
+the unique coefficients in
+\[
+v=\sum_{j=1}^{n}a_jv_j
+\]
+form the coordinate column $[v]_{\mathcal B}$.  A map $T:V\to W$ is
+\textbf{linear} if
+\[
+T(av+bw)=aT(v)+bT(w).
+\]
+For positive integers \(m,n\), an \(m\)-by-\(n\) \textbf{matrix} is a
+rectangular array
+\[
+A=(a_{ij})\in M_{m,n}(\R),
+\qquad
+1\leq i\leq m,\quad1\leq j\leq n.
+\]
+It acts on a column \(x=(x_1,\ldots,x_n)^{\mathsf T}\) by
+\[
+(Ax)_i=\sum_{j=1}^{n}a_{ij}x_j
+\qquad(1\leq i\leq m).
+\]
+If \(T:V\to W\), where \(V\) has dimension \(n\), \(W\) has dimension \(m\),
+and
+\[
+\mathcal B=(v_1,\ldots,v_n),
+\qquad
+\mathcal C=(w_1,\ldots,w_m)
+\]
+are ordered bases, its \textbf{matrix} relative to these bases is the
+\(m\)-by-\(n\) matrix whose \(j\)th column is
+\[
+[T(v_j)]_{\mathcal C}.
+\]
+A linear map \(T:V\to V\) is an \textbf{endomorphism}, also called a
+\textbf{linear operator} on \(V\).
+\end{definition}
+
+\begin{proposition}[Coordinate rules and matrix multiplication]
+\label{prop:linear-coordinate}
+If $A$ is the matrix of a linear map $T$, then
+\[
+[T(v)]_{\mathcal C}=A[v]_{\mathcal B}.
+\]
+Thus $T$ is determined by its values on a basis.  If
+\[
+A\in M_{m,n}(\R),
+\qquad
+B\in M_{\ell,m}(\R),
+\]
+their product is the \(\ell\)-by-\(n\) matrix
+\[
+(BA)_{ij}=\sum_{k=1}^{m}b_{ik}a_{kj}.
+\]
+When \(A\) and \(B\) represent composable linear maps, \(BA\) represents the
+composite in the corresponding order.
+\end{proposition}
+\begin{proof}
+Apply linearity to the coordinate expansion of $v$.  Applying the resulting
+formula successively to two maps gives
+\[
+[S(T(v))]_{\mathcal D}
+=B(A[v]_{\mathcal B}).
+\]
+Expanding the \(i\)th coordinate gives the displayed multiplication rule.
+\end{proof}
+
+\begin{lemma}[Subspaces and extensions]
+\label{lem:subspace-basis}
+Every subspace of a finite-dimensional vector space has a finite basis, and
+every linearly independent set can be extended to a basis.
+\end{lemma}
+\begin{proof}
+Starting with a linearly independent set, adjoin a vector outside its span
+whenever possible.  The resulting lists remain independent, so the exchange
+theorem prevents more than $\dim V$ adjunctions.  When the procedure stops,
+the list spans $V$ and is a basis.  Applying the same argument within a
+subspace proves its first assertion.
+\end{proof}
+
+\begin{theorem}[Rank--nullity]
+\label{thm:rank-nullity}
+For a linear map $T:V\to W$ with $V$ finite dimensional,
+\[
+\dim V=\dim\ker T+\dim T(V).
+\]
+\end{theorem}
+\begin{proof}
+Choose a basis
+\[
+(u_1,\ldots,u_k)
+\]
+of $\ker T$ and extend it to a basis
+\[
+(u_1,\ldots,u_k,v_1,\ldots,v_r)
+\]
+of $V$.  The vectors $T(v_j)$ span $T(V)$.  A relation between them puts the
+corresponding combination of the $v_j$ in $\ker T$, and independence of the
+full basis forces all coefficients to vanish.  Hence the images form a basis
+of the image, proving the formula.
+\end{proof}
+
+\begin{corollary}[Linear bijectivity]
+\label{cor:linear-bijectivity}
+If $T:V\to W$ is linear and
+\[
+\dim V=\dim W<\infty,
+\]
+then injectivity, surjectivity, and bijectivity of $T$ are equivalent.
+\end{corollary}
+\begin{proof}
+By \cref{thm:rank-nullity}, injectivity is equivalent to
+\[
+\dim T(V)=\dim V,
+\]
+which, under the hypothesis, is equivalent to $T(V)=W$.
+\end{proof}
+
+
+
+
+
+\section{Norms, Permutations, Determinants, and Orientation}
+
+The determinant will do more than decide whether a square matrix is
+invertible.  It records the signed factor by which an invertible linear map
+scales volume; Chapter~12 will turn this into the factor
+\[
+\lvert\det D\Phi(x)\rvert
+\]
+in change of variables.  We first introduce precisely the small amount of
+permutation language required by the formula.
+
+\begin{definition}[Permutations and their sign]
+A \textbf{permutation} of
+\[
+\set{1,\ldots,n}
+\]
+is a bijection of this set to itself.  The set of all such permutations is
+denoted by \(S_n\).  Composition is its operation, the identity permutation
+is its identity, and every permutation has an inverse; thus \(S_n\) is a
+group under composition.  A \textbf{transposition} exchanges two elements
+and fixes all others.
+
+For \(\sigma\in S_n\), its number of \textbf{inversions} is
+\[
+\operatorname{inv}(\sigma)
+=\#\set{(i,j):1\leq i<j\leq n,\ \sigma(i)>\sigma(j)}.
+\]
+Define its \textbf{sign} by
+\[
+\operatorname{sgn}(\sigma)=(-1)^{\operatorname{inv}(\sigma)}.
+\]
+\end{definition}
+
+\begin{proposition}[Sign of a permutation]
+\label{prop:permutation-sign}
+For \(\sigma,\tau\in S_n\),
+\[
+\operatorname{sgn}(\sigma\tau)
+=\operatorname{sgn}(\sigma)\operatorname{sgn}(\tau).
+\]
+Moreover, a transposition has sign \(-1\).
+\end{proposition}
+\begin{proof}
+Swapping two adjacent entries of a list changes its inversion number by one,
+and hence changes its parity.  Repeatedly swapping an adjacent inverted pair
+sorts the list
+\[
+\sigma(1),\ldots,\sigma(n)
+\]
+and terminates after exactly \(\operatorname{inv}(\sigma)\) swaps.  Reversing
+these swaps writes \(\sigma\) as a product of adjacent transpositions.
+
+Concatenating such expressions for \(\sigma\) and \(\tau\) gives an expression
+for \(\sigma\tau\) with
+\[
+\operatorname{inv}(\sigma)+\operatorname{inv}(\tau)
+\]
+adjacent transpositions.  Since every adjacent transposition reverses
+inversion parity, its length has the same parity as
+\(\operatorname{inv}(\sigma\tau)\).  Taking \((-1)\) to these powers proves
+multiplicativity.  A transposition is conjugate to an adjacent
+transposition, so multiplicativity gives it sign \(-1\).
+\end{proof}
+
+\begin{definition}[Norm]
+A \textbf{norm} on a real vector space $V$ is a function
+\[
+\norm{\cdot}:V\longrightarrow[0,\infty)
+\]
+such that
+\[
+\norm v=0\Longleftrightarrow v=0,\qquad
+\norm{av}=\abs a\norm v,\qquad
+\norm{v+w}\leq\norm v+\norm w.
+\]
+The associated metric is
+\[
+d(v,w)=\norm{v-w}.
+\]
+\end{definition}
+
+
+\begin{proposition}[Reverse triangle inequality]
+\label{prop:reverse-triangle}
+Every norm satisfies
+\[
+\bigl\lvert\norm v-\norm w\bigr\rvert\leq\norm{v-w}.
+\]
+Hence its norm map is continuous.
+\end{proposition}
+\begin{proof}
+The triangle inequality gives
+\[
+\norm v\leq\norm{v-w}+\norm w.
+\]
+Interchange $v,w$ and combine the two inequalities.
+\end{proof}
+
+\begin{theorem}[Equivalence of norms]
+\label{thm:equivalent-norms}
+If $V$ is finite dimensional and
+\[
+\norm{\cdot}_a,\qquad\norm{\cdot}_b
+\]
+are norms on $V$, then there are $c,C>0$ such that
+\[
+c\norm v_a\leq\norm v_b\leq C\norm v_a
+\]
+for every $v\in V$.  Thus the two norms have the same open sets, convergent
+and Cauchy sequences, continuous maps, and compact subsets.
+\end{theorem}
+\begin{proof}
+Choose a basis and identify $V$ with $\R^n$.  For any norm on $\R^n$,
+\[
+\norm{x}_b\leq\sum_{j=1}^{n}\abs{x_j}\norm{e_j}_b
+\leq C\norm{x}_2
+\]
+by Cauchy--Schwarz.  Together with \cref{prop:reverse-triangle}, this gives
+\[
+\bigl\lvert\norm{x}_b-\norm{y}_b\bigr\rvert
+\leq C\norm{x-y}_2,
+\]
+so $x\mapsto\norm{x}_b$ is Euclidean-continuous.  It has a positive minimum
+$c$ on the Euclidean
+unit sphere, which is compact by \cref{thm:heine-borel-rn}; homogeneity gives
+\[
+c\norm{x}_2\leq\norm{x}_b.
+\]
+Comparing each of the two given norms with the Euclidean norm yields the
+claim.  The final statements follow directly from the two-sided estimate.
+\end{proof}
+
+\begin{corollary}[Completeness in finite dimensions]
+\label{cor:finite-dimensional-completeness}
+Every finite-dimensional normed vector space is complete, and its compact
+subsets are exactly its closed bounded subsets.
+\end{corollary}
+\begin{proof}
+Coordinates reduce the assertion to Euclidean space, where completeness
+follows coordinatewise from \cref{thm:real-cauchy-complete} and compactness
+from \cref{thm:heine-borel-rn}; use \cref{thm:equivalent-norms}.
+\end{proof}
+
+\begin{proposition}[Continuity of linear maps]
+\label{prop:linear-continuity}
+Every linear map between finite-dimensional normed spaces is continuous.
+\end{proposition}
+\begin{proof}
+In coordinates, matrix multiplication and Cauchy--Schwarz give
+\[
+\norm{T(v)}_2\leq M\norm v_2
+\]
+for some $M$.  Norm equivalence transfers this estimate to arbitrary norms,
+which proves continuity at zero and hence everywhere by linearity.
+\end{proof}
+
+\begin{definition}[Determinant]
+For $A=(a_{ij})\in M_n(\R)$, define
+\[
+\det A=
+\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)
+\prod_{i=1}^{n}a_{i,\sigma(i)}.
+\]
+\end{definition}
+
+\begin{theorem}[Determinants]
+\label{thm:determinant-properties}
+The determinant is multilinear and alternating in its columns,
+\[
+\det I_n=1,
+\qquad
+\det(AB)=(\det A)(\det B),
+\]
+and
+\[
+\det A\ne0
+\]
+if and only if $A$ represents an invertible linear map.
+\end{theorem}
+\begin{proof}
+The permutation formula is linear in each column, and exchanging two columns
+reverses the sign of every term; it also gives $\det I_n=1$.  For fixed $A$,
+the map
+\[
+B\longmapsto\det(AB)
+\]
+is alternating multilinear in the columns of $B$.  Expanding those columns in
+the standard basis shows that it equals its value at $I_n$ times $\det B$,
+which proves multiplicativity. If one column is a linear combination of the
+others, multilinearity expands the determinant into a sum of determinants
+having repeated columns, and alternation makes each summand zero. Thus
+dependent columns make the determinant zero. Independent columns form a basis, so the represented map
+has an inverse $B$; then
+\[
+1=\det(AB)=(\det A)(\det B).
+\]
+This proves all assertions.
+\end{proof}
+
+\begin{definition}[Orientation]
+Two ordered bases of an $n$-dimensional real vector space are
+\textbf{equivalently oriented} if the change-of-coordinate matrix between
+them has positive determinant.  An \textbf{orientation} is one of the two
+equivalence classes of ordered bases.  The class of the standard basis is the
+standard orientation of $\R^n$.
+\end{definition}
+
+In \(\R^2\), the ordered basis
+\[
+(e_1,e_2)
+\]
+has the standard orientation, whereas
+\[
+(e_2,e_1)
+\]
+has the opposite orientation because the change-of-basis determinant is
+\(-1\). The basis \((e_1+e_2,e_2)\) has the standard orientation because
+its change-of-basis determinant is positive.
+
+\begin{proposition}[Orientation]
+\label{prop:orientation-well-defined}
+Equivalent orientation is an equivalence relation.  The sign of the
+determinant of an invertible map between oriented spaces does not depend on
+the positively oriented bases chosen.
+\end{proposition}
+\begin{proof}
+The identity has determinant $1$, inverses of positive-determinant matrices
+have positive determinant, and products of such matrices have positive
+determinant.  A change to another positively oriented basis multiplies the
+matrix of a map on the left or right by a positive-determinant matrix, so
+multiplicativity preserves its sign.
+\end{proof}
+
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Prove that every open ball in a metric space is open and every singleton is
+closed.
+\end{exercise}
+
+\begin{exercise}
+Prove that, for $E\subseteq X$,
+\[
+\partial E=\overline E\cap\overline{X\setminus E}.
+\]
+\end{exercise}
+
+\begin{exercise}
+Which of the sets
+\[
+[0,1/2),\qquad (0,1/2),\qquad [0,1/2]
+\]
+are open in the subspace $[0,1]\subseteq\R$?
+\end{exercise}
+
+\begin{exercise}
+Prove directly from epsilon--delta definitions that a composition of
+continuous maps between metric spaces is continuous.
+\end{exercise}
+
+\begin{exercise}
+Prove that the product topology on a finite product of metric spaces agrees
+with the topology from
+\[
+d((x_1,\ldots,x_n),(y_1,\ldots,y_n))
+=\max_{1\leq j\leq n}d_j(x_j,y_j).
+\]
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:metric-compact-sequential} to prove that a compact metric space
+is complete.
+\end{exercise}
+
+\begin{exercise}
+Prove that every convex subset of $\R^n$ is path connected.
+\end{exercise}
+
+\begin{exercise}
+Show that the open unit ball in $\R^n$ is not compact.
+\end{exercise}
+
+\begin{exercise}
+Prove that every independent subset of a finite-dimensional vector space can
+be extended to a basis.
+\end{exercise}
+
+\begin{exercise}
+For
+\[
+T(x,y,z)=(x-y,y-z),
+\]
+find bases of the kernel and image, and verify rank--nullity.
+\end{exercise}
+
+\begin{exercise}
+Let \(T:V\to V\) be a linear endomorphism of a finite-dimensional real vector
+space and suppose that
+\[
+T^2=T
+\]
+Show that
+\[
+\ker T\cap T(V)=\set{0},
+\]
+and that every \(v\in V\) can be written uniquely in the form
+\[
+v=u+w,
+\qquad
+u\in\ker T,\quad w\in T(V).
+\]
+\end{exercise}
+
+\begin{exercise}
+Give maps between finite-dimensional spaces that are injective but not
+surjective, and surjective but not injective.
+\end{exercise}
+
+\begin{exercise}
+For
+\[
+\norm{x}_1=\sum_{j=1}^{n}\abs{x_j},
+\qquad
+\norm{x}_\infty=\max_{1\leq j\leq n}\abs{x_j},
+\]
+prove
+\[
+\norm{x}_\infty\leq\norm{x}_2\leq\norm{x}_1
+\leq\sqrt n\norm{x}_2.
+\]
+\end{exercise}
+
+\begin{exercise}
+Give an incomplete normed vector space, for example by considering
+polynomials on $[0,1]$ with the supremum norm.
+\end{exercise}
+
+\begin{exercise}
+Use the determinant properties to prove
+\[
+\det(A^{-1})=\frac1{\det A}
+\]
+for an invertible matrix $A$.
+\end{exercise}
+
+\begin{exercise}
+Show that
+\[
+(x_1,\ldots,x_n)\longmapsto(-x_1,x_2,\ldots,x_n)
+\]
+reverses the standard orientation of $\R^n$.
+\end{exercise}
+
+\section{Perspective and Transition}
+
+The derivative in Chapter~11 will be a linear map between finite-dimensional
+normed spaces.  The equivalence of norms makes differentiability independent
+of a coordinate norm.  Compactness supplies finite local control, while
+determinants and orientation distinguish the two local senses of direction
+needed in change of variables and Stokes' theorem.

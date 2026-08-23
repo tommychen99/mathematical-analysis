@@ -1,0 +1,1519 @@
+\chapter{Riemann Integration in Several Variables}
+\label{ch:multivariable-integration}
+
+\section{Rectangles, Partitions, and Darboux Sums}
+
+This is the direct extension of Chapter~9: intervals become rectangles,
+length becomes volume, and one partitions each coordinate interval at once.
+The Darboux definition is unchanged in spirit.  Chapter~10 supplies the
+compactness and uniform-continuity facts that make continuous functions
+integrable on these higher-dimensional compact rectangles.
+
+\begin{definition}[Rectangles and volume]
+A \textbf{rectangle} in $\R^n$ is a product
+\[
+Q=[a_1,b_1]\times\cdots\times[a_n,b_n],
+\]
+where
+\[
+a_j<b_j
+\qquad(1\leq j\leq n).
+\]
+Its \textbf{volume} is
+\[
+\operatorname{vol}(Q)=\prod_{j=1}^{n}(b_j-a_j).
+\]
+\end{definition}
+
+\begin{definition}[Grid partitions and Darboux sums]
+Let $Q$ be a rectangle.  A \textbf{grid partition} of $Q$ is obtained by
+choosing a finite partition of each interval $[a_j,b_j]$ and taking all
+products of the resulting subintervals.  Its members are \textbf{subrectangles}.
+For bounded
+\[
+f:Q\longrightarrow\R
+\]
+and a grid partition $\mathcal P$, put
+\[
+U(f,\mathcal P)=\sum_{R\in\mathcal P}\sup_R f\,\operatorname{vol}(R),
+\qquad
+L(f,\mathcal P)=\sum_{R\in\mathcal P}\inf_R f\,\operatorname{vol}(R).
+\]
+The function $f$ is \textbf{Riemann integrable} on $Q$ if
+\[
+\inf_{\mathcal P}U(f,\mathcal P)
+=\sup_{\mathcal P}L(f,\mathcal P).
+\]
+The common value is denoted by
+\[
+\int_Q f(x)\,\dd x.
+\]
+\end{definition}
+
+\begin{proposition}[Darboux criterion]
+\label{prop:multivariable-darboux}
+A bounded function $f:Q\to\R$ is Riemann integrable if and only if, for every
+\[
+\eps>0,
+\]
+there is a grid partition $\mathcal P$ such that
+\[
+U(f,\mathcal P)-L(f,\mathcal P)<\eps.
+\]
+\end{proposition}
+\begin{proof}
+Refining a grid partition decreases upper sums and increases lower sums.
+Thus every lower sum is at most every upper sum.  If the two extremal values
+are equal, choose partitions whose upper and lower sums are within
+\[
+\eps/2
+\]
+of that common value and take their common refinement.  Conversely, the
+displayed condition forces the difference of the two extremal values to be
+smaller than every positive $\eps$, hence zero by
+\cref{lem:positive-small}.
+\end{proof}
+
+\begin{theorem}[Continuous functions are integrable]
+\label{thm:continuous-multivariable-riemann}
+Every continuous function
+\[
+f:Q\longrightarrow\R
+\]
+is Riemann integrable.
+\end{theorem}
+\begin{proof}
+  The rectangle $Q$ is compact by \cref{thm:heine-borel-rn}, so
+  \cref{thm:compact-uniform-continuity} makes \(f\) uniformly continuous.
+  Choose a grid whose subrectangles have Euclidean diameter
+less than $\delta$.  On each subrectangle $R$,
+\[
+\sup_Rf-\inf_Rf<\frac{\eps}{\operatorname{vol}(Q)}.
+\]
+Therefore
+\[
+U(f,\mathcal P)-L(f,\mathcal P)<\eps,
+\]
+and \cref{prop:multivariable-darboux} applies.
+\end{proof}
+
+\begin{theorem}[Basic properties]
+\label{thm:multivariable-integral-properties}
+If $f,g:Q\to\R$ are integrable and $c\in\R$, then
+\[
+\int_Q(f+g)\,\dd x
+=\int_Qf\,\dd x+\int_Qg\,\dd x,
+\qquad
+\int_Qcf\,\dd x
+=c\int_Qf\,\dd x.
+\]
+If
+\[
+f\leq g,
+\]
+then their integrals have the same order.  Also,
+\[
+\left\lvert\int_Qf\,\dd x\right\rvert
+\leq
+\int_Q\abs f\,\dd x,
+\]
+and
+\[
+\left\lvert\int_Qf\,\dd x\right\rvert
+\leq M\operatorname{vol}(Q)
+\]
+whenever
+\[
+\abs{f(x)}\leq M
+\qquad(x\in Q).
+\]
+\end{theorem}
+\begin{proof}
+The upper and lower sum inequalities used in the proof of
+\cref{thm:integral-properties} hold verbatim for subrectangles:
+\[
+U(f+g,\mathcal P)\leq U(f,\mathcal P)+U(g,\mathcal P),
+\]
+\[
+L(f+g,\mathcal P)\geq L(f,\mathcal P)+L(g,\mathcal P).
+\]
+Taking a common refinement of partitions that make the two individual gaps
+small proves integrability of the sum.  The same inequalities, now compared
+with the integrals, prove equality of its integral with the sum of the
+integrals.  Scalar multiplication and order preservation are identical to
+the one-variable arguments.
+
+The inequality
+\[
+\bigl\lvert\abs u-\abs v\bigr\rvert\leq\abs{u-v}
+\]
+shows from a common partition that $\abs f$ is integrable.  Since
+\[
+-\abs f\leq f\leq\abs f,
+\]
+order preservation gives the first estimate.  The second follows by
+integrating the constant functions $-M$ and $M$.
+\end{proof}
+
+
+
+
+\section{Iterated Integrals and Jordan-Measurable Sets}
+
+The equality of an integral over a rectangle with repeated one-variable
+integrals is not a new definition.  It is a theorem saying that the same
+finite rectangular approximations can be grouped in either order.  The
+continuity hypothesis keeps the oscillation on every sufficiently small
+product rectangle under control.
+
+\begin{theorem}[Riemann--Fubini theorem for continuous functions]
+\label{thm:riemann-fubini}
+Let
+\[
+Q=A\times B,
+\]
+where $A\subseteq\R^p$ and $B\subseteq\R^q$ are rectangles, and let
+\[
+f:Q\longrightarrow\R
+\]
+be continuous.  Then the functions
+\[
+x\longmapsto\int_Bf(x,y)\,\dd y,
+\qquad
+y\longmapsto\int_Af(x,y)\,\dd x
+\]
+are continuous, and
+\[
+\int_{A\times B}f(x,y)\,\dd(x,y)
+=
+\int_A\left(\int_Bf(x,y)\,\dd y\right)\dd x
+=
+\int_B\left(\int_Af(x,y)\,\dd x\right)\dd y.
+\]
+\end{theorem}
+\begin{proof}
+Uniform continuity of \(f\) on the compact rectangle implies that, when
+\[
+x'\to x,
+\]
+the functions
+\[
+y\longmapsto f(x',y)
+\]
+converge uniformly to
+\[
+y\longmapsto f(x,y).
+\]
+The bounded-function estimate from Chapter~9 therefore proves continuity of
+the first displayed function; the other is similar.
+
+Let \(\eta>0\).  Choose product grids in \(A\) and \(B\) so fine that the
+oscillation of \(f\) on every product subrectangle is less than
+\[
+\frac{\eta}{\operatorname{vol}(A)\operatorname{vol}(B)}.
+\]
+Choose one point \((x_R,y_S)\) in each product cell \(R\times S\), and form
+the common finite sum
+\[
+\Sigma=
+\sum_{R,S}f(x_R,y_S)\operatorname{vol}(R)\operatorname{vol}(S).
+\]
+The upper and lower Darboux sums on the product grid differ by less than
+\(\eta\), so \(\Sigma\) differs from
+\[
+\int_{A\times B}f
+\]
+by less than \(\eta\).  For each fixed \(R\), the same oscillation estimate
+shows that
+\[
+\left|
+\int_B f(x_R,y)\,\dd y-
+\sum_Sf(x_R,y_S)\operatorname{vol}(S)
+\right|
+<
+\frac{\eta}{\operatorname{vol}(A)}.
+\]
+Multiplying by \(\operatorname{vol}(R)\), summing over \(R\), and then using
+the analogous one-variable-in-\(x\) estimate shows that \(\Sigma\) differs
+from
+\[
+\int_A\left(\int_Bf(x,y)\,\dd y\right)\dd x
+\]
+by at most \(2\eta\).  Since \(\eta\) is arbitrary, the first equality
+follows.  Interchanging \(A\) and \(B\) proves the second.
+\end{proof}
+
+\begin{theorem}[Coordinatewise integration by parts]
+\label{thm:coordinatewise-integration-by-parts}
+Let
+\[
+Q=[a_1,b_1]\times\cdots\times[a_n,b_n],
+\]
+let \(u,v\) be of class \(C^1\) on an open neighborhood of \(Q\), and fix
+\[
+j\in\{1,\ldots,n\}.
+\]
+Write
+\[
+Q_{\widehat j}
+=
+\prod_{\substack{1\leq i\leq n\\ i\ne j}}[a_i,b_i],
+\qquad
+\dd x_{\widehat j}
+=
+\dd x_1\cdots\dd x_{j-1}\dd x_{j+1}\cdots\dd x_n.
+\]
+Then
+\[
+\int_Q u(x)\frac{\partial v}{\partial x_j}(x)\,\dd x
+=
+\int_{Q_{\widehat j}}
+\left[
+u(x)v(x)
+\right]_{x_j=a_j}^{x_j=b_j}\,\dd x_{\widehat j}
+-
+\int_Q v(x)\frac{\partial u}{\partial x_j}(x)\,\dd x.
+\]
+In the middle integral, the coordinates other than \(x_j\) are held fixed
+while the bracket is evaluated at the two endpoints.
+\end{theorem}
+\begin{proof}
+For fixed \(x_{\widehat j}\in Q_{\widehat j}\), apply
+\cref{thm:one-variable-integration-by-parts} to the \(C^1\) functions of
+\(x_j\) obtained from \(u\) and \(v\).  The resulting identity has continuous
+dependence on \(x_{\widehat j}\).  Integrating it over \(Q_{\widehat j}\) and
+using \cref{thm:riemann-fubini} gives the displayed formula.
+\end{proof}
+
+\begin{remark}[Rectangular and intrinsic integration by parts]
+The preceding formula uses only one-variable integration by parts and Fubini,
+so it is naturally a statement about rectangles and their coordinate faces.
+At this point no intrinsic integral over a general boundary has been
+developed.  Chapter~13 replaces the coordinate-face term by an integral over
+the oriented boundary of a manifold, obtained from the graded Leibniz rule
+and Stokes' theorem.
+\end{remark}
+
+\section{Uniform Limits and Multiple Integration}
+
+The same principle from Chapter~9 survives unchanged on a rectangle: a
+uniform error in the integrand is at most that error times the volume of the
+domain after integration.  Pointwise convergence alone is not the Riemann
+theory's general interchange principle.
+
+\begin{theorem}[Uniform interchange for multiple Riemann integrals]
+\label{thm:uniform-multivariable-riemann}
+Let \(Q\subseteq\R^n\) be a rectangle.  Suppose that every function
+\[
+f_k:Q\longrightarrow\R
+\]
+is Riemann integrable and that \(f_k\) converges uniformly to \(f\) on
+\(Q\).  Then \(f\) is Riemann integrable and
+\[
+\lim_{k\to\infty}\int_Qf_k(x)\,\dd x
+=
+\int_Qf(x)\,\dd x.
+\]
+Moreover,
+\[
+\lim_{k\to\infty}\int_Q\abs{f_k(x)-f(x)}\,\dd x=0.
+\]
+\end{theorem}
+\begin{proof}
+The oscillation argument in the proof of
+\cref{thm:uniform-riemann-integration} applies to grid subrectangles, using
+\cref{prop:multivariable-darboux}.  Once integrability of \(f\) is known,
+\cref{thm:multivariable-integral-properties} gives
+\[
+\left\lvert\int_Qf_k\,\dd x-\int_Qf\,\dd x\right\rvert
+\leq
+\int_Q\abs{f_k-f}\,\dd x
+\leq
+\operatorname{vol}(Q)\sup_{x\in Q}\abs{f_k(x)-f(x)}.
+\]
+The right-hand side tends to zero, and the same estimate gives the final
+claim.
+\end{proof}
+
+\begin{remark}[Domination in several variables]
+If the \(f_k\) above are also dominated by a nonnegative Riemann-integrable
+function, that domination is compatible with the conclusion but does not
+replace uniform convergence in this elementary Riemann theorem.  It is
+included only to foreshadow the multivariable Lebesgue Dominated Convergence
+Theorem, which replaces uniform convergence with appropriate
+almost-everywhere convergence in a measure-theoretic setting.
+\end{remark}
+
+\begin{theorem}[Dini's Theorem]
+\label{thm:dini-multivariable-riemann}
+Let \(Q\subseteq\R^n\) be a rectangle, and let
+\[
+f_k:Q\longrightarrow\R
+\]
+be continuous functions satisfying
+\[
+f_k(x)\leq f_{k+1}(x)
+\qquad(x\in Q,\ k\in\N).
+\]
+If \(f_k\) converges pointwise on \(Q\) to a continuous function \(f\),
+then the convergence is uniform and
+\[
+\lim_{k\to\infty}\int_Qf_k(x)\,\dd x
+=
+\int_Qf(x)\,\dd x.
+\]
+The same conclusion holds for a pointwise decreasing sequence.
+\end{theorem}
+\begin{proof}
+Put \(h_k=f-f_k\).  If \(h_k\) did not converge uniformly to zero, there
+would be \(\eps>0\) and \(x_k\in Q\) with
+\[
+h_k(x_k)\geq\eps.
+\]
+By compactness of \(Q\) and
+\cref{thm:metric-compact-sequential}, some subsequence \(x_{k_j}\) tends
+to a point \(x\in Q\).  For every fixed \(m\), monotonicity gives
+\[
+h_m(x_{k_j})\geq h_{k_j}(x_{k_j})\geq\eps
+\]
+for all sufficiently large \(j\).  Continuity yields \(h_m(x)\geq\eps\)
+for every \(m\), contradicting \(h_m(x)\to0\).  Thus the convergence is
+uniform, and \cref{thm:uniform-multivariable-riemann} gives the formula.
+The decreasing case follows by negation.
+\end{proof}
+
+\begin{remark}[Dini versus Lebesgue monotone convergence]
+This is Dini's theorem on a compact rectangle: continuity, compactness, and
+monotonicity upgrade pointwise convergence to uniform convergence, after
+which \cref{thm:uniform-multivariable-riemann} gives the integral formula.
+The full multivariable Lebesgue Monotone Convergence Theorem instead assumes
+nonnegative measurable functions and does not require continuity or uniform
+convergence; it lies beyond the present Riemann framework.
+\end{remark}
+
+Rectangles already have a natural volume. To assign a volume to a more general
+bounded set \(E\), view the set through its indicator function
+\(\mathbf1_E\): integrating this function records the amount of space
+occupied by \(E\). Riemann integration succeeds when rectangular
+approximations can resolve the boundary well enough; this leads directly to
+the following definition.
+
+\begin{definition}[Jordan measurability]
+Let $E$ be a bounded subset of $\R^n$ and choose a rectangle $Q$ containing
+$E$.  The set $E$ is \textbf{Jordan measurable} if its indicator
+\[
+\mathbf 1_E(x)=
+\begin{cases}
+1,&x\in E,\\
+0,&x\notin E
+\end{cases}
+\]
+is Riemann integrable on $Q$.  Its \textbf{Jordan volume} is
+\[
+\operatorname{vol}(E)=\int_Q\mathbf 1_E(x)\,\dd x.
+\]
+\end{definition}
+
+\begin{definition}[Jordan-null set]
+A bounded set \(N\subseteq\R^n\) is \textbf{Jordan-null} if, for every
+\[
+\varepsilon>0,
+\]
+it can be covered by finitely many rectangles whose total volume is less
+than \(\varepsilon\).
+\end{definition}
+
+\begin{proposition}[Boundary criterion for Jordan measurability]
+\label{prop:jordan-boundary-criterion}
+A bounded set \(E\subseteq\R^n\) is Jordan measurable if and only if its
+boundary is Jordan-null.
+\end{proposition}
+\begin{proof}
+Let \(Q\) be a rectangle containing \(E\).  If \(\partial E\) is covered by
+rectangles of total volume less than \(\varepsilon\), refine their faces and
+the faces of \(Q\) to a common grid.  Every grid cell not meeting the cover
+lies either in the interior of \(E\) or in the interior of its complement,
+so the upper and lower sums of \(\mathbf1_E\) differ only on the covering
+cells.  Their gap is at most the total covering volume.  Thus
+\(\mathbf1_E\) is integrable.
+
+Conversely, apply the Darboux criterion to \(\mathbf1_E\).  On every
+subrectangle which meets both \(E\) and its complement, its oscillation is
+one.  The union of these finitely many cells covers \(\partial E\), apart
+from grid faces; enlarge those faces by arbitrarily thin rectangles.  The
+Darboux gap and the enlargement may be made smaller than any prescribed
+positive number, proving that \(\partial E\) is Jordan-null.
+\end{proof}
+
+\begin{proposition}[Continuous functions on Jordan sets]
+\label{prop:continuous-jordan-extension}
+Let \(E\subseteq\R^n\) be bounded with Jordan-null boundary, and let
+\[
+f:E\longrightarrow\R
+\]
+be bounded and continuous for the relative topology on \(E\).  Then its zero
+extension to a containing rectangle is Riemann integrable.
+\end{proposition}
+\begin{proof}
+Let \(M\) bound \(\lvert f\rvert\).  Cover \(\partial E\) by finitely
+many open rectangles of arbitrarily small total volume.  Every point of
+\(E\) outside that cover belongs to \(E^\circ\), so relative continuity
+supplies a neighborhood on which the oscillation of \(f\) is as small as
+prescribed.  The compact part of \(E\) outside the cover has a finite such
+subcover.  A grid refining the boundary-cover rectangles and these finitely
+many neighborhoods has arbitrarily small oscillation on every cell not
+meeting the boundary cover.  The covering cells contribute at most
+\(2M\) times their total volume.  The Darboux criterion proves
+integrability.
+\end{proof}
+
+\begin{proposition}[Independence and elementary Jordan sets]
+\label{prop:jordan-basic}
+The Jordan volume is independent of the containing rectangle.  Every
+rectangle, and every finite union of rectangles with pairwise disjoint
+interiors, is Jordan measurable; its volume is the sum of the volumes of its
+rectangles.
+\end{proposition}
+\begin{proof}
+Extending an indicator by zero from one containing rectangle to a larger one
+changes no upper or lower sum except on a finite family of adjoining
+rectangles, where the function is identically zero.  Common refinements
+therefore give the same integral.
+
+The indicator of a rectangle is constant except on its finitely many faces.
+Given
+\[
+\eps>0,
+\]
+cover these faces by finitely many thin rectangles of total volume less than
+\[
+\eps.
+\]
+Outside that cover, use a grid refining the rectangle's faces; there the
+upper and lower sums agree.  The Darboux criterion proves integrability.
+The same argument works for a finite union, and additivity gives the volume
+formula.
+\end{proof}
+
+\begin{proposition}[Null modifications and finite additivity]
+\label{prop:jordan-null-additivity}
+Let \(N\subseteq\R^n\) be bounded and Jordan-null.
+\begin{enumerate}
+\item The set \(N\) is Jordan measurable and has volume zero.
+\item A bounded function supported on \(N\), extended by zero to a containing
+rectangle, is Riemann integrable with integral zero.  Consequently, changing
+a bounded Riemann-integrable function on \(N\) does not change its integral.
+\item Let \(E_1,\ldots,E_m\) be Jordan measurable and suppose every
+\(E_i\cap E_j\), \(i\ne j\), is Jordan-null.  Then their union is Jordan
+measurable and
+\[
+\operatorname{vol}\left(\bigcup_{i=1}^{m}E_i\right)
+=
+\sum_{i=1}^{m}\operatorname{vol}(E_i).
+\]
+More generally, if \(h\) is bounded on the union and the zero extension of
+\(h|_{E_i}\) is integrable for every \(i\), then the zero extension of \(h\)
+from the union is integrable and
+\[
+\int_{\bigcup_iE_i}h
+=
+\sum_{i=1}^{m}\int_{E_i}h.
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Given \(\varepsilon>0\), cover \(N\) by finitely many rectangles of total
+volume less than \(\varepsilon\), and refine their faces to a grid in a
+containing rectangle.  The indicator of \(N\) vanishes on every grid cell
+outside the cover, so its Darboux gap is at most the covering volume.  Hence
+\(N\) is Jordan measurable and has volume zero.
+
+If \(\abs h\leq M\) and \(h\) is supported on \(N\), then
+\[
+\abs h\leq M\mathbf1_N.
+\]
+The same grid argument proves integrability, and order preservation gives
+zero integral.  The difference of two functions which agree off \(N\) is of
+this form, proving the modification assertion.
+
+Put
+\[
+N_0=\bigcup_{i<j}(E_i\cap E_j).
+\]
+If \(m\leq1\), there is nothing to prove.  If \(m\geq2\), this finite union
+is Jordan-null: combine finite covers whose total volumes are each less than
+\(\varepsilon/\binom m2\).  Away from \(N_0\),
+\[
+\mathbf1_{\cup_iE_i}=\sum_i\mathbf1_{E_i}.
+\]
+The right side is integrable, so the null-modification result proves
+integrability of the left side and the volume formula.  The same argument
+applied to the zero extensions of \(h|_{E_i}\) proves the final assertion.
+\end{proof}
+
+\begin{definition}[Integration over a Jordan set]
+Let $E\subseteq\R^n$ be Jordan measurable and let $f:E\to\R$ be bounded.
+If the extension
+\[
+\widetilde f(x)=
+\begin{cases}
+f(x),&x\in E,\\
+0,&x\notin E
+\end{cases}
+\]
+is integrable on a containing rectangle $Q$, define
+\[
+\int_Ef(x)\,\dd x=\int_Q\widetilde f(x)\,\dd x.
+\]
+\end{definition}
+
+\begin{remark}
+This definition is intentionally more restrictive than later Lebesgue
+integration.  A bounded function on a Jordan-measurable set need not have an
+integrable zero extension.  The qualification in the definition is therefore
+mathematical content, not merely a technicality.
+\end{remark}
+
+
+
+
+\section{Linear Changes of Variables}
+
+\begin{lemma}[Volume under an invertible linear map]
+\label{lem:linear-volume}
+Let
+\[
+L:\R^n\longrightarrow\R^n
+\]
+be invertible and let $Q$ be a rectangle.  Then $L(Q)$ is Jordan measurable
+and
+\[
+\operatorname{vol}(L(Q))
+=\abs{\det L}\operatorname{vol}(Q).
+\]
+More generally, if \(E\subseteq\R^n\) is Jordan measurable, then \(L(E)\)
+is Jordan measurable and
+\[
+\operatorname{vol}(L(E))
+=\abs{\det L}\operatorname{vol}(E).
+\]
+\end{lemma}
+\begin{proof}
+We first record the effect of the three elementary invertible linear maps on
+Jordan volume.  A coordinate permutation merely permutes the side intervals
+of a rectangle and preserves its volume.  Multiplication of one coordinate
+by \(c\ne0\) takes a rectangle to a rectangle and multiplies its volume by
+\(\abs c\).
+
+For the remaining operation, fix \(i\ne j\) and consider the shear
+\[
+S(x)_i=x_i+cx_j,
+\qquad
+S(x)_k=x_k\quad(k\ne i).
+\]
+Let \(R=\prod_k[a_k,b_k]\), put \(d_i=b_i-a_i\), and write \(z\) for the
+coordinates other than \(x_i\).  Above \(z\in R_{\widehat i}\), the
+\(x_i\)-fiber of \(S(R)\) is
+\[
+[\,\ell(z),\ell(z)+d_i\,],
+\qquad
+\ell(z)=a_i+cz_j.
+\]
+Partition \(R_{\widehat i}\) into finitely many rectangles \(P\) on each of
+which the oscillation \(\omega_P(\ell)\) is less than a prescribed
+\(\gamma\), where \(0<\gamma<d_i\).  Over each \(P\), the fibered set is
+contained in the rectangular prism
+\[
+P\times
+[\,\inf_P\ell,\ d_i+\sup_P\ell\,]
+\]
+and contains the prism
+\[
+P\times
+[\,\sup_P\ell,\ d_i+\inf_P\ell\,].
+\]
+The outer and inner prisms have respective fiber lengths
+\[
+d_i+\omega_P(\ell)
+\qquad\text{and}\qquad
+d_i-\omega_P(\ell).
+\]
+After summing over \(P\), their total volume difference is at most
+\[
+2\gamma\operatorname{vol}(R_{\widehat i}).
+\]
+The upper and lower Jordan integrals of \(\mathbf1_{S(R)}\) are therefore
+squeezed to \(\operatorname{vol}(R)\) as \(\gamma\to0\).  Hence \(S(R)\) is
+Jordan measurable and
+\[
+\operatorname{vol}(S(R))=\operatorname{vol}(R).
+\]
+
+These conclusions extend from rectangles to every Jordan-measurable set.
+Indeed, for such a set \(E\), the Darboux criterion applied to
+\(\mathbf1_E\) gives finite unions \(I\) and \(O\) of grid rectangles with
+pairwise disjoint interiors such that
+\[
+I\subseteq E\subseteq O,
+\qquad
+\operatorname{vol}(O)-\operatorname{vol}(I)<\varepsilon.
+\]
+Images of distinct grid rectangles under an elementary map overlap only in
+images of their common faces.  If \(M\) is the operator norm of the elementary
+map, a fixed face can be covered by at most \(C_0h^{-(n-1)}\) face-cubes of
+side at most \(h\).  Each image face-cube lies in an axis-parallel box of side
+\(2M\sqrt n\,h\), so these boxes have total volume at most
+\[
+C_0(2M\sqrt n)^nh,
+\]
+which tends to zero with \(h\).
+Thus these overlaps are Jordan-null, and
+\cref{prop:jordan-null-additivity} shows that the volumes of the images of
+\(I\) and \(O\) are the sums of the volumes of their pieces.  The inclusions
+\[
+S(I)\subseteq S(E)\subseteq S(O)
+\]
+then make the upper and lower Jordan integrals of \(\mathbf1_{S(E)}\) differ
+by less than \(\varepsilon\).  The same argument applies to coordinate
+permutations and coordinate scalings.  Consequently, every elementary map
+sends Jordan-measurable sets to Jordan-measurable sets and multiplies their
+volumes by the absolute value of its determinant.
+
+Let \(K=[0,1]^n\).  Gaussian elimination supplies elementary matrices
+\(E_1,\ldots,E_k\) such that
+\[
+E_k\cdots E_1L=I.
+\]
+Applying the preceding volume rule successively to the intermediate Jordan
+sets gives
+\[
+1=\operatorname{vol}(K)
+=
+\left(\prod_{\nu=1}^{k}\abs{\det E_\nu}\right)
+\operatorname{vol}(L(K)).
+\]
+Taking determinants in the elimination identity gives
+\[
+\left(\prod_{\nu=1}^{k}\abs{\det E_\nu}\right)\abs{\det L}=1.
+\]
+Combining the two equalities yields
+\[
+\operatorname{vol}(L(K))=\abs{\det L}.
+\]
+
+The same calculation applies to an arbitrary Jordan-measurable set \(E\).
+The elementary-map result already proved ensures that every intermediate
+image is Jordan measurable, and successive application of that result gives
+\[
+\operatorname{vol}(E)
+=
+\left(\prod_{\nu=1}^{k}\abs{\det E_\nu}\right)
+\operatorname{vol}(L(E)).
+\]
+The determinant identity therefore gives
+\[
+\operatorname{vol}(L(E))
+=\abs{\det L}\operatorname{vol}(E).
+\]
+
+For a general rectangle \(Q=t+DK\), where \(D\) is diagonal with positive
+diagonal entries equal to the side lengths of \(Q\), translation preserves
+Jordan volume and
+\[
+L(Q)=Lt+(LD)(K).
+\]
+Thus
+\[
+\operatorname{vol}(L(Q))
+=
+\abs{\det(LD)}
+=
+\abs{\det L}\operatorname{vol}(Q).
+\]
+
+For completeness, measurability can also be read directly from the boundary.
+Since \(L\) is a homeomorphism,
+\[
+\partial L(Q)=L(\partial Q).
+\]
+Each face of \(Q\) can be covered by at most \(C_0h^{-(n-1)}\) face-cubes of
+side at most \(h\).  If \(M=\norm L_{\mathrm{op}}\), the image of each such
+piece has diameter at most \(M\sqrt n\,h\), and hence lies in an
+axis-parallel \(n\)-box of side \(2M\sqrt n\,h\).  The total volume of these
+boxes is at most
+\[
+C_0(2M\sqrt n)^nh,
+\]
+which tends to zero.  A finite union over the faces proves that
+\(\partial L(Q)\) is Jordan-null, in agreement with
+\cref{prop:jordan-boundary-criterion}.
+\end{proof}
+
+\begin{theorem}[Linear change of variables]
+\label{thm:linear-change-variables}
+Let $L:\R^n\to\R^n$ be invertible, let $E$ be Jordan measurable, and let
+\[
+f:L(E)\longrightarrow\R
+\]
+have an integrable zero extension.  Then $L(E)$ is Jordan measurable and
+\[
+\int_{L(E)}f(y)\,\dd y
+=
+\int_Ef(Lx)\abs{\det L}\,\dd x.
+\]
+\end{theorem}
+\begin{proof}
+Let \(R\) be a rectangle and let
+\[
+s=\sum_{\nu=1}^{N}c_\nu\mathbf1_{R_\nu}
+\]
+be a rectangular step function obtained from a grid partition of \(R\).
+The sets \(L(R_\nu)\) are Jordan measurable by
+\cref{lem:linear-volume}.  Two of them intersect only in the image of a
+common grid face, which is Jordan-null by the quantitative face estimate in
+that lemma.  Hence \cref{prop:jordan-null-additivity} gives
+\[
+\int_{L(R)}s(L^{-1}y)\,\dd y
+=
+\sum_{\nu=1}^{N}c_\nu\operatorname{vol}(L(R_\nu))
+=
+\abs{\det L}\int_Rs(x)\,\dd x.
+\]
+Thus the formula is established first for rectangular step functions; their
+transforms are finite sums of indicators of the Jordan sets \(L(R_\nu)\),
+not rectangular step functions in the \(y\)-coordinates.
+
+Now let \(h:R\to\R\) be Riemann integrable.  For every \(\varepsilon>0\),
+the Darboux criterion supplies lower and upper rectangular step functions
+\(\ell\) and \(u\) satisfying
+\[
+\ell\leq h\leq u,
+\qquad
+\int_R(u-\ell)<\varepsilon.
+\]
+Their transforms are integrable on \(L(R)\), and
+\[
+\ell(L^{-1}y)\leq h(L^{-1}y)\leq u(L^{-1}y).
+\]
+The gap between the transformed upper and lower integrals is
+\[
+\abs{\det L}\int_R(u-\ell)
+<
+\abs{\det L}\varepsilon.
+\]
+To make the integrability conclusion explicit, choose Darboux partitions for
+the two transformed integrable step functions whose upper--lower gaps have
+sum less than an arbitrary \(\delta>0\), and pass to a common refinement.
+On that refinement, the upper sum of \(h\circ L^{-1}\) is at most the upper
+sum of \(u\circ L^{-1}\), while its lower sum is at least the lower sum of
+\(\ell\circ L^{-1}\).  Its Darboux gap is consequently less than
+\[
+\abs{\det L}\varepsilon+\delta.
+\]
+Since \(\varepsilon\) and \(\delta\) are arbitrary,
+\(h\circ L^{-1}\) is integrable on \(L(R)\).  Squeezing its integral between
+the two transformed step-function integrals proves
+\[
+\int_{L(R)}h(L^{-1}y)\,\dd y
+=
+\abs{\det L}\int_Rh(x)\,\dd x.
+\]
+All integrations here may be read through zero extensions to containing
+rectangles, as in the definition of integration over a Jordan set.
+
+Apply the same lower--upper construction to \(\mathbf1_E\) on a rectangle
+containing \(E\).  The transformed indicators squeeze
+\(\mathbf1_{L(E)}\), with integral gap multiplied by \(\abs{\det L}\).
+Hence \(L(E)\) is Jordan measurable before any integral over it is used.
+
+Finally, choose a rectangle \(P\) containing \(L(E)\), and let
+\(\widetilde f\) be the integrable zero extension of \(f\) to \(P\).
+Apply the preceding argument to \(L^{-1}\) and \(\widetilde f\).  It proves
+that
+\[
+x\longmapsto\widetilde f(Lx)
+\]
+has an integrable zero extension from \(L^{-1}(P)\), and
+\[
+\int_P\widetilde f(y)\,\dd y
+=
+\abs{\det L}\int_{L^{-1}(P)}\widetilde f(Lx)\,\dd x.
+\]
+The integrands vanish, respectively, outside \(L(E)\) and outside \(E\).
+Using the definition of integration over Jordan sets therefore turns this
+identity into the asserted formula.
+\end{proof}
+
+\section{Nonlinear Changes of Variables}
+
+\begin{lemma}[Local volume comparison on cubes]
+\label{lem:local-volume-comparison}
+Let \(U\subseteq\R^n\) be open, let
+\[
+\Phi:U\longrightarrow\R^n
+\]
+be of class \(C^1\), and suppose that \(D\Phi(a)\) is invertible.  For every
+\[
+\varepsilon>0,
+\]
+there is a neighborhood \(N\) of \(a\) such that, for every closed cube
+\[
+C\subseteq N
+\]
+on which \(\Phi\) is injective,
+\[
+\left\lvert
+\operatorname{vol}(\Phi(C))
+-\lvert\det D\Phi(a)\rvert\operatorname{vol}(C)
+\right\rvert
+\leq
+\varepsilon\operatorname{vol}(C).
+\]
+Moreover, \(\Phi(C)\) is Jordan measurable.
+\end{lemma}
+\begin{proof}
+Put
+\[
+A=D\Phi(a).
+\]
+Choose \(\delta>0\) so small that
+\[
+0<\delta<\min\left\{1,\frac1{\sqrt n}\right\}
+\]
+and
+\[
+\lvert\det A\rvert
+\max\left\{(1+\delta\sqrt n)^n-1,\,
+1-(1-\delta\sqrt n)^n\right\}<\varepsilon.
+\]
+Continuity of \(D\Phi\) permits us to choose an open convex ball \(N\) about
+\(a\), with closure contained in \(U\), such that
+\[
+\lVert A^{-1}D\Phi(x)-I\rVert_{\mathrm{op}}<\delta
+\qquad(x\in N).
+\]
+Let \(C=c+sK\), where
+\[
+K=[-1/2,1/2]^n.
+\]
+Define
+\[
+\Psi(u)=s^{-1}A^{-1}\bigl(\Phi(c+su)-\Phi(c)\bigr)
+\qquad(u\in K).
+\]
+Because \(C\subseteq N\), every segment used below lies in \(C\), hence in
+\(N\).  The chain rule gives
+\[
+D\Psi(u)=A^{-1}D\Phi(c+su).
+\]
+Put \(g(u)=\Psi(u)-u\).  Then
+\[
+\Psi(u)=u+g(u),
+\qquad
+\lVert Dg(u)\rVert_{\mathrm{op}}<\delta.
+\]
+The mean-value estimate in the Euclidean norm gives
+\[
+\lVert g(u)-g(v)\rVert_2
+\leq\delta\lVert u-v\rVert_2.
+\]
+Since
+\[
+\norm w_\infty\leq\norm w_2
+\leq\sqrt n\,\norm w_\infty,
+\]
+we also have
+\[
+\lVert g(u)-g(v)\rVert_\infty
+\leq\delta\sqrt n\,\lVert u-v\rVert_\infty.
+\]
+Because \(\Psi(0)=0\), one has \(g(0)=0\), and hence
+\[
+\norm{g(u)}_\infty
+\leq\frac{\delta\sqrt n}{2}
+\qquad(u\in K).
+\]
+It follows that
+\[
+\Psi(K)\subseteq
+\set{y:\norm y_\infty\leq\frac{1+\delta\sqrt n}{2}}.
+\]
+
+Conversely, suppose
+\[
+\norm y_\infty\leq\frac{1-\delta\sqrt n}{2}
+\]
+and define \(T_y(u)=y-g(u)\).  For \(u\in K\),
+\[
+\norm{T_y(u)}_\infty
+\leq\norm y_\infty+\norm{g(u)}_\infty
+\leq\frac12,
+\]
+so \(T_y(K)\subseteq K\).  Moreover,
+\[
+\norm{T_y(u)-T_y(v)}_2
+\leq\delta\norm{u-v}_2.
+\]
+Thus \(T_y\) is a contraction in the Euclidean norm.  The closed cube \(K\)
+is complete, so \cref{thm:contraction} gives a fixed point \(u\in K\), and
+the fixed-point equation is \(\Psi(u)=y\).  Therefore
+\[
+\set{y:\norm y_\infty\leq\frac{1-\delta\sqrt n}{2}}
+\subseteq\Psi(K).
+\]
+The estimate
+\[
+\norm{\Psi(u)-\Psi(v)}_2
+\geq(1-\delta)\norm{u-v}_2
+\]
+also proves directly that \(\Psi\), and hence \(\Phi\), is injective on
+\(C\).
+
+We next justify Jordan measurability.  For \(x\in N\),
+\[
+\norm{I-A^{-1}D\Phi(x)}_{\mathrm{op}}<1,
+\]
+so \cref{prop:perturbation}, with invertible map \(A\) and perturbed map
+\(D\Phi(x)\), shows that \(D\Phi(x)\) is invertible.  The continuous
+bijection \(\Phi|_C:C\to\Phi(C)\) is a homeomorphism: a closed subset of
+the compact set \(C\) is compact, its image is compact, and compact subsets
+of the Hausdorff space \(\R^n\) are closed.  If \(x\in C^\circ\), the
+inverse function theorem gives a neighborhood \(O\subseteq C^\circ\) for
+which \(\Phi(O)\) is open.  Thus \(\Phi(x)\) is interior to \(\Phi(C)\).
+Since \(\Phi(C)\) is compact and therefore closed, this proves
+\[
+\partial\Phi(C)\subseteq\Phi(\partial C).
+\]
+
+Because \(\overline N\) is compact and contained in \(U\), continuity of
+\(D\Phi\) gives
+\[
+L=\max_{x\in\overline N}\norm{D\Phi(x)}_{\mathrm{op}}<\infty.
+\]
+The mean-value estimate makes \(\Phi\) \(L\)-Lipschitz on \(N\).  Each face
+of \(C\) can be covered by at most
+\[
+C_0(s/h)^{n-1}
+\]
+face-cubes of side at most \(h\).  The image of each lies in an
+axis-parallel box of side \(2L\sqrt n\,h\), so the total volume of these
+boxes is at most
+\[
+C_0(2L\sqrt n)^ns^{n-1}h.
+\]
+Letting \(h\to0\) proves that \(\Phi(\partial C)\) is Jordan-null, and
+\cref{prop:jordan-boundary-criterion} shows that \(\Phi(C)\) is Jordan
+measurable.
+
+Finally,
+\[
+\Phi(C)=\Phi(c)+sA\Psi(K).
+\]
+Translation invariance and \cref{lem:linear-volume} give
+\[
+\operatorname{vol}(\Phi(C))
+=
+\abs{\det A}s^n\operatorname{vol}(\Psi(K)).
+\]
+The inner and outer cube containments, together with
+\(\operatorname{vol}(C)=s^n\), yield
+\[
+\lvert\det A\rvert(1-\delta\sqrt n)^n\operatorname{vol}(C)
+\leq
+\operatorname{vol}(\Phi(C))
+\leq
+\lvert\det A\rvert(1+\delta\sqrt n)^n\operatorname{vol}(C).
+\]
+The choice of \(\delta\) proves the estimate.
+\end{proof}
+
+\begin{theorem}[Change of variables]
+\label{thm:change-of-variables}
+Let \(Q\subseteq\R^n\) be a rectangle, let \(U\) be an open neighborhood of
+\(Q\), and let
+\[
+\Phi:U\longrightarrow\R^n
+\]
+be of class \(C^1\).  Assume that \(\Phi\) is injective on \(Q\) and that
+\[
+\det D\Phi(x)\ne0
+\qquad(x\in Q).
+\]
+Then \(\Phi(Q)\) is Jordan measurable.  If
+\[
+f:\Phi(Q)\longrightarrow\R
+\]
+is continuous, then
+\[
+\int_{\Phi(Q)}f(y)\,\dd y
+=
+\int_Qf(\Phi(x))\lvert\det D\Phi(x)\rvert\,\dd x.
+\]
+\end{theorem}
+\begin{proof}
+Write
+\[
+J(x)=\lvert\det D\Phi(x)\rvert.
+\]
+The restriction \(\Phi|_Q:Q\to\Phi(Q)\) is a homeomorphism.  Indeed, it is a
+continuous bijection, \(Q\) is compact, and \(\Phi(Q)\subseteq\R^n\) is
+Hausdorff.  More explicitly, a closed subset of \(Q\) is compact, its image
+is compact, and compact subsets of \(\R^n\) are closed; hence the inverse is
+continuous.  If \(x\in Q^\circ\), the inverse function theorem gives an open
+neighborhood \(O\subseteq Q^\circ\) such that \(\Phi(O)\) is open.
+Therefore \(\Phi(x)\) is interior to \(\Phi(Q)\), and
+\[
+\partial\Phi(Q)\subseteq\Phi(\partial Q).
+\]
+
+We shall use one uniform Lipschitz constant.  Since \(Q\) is compact and
+\(U\) is open, there is \(\tau>0\) such that the closed
+\(\tau\)-neighborhood of \(Q\) lies in \(U\).  Put
+\[
+K_\tau=\set{x\in\R^n:\operatorname{dist}(x,Q)\leq\tau}.
+\]
+This compact set is contained in \(U\).  The open \(\tau\)-neighborhood
+\(W\) is convex because \(Q\) is a rectangle, and \(W\subseteq K_\tau\).
+Put
+\[
+L=\max_{x\in K_\tau}\norm{D\Phi(x)}_{\mathrm{op}}.
+\]
+Then \cref{thm:multivariable-mvt} shows that \(\Phi\) is \(L\)-Lipschitz on
+\(W\).  Every face of \(Q\) can be covered by at most
+\(C_0h^{-(n-1)}\) face-cubes of side at most \(h\), where \(C_0\) is
+independent of \(h\).  Their images lie in \(n\)-boxes of side
+\(2L\sqrt n\,h\), whose total volume is at most
+\[
+C_0(2L\sqrt n)^nh.
+\]
+After summing over the finitely many faces and letting \(h\to0\),
+\(\Phi(\partial Q)\) is Jordan-null.  By the boundary inclusion just proved and
+\cref{prop:jordan-boundary-criterion}, \(\Phi(Q)\) is Jordan measurable
+before any integral over it is used.
+
+We also need a uniform estimate for images of thin rectangles.  If
+\(R\subseteq Q\) is a nondegenerate rectangle, cover it, for arbitrarily
+  small \(d>0\), by grid cubes of side \(d\).  Taking \(d\) smaller than every
+  side length of \(R\) and smaller than \(\tau/\sqrt n\), the covering cubes
+  lie in \(W\), and the sum of their volumes is at most
+\[
+2^n\operatorname{vol}(R).
+\]
+Each image cube lies in an axis-parallel box of side \(2L\sqrt n\,d\).
+The same boundary argument as above shows that \(\Phi(R)\) is Jordan
+measurable, and the covering estimate gives
+\[
+\operatorname{vol}(\Phi(R))
+\leq
+C_L\operatorname{vol}(R),
+\qquad
+C_L=2^n(2L\sqrt n)^n.
+\]
+Degenerate rectangles have Jordan-null images by the face estimate.
+
+The functions \(J\) and
+\[
+H(x)=f(\Phi(x))J(x)
+\]
+are continuous on \(Q\).  Let
+\[
+B=\max_{y\in\Phi(Q)}\abs{f(y)},
+\qquad
+M_H=\max_{x\in Q}\abs{H(x)}.
+\]
+For \(t\geq0\), let \(\omega_f(t)\) and \(\omega_H(t)\) be the suprema of
+\(\abs{f(y)-f(z)}\) and \(\abs{H(x)-H(w)}\), respectively, over pairs at
+distance at most \(t\) in their compact domains.  Uniform continuity gives
+\[
+\lim_{t\to0}\omega_f(t)=0,
+\qquad
+\lim_{t\to0}\omega_H(t)=0.
+\]
+
+Fix \(\varepsilon>0\).  Choose \(\eta>0\) so small that
+\[
+B\eta\operatorname{vol}(Q)<\frac{\varepsilon}{4}.
+\]
+If \(B=0\), any positive \(\eta\) satisfies this requirement.  For each
+\(a\in Q\), apply \cref{lem:local-volume-comparison} with error
+\(\eta/2\), and then shrink its neighborhood \(N_a\subseteq W\) so that
+\[
+\abs{J(x)-J(a)}<\frac\eta2
+\qquad(x\in N_a\cap Q).
+\]
+Choose finitely many of the sets \(N_a\cap Q\) which cover \(Q\).
+By \cref{lem:compact-metric-lebesgue-number}, there is \(\lambda>0\) such
+that every subset of \(Q\) of diameter less than \(\lambda\) lies in one
+member of this finite cover.  Hence, if \(C\subseteq Q\) is a cube with
+\(\operatorname{diam}(C)<\lambda\), and \(x_C\in C\), then for a suitable
+center \(a\),
+\begin{align*}
+\abs{\operatorname{vol}(\Phi(C))-J(x_C)\operatorname{vol}(C)}
+&\leq
+\abs{\operatorname{vol}(\Phi(C))-J(a)\operatorname{vol}(C)}\\
+&\quad+\abs{J(a)-J(x_C)}\operatorname{vol}(C)\\
+&\leq\eta\operatorname{vol}(C).
+\end{align*}
+Here \(\Phi\) is injective on \(C\) because it is injective on \(Q\).
+
+Write
+\[
+Q=\prod_{i=1}^{n}[a_i,b_i],
+\qquad
+d_i=b_i-a_i.
+\]
+Choose \(h>0\), smaller than every \(d_i\), and put
+\[
+m_i=\left\lfloor\frac{d_i}{h}\right\rfloor,
+\qquad
+Q_h=\prod_{i=1}^{n}[a_i,a_i+m_ih].
+\]
+The rectangle \(Q_h\) is the union of finitely many closed cubes of side
+\(h\), called the retained cubes.  For \(1\leq i\leq n\), set
+\[
+R_{h,i}
+=
+\left(\prod_{k<i}[a_k,a_k+m_kh]\right)
+\times[a_i+m_ih,b_i]
+\times\left(\prod_{k>i}[a_k,b_k]\right),
+\]
+and put
+\[
+R_h=\bigcup_{i=1}^{n}R_{h,i}.
+\]
+Thus \(R_h\) is the closure of \(Q\setminus Q_h\).  The rectangles
+\(R_{h,i}\) have pairwise Jordan-null overlaps: two distinct pieces can meet
+only where a coordinate equals an endpoint of a shortened interval.  A
+telescoping product estimate gives
+\[
+\operatorname{vol}(R_h)
+=
+\operatorname{vol}(Q)-\operatorname{vol}(Q_h)
+\leq
+C_Qh,
+\qquad
+C_Q=\sum_{i=1}^{n}\prod_{k\ne i}d_k.
+\]
+By the rectangle-image bound, finite additivity, and the nullity of the
+overlaps,
+\[
+\operatorname{vol}(\Phi(R_h))
+\leq C_L\operatorname{vol}(R_h).
+\]
+
+Choose \(h\) small enough that
+\[
+\sqrt n\,h<\lambda,
+\]
+\[
+\omega_f(L\sqrt n\,h)\operatorname{vol}(\Phi(Q))
+<\frac{\varepsilon}{4},
+\qquad
+\omega_H(\sqrt n\,h)\operatorname{vol}(Q)
+<\frac{\varepsilon}{4},
+\]
+and
+\[
+(BC_L+M_H)C_Qh<\frac{\varepsilon}{4}.
+\]
+For each retained cube \(C\), choose a tag \(x_C\in C\) and put
+\(J_C=J(x_C)\).  Then
+\begin{align*}
+&\int_{\Phi(C)}f(y)\,\dd y
+-f(\Phi(x_C))J_C\operatorname{vol}(C)\\
+&\quad=
+\int_{\Phi(C)}
+\bigl(f(y)-f(\Phi(x_C))\bigr)\,\dd y\\
+&\qquad+
+f(\Phi(x_C))
+\bigl(\operatorname{vol}(\Phi(C))-J_C\operatorname{vol}(C)\bigr).
+\end{align*}
+Since
+\[
+\operatorname{diam}(\Phi(C))
+\leq L\operatorname{diam}(C)
+\leq L\sqrt n\,h,
+\]
+the bounded-function estimate and the local tag estimate above imply
+\begin{align*}
+&\left|
+\int_{\Phi(C)}f(y)\,\dd y
+-f(\Phi(x_C))J_C\operatorname{vol}(C)
+\right|\\
+&\qquad\leq
+\omega_f(L\sqrt n\,h)\operatorname{vol}(\Phi(C))
++B\eta\operatorname{vol}(C).
+\end{align*}
+
+Distinct retained cubes meet only on faces.  Injectivity gives
+\[
+\Phi(C)\cap\Phi(C')=\Phi(C\cap C'),
+\]
+and the Lipschitz face estimate makes this intersection Jordan-null.
+Therefore \cref{prop:jordan-null-additivity} gives
+\[
+\int_{\Phi(Q_h)}f
+=
+\sum_C\int_{\Phi(C)}f,
+\qquad
+\operatorname{vol}(\Phi(Q_h))
+=
+\sum_C\operatorname{vol}(\Phi(C)).
+\]
+Summing this local estimate yields
+\begin{align*}
+&\left|
+\int_{\Phi(Q_h)}f
+-\sum_Cf(\Phi(x_C))J_C\operatorname{vol}(C)
+\right|\\
+&\qquad\leq
+\omega_f(L\sqrt n\,h)\operatorname{vol}(\Phi(Q))
++B\eta\operatorname{vol}(Q).
+\end{align*}
+Similarly, continuity of \(H\) on each retained cube gives
+\[
+\left|
+\sum_CH(x_C)\operatorname{vol}(C)-\int_{Q_h}H(x)\,\dd x
+\right|
+\leq
+\omega_H(\sqrt n\,h)\operatorname{vol}(Q).
+\]
+
+Finally, \(Q=Q_h\cup R_h\), and their overlap is Jordan-null.  Their images
+also have Jordan-null overlap, by injectivity and the Lipschitz face
+estimate.  Finite additivity and the bounded-function estimate give
+\[
+\left|\int_{\Phi(R_h)}f\right|
+\leq B\operatorname{vol}(\Phi(R_h))
+\leq BC_L\operatorname{vol}(R_h)
+\]
+and
+\[
+\left|\int_{R_h}H\right|
+\leq M_H\operatorname{vol}(R_h).
+\]
+Combining these two estimates with the summed local estimate and the
+Riemann-sum estimate, and observing that
+\(H(x_C)=f(\Phi(x_C))J_C\), gives
+\begin{align*}
+\left|
+\int_{\Phi(Q)}f-\int_QH
+\right|
+&\leq
+\omega_f(L\sqrt n\,h)\operatorname{vol}(\Phi(Q))
++B\eta\operatorname{vol}(Q)\\
+&\quad+
+\omega_H(\sqrt n\,h)\operatorname{vol}(Q)
++(BC_L+M_H)\operatorname{vol}(R_h)\\
+&<\varepsilon
+\end{align*}
+by the choices of \(\eta\) and \(h\), together with the strip-volume bound.
+Since \(\varepsilon>0\) was arbitrary,
+the change-of-variables formula follows.
+\end{proof}
+
+\subsection{Alternative Viewpoint: Pullbacks and Manifold Integration}
+\label{subsec:change-variables-forms}
+
+The proof of \cref{thm:change-of-variables} is necessarily detailed because
+it establishes an analytic fact in the Riemann/Jordan setting.  Its geometric
+core is simple.  Differentiability gives
+\[
+\Phi(x+h)=\Phi(x)+D\Phi(x)h+o(\norm{h}),
+\]
+so \(D\Phi(x)\) is the infinitesimal linear approximation to \(\Phi\).
+For a linear map, \(\det L\) records oriented volume scaling and
+\(\abs{\det L}\) records unsigned volume scaling; see the determinant
+properties in \cref{thm:determinant-properties} and the linear volume result
+\cref{lem:linear-volume}.  Thus
+\[
+\abs{\det D\Phi(x)}
+\]
+is not an arbitrary correction factor: it is the local unsigned volume
+distortion of the derivative.  The proof above makes this statement
+quantitative by comparing small cubes with their linearized images and then
+passing to Riemann sums.
+
+Accordingly, the scalar formula just proved has the schematic form
+\[
+\int_V f(y)\,\dd y
+=
+\int_U f(\Phi(x))\abs{\det D\Phi(x)}\,\dd x.
+\]
+The absolute value occurs because ordinary scalar volume is unsigned.
+Chapter~13 gives a complementary interpretation.  For a top-degree form on
+\(V\),
+\[
+\omega=f(y)\,\dd y_1\wedge\cdots\wedge\dd y_n,
+\]
+the pullback by a smooth map \(\Phi:U\to V\) is
+\[
+\Phi^*\omega
+=
+f(\Phi(x))\det D\Phi(x)\,
+\dd x_1\wedge\cdots\wedge\dd x_n.
+\]
+Indeed,
+\[
+\Phi^*(\dd y_j)
+=
+\sum_{i=1}^{n}
+\frac{\partial\Phi^j}{\partial x_i}\,\dd x_i,
+\]
+and the alternating multilinearity of the wedge product produces the
+determinant.  In this language, the determinant appears automatically when a
+top-degree form is transported to the parameter domain.
+
+The sign is now meaningful.  For an orientation-preserving diffeomorphism,
+the oriented formula is
+\[
+\int_V\omega=\int_U\Phi^*\omega;
+\]
+an orientation-reversing diffeomorphism changes the sign.  This distinction
+between \(\det D\Phi\) and \(\abs{\det D\Phi}\) is why orientation is part of
+the natural language of integration on manifolds.  One can formulate
+unsigned integration intrinsically using densities, but that theory is beyond
+the scope of these notes.
+
+This pullback identity is the form of change of variables that survives on a
+smooth manifold, where no single global coordinate system need exist.
+Chapter~13 develops pullbacks and top-degree forms in
+\cref{sec:forms-pullbacks}, and its change-of-parametrization result
+\cref{prop:change-parametrization} uses the present theorem to establish
+coordinate independence.  The logical order is essential:
+\[
+\begin{gathered}
+\text{Euclidean change of variables}\\
+\Longrightarrow\ \text{coordinate invariance of form integration}\\
+\Longrightarrow\ \text{well-defined integration on manifolds}.
+\end{gathered}
+\]
+Thus the differential-form discussion is a conceptual,
+coordinate-invariant reformulation, not an independent proof of the
+Euclidean analytic theorem.
+
+Finally, Lebesgue integration later provides a substantially more flexible
+change-of-variables theory for measurable sets and functions under weaker
+hypotheses.  It replaces much of the present Jordan-boundary and Riemann-sum
+bookkeeping by measurable sets, null sets, Lebesgue integration, and
+countable decompositions.  Measure theory is not introduced here; see
+\cref{sec:perspective-further-directions} for its place among the natural
+continuations of these notes.
+
+\begin{example}[Polar coordinates]
+On a rectangle
+\[
+[\alpha,\beta]\times[r_0,r_1]
+\]
+with
+\[
+0<r_0<r_1
+\]
+and
+\[
+\beta-\alpha<2\pi,
+\]
+the map
+\[
+\Phi(\theta,r)=(r\cos\theta,r\sin\theta)
+\]
+is injective and has
+\[
+\abs{\det D\Phi(\theta,r)}=r.
+\]
+Thus, for continuous $f$ on its image,
+\[
+\int_{\Phi(Q)}f(x,y)\,\dd(x,y)
+=
+\int_\alpha^\beta\int_{r_0}^{r_1}
+f(r\cos\theta,r\sin\theta)r\,\dd r\,\dd\theta.
+\]
+\end{example}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Prove that replacing a grid partition by a refinement decreases its upper
+sum and increases its lower sum.
+\end{exercise}
+
+\begin{exercise}
+Compute
+\[
+\int_{[0,1]\times[0,2]}(x+2y)\,\dd(x,y)
+\]
+directly from iterated one-variable integrals.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:coordinatewise-integration-by-parts} with \(j=1\) to
+evaluate
+\[
+\int_{[0,1]^2}x\frac{\partial}{\partial x}(x^2y)\,\dd(x,y).
+\]
+\end{exercise}
+
+\begin{exercise}
+Prove that a constant function $c$ on $Q$ has integral
+\[
+c\operatorname{vol}(Q).
+\]
+\end{exercise}
+
+\begin{exercise}
+Show that a finite set in $\R^n$ has Jordan volume zero.
+\end{exercise}
+
+\begin{exercise}
+Prove that the open unit ball in $\R^n$ is Jordan measurable, assuming that
+its boundary can be covered by finitely many boxes of arbitrarily small total
+volume.
+\end{exercise}
+
+\begin{exercise}
+Give a bounded subset of $[0,1]$ whose indicator is not Riemann integrable.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:linear-change-variables} to compute the area of the
+parallelogram spanned by two vectors in $\R^2$.
+\end{exercise}
+
+\begin{exercise}
+Verify the determinant computation in the polar-coordinate example.
+\end{exercise}
+
+\begin{exercise}
+Use polar coordinates to compute
+\[
+\int_{\{(x,y):x^2+y^2\leq1\}}(x^2+y^2)\,\dd(x,y).
+\]
+Do not apply the preceding theorem directly to the full disk.  First apply it
+on
+\[
+[0,2\pi-\delta]\times[\varepsilon,1],
+\]
+where it is injective, and then let
+\[
+\delta\to0,
+\qquad
+\varepsilon\to0.
+\]
+Justify the omitted sector and inner disk by the bounded-function estimate
+and their Jordan volumes.
+\end{exercise}
+
+\section{Limits of the Riemann Theory}
+
+The Riemann integral handles continuous functions and geometrically regular
+domains very effectively.  Its limitations become sharper in several
+variables: indicators of sets with complicated boundaries may fail to be
+integrable, iterated integrals need not be available for arbitrary bounded
+functions, and the present change-of-variables theorem requires continuity
+and a globally injective parametrization.  Lebesgue measure and integration
+replace Jordan volume by a much more flexible notion of size and later permit
+theorems under substantially weaker hypotheses.  Those extensions are not
+developed in these notes.

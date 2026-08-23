@@ -1,0 +1,828 @@
+\chapter{Basic Set Theory, Logic, Functions, and Relations}
+\label{ch:foundations}
+
+\section{Sets}
+
+Mathematical analysis constantly describes collections: the possible inputs
+of a function, the points of an interval, or the terms of a sequence.  The
+language of sets lets us describe such collections precisely and compare
+them without relying on a picture or an informal list.
+
+We take
+\[
+\N=\{1,2,3,\ldots\}
+\]
+as the primitive discrete number system. Its usual arithmetic means that
+addition and multiplication have their familiar laws and keep natural
+numbers natural. Its induction property says that a statement true for
+(1), and inherited from each number to its successor, is true for every
+natural number. Its well-ordering property says that every nonempty
+collection of natural numbers has a smallest member. These principles will
+be used repeatedly, and induction is stated formally in
+\cref{thm:induction}. We write
+\[
+\N_0=\N\cup\{0\}.
+\]
+The integers and rational numbers will be constructed in this chapter, and
+the real numbers in Chapter~\ref{ch:reals}. A \textbf{set} is a collection of
+objects, called its elements. We write $x\in A$ when $x$ is an element of
+$A$.
+
+\begin{definition}[Subsets and set equality]
+For sets $A,B$, write $A\subseteq B$ if every element of $A$ is an element of $B$. Define $A=B$ to mean both $A\subseteq B$ and $B\subseteq A$.
+\end{definition}
+
+The empty set $\varnothing$ has no elements, and is a subset of every set.
+Here ``and'' requires both stated conditions, ``or'' allows either condition
+(including both), and $x\notin B$ means that $x$ is not an element of $B$.
+For any sets $A,B$, define
+\begin{align*}
+A\cup B&=\set{x:x\in A\text{ or }x\in B}, &
+A\cap B&=\set{x:x\in A\text{ and }x\in B},\\
+A\setminus B&=\set{x:x\in A\text{ and }x\notin B}.
+\end{align*}
+If $A\subseteq X$, its complement is $A^c=X\setminus A$. The power set is $\mathcal P(A)=\set{E:E\subseteq A}$.
+
+\begin{proposition}[De Morgan's laws]
+\label{prop:de-morgan}
+If $A,B\subseteq X$, then $(A\cup B)^c=A^c\cap B^c$ and $(A\cap B)^c=A^c\cup B^c$.
+\end{proposition}
+\begin{proof}
+For $x\in X$, membership in $(A\cup B)^c$ means that it is false that $x\in A$ or $x\in B$. This is equivalent to $x\notin A$ and $x\notin B$, namely $x\in A^c\cap B^c$. The second identity follows identically with ``and'' and ``or'' exchanged.
+\end{proof}
+
+\begin{definition}[Cartesian product]
+For sets $A,B$, define $A\times B=\set{(a,b):a\in A,\ b\in B}$, where $(a,b)=(a',b')$ means $a=a'$ and $b=b'$.
+\end{definition}
+
+\section{Logic and Proofs}
+
+Definitions specify the objects of mathematics, while proofs explain why
+their asserted properties follow.  This section introduces the small amount
+of logical language needed to state definitions and organize proofs clearly.
+
+A \textbf{proposition} is a statement that is either true or false. A
+\textbf{predicate} is a statement with a variable whose truth depends on
+the value of that variable. For example, let \(P(n)\) mean ``\(n\) is
+even.'' Then \(P(4)\) is a true proposition, whereas \(P(n)\) is not a
+complete proposition until \(n\) is assigned a value or is quantified.
+
+If \(P\) and \(Q\) are propositions, then \(P\text{ and }Q\) means that
+both are true, and \(P\text{ or }Q\) means that at least one is true. This
+is the inclusive mathematical meaning of ``or.'' For instance,
+\[
+n>0\text{ and }n<5
+\]
+requires both inequalities, while ``\(n\) is even or divisible by \(3\)''
+permits either property or both. The \textbf{negation} of \(P\), written
+\[
+\neg P,
+\]
+means that \(P\) is false. Thus the negation of \(x>3\) is \(x\leq3\).
+Negating a mathematical statement means negating its full meaning, not merely
+placing the word ``not'' at an arbitrary point.
+
+The implication
+\[
+P\Rightarrow Q
+\]
+means ``if \(P\), then \(Q\)''; \(P\) is its \textbf{hypothesis} (or
+antecedent), and \(Q\) is its \textbf{conclusion} (or consequent). For
+example,
+\[
+n\text{ is divisible by }4
+\quad\Longrightarrow\quad
+n\text{ is even}.
+\]
+Its \textbf{contrapositive} is
+\[
+\neg Q\Rightarrow\neg P,
+\]
+and an implication is logically equivalent to its contrapositive. The
+\textbf{converse} is \(Q\Rightarrow P\); it is a different assertion and
+does not follow automatically. The notation
+\[
+P\Longleftrightarrow Q
+\]
+means ``\(P\) if and only if \(Q\),'' often abbreviated ``iff'': both
+\(P\Rightarrow Q\) and \(Q\Rightarrow P\) hold. A proof of an iff
+statement normally proves the two directions separately.
+
+Quantifiers turn predicates into propositions. The statement
+\[
+\forall x\in A\ P(x)
+\]
+means that \(P(x)\) holds for every \(x\in A\), while
+\[
+\exists x\in A\ P(x)
+\]
+means that there is at least one \(x\in A\) for which \(P(x)\) holds. For
+example,
+\[
+\forall n\in\N\quad n+1>n,
+\]
+whereas
+\[
+\exists n\in\N\quad n^2=4.
+\]
+The first says something about every natural number; the second asserts the
+existence of a witness, here \(n=2\). After predicates, quantifiers, and
+negation have been introduced, their basic interaction can be written as
+\[
+\neg(\forall x\in A\ P(x))\Longleftrightarrow\exists x\in A\ \neg P(x),
+\]
+\[
+\neg(\exists x\in A\ P(x))\Longleftrightarrow\forall x\in A\ \neg P(x).
+\]
+In words, ``every student passed'' is false exactly when there is a student
+who did not pass; ``there is a student who passed'' is false exactly when
+every student failed.
+
+\subsection{Writing Proofs}
+
+Logic becomes useful here as a guide to proof writing. To prove a universal
+implication
+\[
+\forall x\in A\quad P(x)\Rightarrow Q(x),
+\]
+begin by letting \(x\in A\) be arbitrary, suppose \(P(x)\), and show
+\(Q(x)\). The word ``arbitrary'' matters: the argument must work for every
+allowed \(x\), not only for a convenient example. To prove an existential
+statement, give a \textbf{witness} and verify that it has the required
+property. To prove that an object exists uniquely, first prove existence and
+then show that any two objects with the property are equal. This pattern will
+recur for limits, least upper bounds, inverse functions, and implicit
+functions.
+
+Set equality is proved by showing both inclusions
+\[
+A\subseteq B
+\qquad\text{and}\qquad
+B\subseteq A.
+\]
+Similarly, two functions with the same domain and codomain are equal when
+their values agree at every point of the domain. A direct proof derives the
+conclusion from the hypotheses. A contrapositive proof establishes
+\(\neg Q\Rightarrow\neg P\) in order to prove \(P\Rightarrow Q\). A proof
+by contradiction assumes the hypotheses and the negation of the desired
+conclusion, then derives an impossibility.
+
+A proof should indicate why each nontrivial step follows: from a hypothesis,
+a definition, an earlier theorem, or an algebraic calculation. Calculations
+are part of a proof only when their purpose is clear, so short explanatory
+sentences around a nontrivial chain of formulas are often helpful. The aim is
+clarity and visible logical dependence, not rigid prose templates. The next
+theorem records the induction method: prove a base case, assume the statement
+at an arbitrary stage as the induction hypothesis, and then prove the
+induction step.
+
+\begin{theorem}[Induction]
+\label{thm:induction}
+Let $P(n)$ be a proposition for each $n\in\N$. If $P(1)$ is true and $P(n)\Rightarrow P(n+1)$ for every $n\in\N$, then $P(n)$ is true for all $n\in\N$.
+\end{theorem}
+\begin{proof}
+This is the induction axiom for $\N$. Equivalently, it follows from the well-ordering principle that each nonempty subset of $\N$ has a least element: a least $n$ for which $P(n)$ failed could be neither $1$ nor a successor of a number for which $P$ holds.
+\end{proof}
+
+\section{Relations and Functions}
+
+Many mathematical statements compare two objects: two numbers may be equal,
+one number may divide another, or one set may be contained in another. A
+relation records exactly which ordered pairs of objects are being regarded as
+related.
+
+\begin{definition}[Binary relation]
+Let $A$ and $B$ be sets. A \textbf{binary relation} $R$ from $A$ to $B$ is a
+subset
+\[
+R\subseteq A\times B.
+\]
+If $A=B$, then $R$ is a \textbf{binary relation on $A$}. When
+\[
+(a,b)\in R,
+\]
+we commonly write
+\[
+a\mathrel{R}b.
+\]
+\end{definition}
+
+\begin{example}[Familiar relations]
+Equality, the usual numerical order, divisibility on \(\N\), and inclusion
+between subsets of a fixed set are all binary relations. For example, on
+\[
+A=\{1,2,3,4\},
+\]
+the divisibility relation is the subset
+\[
+R=\{(a,b)\in A\times A:a\text{ divides }b\}.
+\]
+It contains, among others,
+\[
+(1,2),\quad (1,4),\quad (2,4),\quad (3,3),
+\]
+but
+\[
+(3,4)\notin R.
+\]
+Thus the statement that a relation is a set of ordered pairs has concrete
+content. Not every relation is an equivalence relation or an order: for
+example, on \(\N\), the relation
+\[
+m\mathrel{R}n\quad\Longleftrightarrow\quad n=m+1
+\]
+is neither, since it is not reflexive.
+\end{example}
+
+\begin{definition}[Equivalence relation]
+An \textbf{equivalence relation} is a binary relation $\sim$ on $A$ such
+that, for all $a,b,c\in A$, it is \textbf{reflexive},
+\textbf{symmetric}, and \textbf{transitive}:
+\[
+a\sim a,
+\qquad
+a\sim b\Longrightarrow b\sim a,
+\qquad
+a\sim b\text{ and }b\sim c\Longrightarrow a\sim c.
+\]
+Its equivalence class at $a$ is
+\[
+[a]=\set{b\in A:b\sim a}.
+\]
+\end{definition}
+
+Equivalence relations classify elements by grouping those regarded as the
+same for a specified purpose. Equality is the simplest example. Congruence
+modulo a natural number, used after the construction of \(\Z\) below, is a
+further familiar example.
+
+\begin{proposition}
+\label{prop:equivalence-classes}
+If $\sim$ is an equivalence relation, then $A$ is the union of its equivalence classes, and two classes are either equal or disjoint.
+\end{proposition}
+\begin{proof}
+Reflexivity gives $a\in[a]$ for every $a$. If $x\in[a]\cap[b]$, symmetry and transitivity imply $a\sim b$. Then $y\sim a$ implies $y\sim b$, and conversely, so $[a]=[b]$.
+\end{proof}
+
+\begin{definition}[Partial order]
+An \textbf{order relation} or \textbf{partial order} on a set $X$ is a binary relation \(\leq\) on $X$
+that is reflexive, antisymmetric, and transitive: for all $x,y,z\in X$,
+\[
+x\leq x,
+\]
+\[
+x\leq y\text{ and }y\leq x\Longrightarrow x=y,
+\]
+and
+\[
+x\leq y\text{ and }y\leq z\Longrightarrow x\leq z.
+\]
+A set equipped with a partial order is a \textbf{partially ordered set}, or
+\textbf{poset}. Antisymmetric does not mean ``not symmetric''; it is the
+specific implication displayed above.
+\end{definition}
+
+\begin{example}[Partial orders and incomparability]
+The power set \(\mathcal P(X)\), ordered by inclusion, is a poset. If $X$
+contains $1$ and $2$, then
+\[
+\{1\}\not\subseteq\{2\},
+\qquad
+\{2\}\not\subseteq\{1\},
+\]
+so these two sets are not comparable. Divisibility is another partial order:
+on positive integers, define
+\[
+m\leq_d n
+\quad\Longleftrightarrow\quad
+m\text{ divides }n.
+\]
+\end{example}
+
+\begin{definition}[Total order and strict order]
+A \textbf{total order}, or \textbf{linear order}, is a partial order
+\(\leq\) on $X$ such that every two elements are comparable:
+\[
+x\leq y\quad\text{or}\quad y\leq x
+\qquad(x,y\in X).
+\]
+For a total order, define its associated strict order by
+\[
+x<y
+\quad\Longleftrightarrow\quad
+x\leq y\text{ and }x\ne y.
+\]
+We take \(\leq\) as the primitive relation. The usual order on \(\N\) is a
+total order, whereas inclusion on \(\mathcal P(X)\) is generally only a
+partial order.
+\end{definition}
+
+Thus binary relations have two importantly different specializations:
+equivalence relations classify or group elements, whereas partial orders
+compare elements; total orders are the partial orders with no
+incomparability.
+
+\begin{definition}[Function and inverse images]
+A function $f:A\to B$ assigns exactly one $f(a)\in B$ to every $a\in A$.
+Its graph
+\[
+\set{(a,f(a)):a\in A}\subseteq A\times B
+\]
+is therefore a relation for which every $a\in A$ occurs in exactly one
+ordered pair. For $E\subseteq A$ and $F\subseteq B$, set $f(E)=\set{f(x):x\in E}$ and $f^{-1}(F)=\set{x\in A:f(x)\in F}$. It is \textbf{injective} if $f(a)=f(a')$ implies $a=a'$, \textbf{surjective} if $f(A)=B$, and \textbf{bijective} if both.
+\end{definition}
+
+\begin{definition}[Composition and identity functions]
+\label{def:composition}
+Let $f:A\to B$ and $g:B\to C$. Their \textbf{composition} is the function $g\circ f:A\to C$ defined by
+\[
+(g\circ f)(a)=g(f(a))\qquad(a\in A).
+\]
+For every set $A$, the \textbf{identity function} $\operatorname{id}_A:A\to A$ is defined by $\operatorname{id}_A(a)=a$.
+\end{definition}
+
+\begin{proposition}[Basic laws of composition]
+\label{prop:composition-laws}
+Let $f:A\to B$, $g:B\to C$, and $h:C\to D$ be functions.
+\begin{enumerate}
+\item $h\circ(g\circ f)=(h\circ g)\circ f$.
+\item $f\circ\operatorname{id}_A=f$ and $\operatorname{id}_B\circ f=f$.
+\item If $f$ and $g$ are injective, then $g\circ f$ is injective; if $f$ and $g$ are surjective, then $g\circ f$ is surjective. In particular, a composition of bijections is a bijection.
+\item If $f$ and $g$ are bijections, then $(g\circ f)^{-1}=f^{-1}\circ g^{-1}$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+For $a\in A$, both functions in the first assertion have value $h(g(f(a)))$, proving equality. The identity assertions follow from $\operatorname{id}_A(a)=a$ and $\operatorname{id}_B(f(a))=f(a)$. If $(g\circ f)(a)=(g\circ f)(a')$, injectivity of $g$ gives $f(a)=f(a')$, and injectivity of $f$ gives $a=a'$. If $c\in C$, surjectivity of $g$ gives $b\in B$ with $g(b)=c$, and surjectivity of $f$ gives $a\in A$ with $f(a)=b$; then $(g\circ f)(a)=c$. Finally,
+\[
+(f^{-1}\circ g^{-1})\circ(g\circ f)=f^{-1}\circ(g^{-1}\circ g)\circ f
+=f^{-1}\circ\operatorname{id}_B\circ f=\operatorname{id}_A,
+\]
+and the analogous calculation in the other order gives $\operatorname{id}_C$. A two-sided inverse is unique: if $u$ and $v$ are both two-sided inverses of a function $w$, then
+\[
+u=u\circ(w\circ v)=(u\circ w)\circ v=v.
+\]
+This proves the last assertion without using a later result.
+\end{proof}
+
+\begin{theorem}[Inverse function]
+\label{thm:inverse-function}
+If $f:A\to B$ is bijective, there is a unique function $f^{-1}:B\to A$ satisfying $f^{-1}(f(a))=a$ and $f(f^{-1}(b))=b$.
+\end{theorem}
+\begin{proof}
+For each $b\in B$, surjectivity gives an $a$ with $f(a)=b$, and injectivity makes it unique. Define $f^{-1}(b)$ to be that element. The identities and uniqueness follow immediately.
+\end{proof}
+
+\begin{proposition}[Inverse-image rules]
+\label{prop:inverse-image-rules}
+For $f:A\to B$ and $F,G\subseteq B$, one has $f^{-1}(F\cup G)=f^{-1}(F)\cup f^{-1}(G)$, $f^{-1}(F\cap G)=f^{-1}(F)\cap f^{-1}(G)$, and $f^{-1}(B\setminus F)=A\setminus f^{-1}(F)$.
+\end{proposition}
+\begin{proof}
+For example, $x\in f^{-1}(F\cap G)$ if and only if $f(x)\in F$ and $f(x)\in G$, precisely when $x\in f^{-1}(F)\cap f^{-1}(G)$. The other two identities use the same membership calculation.
+\end{proof}
+
+\begin{proposition}[Image and Inverse-Image Rules]
+\label{prop:image-inverse-image-rules}
+Let $f:A\to B$, let $E,H\subseteq A$, and let $F,G\subseteq B$. Then
+\[
+f(E\cup H)=f(E)\cup f(H),
+\qquad
+f(E\cap H)\subseteq f(E)\cap f(H),
+\]
+and equality holds in the second formula when $f$ is injective. Moreover,
+\[
+E\subseteq f^{-1}(f(E)),
+\qquad
+f(f^{-1}(F))\subseteq F,
+\]
+and equality holds in the first inclusion when $f$ is injective and in the second when $f$ is surjective.
+\end{proposition}
+\begin{proof}
+Each assertion follows by unpacking membership. For example, if
+\[
+y\in f(E\cap H),
+\]
+then $y=f(x)$ for some $x\in E\cap H$, so $y$ belongs to both $f(E)$ and $f(H)$. Conversely, if $f$ is injective and
+\[
+y=f(e)=f(h)
+\]
+with $e\in E$ and $h\in H$, then $e=h\in E\cap H$. The remaining statements follow similarly; the equality cases use respectively injectivity to recover a unique preimage and surjectivity to supply one.
+\end{proof}
+
+\section{The Natural Numbers, Integers, and Rational Numbers}
+
+The natural numbers are the starting point for the arithmetic used throughout
+the notes.  A fully set-theoretic construction of \(\N\), for example by
+finite ordinals, belongs to foundations rather than analysis.  We therefore
+take \(\N\) and \(\N_0\) with their usual arithmetic, induction, and
+well-ordering structure as primitive.  The next two quotient constructions
+explain the algebraic chain
+\[
+\N\longrightarrow\Z\longrightarrow\Q
+\]
+before Chapter~\ref{ch:reals} treats the analytic extension
+\[
+\Q\longrightarrow\R.
+\]
+Passing from \(\N_0\) to \(\Z\) permits subtraction, and passing from \(\Z\)
+to \(\Q\) permits division by nonzero elements.
+
+\begin{definition}[The integers]
+On \(\N_0\times\N_0\), define
+\[
+(a,b)\sim_{\Z}(c,d)
+\]
+if and only if
+\[
+a+d=b+c.
+\]
+The set of equivalence classes is denoted by
+\[
+\Z=(\N_0\times\N_0)/\sim_{\Z}.
+\]
+Write \([a,b]_{\Z}\) for the class of \((a,b)\), interpreted as the formal
+difference \(a-b\).  Define
+\[
+[a,b]_{\Z}+[c,d]_{\Z}=[a+c,b+d]_{\Z},
+\]
+\[
+[a,b]_{\Z}[c,d]_{\Z}=[ac+bd,ad+bc]_{\Z},
+\]
+and
+\[
+-[a,b]_{\Z}=[b,a]_{\Z}.
+\]
+Set
+\[
+0_{\Z}=[0,0]_{\Z},
+\qquad
+1_{\Z}=[1,0]_{\Z},
+\]
+and define
+\[
+\iota_{\Z}:\N_0\longrightarrow\Z,
+\qquad
+\iota_{\Z}(n)=[n,0]_{\Z}.
+\]
+Finally, define the order by
+\[
+[a,b]_{\Z}< [c,d]_{\Z}
+\quad\Longleftrightarrow\quad
+a+d<b+c.
+\]
+\end{definition}
+
+\begin{proposition}[Integer arithmetic]
+\label{prop:integer-arithmetic}
+The relation \(\sim_{\Z}\) is an equivalence relation, and the operations and
+order in the preceding definition are independent of representatives.  The
+map \(\iota_{\Z}\) is injective and preserves addition, multiplication, and
+order.  With these operations, \(\Z\) has commutative, associative,
+distributive addition and multiplication, identities \(0_{\Z},1_{\Z}\),
+additive inverses, and no zero divisors.  Its displayed order is total and
+is compatible with addition and multiplication by positive elements.
+\end{proposition}
+\begin{proof}
+Reflexivity and symmetry of \(\sim_{\Z}\) are immediate.  If
+\[
+a+d=b+c,
+\qquad
+c+f=d+e,
+\]
+then
+\[
+a+d+f=b+c+f=b+d+e.
+\]
+Cancellation in \(\N_0\) gives \(a+f=b+e\), proving transitivity.
+
+An operation written with representatives gives an operation on equivalence
+classes only when changing representatives does not change the resulting
+class. This is what \textbf{well defined} means here. For the displayed sum,
+suppose
+\[
+(a,b)\sim_{\Z}(a',b'),
+\qquad
+(c,d)\sim_{\Z}(c',d').
+\]
+Then
+\[
+\begin{aligned}
+(a+c)+(b'+d')
+&=(a+b')+(c+d')\\
+&=(b+a')+(d+c')\\
+&=(b+d)+(a'+c').
+\end{aligned}
+\]
+Thus
+\[
+(a+c,b+d)\sim_{\Z}(a'+c',b'+d'),
+\]
+so addition is well defined. Expanding the products and repeatedly using the
+defining equalities proves the same for the displayed product; this is the
+formal identity
+\[
+(a-b)(c-d)=ac+bd-(ad+bc).
+\]
+The comparison defining the order is likewise unchanged after adding the
+equalities associated with equivalent representatives.  These checks show
+that all formulas descend to classes.
+
+The associative, commutative, and distributive laws now follow from the
+corresponding arithmetic identities in \(\N_0\).  The formulas for
+\(0_{\Z}\), \(1_{\Z}\), and \(-[a,b]_{\Z}\) give the required identities and
+additive inverses.  The order says exactly that a formal difference is
+positive when its first entry exceeds its second; the order laws follow by
+adding inequalities and multiplying positive differences in \(\N_0\).
+Consequently, a product can vanish only when one factor does.  Finally,
+\[
+[m,0]_{\Z}+[n,0]_{\Z}=[m+n,0]_{\Z},
+\]
+\[
+[m,0]_{\Z}[n,0]_{\Z}=[mn,0]_{\Z},
+\]
+and
+\[
+[m,0]_{\Z}< [n,0]_{\Z}
+\quad\Longleftrightarrow\quad
+m<n,
+\]
+which proves the assertions about \(\iota_{\Z}\).
+\end{proof}
+
+\begin{definition}[The rational numbers]
+On
+\[
+\Z\times(\Z\setminus\{0_{\Z}\}),
+\]
+define
+\[
+(a,b)\sim_{\Q}(c,d)
+\]
+if and only if
+\[
+ad=bc.
+\]
+The set of equivalence classes is denoted by
+\[
+\Q=\bigl(\Z\times(\Z\setminus\{0_{\Z}\})\bigr)/\sim_{\Q}.
+\]
+Write \([a,b]_{\Q}\), or simply \(a/b\), for the class of \((a,b)\).
+Define
+\[
+[a,b]_{\Q}+[c,d]_{\Q}=[ad+bc,bd]_{\Q},
+\]
+\[
+[a,b]_{\Q}[c,d]_{\Q}=[ac,bd]_{\Q},
+\]
+and
+\[
+\iota_{\Q}:\Z\longrightarrow\Q,
+\qquad
+\iota_{\Q}(a)=[a,1_{\Z}]_{\Q}.
+\]
+The additive inverse of \([a,b]_{\Q}\) is \([-a,b]_{\Q}\); if \(a\ne0_{\Z}\),
+its multiplicative inverse is \([b,a]_{\Q}\).  Define positivity by
+\[
+[a,b]_{\Q}>0
+\quad\Longleftrightarrow\quad
+ab>0_{\Z}.
+\]
+As in every ordered arithmetic system, define
+\[
+r<s
+\quad\Longleftrightarrow\quad
+s-r>0.
+\]
+\end{definition}
+
+\begin{proposition}[Rational arithmetic]
+\label{prop:rational-arithmetic}
+The relation \(\sim_{\Q}\), the operations, and the positivity relation in
+the preceding definition are well defined.  The map \(\iota_{\Q}\) is an
+injective order-preserving arithmetic embedding.  The resulting system
+\(\Q\) satisfies the ordered-field axioms stated in Chapter~\ref{ch:reals}.
+\end{proposition}
+\begin{proof}
+The only new point needed for the equivalence relation is cancellation of a
+nonzero integer.  If
+\[
+ad=bc,
+\qquad
+cf=de,
+\]
+then
+\[
+adf=bcf=bde.
+\]
+Cancelling the nonzero factor \(d\) gives \(af=be\), proving transitivity.
+Again, well definedness asks whether a formula has the same output class
+after representatives are changed. For addition, suppose
+\[
+ab'=a'b,
+\qquad
+cd'=c'd.
+\]
+Then
+\[
+\begin{aligned}
+(ad+bc)b'd'
+&=ab'dd'+bb'cd'\\
+&=a'bdd'+bb'c'd\\
+&=(a'd'+b'c')bd.
+\end{aligned}
+\]
+Hence
+\[
+(ad+bc,bd)\sim_{\Q}(a'd'+b'c',b'd'),
+\]
+so rational addition is well defined. The same cross-multiplication proves
+representative independence for multiplication.
+
+The displayed formulas for additive and multiplicative inverses verify the
+inverse laws directly.  If
+\[
+[a,b]_{\Q}=[c,d]_{\Q},
+\]
+then multiplying \(ad=bc\) by \(bd\) shows that \(ab\) and \(cd\) have the
+same sign, because nonzero squares are positive in \(\Z\).  Thus positivity
+is well defined.  It is closed under addition and multiplication, and every
+nonzero rational is either positive or has positive negative; these facts
+follow by choosing the signs of numerator and denominator.  Hence the order
+is compatible with the operations.  The remaining field identities descend
+from the integer identities through the displayed fraction formulas.  Finally,
+the definition of \(\iota_{\Q}\) immediately gives injectivity and
+preservation of arithmetic and order.
+\end{proof}
+
+\section{Countability}
+
+\begin{definition}[Countability]
+Sets $A,B$ have the same cardinality if a bijection $A\to B$ exists. A set is \textbf{finite} if it is empty or bijective with $\{1,\ldots,n\}$ for some $n\in\N$; it is \textbf{countably infinite} if it is bijective with $\N$; and \textbf{countable} if finite or countably infinite.
+\end{definition}
+
+\begin{proposition}[Elementary Finite-Set Facts]
+\label{prop:finite-set-facts}
+Every subset of a finite set is finite. If $A$ and $B$ are finite, then
+\[
+A\cup B,\qquad A\times B
+\]
+are finite. If $A$ has $m$ elements and $B$ has $n$ elements, then
+\[
+A\times B
+\]
+has $mn$ elements.
+\end{proposition}
+\begin{proof}
+Transport the question along bijections with initial segments of $\N$. A subset of
+\[
+\{1,\ldots,m\}
+\]
+can be listed in increasing order and therefore has at most $m$ elements. The union is listed by first listing $A$ and then retaining the members of $B$ not already listed. Finally, the ordered pairs
+\[
+(i,j),
+\qquad
+1\leq i\leq m,\quad1\leq j\leq n,
+\]
+are enumerated by
+\[
+(i,j)\longmapsto n(i-1)+j,
+\]
+which is a bijection onto $\{1,\ldots,mn\}$.
+\end{proof}
+
+\begin{theorem}[Diagonal enumeration]
+\label{thm:diagonal-enumeration}
+The set $\N\times\N$ is countable. If, for every $n\in\N$, a listing of a set $A_n$ is given, then
+\[
+\bigcup_{n=1}^{\infty}A_n
+\]
+is countable.
+\end{theorem}
+\begin{proof}
+For $s\geq2$, the $s$th diagonal is the finite list of pairs $(n,k)$ with $n+k=s$, ordered by increasing $n$. Every $(n,k)\in\N\times\N$ belongs to the unique diagonal $n+k$, so concatenating these finite lists gives a listing of $\N\times\N$ without omissions or repetitions.
+
+Now let $a_{n,1},a_{n,2},\ldots$ be the given listing of $A_n$. Replace the pair $(n,k)$ in the preceding diagonal list by $a_{n,k}$. If $x$ belongs to the displayed union, then $x\in A_n$ for some $n$ and hence $x=a_{n,k}$ for some $k$; therefore this new sequence contains $x$. It can contain repetitions, either because a listing repeats an element or because two sets overlap. Read the sequence from left to right and retain an entry exactly when it has not occurred earlier. If infinitely many entries remain, their positions give a bijection from $\N$ onto the union. If only finitely many remain, they give a finite listing. Thus the union is countable.
+\end{proof}
+
+\begin{corollary}
+The rational numbers are countable.
+\end{corollary}
+\begin{proof}
+The explicitly constructed integer classes are listed exactly once by
+\[
+0,1,-1,2,-2,\ldots,
+\]
+so \(\Z\) is countable. Hence \(\Z\times\N\) is countable: compose its
+first-coordinate listing with the diagonal enumeration from
+\cref{thm:diagonal-enumeration}. The map
+\[
+\Z\times\N\longrightarrow\Q,\qquad(p,q)\longmapsto p/q,
+\]
+is surjective because every rational class has a numerator in \(\Z\) and,
+after changing both signs if necessary, a positive denominator in \(\N\).
+Applying this map to a listing of \(\Z\times\N\) gives a listing of \(\Q\);
+retaining the first occurrence of each value makes it a finite listing or a
+bijection with \(\N\).
+\end{proof}
+
+\begin{theorem}[Cantor's diagonal theorem]
+\label{thm:cantor-diagonal}
+The interval $(0,1)$ is uncountable.
+\end{theorem}
+\begin{proof}
+This familiar decimal argument is an informal preview: Chapter~\ref{ch:reals}
+constructs the real numbers, and Chapter~\ref{ch:sequences} later interprets
+decimal notation through limits of finite truncations. It is included here
+to display the diagonal idea before that analytic machinery is available.
+
+Suppose, for contradiction, that $x_1,x_2,\ldots$ listed $(0,1)$. Give each $x_n$ the decimal expansion that does not end in infinitely many $9$s, and let $d_n$ be its $n$th digit. Define $y=0.e_1e_2\ldots$, where $e_n=1$ if $d_n\ne1$, and $e_n=2$ if $d_n=1$. This decimal uses only $1$ and $2$, so it represents a number strictly between $0$ and $1$ and does not have an alternative expansion ending in infinitely many $9$s. Its $n$th digit differs from $d_n$, so $y\ne x_n$ for every $n$. This contradicts the assumed listing.
+\end{proof}
+
+\section{Choice}
+
+\begin{definition}[Axiom of choice]
+The \textbf{axiom of choice} asserts that for every indexed family $(A_i)_{i\in I}$ of nonempty sets, there is a function
+\[
+c:I\to\bigcup_{i\in I}A_i
+\]
+such that $c(i)\in A_i$ for every $i\in I$. Such a function is a \textbf{choice function}.
+\end{definition}
+
+The assertion is invisible for a finite family when one can explicitly name elements. Its content is the right to make infinitely many selections even when no rule distinguishes a preferred member of each set. A useful mental image is an unlabelled collection of nonempty boxes: a choice function selects one item from every box at once, without requiring an algorithm for the selections.
+
+Why should analysis care? Choice packages many local existence statements into a global object. For example, it yields the familiar unrestricted form of the countable-union theorem: for a sequence of nonempty countable sets, it permits one to select a listing for each set, after which the proof of \cref{thm:diagonal-enumeration} applies. It also supports the standard existence of vector-space bases and, in more advanced analysis, the extension principles underlying Hahn--Banach and the existence of ultrafilters. Those later results are not prerequisites for this text.
+
+There is a trade-off. The advantage is powerful general existence theorems and concise structural arguments. The disadvantage is that a choice argument often supplies no explicit object and no procedure for finding one. In some foundational settings, very strong forms of choice also yield counterintuitive decompositions of sets. Accordingly, we distinguish an explicit construction from an existence proof using choice, and state the latter use when it occurs. The standard equivalents of the full axiom are Zorn's lemma and the well-ordering theorem; their proofs are outside the scope of these notes.
+
+For the core development through Chapters~\ref{ch:reals}--\ref{ch:riemann}, the proofs will be arranged to use explicit sequences and finite choices whenever possible. The construction of $\R$ uses a specified rational representative at a time, and the Bolzano--Weierstrass proof in Chapter~\ref{ch:sequences} selects indices recursively from explicitly nonempty sets. If a later chapter invokes a general basis, a nonconstructive global selection, or a result equivalent to choice, the dependence will be identified at that point.
+
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Prove that the set of all finite strings on a fixed finite alphabet is countable.
+\end{exercise}
+
+\begin{exercise}
+Let $f:A\to B$ and let $E\subseteq A$.
+\begin{enumerate}
+\item Prove that
+\[
+f\bigl(f^{-1}(f(E))\bigr)=f(E).
+\]
+\item Prove that
+\[
+E\subseteq f^{-1}(f(E)).
+\]
+\item Prove that
+\[
+f^{-1}(f(E))=E
+\]
+whenever $f$ is injective.
+\item Give an explicit example showing that the equality in the preceding part
+can fail when $f$ is not injective.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Suppose that
+\[
+(a,b)\sim_{\Z}(a',b')
+\qquad\text{and}\qquad
+(c,d)\sim_{\Z}(c',d').
+\]
+Verify directly that
+\[
+(a+c,b+d)\sim_{\Z}(a'+c',b'+d').
+\]
+Thus the addition of integer classes is well defined.
+\end{exercise}
+
+\begin{exercise}
+Prove directly from the equivalence relation defining \(\Q\) that
+\[
+\iota_{\Q}:\Z\longrightarrow\Q,
+\qquad
+a\longmapsto[a,1_{\Z}]_{\Q},
+\]
+is injective and preserves order.
+\end{exercise}
+
+\begin{exercise}
+Use induction to prove
+\[
+1+2+\cdots+n=\frac{n(n+1)}{2}
+\qquad(n\in\N).
+\]
+State clearly the base case and the induction step.
+\end{exercise}
+
+\begin{exercise}
+Give an explicit bijection between
+\[
+\N
+\]
+and the set of even positive integers.
+\end{exercise}

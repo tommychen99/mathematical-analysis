@@ -1,0 +1,62 @@
+\chapter{Motivation and the Transition from Calculus to Analysis}
+\label{ch:motivation}
+
+\section{Why Calculus Needs Foundations}
+
+Calculus describes change and accumulation. Its central calculations often begin with an informal phrase: ``make the increment arbitrarily small,'' ``add infinitely many pieces,'' or ``approach a point.'' These phrases are useful, but they conceal questions that computation alone cannot answer. What does it mean to approach? Why is a limiting value unique? Why may a limiting process be interchanged with addition, differentiation, or integration?
+
+Mathematical analysis supplies precise meanings and proofs. The precision is not a bureaucratic replacement for intuition. It identifies the hypotheses that make a calculation reliable and exposes plausible-looking arguments that fail.
+
+\begin{example}[A number suggested by geometry]
+The diagonal of a square of side length $1$ has a length customarily denoted by $\sqrt{2}$. If this length were a rational number $p/q$ in lowest terms, then $p^2=2q^2$. Thus $p^2$ is even. An odd integer has the form $2k+1$, whose square is $4k(k+1)+1$ and is odd; hence $p$ is even. Write $p=2r$. Then $q^2=2r^2$, so the same argument makes $q$ even. This contradicts that $p/q$ was in lowest terms. Hence no rational number has square $2$.
+\end{example}
+
+The example does not yet construct $\sqrt 2$; rather, it points out why rational numbers are not sufficient for familiar geometry. Chapter~\ref{ch:reals} will construct a number system containing such limits and isolate the property that makes it adequate: completeness.
+
+\section{A First Look at Limits}
+
+Consider the values $1,1/2,1/3,\ldots$. Their terms become as small as we wish. A rigorous definition should express exactly that statement without appealing to a last term, because there is no last positive integer.
+
+\paragraph{Informal preview of convergence.}
+A sequence $(a_n)_{n\in\N}$ of real numbers \textbf{converges to} a real number $L$ when, for every positive tolerance $\eps$, all sufficiently late terms $a_n$ lie within distance $\eps$ of $L$. In symbols, the intended statement is
+\[
+\text{for every }\eps>0\text{ there is }N\in\N\text{ such that }n\geq N\Longrightarrow \abs{a_n-L}<\eps.
+\]
+This is not yet a formal definition: the quantifiers, real numbers, and natural numbers will be developed formally in Chapters~\ref{ch:foundations}--\ref{ch:sequences}.
+
+For instance, $1/n$ converges to $0$: given $\eps>0$, choose a natural number $N>1/\eps$. Then $n\geq N$ implies $0<1/n\leq 1/N<\eps$. The existence of such an $N$ is an Archimedean property, which will be proved from the construction of the real numbers rather than silently assumed.
+
+\section{The Structural Ideas of Analysis}
+
+\begin{description}[style=nextline]
+\item[Limits] A limit records stable behavior at arbitrarily fine scales. The order of the quantifiers matters: a proposed tolerance is given first, and the required stage may depend on it.
+\item[Completeness] A number system is complete when a process that should determine a number does not leave a gap. The least-upper-bound principle and the assertion that Cauchy sequences converge are two important formulations.
+\item[Continuity] A function is continuous at a point when small changes in input force small changes in output. The exact definition uses the same quantifier pattern as a limit.
+\item[Differentiation] The derivative is the best linear approximation to a function at a point. In one variable it is a number; in several variables it is a linear map.
+\item[Integration] Integration formalizes the limiting process of approximating accumulated quantities by finite sums. The existence of an integral, and its relationship to derivatives, are the substance of the Fundamental Theorem of Calculus.
+\end{description}
+
+\section{Warnings That Motivate Hypotheses}
+
+\begin{example}[Pointwise convergence need not preserve continuity]
+For $n\in\N$, define $f_n:[0,1]\to\R$ by $f_n(x)=x^n$. Every $f_n$ is continuous. For $0\leq x<1$, the values $x^n$ tend to $0$, whereas $f_n(1)=1$ for every $n$. Thus the pointwise limiting function is
+\[
+f(x)=\begin{cases}0,&0\leq x<1,\\1,&x=1,\end{cases}
+\]
+which is not continuous at $1$. Chapter~\ref{ch:function-sequences} will prove that \textbf{uniform} convergence supplies the missing hypothesis.
+\end{example}
+
+\begin{example}[A bounded set may lack a rational supremum]
+Let $S=\set{q\in\Q:q>0\text{ and }q^2<2}$. The set is nonempty (for example $1\in S$) and bounded above in $\Q$ (for example $2$ is an upper bound). It has no least rational upper bound. Informally, any such bound would have to be $\sqrt2$, which is not rational. A complete proof, including the needed rational approximations, will be given in Chapter~\ref{ch:reals}.
+\end{example}
+
+\section{Road Map}
+
+Chapter~\ref{ch:foundations} establishes the language of proof. Chapters~\ref{ch:reals}--\ref{ch:sequences} build $\R$ and its sequence theory. Chapters~\ref{ch:continuity}--\ref{ch:riemann} reconstruct one-variable calculus from limits. The second part then enlarges the setting to finite-dimensional spaces, develops multivariable differentiation and integration, and explains the classical integral theorems as cases of the general Stokes theorem.
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Let $(a_n)$ be a sequence of real numbers that converges to both $L$ and $M$. Using the informal definition above, formulate a strategy for proving $L=M$. The complete proof appears after the necessary order facts have been proved.
+\end{exercise}

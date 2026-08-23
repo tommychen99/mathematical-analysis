@@ -1,0 +1,658 @@
+\chapter{Differentiation}
+\label{ch:differentiation}
+
+\section{Derivative and Differentiability}
+
+The derivative formalizes instantaneous rate of change and the slope of the
+best local linear approximation.  Its definition is a function limit, so
+the earlier theory of limits and continuity supplies its logical foundation.
+
+\begin{definition}[Derivative]
+Let $f:D\to\R$ and let $a$ be a limit point of $D\cap\{x:x\ne a\}$. The function is \textbf{differentiable at $a$} if the following limit exists:
+\[
+f'(a)=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}.
+\]
+The number $f'(a)$ is the \textbf{derivative} of $f$ at $a$.
+\end{definition}
+
+\begin{theorem}[Differentiability Implies Continuity]
+\label{thm:differentiability-continuity}
+If $f$ is differentiable at $a$, then it is continuous at $a$.
+\end{theorem}
+\begin{proof}
+For $x\ne a$,
+\[
+f(x)-f(a)=(x-a)\frac{f(x)-f(a)}{x-a}.
+\]
+The first factor tends to zero and the second tends to $f'(a)$, so the product tends to zero by the algebra of limits. Thus $f(x)\to f(a)$.
+\end{proof}
+
+\begin{theorem}[Derivative Rules]
+\label{thm:derivative-rules}
+Let $f,g:D\to\R$ be differentiable at $a$, and let $c\in\R$. Then $f+g$, $cf$, and $fg$ are differentiable at $a$, with
+\[
+(f+g)'(a)=f'(a)+g'(a),\qquad(cf)'(a)=cf'(a),
+\]
+\[
+(fg)'(a)=f'(a)g(a)+f(a)g'(a).
+\]
+If $g(a)\ne0$, then $f/g$ is differentiable at $a$ and
+\[
+\left(\frac fg\right)'(a)=\frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}.
+\]
+\end{theorem}
+\begin{proof}
+Expand each difference quotient. For products, use
+\[
+f(x)g(x)-f(a)g(a)=f(x)\bigl(g(x)-g(a)\bigr)+g(a)\bigl(f(x)-f(a)\bigr).
+\]
+Divide by $x-a$, then use continuity of differentiable functions and the algebra of limits. The quotient formula follows by applying the product formula to $f\cdot(1/g)$ and differentiating the identity $g\cdot(1/g)=1$.
+\end{proof}
+
+\section{Chain Rule and Mean Value Theorems}
+
+Derivative rules explain how local linear approximations combine.  The mean
+value theorems add a global principle: a net change across an interval is
+recorded by a derivative at some interior point.
+
+\begin{theorem}[Chain Rule]
+\label{thm:chain-rule}
+Let $f:D\to\R$ be differentiable at $a$, let $g:E\to\R$ be differentiable at $f(a)$, and suppose $f(x)\in E$ for all $x\in D$ sufficiently near $a$. Then $g\circ f$ is differentiable at $a$, with
+\[
+(g\circ f)'(a)=g'(f(a))f'(a).
+\]
+\end{theorem}
+\begin{proof}
+For $f(x)\ne f(a)$, factor the difference quotient as
+\[
+\frac{g(f(x))-g(f(a))}{f(x)-f(a)}\,\frac{f(x)-f(a)}{x-a}.
+\]
+The first factor tends to $g'(f(a))$ along points where it is defined, and the second tends to $f'(a)$. If $f(x)=f(a)$, define the first factor to be $g'(f(a))$; the product identity still holds because the second factor is zero. The limit algebra now gives the formula.
+\end{proof}
+
+\begin{theorem}[Rolle's Theorem]
+\label{thm:rolle}
+Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. If $f(a)=f(b)$, then some $c\in(a,b)$ satisfies $f'(c)=0$.
+\end{theorem}
+\begin{proof}
+By \cref{thm:extreme-value}, $f$ attains a maximum and a minimum. If both values equal $f(a)$, then $f$ is constant and every interior point works. Otherwise an extremum occurs at an interior point $c$. At an interior maximum, the difference quotient is nonnegative for $x<c$ and nonpositive for $x>c$; since its two-sided limit exists, it is zero. The minimum case is identical with signs reversed.
+\end{proof}
+
+\begin{theorem}[Mean Value Theorem]
+\label{thm:mean-value}
+Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. Then some $c\in(a,b)$ satisfies
+\[
+f'(c)=\frac{f(b)-f(a)}{b-a}.
+\]
+\end{theorem}
+\begin{proof}
+Define
+\[
+h(x)=f(x)-f(a)-\frac{f(b)-f(a)}{b-a}(x-a).
+\]
+Then $h(a)=h(b)=0$. Apply \cref{thm:rolle} to $h$ and compute $h'(c)=0$.
+\end{proof}
+
+\begin{theorem}[Cauchy's Mean Value Theorem]
+\label{thm:cauchy-mvt}
+Let $f,g:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. Then some $c\in(a,b)$ satisfies
+\[
+\bigl(f(b)-f(a)\bigr)g'(c)=\bigl(g(b)-g(a)\bigr)f'(c).
+\]
+\end{theorem}
+\begin{proof}
+Apply \cref{thm:rolle} to
+\[
+h(x)=\bigl(f(b)-f(a)\bigr)g(x)-\bigl(g(b)-g(a)\bigr)f(x).
+\]
+The endpoint values of $h$ agree, and $h'(c)=0$ is exactly the displayed identity.
+\end{proof}
+
+\begin{theorem}[L'H\^opital's Rule: the $0/0$ Form]
+\label{thm:lhopital}
+Let $f,g:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$, and suppose
+\[
+f(a)=g(a)=0.
+\]
+Assume $g'(x)\ne0$ for every $x\in(a,b)$ and that
+\[
+\lim_{x\to a^+}\frac{f'(x)}{g'(x)}=L.
+\]
+Then $g(x)\ne0$ for $x\in(a,b)$ and
+\[
+\lim_{x\to a^+}\frac{f(x)}{g(x)}=L.
+\]
+\end{theorem}
+\begin{proof}
+If $g(x)=0$ for some $x>a$, Rolle's theorem applied to $g$ on $[a,x]$ would give a point where $g'$ vanishes. Thus the quotient is defined. Fix $x\in(a,b)$. Cauchy's theorem on $[a,x]$ gives $c_x\in(a,x)$ such that
+\[
+\frac{f(x)}{g(x)}=\frac{f'(c_x)}{g'(c_x)}.
+\]
+As $x\to a^+$, one has $a<c_x<x$, hence $c_x\to a^+$. The assumed derivative-quotient limit therefore gives the conclusion.
+\end{proof}
+
+\section{Definitions of Elementary Functions}
+
+The familiar elementary functions must be defined before their differentiation
+rules can be proved.  Power series provide definitions that do not appeal to
+geometry, areas, or already-known calculus formulas.  Their continuity,
+identities, and derivatives will be theorems.
+
+\begin{definition}[Exponential and Trigonometric Functions]
+For $x\in\R$, define
+\[
+\exp(x)=\sum_{n=0}^{\infty}\frac{x^n}{n!},
+\qquad
+\sin(x)=\sum_{n=0}^{\infty}\frac{(-1)^n x^{2n+1}}{(2n+1)!},
+\]
+\[
+\cos(x)=\sum_{n=0}^{\infty}\frac{(-1)^n x^{2n}}{(2n)!}.
+\]
+The base-$e$ exponential function is defined by $e^x=\exp(x)$.
+\end{definition}
+
+\section{Differentiating Limits and Power Series}
+
+Differentiating a limit term by term is not automatic.  Uniform control of
+the derivative series, together with one anchored value, supplies exactly
+the hypothesis that prevents differentiation from being an unjustified
+interchange of limits.
+
+\begin{theorem}[Termwise Differentiation]
+\label{thm:termwise-differentiation}
+Let
+\[
+I=[\alpha,\beta]
+\]
+be a compact interval, let $(f_n)$ be differentiable functions on $I$, and let $x_0\in I$. Suppose that
+\[
+\sum_{n=0}^{\infty}f_n(x_0)
+\]
+converges and that
+\[
+\sum_{n=0}^{\infty}f_n'
+\]
+converges uniformly on $I$ to a function $g$. Then
+\[
+f(x)=\sum_{n=0}^{\infty}f_n(x)
+\]
+converges uniformly on $I$, is differentiable on the interior of $I$, and satisfies
+\[
+f'(x)=g(x).
+\]
+\end{theorem}
+\begin{proof}
+Let
+\[
+F_N=\sum_{n=0}^{N}f_n.
+\]
+Uniform Cauchyness of $(F_N')$ and the Mean Value Theorem imply that, for $m,n$ sufficiently large,
+\[
+\abs{(F_m(x)-F_n(x))-(F_m(x_0)-F_n(x_0))}
+\leq\frac{\eps}{1+\beta-\alpha}\abs{x-x_0}<\eps
+\]
+throughout $I$. Since $(F_N(x_0))$ converges, this proves that $(F_N)$ is uniformly Cauchy, hence uniformly convergent, to $f$.
+
+Fix an interior point $x$. Given $\eps>0$, choose $N$ such that
+\[
+\abs{F_m'(u)-F_n'(u)}<\eps
+\]
+for all $m,n\geq N$ and all $u\in I$. The Mean Value Theorem, followed by $m\to\infty$, gives
+\[
+\left\lvert
+\frac{f(x+h)-f(x)}{h}-\frac{F_N(x+h)-F_N(x)}{h}
+\right\rvert\leq\eps
+\]
+whenever $x+h\in I$ and $h\ne0$. Letting $h\to0$ and then using $F_N'(x)\to g(x)$ proves
+\[
+f'(x)=g(x).
+\]
+\end{proof}
+
+\begin{theorem}[Power-Series Differentiation]
+\label{thm:power-series-differentiation}
+Let
+\[
+f(x)=\sum_{n=0}^{\infty}c_n(x-a)^n
+\]
+have radius of convergence $R$. Then, for
+\[
+\abs{x-a}<R,
+\]
+the function $f$ is differentiable and
+\[
+f'(x)=\sum_{n=1}^{\infty}nc_n(x-a)^{n-1}.
+\]
+The derivative series has the same radius of convergence. Repeated termwise differentiation is valid at every point strictly inside the radius.
+\end{theorem}
+\begin{proof}
+Fix numbers $\rho,s,t$ with
+\[
+0<\rho<s<t<R.
+\]
+The numerical series
+\[
+\sum_{n=0}^{\infty}\abs{c_n}t^n
+\]
+converges. Since the sequence
+\[
+n\left(\frac{\rho}{t}\right)^{n-1}
+\]
+is bounded, comparison gives uniform convergence of the derivative series on
+\[
+[a-\rho,a+\rho].
+\]
+The original series converges at $a$, so \cref{thm:termwise-differentiation} gives the formula on that interval. Since every point with distance less than $R$ from $a$ lies in such an interval, the formula holds throughout the open convergence interval. Applying the same argument to the differentiated coefficients proves the final statement and the equality of radii.
+\end{proof}
+
+This theorem is the analytic justification for formal power-series differentiation: the formal derivative represents the derivative of the summed function only after uniform convergence of the derivative series has been verified on smaller closed intervals.
+
+\begin{definition}[Higher Derivatives]
+If $f'$ is differentiable, write
+\[
+f''=(f')'.
+\]
+Inductively, $f^{(n)}$ denotes the $n$th derivative when it exists, with
+\[
+f^{(0)}=f.
+\]
+\end{definition}
+
+\begin{theorem}[Taylor's Theorem with Lagrange Remainder]
+\label{thm:taylor}
+Let $f:[a,b]\to\R$ have $n+1$ continuous derivatives on $[a,b]$, where $n\geq0$. For every $x\in[a,b]$ there is a number $\xi$ between $a$ and $x$ such that
+\[
+f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k
++\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}.
+\]
+\end{theorem}
+\begin{proof}
+The case $x=a$ is immediate. For $x\ne a$, subtract the Taylor polynomial of degree $n$ from $f$ and choose a constant $C$ so that
+\[
+H(t)=f(t)-\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(t-a)^k-C(t-a)^{n+1}
+\]
+satisfies
+\[
+H(a)=H(x)=0.
+\]
+By the definition of the Taylor polynomial,
+\[
+H(a)=H'(a)=\cdots=H^{(n)}(a)=0.
+\]
+Rolle's theorem first gives a zero of $H'$ between $a$ and $x$. Together with $H'(a)=0$, that gives two zeros of $H'$; applying Rolle again gives a zero of $H''$. Continuing in this way is legitimate because each derivative through order $n$ is continuous on the closed interval between $a$ and $x$ and differentiable in its interior. After $n+1$ applications, there is a point $\xi$ between $a$ and $x$ for which
+\[
+H^{(n+1)}(\xi)=0.
+\]
+Solving this identity for $C$ gives
+\[
+C=\frac{f^{(n+1)}(\xi)}{(n+1)!}.
+\]
+The equation $H(x)=0$ is the required formula.
+\end{proof}
+
+\section{The Standard Elementary Functions}
+
+The preceding machinery now turns the power-series definitions into the
+familiar exponential, logarithmic, trigonometric, and inverse trigonometric
+functions.  Their standard properties are consequences, not assumptions.
+
+\begin{theorem}[Convergence and Derivatives of the Power-Series Definitions]
+\label{thm:elementary-series}
+The series defining $\exp$, $\sin$, and $\cos$ have infinite radius of convergence. They satisfy
+\[
+\exp'(x)=\exp(x),
+\qquad
+\sin'(x)=\cos(x),
+\qquad
+\cos'(x)=-\sin(x).
+\]
+\end{theorem}
+\begin{proof}
+For a fixed $t\geq0$, the ratios of consecutive absolute terms in the exponential series are
+\[
+\frac{t}{n+1},
+\]
+which are eventually at most $1/2$. The Ratio Test proves convergence for every $t$, hence infinite radius. The sine and cosine series are dominated termwise by the exponential series at $\abs{x}$ and therefore also have infinite radius. \cref{thm:power-series-differentiation} now gives the three derivative formulas.
+\end{proof}
+
+\begin{theorem}[Addition Formulas and Fundamental Identities]
+\label{thm:elementary-identities}
+For all $x,y\in\R$,
+\[
+\exp(x+y)=\exp(x)\exp(y),
+\]
+\[
+\sin(x+y)=\sin x\cos y+\cos x\sin y,
+\]
+\[
+\cos(x+y)=\cos x\cos y-\sin x\sin y,
+\]
+and
+\[
+\sin^2x+\cos^2x=1.
+\]
+\end{theorem}
+\begin{proof}
+The Cauchy Product Theorem and the binomial theorem give the exponential identity. Fix $y$ and let the difference between the two sides of the proposed sine addition formula be $h(x)$. By \cref{thm:elementary-series},
+\[
+h'(x)
+=\cos(x+y)+\sin x\sin y-\cos x\cos y
+\]
+is the difference between the two sides of the proposed cosine addition formula. Differentiating the latter difference gives the negative of $h$. Thus the sum of the squares of these two differences is constant. At $x=0$, both differences vanish, because
+\[
+\sin0=0,\qquad\cos0=1,
+\]
+as follows from their series. Hence both differences vanish identically. Finally, the derivative of
+\[
+\sin^2x+\cos^2x
+\]
+is zero, and its value at $0$ is $1$; the Mean Value Theorem proves the last identity.
+\end{proof}
+
+\begin{theorem}[Exponential Bijection]
+\label{thm:exponential-bijection}
+The function $\exp$ is a strictly increasing bijection from $\R$ onto
+\[
+(0,\infty).
+\]
+\end{theorem}
+\begin{proof}
+The exponential identity gives
+\[
+\exp(x/2)\exp(-x/2)=\exp(0)=1.
+\]
+Thus $\exp(x/2)\ne0$, and consequently
+\[
+\exp(x)=\exp(x/2)^2>0.
+\]
+Its derivative is positive, so the Mean Value Theorem makes it strictly increasing. Its series gives
+\[
+\exp(n)\geq1+n
+\qquad(n\in\N),
+\]
+so monotonicity implies that $\exp(x)$ tends to infinity as $x\to\infty$. For $t>0$, the addition law gives
+\[
+\exp(-t)=\frac{1}{\exp(t)},
+\]
+and hence $\exp(x)$ tends to $0$ as $x\to-\infty$. If $y>0$, choose real numbers $A<B$ such that
+\[
+\exp(A)<y<\exp(B).
+\]
+Continuity and the Intermediate Value Theorem then give an $x\in(A,B)$ with $\exp(x)=y$. Positivity shows that no other values occur, proving the asserted range.
+\end{proof}
+
+\begin{definition}[Natural Logarithm]
+Define
+\[
+\log:(0,\infty)\to\R,
+\qquad
+\log=(\exp)^{-1}.
+\]
+\end{definition}
+
+\begin{theorem}[Inverse Derivative Theorem]
+\label{thm:log-and-inverses}
+Let $I\subseteq\R$ be an interval, and let $f:I\to\R$ be continuously differentiable and strictly monotone. If
+\[
+f'(x)\ne0
+\qquad(x\in I),
+\]
+then its inverse on $f(I)$ is differentiable, with
+\[
+(f^{-1})'(y)=\frac{1}{f'(f^{-1}(y))}.
+\]
+In particular,
+\[
+\log'(x)=\frac1x
+\qquad(x>0).
+\]
+\end{theorem}
+\begin{proof}
+Continuity and strict monotonicity make $f^{-1}$ continuous on its image. For $y=f(x)$ and $z=f(u)$, the Mean Value Theorem gives a point $c$ between $x$ and $u$ such that
+\[
+\frac{f^{-1}(z)-f^{-1}(y)}{z-y}
+=\frac{u-x}{f(u)-f(x)}
+=\frac1{f'(c)}.
+\]
+As $z\to y$, continuity of the inverse gives $u\to x$, hence $c\to x$; continuity of $f'$ proves the formula. Apply it to $f=\exp$ to obtain
+\[
+\log'(x)=\frac{1}{\exp(\log x)}=\frac1x.
+\]
+\end{proof}
+
+\begin{definition}[Real Powers of Positive Numbers]
+For $x>0$ and $p\in\R$, define
+\[
+x^p=\exp(p\log x).
+\]
+\end{definition}
+
+\begin{theorem}[Derivative of a Real Power]
+\label{thm:real-power-derivative}
+For every $p\in\R$, the function
+\[
+x\longmapsto x^p
+\]
+is differentiable on $(0,\infty)$ and
+\[
+\frac{\dd}{\dd x}x^p=px^{p-1}.
+\]
+\end{theorem}
+\begin{proof}
+The chain rule and \cref{thm:log-and-inverses} give
+\[
+\frac{\dd}{\dd x}\exp(p\log x)
+=\exp(p\log x)\frac{p}{x}
+=px^{p-1}.
+\]
+\end{proof}
+
+\begin{theorem}[Construction of $\pi$ and the Trigonometric Ranges]
+\label{thm:pi-construction}
+There is a least positive zero $c$ of $\cos$. Put
+\[
+\pi=2c.
+\]
+Then
+\[
+\cos c=0,\quad \sin c=1,\quad \cos\pi=-1,\quad\sin\pi=0,
+\]
+and
+\[
+\cos(x+2\pi)=\cos x,\qquad\sin(x+2\pi)=\sin x.
+\]
+Moreover, $\cos x>0$ for $-c<x<c$, and $\sin$ maps $[-c,c]$ continuously and strictly increasingly onto $[-1,1]$.
+\end{theorem}
+\begin{proof}
+Taylor's theorem applied to $\cos$ at $0$ with degree $3$ gives, for some $\xi$ between $0$ and $3$,
+\[
+\cos3=1-\frac{3^2}{2}+\frac{\cos\xi}{4!}3^4.
+\]
+Since the identity in \cref{thm:elementary-identities} gives $\abs{\cos\xi}\leq1$, the right side is at most
+\[
+1-\frac92+\frac{81}{24}<0.
+\]
+Thus $\cos$ has a zero in $(0,3)$ by the Intermediate Value Theorem. Since $\cos0=1$, continuity gives a number
+\[
+\delta>0
+\]
+such that
+\[
+\cos x>0
+\qquad(0\leq x\leq\delta).
+\]
+Consequently the set
+\[
+Z=\set{x\in[\delta,3]:\cos x=0}
+\]
+is nonempty: the zero just obtained cannot lie in $[0,\delta]$. Let
+\[
+c=\inf Z.
+\]
+For every $n\in\N$, the defining property of the infimum gives a point
+\[
+z_n\in Z
+\]
+with
+\[
+c\leq z_n<c+\frac1n.
+\]
+Thus $z_n\to c$, and continuity gives
+\[
+\cos c=\lim_{n\to\infty}\cos z_n=0.
+\]
+Also $c\geq\delta>0$. Every positive zero of cosine is at least $c$: a zero larger than $3$ is certainly so, and a zero in $(0,3]$ belongs to $Z$. Thus $c$ is the least positive zero of cosine.
+
+If $0\leq x<c$ and $\cos x\leq0$, the Intermediate Value Theorem applied on $[0,x]$ would give a zero smaller than $c$. Thus $\cos x>0$ on $[0,c)$. The power-series definitions give that cosine is even and sine is odd. Hence cosine is positive on $(-c,c)$. By the Mean Value Theorem, sine is strictly increasing on $[-c,c]$. The identity
+\[
+\sin^2c+\cos^2c=1
+\]
+and monotonicity give $\sin c=1$. The addition formulas now give
+\[
+\sin(2c)=0,\qquad\cos(2c)=-1,
+\]
+and, after one further doubling,
+\[
+\sin(4c)=0,\qquad\cos(4c)=1.
+\]
+The addition formulas therefore give the stated $2\pi=4c$ periodicity. Finally, oddness and the endpoint values show that the continuous strictly increasing function sine maps $[-c,c]$ onto $[-1,1]$.
+\end{proof}
+
+\begin{definition}[Tangent]
+On
+\[
+\left(-\frac{\pi}{2},\frac{\pi}{2}\right),
+\]
+define
+\[
+\tan x=\frac{\sin x}{\cos x}.
+\]
+\end{definition}
+
+\begin{theorem}[Trigonometric Restrictions]
+\label{thm:trigonometric-restrictions}
+The function
+\[
+\sin:\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\to[-1,1]
+\]
+is continuous, strictly increasing, and onto. The function
+\[
+\cos:[0,\pi]\to[-1,1]
+\]
+is continuous, strictly decreasing, and onto. Tangent is continuous, strictly increasing, and maps
+\[
+\left(-\frac{\pi}{2},\frac{\pi}{2}\right)
+\]
+onto $\R$.
+\end{theorem}
+\begin{proof}
+The sine assertion is part of \cref{thm:pi-construction}. For cosine on $(0,\pi)$, sine is positive: on
+\[
+\left(0,\frac{\pi}{2}\right)
+\]
+this follows from strict increase, and on
+\[
+\left(\frac{\pi}{2},\pi\right)
+\]
+it follows from
+\[
+\sin x=\sin(\pi-x).
+\]
+Hence
+\[
+\cos'=-\sin<0,
+\]
+so the endpoint values and the Intermediate Value Theorem give the cosine assertion.
+
+The preceding theorem gives positivity of cosine on the tangent domain, and hence the quotient rule gives
+\[
+\tan'(x)=\frac1{\cos^2x}>0.
+\]
+Thus tangent is strictly increasing. As $x\to(\pi/2)^-$, continuity gives $\sin x\to1$ and $\cos x\to0^+$. Given $M>0$, choose $x$ sufficiently close to $\pi/2$ that
+\[
+\sin x>\frac12,\qquad0<\cos x<\frac{1}{2M};
+\]
+then $\tan x>M$. Oddness gives the corresponding limit $-\infty$ at $-\pi/2$. The Intermediate Value Theorem proves that tangent is onto $\R$.
+\end{proof}
+
+\begin{definition}[Inverse Trigonometric Functions]
+\label{def:inverse-trigonometric}
+Define
+\[
+\arcsin:[-1,1]\to\left[-\frac{\pi}{2},\frac{\pi}{2}\right],
+\qquad
+\arcsin=(\sin|_{[-\pi/2,\pi/2]})^{-1},
+\]
+\[
+\arccos:[-1,1]\to[0,\pi],
+\qquad
+\arccos=(\cos|_{[0,\pi]})^{-1},
+\]
+and
+\[
+\arctan:\R\to\left(-\frac{\pi}{2},\frac{\pi}{2}\right),
+\qquad
+\arctan=(\tan|_{(-\pi/2,\pi/2)})^{-1}.
+\]
+\end{definition}
+
+\begin{theorem}[Derivatives of the Inverse Trigonometric Functions]
+\label{thm:inverse-trigonometric}
+The derivative formulas are
+\[
+(\arcsin)'(x)=\frac{1}{\sqrt{1-x^2}},
+\qquad
+(\arccos)'(x)=-\frac{1}{\sqrt{1-x^2}}
+\qquad(-1<x<1),
+\]
+and
+\[
+(\arctan)'(x)=\frac{1}{1+x^2}
+\qquad(x\in\R).
+\]
+\end{theorem}
+\begin{proof}
+The inverse-derivative theorem and
+\[
+\cos(\arcsin x)>0,\qquad
+\sin(\arccos x)>0
+\]
+give the first two formulas using $\sin^2+\cos^2=1$. The tangent formula follows from the inverse-derivative theorem and
+\[
+\tan'(x)=1+\tan^2x.
+\]
+\end{proof}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Use the Mean Value Theorem to prove that if
+\[
+\abs{f'(x)}\leq M
+\qquad(x\in(a,b)),
+\]
+where $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then
+\[
+\abs{f(y)-f(x)}\leq M\abs{y-x}
+\qquad(x,y\in[a,b]).
+\]
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:power-series-differentiation} to differentiate
+\[
+\sum_{n=0}^{\infty}(x-1)^n
+\]
+on its interval of convergence. Explain why this is an analytic theorem rather than merely a formal manipulation of symbols.
+\end{exercise}
+
+\begin{exercise}
+Prove from the definitions that
+\[
+\arcsin(-x)=-\arcsin(x)
+\qquad(-1\leq x\leq1).
+\]
+\end{exercise}

@@ -1,0 +1,1045 @@
+\chapter{Differentiation in Finite-Dimensional Spaces}
+\label{ch:multivariable-differentiation}
+
+\section{Differentiability and the Derivative}
+
+In Part~I, differentiability at \(a\) meant
+\[
+f(a+h)=f(a)+f'(a)h+o(\lvert h\rvert).
+\]
+Multiplication by the scalar \(f'(a)\) is already a linear map of the
+increment \(h\).  For a map between higher-dimensional spaces, the correct
+replacement is a linear map \(Df(a)\), and the derivative remains the best
+linear approximation to the change in \(f\).
+
+\begin{definition}[Fr\'echet derivative]
+Let $V,W$ be finite-dimensional normed real vector spaces, let $U\subseteq V$
+be open, and let
+\[
+f:U\longrightarrow W.
+\]
+The function $f$ is \textbf{differentiable at $a\in U$} if there is a linear
+map
+\[
+L:V\longrightarrow W
+\]
+such that
+\[
+\lim_{h\to0}
+\frac{\norm{f(a+h)-f(a)-Lh}_W}{\norm h_V}=0.
+\]
+The map $L$, if it exists, is denoted by
+\[
+Df(a)
+\]
+and is called the \textbf{derivative} of $f$ at $a$.
+\end{definition}
+
+\begin{proposition}[The one-dimensional case]
+\label{prop:frechet-one-dimensional}
+For a function \(f:U\subseteq\R\to\R\), Fr\'echet differentiability at
+\(a\in U\) is equivalent to differentiability in the sense of Chapter~8.
+Under this equivalence,
+\[
+Df(a)h=f'(a)h.
+\]
+\end{proposition}
+\begin{proof}
+Every linear map \(L:\R\to\R\) has the form
+\[
+Lh=ch
+\]
+with \(c=L(1)\).  The Fr\'echet remainder condition is therefore exactly
+\[
+\lim_{h\to0}\frac{f(a+h)-f(a)}{h}=c,
+\]
+after separating the harmless case \(h=0\).  This is the ordinary derivative
+definition, and the asserted formula follows.
+\end{proof}
+
+\begin{remark}
+Equivalently,
+\[
+f(a+h)=f(a)+Df(a)h+r(h),
+\qquad
+\frac{\norm{r(h)}_W}{\norm h_V}\longrightarrow0.
+\]
+By \cref{thm:equivalent-norms}, this definition is independent of the norms
+chosen on finite-dimensional spaces.
+\end{remark}
+
+\begin{proposition}[Uniqueness and continuity]
+\label{prop:frechet-uniqueness-continuity}
+If $f$ is differentiable at $a$, then $Df(a)$ is unique and $f$ is continuous
+at $a$.
+\end{proposition}
+\begin{proof}
+If $L,M$ both have the required remainder property, then, for $h\ne0$,
+\[
+\frac{\norm{(L-M)h}_W}{\norm h_V}
+\leq
+\frac{\norm{f(a+h)-f(a)-Lh}_W}{\norm h_V}
++
+\frac{\norm{f(a+h)-f(a)-Mh}_W}{\norm h_V}.
+\]
+Put
+\[
+h=tv
+\]
+and let $t\to0$ for each fixed nonzero $v$.  This gives
+\[
+(L-M)v=0,
+\]
+so $L=M$.  The remainder formula, together with the continuity of a linear
+map from \cref{prop:linear-continuity}, proves continuity of $f$.
+\end{proof}
+
+\begin{proposition}[Algebra and the chain rule]
+\label{prop:multivariable-derivative-rules}
+Let $f,g:U\to W$ be differentiable at $a$ and let $c\in\R$.  Then
+\[
+D(f+g)(a)=Df(a)+Dg(a),
+\qquad
+D(cf)(a)=cDf(a).
+\]
+For real-valued $f,g$,
+\[
+D(fg)(a)=f(a)Dg(a)+g(a)Df(a).
+\]
+If $g(a)\ne0$, then
+\[
+D\left(\frac fg\right)(a)
+=
+\frac{g(a)Df(a)-f(a)Dg(a)}{g(a)^2}.
+\]
+If $f:U\to W$ is differentiable at $a$ and $g:Z\to X$ is differentiable at
+$f(a)$, with $f(a)\in Z$ and $Z$ open, then
+\[
+D(g\circ f)(a)=Dg(f(a))\circ Df(a).
+\]
+\end{proposition}
+\begin{proof}
+Adding and scaling the remainder formulas proves the first two identities.
+For products, expand
+\[
+f(a+h)g(a+h)-f(a)g(a)
+\]
+by adding and subtracting
+\[
+f(a)g(a+h).
+\]
+The product of the two increments is
+\[
+o(\norm h_V)
+\]
+because differentiability implies continuity.  The quotient formula follows
+by differentiating
+\[
+g\cdot\frac1g=1.
+\]
+
+For the chain rule, write
+\[
+f(a+h)=f(a)+Df(a)h+r(h)
+\]
+and apply the remainder formula for $g$ to
+\[
+k=f(a+h)-f(a).
+\]
+Here
+\[
+\norm k_W=O(\norm h_V),
+\]
+so both the image of $r(h)$ under the bounded linear map $Dg(f(a))$ and the
+remainder for $g$ are
+\[
+o(\norm h_V).
+\]
+The surviving linear part is the asserted composite.
+\end{proof}
+
+\begin{remark}
+The chain rule says that local linear approximations compose:
+\[
+f(a+h)\approx f(a)+Df(a)h
+\]
+and then
+\[
+g(f(a)+k)\approx g(f(a))+Dg(f(a))k.
+\]
+Thus the linear part of \(g\circ f\) is the composite
+\[
+Dg(f(a))Df(a).
+\]
+After coordinates are chosen, composition of linear maps is matrix
+multiplication, which is why that operation appears in the Jacobian formula.
+\end{remark}
+
+\begin{definition}[Directional derivatives and Jacobian]
+Let $U\subseteq\R^n$ be open and let $f:U\to\R^m$.  The \textbf{directional
+derivative} at $a$ in direction $v$ is
+\[
+D_vf(a)=\lim_{t\to0}\frac{f(a+tv)-f(a)}{t},
+\]
+when this limit exists.  The partial derivative with respect to $x_j$ is
+\[
+\frac{\partial f}{\partial x_j}(a)=D_{e_j}f(a).
+\]
+The \textbf{Jacobian matrix} of a differentiable $f$ is the standard matrix
+of $Df(a)$:
+\[
+J_f(a)=
+\begin{pmatrix}
+\frac{\partial f_1}{\partial x_1}(a)&\cdots&
+\frac{\partial f_1}{\partial x_n}(a)\\
+\vdots&\ddots&\vdots\\
+\frac{\partial f_m}{\partial x_1}(a)&\cdots&
+\frac{\partial f_m}{\partial x_n}(a)
+\end{pmatrix}.
+\]
+\end{definition}
+
+\begin{proposition}[Derivative and directional derivatives]
+\label{prop:derivative-directional}
+If $f$ is differentiable at $a$, then
+\[
+D_vf(a)=Df(a)v
+\]
+for every $v\in\R^n$.  In particular, its Jacobian is the matrix displayed
+above.
+\end{proposition}
+\begin{proof}
+Put
+\[
+h=tv
+\]
+in the defining remainder formula and divide by $t$.  The remainder divided
+by $t$ tends to zero.  Taking $v=e_j$ identifies the columns of the matrix.
+\end{proof}
+
+\begin{example}[Partial derivatives need not give differentiability]
+\label{ex:partials-not-differentiable}
+Define
+\[
+f(x,y)=
+\begin{cases}
+\dfrac{xy}{x^2+y^2},&(x,y)\ne(0,0),\\
+0,&(x,y)=(0,0).
+\end{cases}
+\]
+Both partial derivatives at the origin exist and equal zero, since \(f\)
+vanishes on both coordinate axes.  But along the line \(y=x\),
+\[
+f(x,x)=\frac12
+\]
+for \(x\ne0\); hence \(f\) is not even continuous at the origin and cannot
+be differentiable there.  Continuous partial derivatives, as in the next
+theorem, are sufficient because they control all nearby coordinate increments.
+\end{example}
+
+\begin{theorem}[Continuous partial derivatives]
+\label{thm:c1-implies-differentiable}
+Let $U\subseteq\R^n$ be open.  If all partial derivatives of
+\[
+f:U\longrightarrow\R^m
+\]
+exist on a neighborhood of $a$ and are continuous at $a$, then $f$ is
+differentiable at $a$ and its derivative is $J_f(a)$.
+\end{theorem}
+\begin{proof}
+It is enough to consider a real-valued component.  For small $h$, telescope
+the increment from $a$ to $a+h$ along the coordinate polygonal path.  Put
+\[
+p_0=a,
+\qquad
+p_j=a+h_1e_1+\cdots+h_je_j
+\qquad(1\leq j\leq n).
+\]
+For sufficiently small \(h\), every segment from \(p_{j-1}\) to \(p_j\)
+lies in the neighborhood on which the partial derivatives exist.  Applying
+the one-variable Mean Value Theorem to the function that varies only its
+\(j\)th coordinate gives a point
+\[
+a_j=p_{j-1}+t_jh_je_j
+\qquad(0<t_j<1)
+\]
+such that
+\[
+f(a+h)-f(a)
+=
+\sum_{j=1}^{n}
+\frac{\partial f}{\partial x_j}(a_j)h_j.
+\]
+Each \(a_j\) tends to \(a\) with \(h\).  Subtract the same sum with \(a_j\)
+replaced by \(a\).  Given \(\eps>0\), continuity of the partial derivatives
+makes the absolute value of the difference at most
+\[
+\eps\sum_{j=1}^{n}\abs{h_j}
+\leq
+\eps\sqrt n\norm h_2.
+\]
+This is the required remainder estimate.  Apply it componentwise.
+\end{proof}
+
+\begin{definition}[Class $C^1$]
+A differentiable map on an open set is of class
+\[
+C^1
+\]
+when its derivative is continuous as a map into the finite-dimensional space
+of linear maps.
+\end{definition}
+
+\begin{definition}[Operator norm]
+For a linear map $L:V\to W$ between normed spaces, define
+\[
+\norm L_{\mathrm{op}}
+=\sup\set{\norm{Lv}_W:\norm v_V\leq1}.
+\]
+This number is finite in finite dimensions, and
+\[
+\norm{Lv}_W\leq\norm L_{\mathrm{op}}\norm v_V.
+\]
+\end{definition}
+
+
+
+
+
+\section{Higher Derivatives and Local Estimates}
+
+The one-variable Mean Value and Taylor theorems describe a function by its
+successive local derivatives.  The same mechanism works along a line segment
+in \(\R^n\): restrict the function to that segment, apply the Part~I theorem,
+and interpret the resulting coefficients as multilinear maps.
+
+\begin{theorem}[Mean-value estimate]
+\label{thm:multivariable-mvt}
+Let $U\subseteq\R^n$ be open, let $f:U\to\R^m$ be differentiable, and suppose
+the segment from $x$ to $y$ lies in $U$.  If
+\[
+\norm{Df((1-t)x+ty)}_{\mathrm{op}}\leq M
+\qquad(0\leq t\leq1),
+\]
+then
+\[
+\norm{f(y)-f(x)}_2\leq M\norm{y-x}_2.
+\]
+\end{theorem}
+\begin{proof}
+If $f(y)\ne f(x)$, put
+\[
+u=\frac{f(y)-f(x)}{\norm{f(y)-f(x)}_2}
+\]
+and apply the one-variable Mean Value Theorem to
+\[
+t\longmapsto u\cdot f((1-t)x+ty).
+\]
+For some $c\in(0,1)$,
+\[
+\norm{f(y)-f(x)}_2
+=
+u\cdot Df((1-c)x+cy)(y-x).
+\]
+Cauchy--Schwarz and the operator-norm bound prove the assertion.  The zero
+case is immediate.
+\end{proof}
+
+\begin{definition}[Higher derivatives]
+For a differentiable map on an open subset of a finite-dimensional space,
+define inductively
+\[
+D^0f=f,
+\qquad
+D^{k+1}f(a)=D(D^kf)(a),
+\]
+when the right side exists.  Under the standard identification,
+\[
+D^kf(a)
+\]
+is a $k$-linear map.  The map is of class
+\[
+C^k
+\]
+when all derivatives through order $k$ exist and are continuous.
+\end{definition}
+
+\begin{theorem}[Equality of mixed partials]
+\label{thm:schwarz}
+Let $U\subseteq\R^n$ be open and let $f:U\to\R$ have continuous second
+partial derivatives.  Then
+\[
+\frac{\partial^2f}{\partial x_i\partial x_j}(a)
+=
+\frac{\partial^2f}{\partial x_j\partial x_i}(a).
+\]
+\end{theorem}
+\begin{proof}
+For small nonzero $s,t$, form
+\[
+\Delta=
+f(a+se_i+te_j)-f(a+se_i)-f(a+te_j)+f(a).
+\]
+Applying the one-variable Mean Value Theorem first in one coordinate and
+then the other expresses
+\[
+\frac{\Delta}{st}
+\]
+as either mixed partial at a point tending to $a$.  Letting
+\[
+(s,t)\to(0,0)
+\]
+and using continuity gives the result.
+\end{proof}
+
+\begin{theorem}[Taylor's theorem along a segment]
+\label{thm:multivariable-taylor}
+Let $U\subseteq\R^n$ be open, let $f:U\to\R^m$ be of class
+\[
+C^{k+1},
+\]
+and suppose the segment from $a$ to $a+h$ is in $U$.  If $m=1$, there is
+\[
+\theta\in(0,1)
+\]
+such that
+\[
+f(a+h)
+=
+\sum_{j=0}^{k}\frac1{j!}D^jf(a)[h,\ldots,h]
++
+\frac1{(k+1)!}D^{k+1}f(a+\theta h)[h,\ldots,h].
+\]
+For vector-valued $f$, this formula holds componentwise, possibly with a
+different value of $\theta$ for each component.
+\end{theorem}
+\begin{proof}
+For a scalar component define
+\[
+g(t)=f(a+th).
+\]
+Repeated application of the chain rule gives
+\[
+g^{(j)}(t)=D^jf(a+th)[h,\ldots,h].
+\]
+Apply the one-variable Taylor theorem \cref{thm:taylor} to $g$ at zero and
+evaluate at one.  Do this for each component.
+\end{proof}
+
+\begin{corollary}[Second-order test]
+\label{cor:second-order-test}
+Let $f:U\to\R$ be of class
+\[
+C^2
+\]
+and satisfy
+\[
+Df(a)=0.
+\]
+If
+\[
+D^2f(a)[h,h]>0
+\qquad(h\ne0),
+\]
+then $a$ is a strict local minimum.  If the displayed inequality is reversed,
+then $a$ is a strict local maximum.
+\end{corollary}
+\begin{proof}
+On the Euclidean unit sphere, the continuous quadratic form has a positive
+minimum by \cref{thm:heine-borel-rn}.  Hence
+\[
+D^2f(a)[h,h]\geq c\norm h_2^2
+\]
+for some $c>0$.  Taylor's theorem with $k=1$ and continuity of the second
+derivative make
+\[
+f(a+h)-f(a)
+\]
+positive for all sufficiently small nonzero $h$.  Apply this to $-f$ for the
+maximum assertion.
+\end{proof}
+
+
+
+
+
+\section{The Contraction Principle}
+
+\begin{definition}[Contraction]
+A map
+\[
+T:X\longrightarrow X
+\]
+on a metric space is a \textbf{contraction} if
+\[
+d(Tx,Ty)\leq qd(x,y)
+\]
+for all $x,y\in X$ and some
+\[
+0\leq q<1.
+\]
+\end{definition}
+
+\begin{theorem}[Contraction mapping theorem]
+\label{thm:contraction}
+A contraction of a complete metric space has a unique fixed point.  For every
+$x_0$, the sequence
+\[
+x_{n+1}=T(x_n)
+\]
+converges to it.
+\end{theorem}
+\begin{proof}
+The contraction inequality gives
+\[
+d(x_{n+1},x_n)\leq q^nd(x_1,x_0).
+\]
+Thus, for $m>n$,
+\[
+d(x_m,x_n)
+\leq
+\frac{q^n}{1-q}d(x_1,x_0).
+\]
+The sequence is Cauchy and has a limit $x$.  Continuity of $T$ implies
+\[
+T(x)=x.
+\]
+If $x,y$ are fixed, then
+\[
+d(x,y)\leq qd(x,y),
+\]
+so $x=y$.
+\end{proof}
+
+\begin{proposition}[Perturbation of an invertible map]
+\label{prop:perturbation}
+Let $A,B:\R^n\to\R^n$ be linear and let $A$ be invertible.  If
+\[
+\norm{I-A^{-1}B}_{\mathrm{op}}<1,
+\]
+then $B$ is invertible.
+\end{proposition}
+\begin{proof}
+Put
+\[
+T=I-A^{-1}B.
+\]
+The geometric-series argument gives
+\[
+(I-T)^{-1}=\sum_{k=0}^{\infty}T^k,
+\]
+because the series converges in the finite-dimensional matrix space.  Since
+\[
+B=A(I-T),
+\]
+the result follows.
+\end{proof}
+
+
+
+\section{Inverse and Implicit Functions}
+
+In one variable, the hypothesis \(f'(a)\ne0\) says that the linear
+approximation \(h\mapsto f'(a)h\) can be inverted.  For a map
+\[
+\R^n\longrightarrow\R^n,
+\]
+the exact replacement is that \(Df(a)\) is an invertible linear map.  The
+inverse function theorem makes this local linear picture into a genuine
+local inverse.
+
+\begin{theorem}[Inverse Function Theorem]
+\label{thm:multivariable-inverse-function}
+Let $U\subseteq\R^n$ be open and let
+\[
+f:U\longrightarrow\R^n
+\]
+be of class
+\[
+C^1.
+\]
+If
+\[
+Df(a)
+\]
+is invertible, then there are open neighborhoods
+\[
+U_0\subseteq U,
+\qquad
+V_0\subseteq\R^n
+\]
+of $a$ and $f(a)$ such that
+\[
+f:U_0\longrightarrow V_0
+\]
+is bijective.  Its inverse $g$ is of class
+\[
+C^1
+\]
+and
+\[
+Dg(y)=\bigl(Df(g(y))\bigr)^{-1}.
+\]
+\end{theorem}
+\begin{proof}
+Put
+\[
+A=Df(a)^{-1}.
+\]
+Choose \(q\) with
+\[
+0<q<1.
+\]
+Because \(U\) is open and \(Df\) is continuous at \(a\), there is \(r>0\)
+such that the closed ball
+\[
+K=\set{x\in\R^n:\norm{x-a}_2\leq r}
+\]
+is contained in \(U\) and
+\[
+\norm{I-ADf(x)}_{\mathrm{op}}\leq q
+\qquad(x\in K).
+\]
+The set \(K\) is complete because it is closed in the complete space
+\(\R^n\).  Define
+\[
+G(x)=x-Af(x).
+\]
+Since
+\[
+DG(x)=I-ADf(x),
+\]
+the segment between any two points \(x,z\in K\) lies in the convex set
+\(K\), and \cref{thm:multivariable-mvt} gives
+\[
+\norm{G(x)-G(z)}_2
+\leq q\norm{x-z}_2.
+\]
+For \(y\in\R^n\), define
+\[
+T_y(x)=x-A(f(x)-y).
+\]
+Then
+\[
+T_y(x)-T_y(z)=G(x)-G(z),
+\]
+so \(T_y\) is a \(q\)-contraction on \(K\).  Moreover, for \(x\in K\),
+\begin{align*}
+\norm{T_y(x)-a}_2
+&=
+\norm{[x-Af(x)]-[a-Af(a)]+A(y-f(a))}_2\\
+&\leq q\norm{x-a}_2+\norm A_{\mathrm{op}}\norm{y-f(a)}_2.
+\end{align*}
+Set
+\[
+\rho=\frac{(1-q)r}{\norm A_{\mathrm{op}}}.
+\]
+If \(\norm{y-f(a)}_2<\rho\), the last expression is strictly smaller than
+\(r\).  Thus \(T_y(K)\subseteq K\), and
+\cref{thm:contraction} gives a unique fixed point \(g(y)\in K\).  The
+fixed-point equation is equivalent to
+\[
+f(g(y))=y.
+\]
+If \(x,z\in K\) and \(f(x)=f(z)\), then
+\[
+\norm{x-z}_2
+=
+\norm{[x-Af(x)]-[z-Af(z)]}_2
+\leq q\norm{x-z}_2.
+\]
+Since \(q<1\), this forces \(x=z\), so \(f\) is injective on \(K\).
+
+Take
+\[
+V_0=B_2\left(f(a),\frac\rho2\right)
+\]
+and set
+\[
+U_0=B_2(a,r)\cap f^{-1}(V_0).
+\]
+The set \(V_0\) is open, contains \(f(a)\), and its closure lies in the
+range of \(y\)'s for which the contraction argument applies.  Since \(f\)
+is continuous, \(U_0\) is open and contains \(a\).  For every \(y\in V_0\),
+the self-map estimate with \(\norm{y-f(a)}_2<\rho/2\) puts the fixed point
+\(g(y)\) in the open ball \(B_2(a,r)\), so \(g(y)\in U_0\).  Thus
+\(f(U_0)=V_0\), and injectivity on \(K\) shows that
+\[
+f:U_0\longrightarrow V_0
+\]
+is bijective with inverse \(g\).
+
+Subtracting the fixed-point equations
+\[
+g(y)=G(g(y))+Ay,
+\qquad
+g(z)=G(g(z))+Az
+\]
+and using the Lipschitz estimate for \(G\) gives
+\[
+(1-q)\norm{g(y)-g(z)}_2
+\leq
+\norm A_{\mathrm{op}}\norm{y-z}_2,
+\]
+and hence
+\[
+\norm{g(y)-g(z)}_2
+\leq
+\frac{\norm A_{\mathrm{op}}}{1-q}\norm{y-z}_2.
+\]
+In particular, \(g\) is continuous.  For \(x\in K\),
+\[
+\norm{I-Df(a)^{-1}Df(x)}_{\mathrm{op}}
+=
+\norm{I-ADf(x)}_{\mathrm{op}}
+\leq q<1.
+\]
+Thus \cref{prop:perturbation}, with its invertible map equal to \(Df(a)\)
+and its perturbed map equal to \(Df(x)\), shows that every \(Df(x)\) on
+\(K\) is invertible.
+
+Fix \(y\in V_0\), put \(x=g(y)\), and, for \(h\) small enough that
+\(y+h\in V_0\), set
+\[
+\Delta x=g(y+h)-g(y).
+\]
+Differentiability of \(f\) at \(x\) gives
+\[
+h=f(x+\Delta x)-f(x)=Df(x)\Delta x+r(\Delta x),
+\]
+where
+\[
+\frac{\norm{r(\Delta x)}_2}{\norm{\Delta x}_2}\longrightarrow0
+\qquad(\Delta x\to0).
+\]
+The Lipschitz estimate for \(g\) gives
+\[
+\norm{\Delta x}_2
+\leq
+\frac{\norm A_{\mathrm{op}}}{1-q}\norm h_2.
+\]
+Consequently,
+\[
+\frac{\norm{r(\Delta x)}_2}{\norm h_2}
+\leq
+\frac{\norm A_{\mathrm{op}}}{1-q}
+\frac{\norm{r(\Delta x)}_2}{\norm{\Delta x}_2}
+\longrightarrow0,
+\]
+where for \(h\ne0\) one has \(\Delta x\ne0\) because \(g\) is injective.
+Therefore \(r(\Delta x)=o(\norm h_2)\).  Multiplying by \(Df(x)^{-1}\) yields
+\[
+\Delta x=Df(x)^{-1}h+o(\norm h_2),
+\]
+and therefore
+\[
+Dg(y)=Df(g(y))^{-1}.
+\]
+
+It remains to justify continuity of this derivative.  Fix an invertible
+matrix \(C\).  If
+\[
+\norm{C^{-1}(B-C)}_{\mathrm{op}}<\frac12,
+\]
+then the geometric-series proof of \cref{prop:perturbation} gives
+\[
+\norm{B^{-1}}_{\mathrm{op}}\leq2\norm{C^{-1}}_{\mathrm{op}}.
+\]
+Together with
+\[
+B^{-1}-C^{-1}=B^{-1}(C-B)C^{-1},
+\]
+this proves that inversion is continuous at \(C\).  Since \(g\) and \(Df\)
+are continuous and \(Df(g(y))\) is invertible throughout \(V_0\), the
+formula for \(Dg\) is continuous.  Thus \(g\) is of class \(C^1\).
+\end{proof}
+
+\begin{definition}[Diffeomorphisms]
+\label{def:diffeomorphism}
+Let \(U\subseteq\R^n\) and \(V\subseteq\R^m\) be open.  A bijection
+\[
+f:U\longrightarrow V
+\]
+is a \textbf{\(C^r\) diffeomorphism} if both \(f\) and \(f^{-1}\) are of
+class \(C^r\).  When \(r=\infty\), it is a \textbf{smooth
+diffeomorphism}.  Thus the inverse function theorem says, in this language,
+that a \(C^1\) map with invertible derivative at a point is a
+\(C^1\) diffeomorphism after restriction to sufficiently small open
+neighborhoods.
+\end{definition}
+
+\begin{theorem}[Implicit Function Theorem]
+\label{thm:implicit-function}
+Let $U\subseteq\R^n\times\R^m$ be open and let
+\[
+F:U\longrightarrow\R^m
+\]
+be of class
+\[
+C^1.
+\]
+Suppose
+\[
+F(a,b)=0
+\]
+and
+\[
+D_yF(a,b)
+\]
+is invertible.  Then there are open neighborhoods
+\[
+A\subseteq\R^n,
+\qquad
+B\subseteq\R^m
+\]
+of $a$ and $b$, respectively, and a unique $C^1$ map
+\[
+\varphi:A\longrightarrow B
+\]
+such that
+\[
+F(x,\varphi(x))=0.
+\]
+Moreover,
+\[
+D\varphi(x)
+=
+-\bigl(D_yF(x,\varphi(x))\bigr)^{-1}D_xF(x,\varphi(x)).
+\]
+\end{theorem}
+\begin{proof}
+Geometrically, the theorem solves the equation
+\[
+F(x,y)=0
+\]
+near \((a,b)\) for the \(y\)-variables as functions of the \(x\)-variables.
+To convert this into an inverse-function problem, retain \(x\) as an output
+coordinate and define
+\[
+H(x,y)=(x,F(x,y)).
+\]
+Its derivative at $(a,b)$ is
+\[
+DH(a,b)(u,v)
+=
+\bigl(u,D_xF(a,b)u+D_yF(a,b)v\bigr).
+\]
+It is invertible because, given $(p,q)$, its inverse is
+\[
+(p,q)\longmapsto
+\left(p,\bigl(D_yF(a,b)\bigr)^{-1}
+\bigl(q-D_xF(a,b)p\bigr)\right).
+\]
+Continuity of \(D_yF\) and \cref{prop:perturbation} give an open product
+neighborhood \(P\times R\) of \((a,b)\), contained in \(U\), on which every
+\(D_yF(x,y)\) is invertible: shrink the product until
+\[
+\norm{I-D_yF(a,b)^{-1}D_yF(x,y)}_{\mathrm{op}}<1.
+\]
+
+Apply \cref{thm:multivariable-inverse-function} to \(H\).  There are open
+neighborhoods \(W\) of \((a,b)\) and \(Z\) of \((a,0)\) such that
+\[
+H:W\longrightarrow Z
+\]
+is a \(C^1\) diffeomorphism.  Intersect \(W\) with \(P\times R\) and replace
+\(Z\) by the image of this intersection; because \(H:W\to Z\) is a
+homeomorphism, these are still open neighborhoods and the restricted map is
+still a \(C^1\) diffeomorphism.  Thus assume
+\[
+W\subseteq P\times R.
+\]
+Because \(W\) is open, choose open neighborhoods \(A_1\) of \(a\) and
+\(B\) of \(b\) such that
+\[
+A_1\times B\subseteq W.
+\]
+Because \(Z\) is open at \((a,0)\), choose an open neighborhood \(A_2\) of
+\(a\) such that
+\[
+A_2\times\{0\}\subseteq Z.
+\]
+Continuity of \(H^{-1}\) at \((a,0)\) permits \(A_2\) to be shrunk so that
+\[
+H^{-1}(A_2\times\{0\})\subseteq\R^n\times B.
+\]
+Set
+\[
+A=A_1\cap A_2.
+\]
+Then \(A\times B\subseteq W\) and \(A\times\{0\}\subseteq Z\).
+
+For \(x\in A\), define
+\[
+\varphi(x)=\pi_2\bigl(H^{-1}(x,0)\bigr).
+\]
+The preceding inclusion shows that \(\varphi(x)\in B\).  Since \(H^{-1}\),
+the map \(x\mapsto(x,0)\), and the projection \(\pi_2\) are \(C^1\), so is
+\(\varphi\).  If
+\[
+H^{-1}(x,0)=(x',y'),
+\]
+then
+\[
+H(x',y')=(x,0).
+\]
+The first component forces \(x'=x\), and the second gives \(F(x,y')=0\).
+Therefore
+\[
+F(x,\varphi(x))=0.
+\]
+If \(x\in A\), \(y\in B\), and \(F(x,y)=0\), then both \((x,y)\) and
+\((x,\varphi(x))\) lie in \(W\), and
+\[
+H(x,y)=(x,0)=H(x,\varphi(x)).
+\]
+Injectivity of \(H\) on \(W\) gives \(y=\varphi(x)\), proving the stated
+local uniqueness.  Moreover, \(D_yF(x,\varphi(x))\) is invertible for every
+\(x\in A\), because the graph lies in \(W\subseteq P\times R\).
+
+Differentiate
+\[
+F(x,\varphi(x))=0
+\]
+using the chain rule.  As linear maps from \(\R^n\) to \(\R^m\), this gives
+\[
+D_xF(x,\varphi(x))
++
+D_yF(x,\varphi(x))D\varphi(x)=0.
+\]
+Here \(D_xF\) is an \(m\)-by-\(n\) map, \(D_yF\) is an invertible
+\(m\)-by-\(m\) map, and \(D\varphi\) is an \(m\)-by-\(n\) map.
+Multiplication on the left by \(D_yF(x,\varphi(x))^{-1}\) proves
+\[
+D\varphi(x)
+=
+-D_yF(x,\varphi(x))^{-1}D_xF(x,\varphi(x)).
+\]
+\end{proof}
+
+\begin{example}[A local curve]
+Near $(1,0)$, the equation
+\[
+x^2+y^2=1
+\]
+defines $x$ as a $C^1$ function of $y$, since the derivative with respect to
+$x$ is
+\[
+2x\ne0.
+\]
+Its derivative is
+\[
+\frac{\dd x}{\dd y}=-\frac yx.
+\]
+This is a local, rather than a global, parametrization of the circle.
+\end{example}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+For
+\[
+f(x,y)=(x^2y,\sin(x+y)),
+\]
+compute $Df(x,y)$ and $Df(x,y)(u,v)$.
+\end{exercise}
+
+\begin{exercise}
+Give a function from $\R^2$ to $\R$ with both partial derivatives at the
+origin but which is not differentiable there.
+\end{exercise}
+
+\begin{exercise}
+Prove that a linear map between finite-dimensional normed spaces is
+differentiable everywhere and is its own derivative.
+\end{exercise}
+
+\begin{exercise}
+Prove directly from the definition that differentiability at $a$ implies
+continuity at $a$.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:multivariable-mvt} to prove that a $C^1$ map with zero
+derivative on a convex open set is constant.
+\end{exercise}
+
+\begin{exercise}
+Compute the Hessian of
+\[
+x^3+xy^2-3x
+\]
+and classify its critical points.
+\end{exercise}
+
+\begin{exercise}
+Apply Taylor's theorem to find the quadratic approximation of
+\[
+e^x\cos y
+\]
+at the origin.
+\end{exercise}
+
+\begin{exercise}
+Give a function with unequal mixed partial derivatives at the origin and
+explain why \cref{thm:schwarz} does not apply.
+\end{exercise}
+
+\begin{exercise}
+Use the contraction mapping theorem to prove that
+\[
+x=\cos x
+\]
+has a unique solution in
+\[
+[0,1].
+\]
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be a matrix with
+\[
+\norm{I-A}_{\mathrm{op}}<1.
+\]
+Show that
+\[
+x_{k+1}=(I-A)x_k+b
+\]
+converges to the unique solution of
+\[
+Ax=b.
+\]
+\end{exercise}
+
+\begin{exercise}
+Apply the inverse function theorem to
+\[
+f(x,y)=(e^x\cos y,e^x\sin y)
+\]
+at $(0,0)$ and compute the derivative of its local inverse at $(1,0)$.
+\end{exercise}
+
+\begin{exercise}
+Near $(0,1)$, use the implicit function theorem on
+\[
+x^2+y^2+xy=1
+\]
+to solve for $y$ as a $C^1$ function of $x$ and find its derivative at zero.
+\end{exercise}
+
+\begin{exercise}
+Explain why
+\[
+y^2=x^3
+\]
+does not define $y$ as a $C^1$ function of $x$ near the origin.
+\end{exercise}
+
+\section{Perspective and Transition}
+
+Chapter~12 uses differentiability, determinants, and local inverses to study
+transformations of domains.  Chapter~13 reinterprets derivatives as pullbacks
+of alternating multilinear forms.

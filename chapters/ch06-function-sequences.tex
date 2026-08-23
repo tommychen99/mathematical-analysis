@@ -1,0 +1,199 @@
+\chapter{Sequences and Families of Functions}
+\label{ch:function-sequences}
+
+\section{Pointwise and Uniform Convergence}
+
+For functions, convergence has two distinct quantifier patterns.  Pointwise
+convergence lets the stage of approximation depend on the input; uniform
+convergence does not.  This distinction explains exactly when a limit may
+inherit analytic properties from its approximants.
+
+\begin{definition}[Pointwise convergence]
+Let $D\subseteq\R$, and let $f_n:D\to\R$ and $f:D\to\R$. We say that $(f_n)$ \emph{converges pointwise} to $f$ on $D$ if, for every $x\in D$,
+\[
+\lim_{n\to\infty}f_n(x)=f(x).
+\]
+\end{definition}
+
+\begin{definition}[Uniform convergence]
+\label{def:uniform-convergence}
+Under the same hypotheses, $(f_n)$ \emph{converges uniformly} to $f$ on $D$ if, for every $\eps>0$, there is $N\in\N$ such that, for every $n\geq N$ and every $x\in D$,
+\[
+\abs{f_n(x)-f(x)}<\eps.
+\]
+\end{definition}
+
+Uniform convergence implies pointwise convergence, because one may fix $x$ after choosing the common stage $N$. The converse fails: $f_n(x)=x^n$ on $[0,1]$ converges pointwise to the discontinuous function described in Chapter~\ref{ch:motivation}, and hence cannot converge uniformly by \cref{thm:uniform-limit-continuity} below.
+
+\begin{proposition}[Uniform Cauchy criterion]
+\label{prop:uniform-cauchy}
+Let $f_n:D\to\R$. There is a function $f:D\to\R$ to which $f_n$ converges uniformly if and only if, for every $\eps>0$, there is $N$ such that, for all $m,n\geq N$ and all $x\in D$,
+\[
+\abs{f_n(x)-f_m(x)}<\eps.
+\]
+\end{proposition}
+\begin{proof}
+If $f_n\to f$ uniformly, apply the triangle inequality with tolerance $\eps/2$. Conversely, the displayed condition makes $(f_n(x))$ a Cauchy real sequence for each fixed $x$. By \cref{thm:cauchy-criterion}, define $f(x)$ to be its limit. Fix $\eps>0$ and choose $N$ from the displayed condition. For $n\geq N$, take the limit as $m\to\infty$ in the inequality with fixed $n,x$; the order preservation of limits gives $\abs{f_n(x)-f(x)}\leq\eps$. Repeating with $\eps/2$ proves the strict inequality required by \cref{def:uniform-convergence}.
+\end{proof}
+
+\section{Continuous Limits}
+
+The principal benefit of uniform convergence is that one approximation index
+works simultaneously near every point.  The three-term estimate below makes
+this control visible and explains why pointwise convergence is insufficient.
+
+\begin{theorem}[Uniform limit theorem]
+\label{thm:uniform-limit-continuity}
+Let $D\subseteq\R$. If every $f_n:D\to\R$ is continuous at $a\in D$ and $f_n\to f$ uniformly on $D$, then $f$ is continuous at $a$.
+\end{theorem}
+\begin{proof}
+Given $\eps>0$, choose $N$ such that $\abs{f_N(x)-f(x)}<\eps/3$ for every $x\in D$. Continuity of $f_N$ at $a$ supplies $\delta>0$ such that $\abs{x-a}<\delta$ implies $\abs{f_N(x)-f_N(a)}<\eps/3$. For such $x$,
+\[
+\abs{f(x)-f(a)}\leq\abs{f(x)-f_N(x)}+\abs{f_N(x)-f_N(a)}+\abs{f_N(a)-f(a)}<\eps.
+\]
+\end{proof}
+
+\begin{proposition}[Uniform convergence respects algebra]
+\label{prop:uniform-algebra}
+Let $f_n\to f$ and $g_n\to g$ uniformly on $D$. Then $f_n+g_n\to f+g$ uniformly. If both $(f_n)$ and $(g_n)$ are uniformly bounded, then
+\[
+f_ng_n\to fg
+\]
+uniformly on $D$.
+\end{proposition}
+\begin{proof}
+The sum follows from the triangle inequality. Let
+\[
+\abs{f_n(x)}\leq M,
+\qquad
+\abs{g_n(x)}\leq K
+\qquad(n\in\N,\ x\in D).
+\]
+Taking pointwise limits gives
+\[
+\abs{g(x)}\leq K
+\qquad(x\in D).
+\]
+Then
+\[
+\abs{f_n(x)g_n(x)-f(x)g(x)}\leq M\abs{g_n(x)-g(x)}+K\abs{f_n(x)-f(x)}.
+\]
+Choose a common stage making both terms uniformly small.
+\end{proof}
+
+\begin{proposition}[Uniform Limits Preserve Boundedness]
+\label{prop:uniform-boundedness}
+Let $f_n\to f$ uniformly on $D$. If one function $f_N$ is bounded on $D$, then $f$ is bounded on $D$.
+\end{proposition}
+\begin{proof}
+Choose $N$ so that
+\[
+\abs{f(x)-f_N(x)}<1
+\qquad(x\in D).
+\]
+If $\abs{f_N(x)}\leq M$ throughout $D$, then
+\[
+\abs{f(x)}\leq M+1
+\qquad(x\in D).
+\]
+\end{proof}
+
+\begin{example}[Pointwise Limits Need Not Preserve Boundedness]
+On
+\[
+D=(0,1],
+\]
+define
+\[
+f_n(x)=
+\begin{cases}
+n,&0<x\leq1/n,\\
+1/x,&1/n<x\leq1.
+\end{cases}
+\]
+Each $f_n$ is bounded by $n$, while for every $x\in D$,
+\[
+\lim_{n\to\infty}f_n(x)=\frac1x.
+\]
+The pointwise limit is unbounded. Thus the uniform hypothesis in \cref{prop:uniform-boundedness} cannot be weakened to pointwise convergence.
+\end{example}
+
+\begin{example}[Two Limits Need Not Be Interchanged]
+For
+\[
+f_n(x)=x^n
+\qquad(0\leq x<1),
+\]
+one has
+\[
+\lim_{n\to\infty}\left(\lim_{x\to1^-}f_n(x)\right)=1,
+\]
+whereas
+\[
+\lim_{x\to1^-}\left(\lim_{n\to\infty}f_n(x)\right)=0.
+\]
+The convergence in $n$ is pointwise but not uniform near $x=1$. This is the basic obstruction behind unjustified interchanges of limits.
+\end{example}
+
+\section{Equicontinuity}
+
+Uniform convergence controls variation in the sequence index.  Equicontinuity
+instead controls variation in the input uniformly across a family; together
+with compactness it is a central compactness principle for function spaces.
+
+\begin{definition}[Equicontinuity]
+Let $\mathcal F$ be a family of functions $D\to\R$. It is \emph{equicontinuous at $a\in D$} if, for every $\eps>0$, there is $\delta>0$ such that every $f\in\mathcal F$ satisfies
+\[
+\abs{x-a}<\delta\Longrightarrow\abs{f(x)-f(a)}<\eps
+\qquad(x\in D).
+\]
+It is equicontinuous on $D$ if it is equicontinuous at every point of $D$.
+\end{definition}
+
+\begin{proposition}
+If $f_n\to f$ uniformly on $D$ and the family $\set{f_n:n\in\N}$ is equicontinuous at $a$, then $f$ is continuous at $a$.
+\end{proposition}
+\begin{proof}
+Given $\eps>0$, choose $N$ such that $\abs{f_N-f}<\eps/3$ throughout $D$. Equicontinuity supplies $\delta$ for $f_N$ and tolerance $\eps/3$. The three-term estimate in \cref{thm:uniform-limit-continuity} proves continuity of $f$.
+\end{proof}
+
+\paragraph{Later compactness application.}
+Equicontinuity becomes especially powerful together with compactness: it is one of the hypotheses in the Arzel\`a--Ascoli theorem. We do not need that theorem for the one-variable development, so it is deferred to a later compactness chapter.
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+On
+\[
+[0,1],
+\]
+let
+\[
+f_n(x)=x^n.
+\]
+Determine its pointwise limit and prove directly from \cref{def:uniform-convergence} that the convergence is not uniform.
+\end{exercise}
+
+\begin{exercise}
+Let
+\[
+f_n(x)=\frac{x}{n}
+\qquad(x\in\R).
+\]
+Prove that $f_n$ converges pointwise to zero but not uniformly on $\R$.
+\end{exercise}
+
+\begin{exercise}
+Suppose that
+\[
+f_n\to f
+\]
+uniformly on $D$ and that every $f_n$ is bounded by the same number $M$. Prove that
+\[
+\abs{f(x)}\leq M
+\qquad(x\in D).
+\]
+\end{exercise}

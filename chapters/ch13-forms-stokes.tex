@@ -1,0 +1,1262 @@
+\chapter[Differential Forms and Stokes]{Differential Forms, Stokes' Theorem, and Calculus on Manifolds}
+\label{ch:forms-stokes}
+
+\section{Why Manifolds? A Preview}
+
+Many geometric spaces are locally indistinguishable from Euclidean space
+while being globally very different.  A circle \(S^1\) is locally like a line,
+a sphere \(S^2\) is locally like a plane, and a torus \(T^2\) is locally like
+a plane even though none of these spaces is globally \(\R^n\).  A smooth
+\(n\)-manifold is, informally, a space covered by coordinate neighborhoods
+\[
+\varphi:U\longrightarrow V\subseteq\R^n
+\]
+whose changes of coordinates are smooth.  The guiding principle is to do
+calculus locally in Euclidean coordinates and then prove that the resulting
+objects do not depend on the chosen coordinates.
+
+At a point \(p\) of such a space, the tangent directions form an
+\(n\)-dimensional vector space
+\[
+T_pM.
+\]
+Eventually, a differential \(k\)-form at \(p\) will be an alternating
+\(k\)-linear map
+\[
+\omega_p:(T_pM)^k\longrightarrow\R.
+\]
+This explains why the chapter begins with alternating multilinear algebra
+rather than with the formal manifold definition.
+
+Chapters~10--12 supplied precisely the Euclidean ingredients that this
+local-to-global viewpoint needs: topology and finite-dimensional linear
+algebra in Chapter~10, differentiation on open subsets of \(\R^n\) in
+Chapter~11, and integration, Jacobians, and change of variables in
+Chapter~12.  Chapter~13 asks how these operations can be transported
+consistently between coordinate charts.  Pullbacks and differential forms
+are designed to encode that coordinate-change law, so they are the natural
+objects for integration on oriented manifolds.  The rigorous manifold
+definitions appear later in the chapter.
+
+\section{Alternating Multilinear Algebra}
+
+Chapter~11 identified the derivative of a scalar-valued function with a
+linear functional.  Differential forms enlarge that observation: they are
+the multilinear objects that can be integrated over oriented domains.  The
+alternating condition records the fact that an oriented area or volume
+vanishes when two directions coincide.
+
+\begin{definition}[Dual spaces and coordinate covectors]
+Let \(V\) be a finite-dimensional real vector space.  Its \textbf{dual
+space} is the vector space
+\[
+V^*=\set{\ell:V\longrightarrow\R:\ell\text{ is linear}}.
+\]
+Its elements are \textbf{covectors}.  If
+\[
+(e_1,\ldots,e_n)
+\]
+is a basis of \(V\), the \textbf{dual basis}
+\[
+(e^1,\ldots,e^n)
+\]
+is determined by
+\[
+e^i(e_j)=
+\begin{cases}
+1,&i=j,\\
+0,&i\ne j.
+\end{cases}
+\]
+For \(\R^n\) with its standard basis, write
+\[
+\dd x_i=e^i.
+\]
+Thus
+\[
+\dd x_i(v)=v_i
+\]
+for \(v=(v_1,\ldots,v_n)\in\R^n\).  On a target copy of \(\R^m\), the
+analogous coordinate covectors are denoted by
+\[
+\dd y_1,\ldots,\dd y_m.
+\]
+\end{definition}
+
+\begin{definition}[Multilinear and alternating maps]
+Let $V$ be a finite-dimensional real vector space.  A map
+\[
+A:V^k\longrightarrow\R
+\]
+is \textbf{$k$-multilinear} if it is linear in each argument separately.  A
+\(2\)-multilinear map is, equivalently, called a \textbf{bilinear} map.  It is
+\textbf{alternating} if
+\[
+A(v_1,\ldots,v_k)=0
+\]
+whenever two of its arguments are equal.  The vector space of alternating
+$k$-multilinear maps is denoted by
+\[
+\Lambda^k(V^*).
+\]
+Its elements are called \textbf{$k$-covectors}.
+\end{definition}
+
+\begin{proposition}[Alternation]
+\label{prop:alternation}
+If $A$ is alternating, then interchanging two arguments changes its sign:
+\[
+A(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k)
+=
+-A(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k).
+\]
+In particular, an alternating map vanishes on every linearly dependent list.
+\end{proposition}
+\begin{proof}
+Apply alternation to the list with $v_i+v_j$ in both the $i$th and $j$th
+positions and expand by multilinearity.  The two diagonal terms vanish, and
+the remaining two terms give the first assertion.  If a list is linearly
+dependent, express one vector as a linear combination of the others and use
+multilinearity; every resulting term has two equal arguments.
+\end{proof}
+
+\begin{definition}[Wedge product]
+For
+\[
+\alpha\in\Lambda^p(V^*),
+\qquad
+\beta\in\Lambda^q(V^*),
+\]
+their \textbf{wedge product} is the alternating
+\[
+(p+q)\text{-multilinear map}
+\]
+defined by
+\[
+(\alpha\wedge\beta)(v_1,\ldots,v_{p+q})
+=
+\frac{1}{p!q!}
+\sum_{\sigma\in S_{p+q}}
+\operatorname{sgn}(\sigma)
+\alpha(v_{\sigma(1)},\ldots,v_{\sigma(p)})
+\beta(v_{\sigma(p+1)},\ldots,v_{\sigma(p+q)}).
+\]
+The direct sum
+\[
+\Lambda^*(V^*)=\bigoplus_{k=0}^{\dim V}\Lambda^k(V^*)
+\]
+with this product is the \textbf{exterior algebra} of $V^*$.  The finite
+direct-sum construction is the one defined in
+\cref{def:finite-direct-sum}; it records forms of all degrees as tuples, with
+addition and scalar multiplication performed degree by degree.
+
+A form in \(\Lambda^p(V^*)\) is called \textbf{homogeneous of degree
+\(p\)}.  A product of homogeneous forms is \textbf{graded commutative} if
+interchanging forms of degrees \(p\) and \(q\) multiplies the product by
+\[
+(-1)^{pq}.
+\]
+\end{definition}
+
+\begin{proposition}[Exterior-algebra rules]
+\label{prop:wedge-rules}
+The wedge product is bilinear, associative, and graded commutative:
+\[
+\alpha\wedge\beta=(-1)^{pq}\beta\wedge\alpha.
+\]
+If
+\[
+(e^1,\ldots,e^n)
+\]
+is the dual basis of a basis of $V$, then the forms
+\[
+e^{i_1}\wedge\cdots\wedge e^{i_k},
+\qquad
+1\leq i_1<\cdots<i_k\leq n,
+\]
+form a basis of
+\[
+\Lambda^k(V^*).
+\]
+\end{proposition}
+\begin{proof}
+The permutation definition gives bilinearity and graded commutativity by
+reindexing.  Associativity follows by grouping the same signed permutations
+of
+\[
+p+q+r
+\]
+arguments.  Expanding an alternating form on basis vectors shows that its
+values on strictly increasing lists determine it; the displayed forms take
+value one on their own list and zero on the other increasing lists.  Thus
+they are a basis.
+\end{proof}
+
+
+
+\section{Differential Forms, Pullbacks, and Exterior Derivatives}
+\label{sec:forms-pullbacks}
+
+For a smooth function \(f:U\subseteq\R^n\to\R\), Chapter~11 gives
+\[
+Df(x):\R^n\longrightarrow\R.
+\]
+Thus \(Df(x)\) is a \(1\)-covector.  The notation \(df_x=Df(x)\) turns the
+familiar one-variable identity
+\[
+df=f'(x)\,\dd x
+\]
+into a coordinate-free statement that continues to make sense in every
+dimension.  In coordinates it becomes
+\[
+df=\sum_{i=1}^{n}\frac{\partial f}{\partial x_i}\,\dd x_i.
+\]
+This is the direct chain from the Part~I derivative, through the
+Fr\'echet derivative of Chapter~11, to a differential \(1\)-form.
+
+\begin{definition}[Differential forms]
+Let $U\subseteq\R^n$ be open and let
+\[
+0\leq k\leq n.
+\]
+A \textbf{smooth $k$-form} on $U$ is a function
+that assigns to each
+\[
+x\in U
+\]
+an element of
+\[
+\Lambda^k((\R^n)^*)
+\]
+whose coordinate coefficients are smooth.  Thus it has a unique expression
+\[
+\omega=
+\sum_{1\leq i_1<\cdots<i_k\leq n}
+a_{i_1\cdots i_k}(x)
+\dd x_{i_1}\wedge\cdots\wedge\dd x_{i_k}.
+\]
+Here the sum is over the increasing multi-indices
+\[
+I=(i_1,\ldots,i_k),
+\qquad
+1\leq i_1<\cdots<i_k\leq n,
+\]
+and we abbreviate
+\[
+\dd x_I=\dd x_{i_1}\wedge\cdots\wedge\dd x_{i_k}.
+\]
+By convention,
+\[
+\Lambda^0((\R^n)^*)=\R,
+\]
+so a smooth $0$-form is simply a smooth real-valued function.  The integer
+\[
+k
+\]
+is the \textbf{degree} of a $k$-form.
+\end{definition}
+
+\begin{proposition}[Differential of a function]
+\label{prop:differential-of-function}
+For a smooth function \(f:U\to\R\),
+\[
+df=\sum_{i=1}^{n}\frac{\partial f}{\partial x_i}\,\dd x_i.
+\]
+At each \(x\in U\), the form \(df_x\) is the derivative \(Df(x)\).
+\end{proposition}
+\begin{proof}
+Both sides are linear functionals.  Evaluating the displayed sum on the
+standard basis vector \(e_i\) gives
+\[
+\frac{\partial f}{\partial x_i}(x)=Df(x)e_i.
+\]
+The coordinate formula for a linear functional proves equality.
+\end{proof}
+
+\begin{definition}[Pullback]
+Let
+\[
+\Phi:U\longrightarrow V
+\]
+be a smooth map, where
+\[
+U\subseteq\R^n,
+\qquad
+V\subseteq\R^m
+\]
+are open.  For a $k$-form $\omega$ on $V$, its \textbf{pullback} is the
+smooth $k$-form
+\[
+\Phi^*\omega
+\]
+on $U$ defined by
+\[
+(\Phi^*\omega)_x(v_1,\ldots,v_k)
+=
+\omega_{\Phi(x)}(D\Phi(x)v_1,\ldots,D\Phi(x)v_k).
+\]
+Its smoothness follows from the smoothness of the coefficients of \(\omega\)
+and of \(\Phi\).
+\end{definition}
+
+\begin{remark}
+Pullback is the form-theoretic version of substitution.  For the standard
+volume form on \(\R^n\),
+\[
+\Phi^*(\dd y_1\wedge\cdots\wedge\dd y_n)
+=\det D\Phi(x)\,\dd x_1\wedge\cdots\wedge\dd x_n.
+\]
+Thus the determinant in Chapter~12 is exactly the coefficient produced by
+pulling a volume form back to the parameter domain.
+\end{remark}
+
+\begin{proposition}[Pullback rules]
+\label{prop:pullback-rules}
+For smooth maps
+\[
+U\xrightarrow{\Phi}V\xrightarrow{\Psi}W,
+\]
+and forms of compatible degree,
+\[
+(\Psi\circ\Phi)^*=\Phi^*\circ\Psi^*,
+\qquad
+\Phi^*(\alpha\wedge\beta)
+=\Phi^*\alpha\wedge\Phi^*\beta.
+\]
+\end{proposition}
+\begin{proof}
+The chain rule from \cref{prop:multivariable-derivative-rules} gives
+\[
+D(\Psi\circ\Phi)(x)=D\Psi(\Phi(x))D\Phi(x).
+\]
+Substitution into the definition proves the first identity.  Substitution
+into the alternating sum defining the wedge product proves the second.
+\end{proof}
+
+\begin{definition}[Exterior derivative]
+For a smooth $k$-form
+\[
+\omega=
+\sum_Ia_I\,\dd x_I
+\]
+on an open subset of $\R^n$, define its \textbf{exterior derivative} by
+\[
+\dd\omega
+=
+\sum_I\sum_{j=1}^{n}
+\frac{\partial a_I}{\partial x_j}
+\dd x_j\wedge\dd x_I.
+\]
+\end{definition}
+
+\begin{remark}
+The exterior derivative raises degree by one:
+\[
+\text{functions}\longrightarrow1\text{-forms}\longrightarrow2\text{-forms}
+\longrightarrow\cdots.
+\]
+It generalizes ordinary differentiation while retaining the product rule.
+The identities \(d^2=0\) and pullback-commutation below are the two algebraic
+facts that allow a local integral identity to pass through coordinates and
+then to global manifolds.
+\end{remark}
+
+\begin{theorem}[Fundamental exterior-derivative rules]
+\label{thm:exterior-derivative-rules}
+For smooth forms $\alpha,\beta$,
+\[
+\dd(\alpha\wedge\beta)
+=
+\dd\alpha\wedge\beta+(-1)^{\deg\alpha}\alpha\wedge\dd\beta,
+\]
+\[
+\dd(\dd\alpha)=0,
+\qquad
+\Phi^*(\dd\omega)=\dd(\Phi^*\omega).
+\]
+\end{theorem}
+\begin{proof}
+The first identity follows from the product rule for the coefficient
+functions. Write
+\[
+\alpha=\sum_I a_I\,\dd x_I.
+\]
+Applying the definition twice gives the double sum
+\[
+\dd(\dd\alpha)
+=
+\sum_I\sum_{j,k}
+\frac{\partial^2a_I}{\partial x_k\partial x_j}\,
+\dd x_k\wedge\dd x_j\wedge\dd x_I.
+\]
+If a differential is repeated, the corresponding term vanishes because
+\[
+\dd x_j\wedge\dd x_j=0.
+\]
+For distinct indices, the terms indexed by \((j,k)\) and \((k,j)\) pair:
+their coefficients agree by \cref{thm:schwarz}, while
+\[
+\dd x_k\wedge\dd x_j=-\dd x_j\wedge\dd x_k.
+\]
+They therefore cancel, proving \(\dd^2=0\).
+
+For a smooth function \(f\), the multivariable chain rule gives
+\[
+\Phi^*(\dd f)=\dd(f\circ\Phi).
+\]
+In particular, pullback commutes with \(\dd\) on coordinate functions.
+Linearity and compatibility of pullback with wedge products then extend this
+identity to arbitrary forms, proving the final assertion.
+\end{proof}
+
+\begin{example}
+In $\R^3$, write
+\[
+\omega=P\,\dd x+Q\,\dd y+R\,\dd z.
+\]
+Then
+\[
+\dd\omega
+=
+\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)
+\dd x\wedge\dd y
++
+\left(\frac{\partial R}{\partial x}-\frac{\partial P}{\partial z}\right)
+\dd x\wedge\dd z
++
+\left(\frac{\partial R}{\partial y}-\frac{\partial Q}{\partial z}\right)
+\dd y\wedge\dd z.
+\]
+The three coefficients encode the usual curl.
+\end{example}
+
+
+
+\section{Integration and the Local Stokes Theorem}
+
+Before the higher-dimensional statement, recall its one-dimensional model.
+For a smooth function on an oriented interval,
+\[
+\int_{[a,b]}df=f(b)-f(a)=\int_{\partial[a,b]}f.
+\]
+The local theorem is the same assertion on a rectangle: its proof applies
+the Part~I Fundamental Theorem of Calculus one coordinate at a time.
+
+\begin{definition}[Integration of top-degree forms]
+Let $Q\subseteq\R^n$ be a rectangle with the standard orientation.  For a
+continuous $n$-form
+\[
+\omega=f\,\dd x_1\wedge\cdots\wedge\dd x_n,
+\]
+define
+\[
+\int_Q\omega=\int_Qf(x)\,\dd x.
+\]
+Reversing the orientation changes the sign of the integral.
+\end{definition}
+
+\paragraph{Integration over an open set.}
+Let \(V\subseteq\R^n\) be open, and let
+\[
+\omega=f\,\dd x_1\wedge\cdots\wedge\dd x_n
+\]
+be a continuous top-degree form whose support
+\[
+K=\overline{\set{x\in V:f(x)\ne0}}
+\]
+is compact and contained in \(V\).  Extend \(f\) by zero outside \(V\).
+The resulting function \(\widetilde f\) is continuous: compactness of \(K\)
+provides a neighborhood of \(\R^n\setminus V\) disjoint from \(K\), on
+which both definitions give zero.  Choose any rectangle \(Q\) whose interior
+contains \(K\), and define
+\[
+\int_V\omega=\int_Q\widetilde f(x)\,\dd x.
+\]
+This is independent of \(Q\).  Indeed, after enlarging two such rectangles
+to a common containing rectangle, finite additivity of the Riemann integral
+and the vanishing of \(\widetilde f\) off \(K\) show that both integrals
+equal the integral over the larger rectangle.  If \(\omega\) is smooth, its
+zero extension is smooth near the complement of \(V\) for the same reason.
+
+\begin{definition}[Boundary orientation]
+The boundary of the standard rectangle is oriented by the
+\textbf{outward-normal-first rule}: a basis of a boundary face is positive
+when adjoining an outward normal before it gives the orientation of the
+rectangle.  The integral over the boundary is the signed sum over its faces.
+\end{definition}
+
+\begin{theorem}[Stokes theorem on a rectangle]
+\label{thm:local-stokes}
+Let $Q\subseteq\R^n$ be a rectangle and let $\omega$ be a smooth
+\[
+(n-1)\text{-form}
+\]
+on an open neighborhood of $Q$.  Then
+\[
+\int_Q\dd\omega=\int_{\partial Q}\omega.
+\]
+\end{theorem}
+\begin{proof}
+Write
+\[
+\omega=
+\sum_{j=1}^{n}(-1)^{j-1}f_j\,
+\dd x_1\wedge\cdots\wedge\widehat{\dd x_j}\wedge\cdots\wedge\dd x_n.
+\]
+Only
+\[
+\frac{\partial f_j}{\partial x_j}
+\]
+contributes to the coefficient of
+\[
+\dd x_1\wedge\cdots\wedge\dd x_n
+\]
+in $\dd\omega$.  Apply the one-variable Fundamental Theorem of Calculus in
+the $x_j$ variable and then \cref{thm:riemann-fubini} to integrate the
+remaining variables.  The two endpoint terms are exactly the integrals over
+the opposite oriented faces.  Summing over $j$ proves the formula.
+\end{proof}
+
+\begin{definition}[Parametrized integration]
+Let $D\subseteq\R^n$ be a compact rectangle and let
+\[
+\Phi:D\longrightarrow\R^m
+\]
+be a smooth injective parametrization with injective derivative on the
+interior.  For a continuous $n$-form $\omega$ on a neighborhood of
+\[
+\Phi(D),
+\]
+define
+\[
+\int_{\Phi(D)}\omega=\int_D\Phi^*\omega,
+\]
+where the image carries the orientation induced by $\Phi$.
+\end{definition}
+
+\begin{proposition}[Change of parametrization]
+\label{prop:change-parametrization}
+Let \(D,D'\subseteq\R^n\) be compact rectangles, and suppose that
+\(\Psi:D'\to D\) is the restriction of a smooth diffeomorphism between open
+neighborhoods of these rectangles, with \(\Psi(D')=D\).  Replacing \(\Phi\)
+by \(\Phi\circ\Psi\) leaves the integral unchanged when
+\(\det D\Psi>0\) on \(D'\), and changes its sign when
+\(\det D\Psi<0\) on \(D'\).
+\end{proposition}
+\begin{proof}
+Pullback functoriality gives
+\[
+(\Phi\circ\Psi)^*\omega=\Psi^*(\Phi^*\omega).
+\]
+Write \(\Phi^*\omega=g(x)\,\dd x_1\wedge\cdots\wedge\dd x_n\).  Then
+\[
+\Psi^*(\Phi^*\omega)
+=g(\Psi(u))\det D\Psi(u)\,
+\dd u_1\wedge\cdots\wedge\dd u_n.
+\]
+Because \(D'\) is connected and the determinant is continuous and nowhere
+zero, its sign is constant.  The scalar change-of-variables theorem
+\cref{thm:change-of-variables} therefore gives
+\[
+\int_{D'}g(\Psi(u))\det D\Psi(u)\,\dd u
+=
+\begin{cases}
+\displaystyle\int_Dg(x)\,\dd x,&\det D\Psi>0,\\[4pt]
+\displaystyle-\int_Dg(x)\,\dd x,&\det D\Psi<0.
+\end{cases}
+\]
+These are precisely the asserted orientation-preserving and
+orientation-reversing cases.
+\end{proof}
+
+
+
+\section{Manifolds and the Global Stokes Theorem}
+
+\paragraph{Topology terminology.}
+The following modest amount of general-topology language will be used only to
+state the refinement theorem below.  A topological space is \textbf{second
+countable} if there is a countable collection of open sets such that every
+open set is a union of members of that collection.  A family
+\[
+\set{U_\alpha:\alpha\in I}
+\]
+is \textbf{locally finite} if every point has a neighborhood meeting only
+finitely many of its members.  A cover
+\[
+\set{V_j:j\in J}
+\]
+\textbf{refines} a cover \(\set{U_\alpha:\alpha\in I}\) if every $V_j$ is
+contained in some $U_\alpha$.  A subset $E$ is \textbf{precompact} if its
+closure is compact.  Finally, a topological space is \textbf{paracompact} if
+every open cover admits a locally finite open refinement.  These definitions
+use the notions of closure and compactness from Chapter~10.
+
+\paragraph{Supports.}
+If $f$ is a function on a topological space $X$, its \textbf{support} is
+\[
+\operatorname{supp}(f)=\overline{\set{x\in X:f(x)\ne0}}.
+\]
+A function has \textbf{compact support} when this closed set is compact.
+This definition makes precise the condition that a function vanish outside a
+compact region.
+
+\begin{definition}[Topological and smooth manifolds]
+Let \(M\) be a topological space.  A \textbf{coordinate chart of dimension
+\(n\)} on \(M\) is a pair \((U,\varphi)\) in which \(U\subseteq M\) is
+open and
+\[
+\varphi:U\longrightarrow V\subseteq\R^n,
+\]
+is a homeomorphism onto an open subset \(V\) of \(\R^n\).  (The displayed
+indexed notation will be used for a family of charts.)  An \textbf{atlas} is
+a family of coordinate charts
+\[
+\set{(U_\alpha,\varphi_\alpha):\alpha\in I}
+\]
+whose domains cover \(M\).  Thus coordinate charts provide the local
+Euclidean coordinates, and an atlas makes them available at every point.
+Recall the notion of homeomorphism from \cref{def:homeomorphism}.
+
+Two charts \((U_\alpha,\varphi_\alpha)\) and
+\((U_\beta,\varphi_\beta)\) are \textbf{smoothly compatible} if each
+transition map
+\[
+\varphi_\beta\circ\varphi_\alpha^{-1}
+\]
+on its open domain is a \(C^\infty\) diffeomorphism.  An atlas whose charts
+are pairwise smoothly compatible is a \textbf{smooth atlas}.  Recall the
+notion of diffeomorphism from \cref{def:diffeomorphism}.  A maximal smooth
+atlas is a \textbf{smooth structure}.  A \textbf{topological
+\(n\)-manifold} is a Hausdorff, second-countable topological space equipped
+with an atlas of dimension \(n\).  A topological \(n\)-manifold with a
+smooth structure is a \textbf{smooth \(n\)-manifold}.
+
+A \textbf{smooth manifold with boundary} is defined in the same way with
+charts into relatively open subsets of
+\[
+\mathbb H^n=\set{(x_1,\ldots,x_n):x_n\geq0}.
+\]
+The transition maps are required to be smooth diffeomorphisms in the
+half-space sense (equivalently, locally extend smoothly across the boundary).
+The boundary \(\partial M\) consists of points represented by \(x_n=0\).
+\end{definition}
+
+Hausdorffness gives the expected separation and uniqueness behavior for
+points, while second countability excludes excessively large pathological
+spaces and is one ingredient behind the refinement and partition-of-unity
+theory used later. Every smooth atlas determines a unique maximal smooth
+atlas: adjoin every chart smoothly compatible with it. Thus maximality adds
+all allowable coordinate systems without changing the underlying geometry.
+
+\begin{definition}[Smooth maps and tangent vectors]
+A map \(F:M\to N\) between smooth manifolds is \textbf{smooth} if every
+coordinate representative
+\[
+\psi\circ F\circ\varphi^{-1}
+\]
+is smooth wherever it is defined.  A tangent vector at \(p\in M\) may be
+represented by the velocity at zero of a smooth curve through \(p\); two
+curves are equivalent when their coordinate velocities agree in one chart.
+The resulting vector space is denoted by \(T_pM\).
+A chart identifies \(T_pM\) with \(\R^n\), and a smooth map induces the
+linear map
+\[
+dF_p:T_pM\longrightarrow T_{F(p)}N.
+\]
+\end{definition}
+
+This equivalence is independent of the chart. Indeed, if \(\varphi\) and
+\(\psi\) are charts at \(p\), the chain rule gives
+\[
+\frac{\dd}{\dd t}\bigl(\psi\circ\gamma\bigr)(0)
+=
+D(\psi\circ\varphi^{-1})(\varphi(p))
+\frac{\dd}{\dd t}\bigl(\varphi\circ\gamma\bigr)(0).
+\]
+Thus equal \(\varphi\)-coordinate velocities give equal
+\(\psi\)-coordinate velocities; applying the same argument to the inverse
+transition map gives the converse.
+
+\begin{definition}[Forms and orientation on a manifold]
+A smooth $k$-form on $M$ is a collection of smooth coordinate $k$-forms that
+agree on overlaps under pullback by transition maps.  An atlas whose
+transition maps have positive Jacobian determinant is an \textbf{oriented
+atlas}.  An \textbf{orientation} is an equivalence class of oriented atlases.
+On an oriented manifold with boundary, the boundary orientation is again the
+outward-normal-first orientation.
+
+Two oriented atlases determine the same orientation if their union is an
+oriented atlas; equivalently, every transition map from a chart in one atlas
+to a chart in the other has positive Jacobian determinant wherever it is
+defined.  This is the manifold version of the orientation of a
+finite-dimensional vector space from Chapter~10: it chooses the positive
+class of local coordinate bases consistently from chart to chart.
+\end{definition}
+
+\paragraph{Support of a differential form.}
+For a differential form $\omega$ on $M$, define
+\[
+\operatorname{supp}(\omega)
+=
+\overline{\set{p\in M:\omega_p\ne0}}.
+\]
+The form has \textbf{compact support} when this closed set is compact.
+
+\begin{theorem}[External refinement theorem (used without proof)]
+\label{thm:manifold-refinement-external}
+Every second-countable Hausdorff smooth manifold, possibly with boundary, is
+paracompact. In
+particular, every open cover has a countable locally finite refinement by
+precompact coordinate neighborhoods; after shrinking, it may be arranged
+that
+\[
+\overline{V_j}\subseteq W_j\subseteq U_{\alpha(j)}
+\]
+for coordinate neighborhoods \(W_j\) and members \(U_{\alpha(j)}\) of the
+original cover.
+\end{theorem}
+
+We use this standard topological refinement theorem without proof; see, for
+example, \cite[Chapters~2 and~10]{lee-smooth}. Its proof belongs to general
+topology rather than to the Euclidean calculus developed here. The smooth
+bump-function construction and normalization required for partitions of unity
+are proved below.
+
+\begin{theorem}[Partition of unity]
+\label{thm:partition-unity}
+Let $M$ be a smooth manifold, possibly with boundary, and let
+\[
+\set{U_\alpha:\alpha\in I}
+\]
+be an open cover.  There are smooth functions
+\[
+\rho_\alpha:M\to[0,1]
+\]
+such that the family is locally finite,
+\[
+\operatorname{supp}(\rho_\alpha)\subseteq U_\alpha,
+\]
+and
+\[
+\sum_{\alpha\in I}\rho_\alpha=1.
+\]
+In this situation, the partition of unity is said to be \textbf{subordinate}
+to the cover: its support condition says precisely that each
+\[
+\operatorname{supp}(\rho_\alpha)
+\]
+lies in the corresponding $U_\alpha$.
+\end{theorem}
+\begin{proof}
+Apply the external refinement theorem
+\cref{thm:manifold-refinement-external} to obtain
+\[
+\overline{V_j}\subseteq W_j\subseteq U_{\alpha(j)}.
+\]
+
+For a manifold with boundary, use boundary charts in this construction; the
+smooth-extension convention in the definition of a manifold with boundary
+makes the same Euclidean bump-function construction applicable.
+
+For each \(j\), choose a Euclidean chart on \(W_j\).  The function
+\[
+\theta(t)=
+\begin{cases}
+0,&t\leq0,\\
+\exp(-1/t),&t>0
+\end{cases}
+\]
+is smooth.  Since the compact set \(\varphi_j(\overline{V_j})\) lies in the
+open set \(\varphi_j(W_j)\), finitely many Euclidean balls have closures in
+that open set and cover it.  Products of the corresponding translated and
+rescaled functions \(\theta(1-\lVert x-c\rVert_2^2/r^2)\), combined by
+\[
+1-\prod(1-\theta),
+\]
+give a smooth function \(\chi_j\) which is positive on
+\(\overline{V_j}\), nonnegative, and supported in \(W_j\).  Transport
+\(\chi_j\) through the chart and extend it by zero; the support condition
+makes this extension smooth.
+
+The locally finite sum
+\[
+\chi=\sum_{j=1}^{\infty}\chi_j
+\]
+is smooth and positive, because the \(V_j\) cover \(M\).  Set
+\[
+\rho_j=\frac{\chi_j}{\chi}.
+\]
+The denominator is positive, and local finiteness makes both \(\chi\) and
+each quotient smooth.  The family \((\rho_j)\) is locally finite, has
+support in \(U_{\alpha(j)}\), and sums to one.  For each original index
+\(\alpha\), define
+\[
+\rho_\alpha=\sum_{\{j:\alpha(j)=\alpha\}}\rho_j.
+\]
+These sums are locally finite, so the \(\rho_\alpha\) are smooth, subordinate
+to \(U_\alpha\), and have sum one.
+\end{proof}
+
+\begin{definition}[Integration on an oriented manifold]
+Let $M$ be an oriented $n$-manifold and let $\omega$ be a smooth $n$-form
+with compact support.  Choose a partition of unity subordinate to oriented
+coordinate charts and define
+\[
+\int_M\omega
+=
+\sum_\alpha\int_{\varphi_\alpha(U_\alpha)}
+(\varphi_\alpha^{-1})^*(\rho_\alpha\omega).
+\]
+Each summand is the compactly supported Euclidean open-set integral defined
+above.
+\end{definition}
+
+\begin{proposition}[Well-definedness]
+\label{prop:manifold-integral-well-defined}
+The preceding integral is independent of the oriented charts and subordinate
+partition of unity.
+\end{proposition}
+\begin{proof}
+Let $(\rho_\alpha)$ and $(\sigma_\beta)$ be two subordinate partitions of
+unity, with their respective oriented charts. On the compact support of
+\(\omega\), local finiteness implies that only finitely many \(\rho_\alpha\),
+only finitely many \(\sigma_\beta\), and hence only finitely many products
+\(\rho_\alpha\sigma_\beta\) contribute. There one has
+\[
+\rho_\alpha\omega
+=
+\sum_\beta\rho_\alpha\sigma_\beta\omega,
+\qquad
+\sigma_\beta\omega
+=
+\sum_\alpha\rho_\alpha\sigma_\beta\omega.
+\]
+Each product is supported in an overlap of the corresponding chart domains.
+On that overlap, \cref{prop:change-parametrization} identifies its two
+oriented coordinate integrals. Linearity and the finite double sum then show
+that both definitions equal the same sum of the integrals of
+\(\rho_\alpha\sigma_\beta\omega\), proving independence.
+\end{proof}
+
+\begin{theorem}[General Stokes theorem]
+\label{thm:general-stokes}
+Let $M$ be an oriented smooth $n$-manifold with boundary, and let $\omega$ be
+a smooth
+\[
+(n-1)\text{-form}
+\]
+with compact support.  Then
+\[
+\int_M\dd\omega=\int_{\partial M}\omega.
+\]
+\end{theorem}
+\begin{proof}
+Choose a partition of unity subordinate to oriented manifold-with-boundary
+charts that carry $M$ locally into \(\mathbb H^n\) and carry
+\(\partial M\) into \(\set{x_n=0}\).  Compactness of
+\(\operatorname{supp}(\omega)\) and local finiteness
+show that only finitely many forms
+\[
+\rho_\alpha\omega
+\]
+are nonzero.  By the product rule,
+\[
+\dd(\rho_\alpha\omega)
+=
+\dd\rho_\alpha\wedge\omega+\rho_\alpha\dd\omega.
+\]
+After summing, the first terms cancel because
+\[
+\sum_\alpha\dd\rho_\alpha
+=
+\dd\left(\sum_\alpha\rho_\alpha\right)=0.
+\]
+This identity is legitimate because the partition is locally finite: near
+each point both sums are finite, so exterior differentiation commutes with
+the displayed sum.
+It is therefore enough to prove the formula for a form supported in one
+chart.  In an interior chart, its compact coordinate support lies in a
+rectangle contained in the chart image.  Extending it by zero to that
+rectangle is smooth near its boundary because the original support is compact
+in the chart; \cref{thm:local-stokes} gives the formula, with no manifold
+boundary contribution.  In a boundary chart, the half-space definition of
+smoothness gives a smooth extension of the coordinate representative across
+\[
+x_n=0
+\]
+to a neighborhood in \(\R^n\).  Compact support also permits zero extension
+across the remaining, artificial boundary of the coordinate image; no zero
+extension is made across the genuine face \(x_n=0\).  Choose a rectangle
+\[
+[a_1,b_1]\times\cdots\times[a_{n-1},b_{n-1}]\times[0,b_n]
+\]
+containing its coordinate support.  Using a cutoff which is one near that
+support, extend by zero only across the artificial faces of this rectangle;
+the resulting form vanishes near all of those faces.  Apply
+\cref{thm:local-stokes} to the smooth extension.  Its only surviving boundary
+term is the face \(x_n=0\), which is the coordinate representative of the
+genuine manifold boundary.  The outward-normal-first convention gives
+exactly the induced boundary sign.  Pullback compatibility
+from \cref{thm:exterior-derivative-rules} transfers each coordinate formula
+back to the chart.  Summing the finitely many contributions proves the
+result.
+\end{proof}
+
+\begin{corollary}[Integration by parts for differential forms]
+\label{cor:forms-integration-by-parts}
+Let \(M\) be an oriented smooth \(n\)-manifold with boundary, let
+\[
+0\leq p\leq n-1,
+\]
+let \(\alpha\) be a smooth \(p\)-form with compact support, and let
+\(\beta\) be a smooth
+\[
+(n-p-1)\text{-form}.
+\]
+Then
+\[
+\int_M\dd\alpha\wedge\beta
+=
+\int_{\partial M}\alpha\wedge\beta
+-
+(-1)^p\int_M\alpha\wedge\dd\beta.
+\]
+\end{corollary}
+\begin{proof}
+The form
+\[
+\alpha\wedge\beta
+\]
+has degree \(n-1\) and compact support, so
+\cref{thm:general-stokes} applies.  The graded Leibniz rule from
+\cref{thm:exterior-derivative-rules} gives
+\[
+\dd(\alpha\wedge\beta)
+=
+\dd\alpha\wedge\beta
++
+(-1)^p\alpha\wedge\dd\beta.
+\]
+Integrate this identity over \(M\), apply Stokes to its left side, and
+rearrange.
+\end{proof}
+
+\begin{remark}[Three levels of integration by parts]
+The same structural identity appears at three increasing levels of
+generality:
+\[
+\begin{gathered}
+\text{product rule plus the Fundamental Theorem of Calculus}\\
+\Longrightarrow\ \text{one-variable integration by parts},\\
+\text{one-variable integration by parts plus Fubini}\\
+\Longrightarrow\ \text{the coordinatewise rectangular formula},\\
+\text{graded Leibniz rule plus Stokes}\\
+\Longrightarrow\ \text{integration by parts for forms}.
+\end{gathered}
+\]
+The final formula is coordinate-free.  Green's identities and weak
+formulations of partial differential equations are important later
+descendants, but they require additional analytic machinery.
+\end{remark}
+
+\section{Classical Consequences}
+
+\paragraph{Classical vector-calculus notation.}
+The differential-form integrals below are primary; familiar flux notation is
+only a translation. For a vector field
+\[
+F=(F_1,\ldots,F_n),
+\]
+the associated flux form is
+\[
+\sum_{j=1}^n(-1)^{j-1}F_j\,
+\dd x_1\wedge\cdots\wedge\widehat{\dd x_j}\wedge\cdots\wedge\dd x_n.
+\]
+Its integral over an oriented boundary is conventionally denoted by
+\[
+\int_{\partial\Omega}F\cdot n\,\dd S.
+\]
+In dimension three, the exterior derivative of
+\[
+P\,\dd x+Q\,\dd y+R\,\dd z
+\]
+corresponds, under the usual Euclidean identification, to
+\[
+(\nabla\times F)\cdot n\,\dd S.
+\]
+Thus \(n\) and \(\dd S\) here are conventional vector-calculus shorthand,
+not separately developed surface-measure machinery.
+
+\begin{corollary}[Fundamental theorem of calculus]
+For a smooth function $f$ on
+\[
+[a,b],
+\]
+\[
+\int_a^b f'(x)\,\dd x=f(b)-f(a).
+\]
+\end{corollary}
+\begin{proof}
+Apply \cref{thm:general-stokes} to the oriented interval and the
+$0$-form $f$.
+\end{proof}
+
+\begin{corollary}[Green's theorem]
+Let $D\subseteq\R^2$ be a compact smooth $2$-manifold with boundary,
+equipped with the orientation induced by the standard orientation of
+\(\R^2\), and let $P,Q$ be smooth on a neighborhood of $D$. The induced
+boundary orientation is the usual positive orientation. Then
+\[
+\int_{\partial D}P\,\dd x+Q\,\dd y
+=
+\int_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)\dd x\,\dd y.
+\]
+\end{corollary}
+\begin{proof}
+Apply \cref{thm:general-stokes} to
+\[
+\omega=P\,\dd x+Q\,\dd y.
+\]
+\end{proof}
+
+\begin{corollary}[Classical Stokes theorem]
+Let $S$ be an oriented smooth compact surface with boundary in $\R^3$ and
+let
+\[
+F=(P,Q,R)
+\]
+be smooth near $S$.  Then
+\[
+\int_{\partial S}P\,\dd x+Q\,\dd y+R\,\dd z
+=
+\int_S(\nabla\times F)\cdot n\,\dd S.
+\]
+\end{corollary}
+\begin{proof}
+Apply \cref{thm:general-stokes} to the $1$-form
+\[
+P\,\dd x+Q\,\dd y+R\,\dd z.
+\]
+The coordinate calculation in the preceding example identifies its exterior
+derivative with curl flux.
+\end{proof}
+
+\begin{corollary}[Divergence theorem]
+Let $\Omega\subseteq\R^n$ be a compact smooth $n$-manifold with boundary,
+equipped with the orientation induced by the standard orientation of
+\(\R^n\), and let
+\[
+F=(F_1,\ldots,F_n)
+\]
+be smooth near $\Omega$. The induced boundary orientation is the usual
+outward orientation. Then
+\[
+\int_{\partial\Omega}F\cdot n\,\dd S
+=
+\int_\Omega
+\left(\sum_{j=1}^{n}\frac{\partial F_j}{\partial x_j}\right)\dd x.
+\]
+\end{corollary}
+\begin{proof}
+Apply \cref{thm:general-stokes} to
+\[
+\omega=
+\sum_{j=1}^{n}(-1)^{j-1}F_j\,
+\dd x_1\wedge\cdots\wedge\widehat{\dd x_j}\wedge\cdots\wedge\dd x_n.
+\]
+Its exterior derivative is the divergence times the standard volume form,
+and its boundary integral is the outward flux.
+\end{proof}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Prove that
+\[
+\dim\Lambda^k((\R^n)^*)=\binom nk.
+\]
+\end{exercise}
+
+\begin{exercise}
+Let $\alpha,\beta$ be $1$-covectors.  Prove
+\[
+\alpha\wedge\beta=-\beta\wedge\alpha
+\]
+and give an example in which
+\[
+\alpha\wedge\beta\ne0.
+\]
+\end{exercise}
+
+\begin{exercise}
+For
+\[
+\omega=x\,\dd y+y\,\dd z+z\,\dd x,
+\]
+compute
+\[
+\dd\omega.
+\]
+\end{exercise}
+
+\begin{exercise}
+Let
+\[
+\Phi(u,v)=(u^2-v^2,2uv).
+\]
+Compute
+\[
+\Phi^*(x\,\dd y-y\,\dd x).
+\]
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:local-stokes} in dimension one to recover the Fundamental
+Theorem of Calculus.
+\end{exercise}
+
+\begin{exercise}
+Apply \cref{cor:forms-integration-by-parts} to the oriented interval
+\[
+[a,b]
+\]
+and the forms \(\alpha=u\) and \(\beta=v\) to recover the one-variable
+integration-by-parts formula for smooth functions \(u\) and \(v\).
+\end{exercise}
+
+\begin{exercise}
+For the unit square with its standard orientation, evaluate
+\[
+\int_{\partial Q}x\,\dd y
+\]
+and compare it with
+\[
+\int_Q\dd(x\,\dd y).
+\]
+\end{exercise}
+
+\begin{exercise}
+Use Green's theorem to compute the area enclosed by a positively oriented
+smooth simple closed plane curve.
+\end{exercise}
+
+\begin{exercise}
+Use the divergence theorem to compute the outward flux of
+\[
+F(x,y,z)=(x,y,z)
+\]
+across the unit sphere.
+\end{exercise}
+
+\begin{exercise}
+Explain why
+\[
+\dd^2=0
+\]
+implies that the boundary of a boundary has no contribution in Stokes'
+theorem.
+\end{exercise}
+
+\section{Perspective and Further Directions}
+\label{sec:perspective-further-directions}
+
+Differential forms separate the three ingredients hidden in vector-calculus
+formulas: differentiation is the exterior derivative, orientation controls
+sign, and integration pairs top-degree forms with domains.  Stokes' theorem
+is the single compatibility law joining them.  The familiar one-, two-, and
+three-dimensional formulas differ only in the notation used to identify
+forms with scalar and vector fields.
+
+\medskip
+\noindent\textbf{Measure Theory and Lebesgue Integration.}
+The limitations of the Riemann and Jordan theories noted in Chapters~9 and~12
+lead first to measure theory and Lebesgue integration.  There one develops
+sigma-algebras, measures, measurable functions, and a more flexible integral.
+The genuine Monotone Convergence Theorem, Dominated Convergence Theorem,
+Fatou's lemma, and the Tonelli--Fubini theorems then hold under hypotheses
+substantially weaker than the uniform-convergence conditions available here.
+This is the setting anticipated by the Lebesgue-convergence remarks in the
+integration chapters.
+
+\medskip
+\noindent\textbf{General Topology.}
+General topology studies the open-set language of Chapter~10 beyond metric
+and finite-dimensional spaces: bases and subbases, quotient and product
+spaces, separation axioms, compactness, connectedness, paracompactness, and
+metrization questions.  The external refinement theorem used above is a small
+but important example of this broader theory.
+
+\medskip
+\noindent\textbf{Functional Analysis.}
+Functional analysis extends normed-space methods to Banach and Hilbert spaces,
+bounded linear operators, infinite-dimensional differentiation, contraction
+principles, spectral theory, and weak convergence.  In infinite dimensions,
+the equivalence of norms and the compactness behavior familiar from Chapter~10
+no longer persist automatically.
+
+\medskip
+\noindent\textbf{Complex Analysis.}
+The power-series, differentiation, and integration methods also open the way
+to complex analysis.  Complex differentiability for maps
+\[
+f:\C\longrightarrow\C
+\]
+is far more restrictive than real differentiability and leads to holomorphic
+functions, contour integrals, Cauchy's theorem and integral formula, and
+residues.
+
+\medskip
+\noindent\textbf{Differential Geometry.}
+Chapter~13 begins differential geometry: tangent and cotangent bundles,
+vector fields, Riemannian metrics, geodesics, connections, covariant
+differentiation, curvature, and integration on manifolds elaborate the local
+linear structures and differential forms already present here.
+
+\medskip
+\noindent\textbf{De Rham Theory and Algebraic Topology.}
+One especially direct continuation starts with the identity
+\[
+\dd^2=0.
+\]
+A form $\omega$ is called \textbf{closed} when
+\[
+\dd\omega=0,
+\]
+and \textbf{exact} when
+\[
+\omega=\dd\eta.
+\]
+Every exact form is closed.  De Rham cohomology records the extent to which
+the converse can fail globally:
+\[
+H^k_{\mathrm{dR}}(M)
+=
+\frac{\ker\bigl(\dd:\Omega^k(M)\longrightarrow\Omega^{k+1}(M)\bigr)}
+{\operatorname{im}\bigl(\dd:\Omega^{k-1}(M)\longrightarrow\Omega^k(M)\bigr)}.
+\]
+Thus it measures the obstruction to solving \(\omega=\dd\eta\) on all of
+$M$.  De Rham's theorem, not proved here, identifies these analytic groups
+with topological invariants and forms a central bridge to algebraic topology.
+
+\medskip
+\noindent\textbf{Partial Differential Equations.}
+Multivariable derivatives, divergence, integration by parts, and Stokes-type
+identities lead naturally to partial differential equations: the Laplace and
+Poisson equations, the heat and wave equations, weak derivatives, Sobolev
+spaces, and variational methods.  Modern PDE joins the ideas of multivariable
+analysis with measure theory and functional analysis.
+
+\medskip
+\noindent\textbf{Probability.}
+Modern probability provides a related application of measure theory:
+probability spaces, random variables, expectation as an integral, and
+convergence theorems give a rigorous language for random phenomena.

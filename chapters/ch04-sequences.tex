@@ -1,0 +1,333 @@
+\chapter{Sequences of Real Numbers}
+\label{ch:sequences}
+
+\section{Convergence}
+
+In this chapter the real numbers are the ordered field constructed in Chapter~\ref{ch:reals}. A sequence in $\R$ is a function $a:\N\to\R$; its value at $n$ is written $a_n$.
+
+Calculus repeatedly asks what happens after indefinitely many successive
+approximations.  Convergence turns that informal question into a test with a
+clear responsibility: after a requested accuracy is named, all sufficiently
+late terms must meet it.
+
+\begin{definition}[Limit of a sequence]
+\label{def:sequence-limit}
+Let $(a_n)$ be a real sequence and let $L\in\R$. We say that $(a_n)$ \textbf{converges to} $L$, and write
+\[
+\lim_{n\to\infty}a_n=L,
+\]
+or equivalently $a_n\to L$, if for every $\eps>0$ there exists $N\in\N$ such that, for every $n\geq N$, one has $\abs{a_n-L}<\eps$. A sequence that converges to some real number is \textbf{convergent}; otherwise it is \textbf{divergent}.
+\end{definition}
+
+The number $N$ may depend on $\eps$, but it must work for every $n\geq N$. This order of quantifiers is essential.
+
+This definition also gives the eventual meaning of the decimal notation used
+informally in Chapter~\ref{ch:foundations}: once Chapter~\ref{ch:reals} has
+constructed $\R$, the notation
+\[
+d=0.d_1d_2\cdots
+\]
+is interpreted through its finite truncations
+\[
+s_n=0.d_1d_2\cdots d_n.
+\]
+It denotes the real number $d$ when
+\[
+\lim_{n\to\infty}s_n=d.
+\]
+
+\begin{lemma}
+\label{lem:positive-small}
+If $x\in\R$ satisfies $\abs{x}<\eps$ for every $\eps>0$, then $x=0$.
+\end{lemma}
+\begin{proof}
+If $x\ne0$, then $\abs{x}>0$. Taking $\eps=\abs{x}/2$ contradicts the hypothesis.
+\end{proof}
+
+\begin{theorem}[Uniqueness of limits]
+\label{thm:unique-sequence-limit}
+A convergent real sequence has exactly one limit.
+\end{theorem}
+\begin{proof}
+Suppose $a_n\to L$ and $a_n\to M$. Given $\eps>0$, choose $N_1,N_2$ such that $\abs{a_n-L}<\eps/2$ for $n\geq N_1$ and $\abs{a_n-M}<\eps/2$ for $n\geq N_2$. For $n\geq\max\{N_1,N_2\}$, the triangle inequality gives
+\[
+\abs{L-M}\leq\abs{L-a_n}+\abs{a_n-M}<\eps.
+\]
+By \cref{lem:positive-small}, $L-M=0$.
+\end{proof}
+
+\begin{example}
+The sequence $a_n=1/n$ converges to $0$. For a given $\eps>0$, \cref{thm:archimedean} provides $N>1/\eps$, and then $n\geq N$ implies
+\[
+0<\frac1n\leq\frac1N<\eps.
+\]
+\end{example}
+
+\section{Algebra and Order of Limits}
+
+Once limits have been defined, the next question is whether familiar algebra
+survives passage to the limit.  The following rules justify the calculations
+that will later occur inside functions, series, derivatives, and integrals.
+
+\begin{theorem}[Algebra of limits]
+\label{thm:limit-algebra}
+Let $(a_n)$ and $(b_n)$ be real sequences with $a_n\to a$ and $b_n\to b$, and let $c\in\R$. Then
+\[
+\lim_{n\to\infty}(a_n+b_n)=a+b,
+\qquad
+\lim_{n\to\infty}ca_n=ca,
+\qquad
+\lim_{n\to\infty}a_nb_n=ab.
+\]
+If $b\ne0$, then
+\[
+\lim_{n\to\infty}\frac{a_n}{b_n}=\frac ab
+\]
+whenever $b_n\ne0$ for all sufficiently large $n$.
+\end{theorem}
+\begin{proof}
+For the sum, choose stages at which $\abs{a_n-a}<\eps/2$ and $\abs{b_n-b}<\eps/2$, then apply the triangle inequality. Scalar multiplication follows from $\abs{ca_n-ca}=\abs c\abs{a_n-a}$; for $c=0$ it is immediate, and otherwise use tolerance $\eps/\abs c$.
+
+Convergent sequences are eventually bounded: choosing $N$ with $\abs{a_n-a}<1$ gives $\abs{a_n}\leq\abs a+1$ for $n\geq N$, and the finitely many earlier terms can be included in a larger bound. Let $M$ bound both $\abs{a_n}$ and $\abs b$. Then
+\[
+\abs{a_nb_n-ab}\leq\abs{a_n}\abs{b_n-b}+\abs b\abs{a_n-a}
+\leq M\bigl(\abs{b_n-b}+\abs{a_n-a}\bigr),
+\]
+which proves the product assertion.
+
+For division, choose $N_0$ so that $\abs{b_n-b}<\abs b/2$ for $n\geq N_0$. Then $\abs{b_n}\geq\abs b/2$, so such $b_n$ are nonzero. Thus
+\[
+\abs{\frac{a_n}{b_n}-\frac ab}
+\leq\frac{2}{\abs b}\abs{a_n-a}+\frac{2\abs a}{\abs b^2}\abs{b_n-b}.
+\]
+Choose stages making the two terms on the right sum to less than $\eps$.
+\end{proof}
+
+\begin{theorem}[Order preservation]
+\label{thm:limit-order}
+Let $a_n\to a$ and $b_n\to b$. If $a_n\leq b_n$ for every sufficiently large $n$, then $a\leq b$.
+\end{theorem}
+\begin{proof}
+If $a>b$, let $\eps=(a-b)/3>0$. For all sufficiently large $n$, $\abs{a_n-a}<\eps$ and $\abs{b_n-b}<\eps$. Hence $a_n>a-\eps=b+2\eps>b_n$, a contradiction.
+\end{proof}
+
+\begin{corollary}[Squeeze theorem]
+\label{cor:squeeze}
+If $a_n\leq b_n\leq c_n$ eventually and $a_n\to L$, $c_n\to L$, then $b_n\to L$.
+\end{corollary}
+\begin{proof}
+For large $n$, $0\leq b_n-a_n\leq c_n-a_n$. The limit algebra gives $c_n-a_n\to0$. Given $\eps>0$, eventually $c_n-a_n<\eps$, and then $\abs{b_n-L}\leq\abs{b_n-a_n}+\abs{a_n-L}<\eps/2+\eps/2$ after increasing the stage if necessary.
+\end{proof}
+
+\section{Subsequences and Elementary Divergence}
+
+A subsequence samples an infinite process along a thinner infinite set of
+stages.  It is especially useful for detecting divergence: incompatible
+long-term behaviors cannot belong to one convergent sequence.
+
+\begin{definition}[Subsequence]
+Let $(a_n)$ be a sequence. A \textbf{subsequence} is a sequence $(a_{n_k})_{k\in\N}$, where $n_1<n_2<\cdots$ are natural numbers.
+\end{definition}
+
+\begin{proposition}[Subsequences preserve limits]
+\label{prop:subsequence-limit}
+If $a_n\to L$, then every subsequence of $(a_n)$ converges to $L$.
+\end{proposition}
+\begin{proof}
+For $n_1<n_2<\cdots$, induction gives $n_k\geq k$. Given $\eps>0$, choose $N$ such that $n\geq N$ implies $\abs{a_n-L}<\eps$. Then $k\geq N$ implies $n_k\geq N$, hence $\abs{a_{n_k}-L}<\eps$.
+\end{proof}
+
+\begin{corollary}
+If a sequence has two subsequences converging to distinct limits, then it is divergent.
+\end{corollary}
+\begin{proof}
+Otherwise \cref{prop:subsequence-limit} would make both subsequences converge to the sequence's limit, contradicting \cref{thm:unique-sequence-limit}.
+\end{proof}
+
+\begin{example}
+The sequence $(-1)^n$ diverges. Its even-indexed subsequence is constantly $1$, while its odd-indexed subsequence is constantly $-1$.
+\end{example}
+
+\section{Completeness Consequences}
+
+The order completeness of the real numbers now becomes a practical tool.
+It converts bounded monotone approximation into a limit, prevents Cauchy
+approximations from leaving a gap, and forces bounded sequences to have
+convergent subsequences.
+
+\begin{definition}[Monotone sequence]
+A sequence $(a_n)$ is \textbf{increasing} if $a_n\leq a_{n+1}$ for all $n$, \textbf{decreasing} if $a_{n+1}\leq a_n$ for all $n$, and \textbf{monotone} if it is increasing or decreasing.
+\end{definition}
+
+\begin{theorem}[Monotone convergence]
+\label{thm:monotone-convergence}
+An increasing sequence converges if and only if it is bounded above; in that event, its limit is $\sup\set{a_n:n\in\N}$. A decreasing sequence converges if and only if it is bounded below, and its limit is the infimum of its range.
+\end{theorem}
+\begin{proof}
+If $a_n\to L$, then $a_n\leq L+1$ eventually, and the finitely many earlier terms have a common upper bound. Conversely, let $s=\sup\set{a_n:n\in\N}$. Given $\eps>0$, $s-\eps$ is not an upper bound, so $a_N>s-\eps$ for some $N$. For $n\geq N$, $s-\eps<a_N\leq a_n\leq s$, and hence $\abs{a_n-s}<\eps$. The decreasing statement follows on applying the increasing statement to $(-a_n)$.
+\end{proof}
+
+\begin{theorem}[Cauchy criterion]
+\label{thm:cauchy-criterion}
+A real sequence converges if and only if it is Cauchy.
+\end{theorem}
+\begin{proof}
+If $a_n\to L$, choose $N$ with $\abs{a_n-L}<\eps/2$ for $n\geq N$ and use the triangle inequality. Conversely, the rational-Cauchy construction of $\R$ proves exactly this assertion in \cref{thm:real-cauchy-complete}.
+\end{proof}
+
+\begin{theorem}[Bolzano--Weierstrass]
+\label{thm:bolzano-weierstrass}
+Every bounded real sequence has a convergent subsequence.
+\end{theorem}
+\begin{proof}
+Let all terms lie in $[a,b]$. Bisect this interval and retain a closed half containing infinitely many terms; repeat indefinitely, obtaining nested closed intervals $I_n=[a_n,b_n]$ of length $(b-a)2^{-n}$, each containing infinitely many sequence terms. Choose indices $k_1<k_2<\cdots$ with $a_{k_n}\in I_n$; this is possible because each $I_n$ contains infinitely many terms. The left endpoints are increasing and bounded above, so by \cref{thm:monotone-convergence} they converge to some $x$. Since $0\leq b_n-a_n\to0$, also $b_n\to x$. For $m\geq n$, $a_{k_m}\in I_n$, so $\abs{a_{k_m}-x}\leq b_n-a_n$. This tends to zero, proving $a_{k_m}\to x$.
+\end{proof}
+
+\begin{definition}[Limsup and liminf]
+Let $(a_n)$ be bounded. For $n\in\N$, put
+\[
+s_n=\sup\set{a_k:k\geq n},\qquad i_n=\inf\set{a_k:k\geq n}.
+\]
+Define
+\[
+\lim_{n\to\infty}\sup a_n=\lim_{n\to\infty}s_n,
+\qquad
+\lim_{n\to\infty}\inf a_n=\lim_{n\to\infty}i_n.
+\]
+\end{definition}
+
+\begin{theorem}[Basic limsup and liminf facts]
+\label{thm:limsup-liminf}
+For every bounded sequence, limsup and liminf exist and
+\[
+\lim_{n\to\infty}\inf a_n\leq\lim_{n\to\infty}\sup a_n.
+\]
+Moreover, $a_n\to L$ if and only if the two displayed limits both equal $L$.
+\end{theorem}
+\begin{proof}
+The sequence $(s_n)$ is decreasing and bounded below, while $(i_n)$ is increasing and bounded above. Their limits therefore exist by \cref{thm:monotone-convergence}; since $i_n\leq s_n$, their limits have the stated order by \cref{thm:limit-order}. If $a_n\to L$, then for every $\eps>0$, all sufficiently late terms lie in
+\[
+\left(L-\frac{\eps}{2},L+\frac{\eps}{2}\right).
+\]
+For every tail beginning after that stage, its infimum is at least $L-\eps/2$ and its supremum is at most $L+\eps/2$. Their limits therefore equal $L$. Conversely, if both limits equal $L$, then for a given $\eps>0$, eventually $i_n>L-\eps$ and $s_n<L+\eps$. Since $i_n\leq a_n\leq s_n$, the squeeze theorem gives $a_n\to L$.
+\end{proof}
+
+\paragraph{Extended limsup and liminf.}
+The boundedness hypothesis in the definition can be relaxed by adjoining the formal values $+\infty$ and $-\infty$. We postpone that extension because ordinary real-valued limits are sufficient for the present development.
+
+\section{Equivalent Completeness Principles}
+
+The least-upper-bound property is not the only possible formulation of
+completeness.  The equivalences below explain why several apparently
+different principles may all serve as the decisive feature distinguishing
+the real numbers from the rationals.
+
+\begin{theorem}[Equivalence of Standard Completeness Principles]
+\label{thm:completeness-equivalences}
+Let $F$ be an Archimedean ordered field. The following assertions are equivalent.
+\begin{enumerate}
+\item Every nonempty subset of $F$ having an upper bound has a least upper bound.
+\item Every Cauchy sequence in $F$ converges.
+\item Every bounded sequence in $F$ has a convergent subsequence.
+\item Every increasing sequence in $F$ that is bounded above converges.
+\item Whenever
+\[
+[a_1,b_1]\supseteq[a_2,b_2]\supseteq\cdots
+\]
+and
+\[
+\lim_{n\to\infty}(b_n-a_n)=0,
+\]
+the intervals have a common point.
+\end{enumerate}
+Consequently, each assertion may be used as a completeness axiom for an Archimedean ordered field.
+\end{theorem}
+\begin{proof}
+All definitions of convergence, Cauchyness, boundedness, and intervals, as well as the elementary order-limit lemmas used below, are obtained verbatim by replacing $\R$ with $F$; their proofs use only the ordered-field laws.
+
+We prove a cycle of implications. Suppose first that (1) holds. The proof of \cref{thm:monotone-convergence} uses only (1), so (4) follows. A Cauchy sequence is bounded: choose $N$ so that
+\[
+m,n\geq N\quad\Longrightarrow\quad\abs{x_m-x_n}<1,
+\]
+and bound the tail by $\abs{x_N}+1$ and the finitely many earlier terms separately. For the tail sets
+\[
+T_n=\set{x_k:k\geq n},
+\]
+put
+\[
+s_n=\sup T_n,\qquad i_n=\inf T_n.
+\]
+The sequences $(s_n)$ and $(i_n)$ are respectively decreasing and increasing, so (4) gives limits $s$ and $i$. Given $\eps>0$, Cauchyness gives $N$ such that every two terms of $T_N$ differ in absolute value by less than $\eps$. Hence
+\[
+s_N-i_N\leq2\eps.
+\]
+Passing to the limit in this inequality gives
+\[
+0\leq s-i\leq2\eps.
+\]
+Since this holds for every $\eps>0$, the small-positive-number argument shows $s=i$. Since $i_n\leq x_n\leq s_n$, the squeeze theorem gives $x_n\to s$. Thus (1) implies (2).
+
+Assume (2), and let $S$ be nonempty and bounded above. Choose $s_0\in S$ and an upper bound $u_0$. If $s_0$ is already an upper bound, it is the maximum and hence the least upper bound. Otherwise, bisect the interval $[s_0,u_0]$ repeatedly: retain its lower half when its midpoint is an upper bound of $S$, and retain its upper half otherwise. This produces numbers $s_n,u_n$ such that
+\[
+s_n\text{ is not an upper bound},\qquad u_n\text{ is an upper bound},
+\]
+and
+\[
+u_n-s_n=2^{-n}(u_0-s_0).
+\]
+The Archimedean property implies that $2^{-n}\to0$: choose an integer larger than any prescribed positive reciprocal, and use $2^n\geq n+1$. Thus $(s_n)$ is Cauchy, since
+\[
+0\leq s_m-s_n\leq u_n-s_n
+\qquad(m\geq n).
+\]
+Let $s_n\to c$ by (2). The same estimate gives $u_n\to c$. If $t\in S$ were greater than $c$, then for sufficiently large $n$ one would have
+\[
+u_n-s_n<t-c,
+\]
+and the order-limit argument gives
+\[
+s_n\leq c\leq u_n.
+\]
+These inequalities force $t>u_n$, a contradiction. Hence $c$ is an upper bound. If $v<c$, then the same inequality with $c-v$ in place of $t-c$, together with $s_n\leq c\leq u_n$, gives $v<s_n$ for a sufficiently large $n$; since $s_n$ is not an upper bound, neither is $v$. Therefore $c=\sup S$, proving (1).
+
+Still under (1), the nested-interval argument in \cref{thm:nested-interval} proves (5): the supremum of the left endpoints belongs to every interval. The bisection argument used for \cref{thm:bolzano-weierstrass}, together with this nested-interval conclusion, proves (3). More explicitly, repeatedly retain a half of a bounded interval containing infinitely many terms, choose a strictly increasing sequence of indices from the retained intervals, and use the common point of the nested intervals as the limit of that subsequence.
+
+Assume now (3), and let $(a_n)$ be increasing and bounded above. A subsequence $(a_{n_k})$ converges, say to $L$. For a fixed $n$, all sufficiently late members of this subsequence are at least $a_n$; \cref{thm:limit-order} gives $a_n\leq L$. Given $\eps>0$, choose $k$ with
+\[
+\abs{a_{n_k}-L}<\eps.
+\]
+Then, for every $n\geq n_k$,
+\[
+L-\eps<a_{n_k}\leq a_n\leq L,
+\]
+so $a_n\to L$. This proves (4).
+
+Assume (4). The bisection construction in the second paragraph gives an increasing, bounded-above sequence $(s_n)$, hence a limit $c$. The same shrinking-width argument proves that $c$ is the least upper bound of $S$. Thus (4) implies (1).
+
+Finally, assume (5). Apply the same bisection construction to a nonempty bounded-above set $S$. Its intervals are nested and their lengths tend to zero, so they have a common point $c$. The two final paragraphs of the bisection argument show that $c$ is the least upper bound of $S$. Thus (5) implies (1), completing the proof.
+\end{proof}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Let $(a_n)$ be increasing and bounded above, and let $s$ be the supremum of its range. Adapt the proof of \cref{thm:monotone-convergence} to show directly that
+\[
+\lim_{n\to\infty}a_n=s.
+\]
+Identify the exact use of the least-upper-bound property.
+\end{exercise}
+
+\begin{exercise}
+Give an example of an unbounded sequence for which
+\[
+\lim_{n\to\infty}\sup a_n
+\]
+cannot be interpreted as a real number. Explain the purpose of the postponed extended convention.
+\end{exercise}
+
+\begin{exercise}
+Assuming the least-upper-bound property, prove that every decreasing sequence that is bounded below converges, without appealing to the increasing case as a black box.
+\end{exercise}

@@ -1,0 +1,1220 @@
+\chapter[Riemann Integration and FTC]{Riemann Integration and the Fundamental Theorem of Calculus}
+\label{ch:riemann}
+
+\section{Partitions and Riemann Sums}
+
+Integration formalizes approximation of accumulated quantities by finite
+sums.  Darboux upper and lower sums avoid choosing sample points: they record
+the best guaranteed under- and over-approximations on every subinterval.
+
+\begin{definition}[Partition]
+Let $a<b$. A \textbf{partition} of $[a,b]$ is a finite ordered set
+\[
+P=\set{x_0,x_1,\ldots,x_n}
+\]
+with $a=x_0<x_1<\cdots<x_n=b$. Its norm is
+\[
+\norm{P}=\max_{1\leq i\leq n}(x_i-x_{i-1}).
+\]
+\end{definition}
+
+\begin{definition}[Upper and lower sums]
+Let $f:[a,b]\to\R$ be bounded and let $P$ be a partition. Put
+\[
+M_i=\sup\set{f(x):x\in[x_{i-1},x_i]},
+\qquad
+m_i=\inf\set{f(x):x\in[x_{i-1},x_i]}.
+\]
+The \textbf{upper sum} and \textbf{lower sum} are
+\[
+U(f,P)=\sum_{i=1}^{n}M_i(x_i-x_{i-1}),
+\qquad
+L(f,P)=\sum_{i=1}^{n}m_i(x_i-x_{i-1}).
+\]
+\end{definition}
+
+\begin{definition}[Riemann integrability]
+Let $f:[a,b]\to\R$ be bounded. It is \textbf{Riemann integrable} if
+\[
+\inf_P U(f,P)=\sup_P L(f,P),
+\]
+where the infimum and supremum range over all partitions of $[a,b]$. Their common value is the \textbf{Riemann integral} of $f$ and is denoted by
+\[
+\int_a^b f(x)\,\dd x.
+\]
+\end{definition}
+
+\begin{proposition}[Darboux criterion]
+\label{prop:darboux-criterion}
+A bounded function $f:[a,b]\to\R$ is Riemann integrable if and only if, for every $\eps>0$, there is a partition $P$ with
+\[
+U(f,P)-L(f,P)<\eps.
+\]
+\end{proposition}
+\begin{proof}
+Every lower sum is at most every upper sum: refine both partitions by taking their union, then compare each subinterval. Thus the lower supremum is at most the upper infimum. If they are equal to $I$, choose partitions $P,Q$ with $U(f,P)<I+\eps/2$ and $L(f,Q)>I-\eps/2$. Their common refinement $R$ satisfies $U(f,R)\leq U(f,P)$ and $L(f,R)\geq L(f,Q)$, giving the claim. Conversely, the displayed condition forces the gap between the lower supremum and upper infimum to be at most every positive $\eps$, hence zero by \cref{lem:positive-small}.
+\end{proof}
+
+\section{Continuous Functions Are Integrable}
+
+Continuity prevents large oscillation on sufficiently short intervals.
+Uniform continuity on a compact interval makes this local control uniform,
+which is exactly what the Darboux criterion requires.
+
+\begin{theorem}[Integrability of Continuous Functions]
+\label{thm:continuous-riemann-integrable}
+Every continuous function $f:[a,b]\to\R$ is Riemann integrable.
+\end{theorem}
+\begin{proof}
+By \cref{thm:heine-cantor}, $f$ is uniformly continuous. Given $\eps>0$, choose $\delta>0$ such that
+\[
+\abs{x-y}<\delta\Longrightarrow\abs{f(x)-f(y)}<\frac{\eps}{b-a}.
+\]
+Choose a partition with norm less than $\delta$. On every subinterval, $M_i-m_i\leq\eps/(b-a)$; hence
+\[
+U(f,P)-L(f,P)=\sum_{i=1}^{n}(M_i-m_i)(x_i-x_{i-1})\leq\eps.
+\]
+The Darboux criterion proves integrability.
+\end{proof}
+
+\begin{theorem}[Basic Properties of the Integral]
+\label{thm:integral-properties}
+If $f,g:[a,b]\to\R$ are Riemann integrable and $c\in\R$, then $f+g$ and $cf$ are Riemann integrable, and
+\[
+\int_a^b(f+g)\,\dd x=\int_a^b f\,\dd x+\int_a^b g\,\dd x,
+\qquad
+\int_a^b cf\,\dd x=c\int_a^b f\,\dd x.
+\]
+Moreover, $f\leq g$ implies that their integrals have the same order.
+\end{theorem}
+\begin{proof}
+Fix $\eps>0$. By the Darboux criterion, choose partitions $P_f$ and $P_g$ such that
+\[
+U(f,P_f)-L(f,P_f)<\frac{\eps}{2},
+\qquad
+U(g,P_g)-L(g,P_g)<\frac{\eps}{2}.
+\]
+Let $P$ be their common refinement. Refinement can only decrease upper sums and increase lower sums. On each interval of $P$,
+\[
+\sup(f+g)-\inf(f+g)
+\leq
+\bigl(\sup f-\inf f\bigr)+\bigl(\sup g-\inf g\bigr).
+\]
+Equivalently,
+\[
+U(f+g,P)\leq U(f,P)+U(g,P),
+\qquad
+L(f+g,P)\geq L(f,P)+L(g,P)
+\]
+and therefore
+\[
+U(f+g,P)-L(f+g,P)<\eps.
+\]
+Thus $f+g$ is integrable. Write
+\[
+I_f=\int_a^b f\,\dd x,
+\qquad
+I_g=\int_a^b g\,\dd x.
+\]
+The same inequalities, together with
+\[
+L(f,P)>I_f-\frac{\eps}{2},
+\qquad
+L(g,P)>I_g-\frac{\eps}{2},
+\]
+give
+\[
+\int_a^b(f+g)\,\dd x>I_f+I_g-\eps.
+\]
+Similarly, using the upper sums gives
+\[
+\int_a^b(f+g)\,\dd x<I_f+I_g+\eps.
+\]
+Since this holds for every $\eps>0$, \cref{lem:positive-small} gives the asserted equality.
+
+For a scalar $c>0$, the identities
+\[
+U(cf,P)=cU(f,P),
+\qquad
+L(cf,P)=cL(f,P)
+\]
+prove both integrability and the scalar formula by the Darboux criterion. If $c<0$, then
+\[
+U(cf,P)=cL(f,P),
+\qquad
+L(cf,P)=cU(f,P),
+\]
+and the same conclusion follows; the case $c=0$ is immediate. Finally, if $f\leq g$, then
+\[
+U(f,P)\leq U(g,P)
+\]
+for every partition $P$. Taking infima and using integrability gives
+\[
+\int_a^b f\,\dd x\leq\int_a^b g\,\dd x.
+\]
+\end{proof}
+
+\begin{theorem}[Additivity and Absolute-Value Estimates]
+\label{thm:integral-additivity-absolute}
+Let $a<c<b$.
+\begin{enumerate}
+\item If $f:[a,b]\to\R$ is Riemann integrable, then its restrictions to $[a,c]$ and $[c,b]$ are Riemann integrable and
+\[
+\int_a^b f(x)\,\dd x
+=\int_a^c f(x)\,\dd x+\int_c^b f(x)\,\dd x.
+\]
+\item If $f:[a,b]\to\R$ is Riemann integrable, then $\abs f$ is Riemann integrable and
+\[
+\left\lvert\int_a^b f(x)\,\dd x\right\rvert
+\leq\int_a^b\abs{f(x)}\,\dd x.
+\]
+\item If $f$ is Riemann integrable and
+\[
+\abs{f(x)}\leq M
+\qquad(x\in[a,b]),
+\]
+then
+\[
+\left\lvert\int_a^b f(x)\,\dd x\right\rvert\leq M(b-a).
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+For (1), insert $c$ into a partition. Upper and lower sums then split exactly into the corresponding sums on the two subintervals. Refining partitions and applying \cref{prop:darboux-criterion} proves integrability of the restrictions and the displayed equality.
+
+For (2), the inequality
+\[
+\bigl\lvert\abs{u}-\abs{v}\bigr\rvert\leq\abs{u-v}
+\]
+shows on every partition interval that the oscillation of $\abs f$ is at most the oscillation of $f$. The Darboux criterion proves integrability of $\abs f$. Since
+\[
+-\abs f\leq f\leq\abs f,
+\]
+\cref{thm:integral-properties} gives the stated inequality. Part (3) follows from (2) and
+\[
+0\leq\abs f\leq M.
+\]
+\end{proof}
+
+\begin{theorem}[Integrability of Monotone Functions]
+\label{thm:monotone-riemann-integrable}
+Every monotone function $f:[a,b]\to\R$ is Riemann integrable.
+\end{theorem}
+\begin{proof}
+It is enough to consider an increasing function; the decreasing case follows by applying the result to $-f$. For a partition $P$, monotonicity gives
+\[
+M_i=f(x_i),
+\qquad
+m_i=f(x_{i-1}).
+\]
+Thus
+\[
+U(f,P)-L(f,P)
+=\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr)(x_i-x_{i-1})
+\leq\norm{P}\bigl(f(b)-f(a)\bigr).
+\]
+Choose a partition with norm less than
+\[
+\frac{\eps}{f(b)-f(a)}
+\]
+when $f(b)>f(a)$; if $f(b)=f(a)$, the function is constant and the upper and lower sums are equal. The Darboux criterion proves integrability.
+\end{proof}
+
+\section{Uniform Limits and Integration}
+
+An integral is itself a limit, so a second limiting process must be handled
+with care.  In the Riemann theory, uniform convergence is the clean
+condition that permits a limit to pass through an integral: one error bound
+works on the whole interval and hence controls the accumulated error.
+
+\begin{theorem}[Uniform interchange of limits and Riemann integrals]
+\label{thm:uniform-riemann-integration}
+Let
+\[
+f_n:[a,b]\longrightarrow\R
+\]
+be Riemann integrable for every \(n\), and suppose that \(f_n\) converges
+uniformly on \([a,b]\) to a function \(f\).  Then \(f\) is Riemann
+integrable and
+\[
+\lim_{n\to\infty}\int_a^b f_n(x)\,\dd x
+=
+\int_a^b f(x)\,\dd x.
+\]
+In fact,
+\[
+\lim_{n\to\infty}\int_a^b\abs{f_n(x)-f(x)}\,\dd x=0.
+\]
+\end{theorem}
+\begin{proof}
+Fix \(\eps>0\).  Choose \(n\) such that
+\[
+\sup_{x\in[a,b]}\abs{f_n(x)-f(x)}
+<
+\frac{\eps}{4(b-a)}.
+\]
+Choose a partition \(P\) for which the Darboux gap of \(f_n\) is less than
+\(\eps/2\).  On each subinterval of \(P\), the oscillation of \(f\) is at
+most the oscillation of \(f_n\) plus twice the displayed uniform error.
+Consequently,
+\[
+U(f,P)-L(f,P)<\eps,
+\]
+and \(f\) is integrable by \cref{prop:darboux-criterion}.
+
+The basic integral estimates give
+\[
+\left\lvert
+\int_a^b f_n\,\dd x-\int_a^b f\,\dd x
+\right\rvert
+\leq
+\int_a^b\abs{f_n-f}\,\dd x
+\leq
+(b-a)\sup_{x\in[a,b]}\abs{f_n(x)-f(x)}.
+\]
+The right-hand side tends to zero.  The same final estimate proves the last
+assertion.
+\end{proof}
+
+\begin{corollary}[Uniform convergence under an integrable domination]
+\label{thm:dominated-uniform-riemann}
+Under the hypotheses of \cref{thm:uniform-riemann-integration}, suppose in
+addition that there is a nonnegative Riemann-integrable function
+\[
+g:[a,b]\longrightarrow\R
+\]
+such that
+\[
+\abs{f_n(x)}\leq g(x)
+\qquad(x\in[a,b],\ n\in\N).
+\]
+Then \(f\) is Riemann integrable,
+\[
+\abs{f(x)}\leq g(x)
+\qquad(x\in[a,b]),
+\]
+and the conclusions of \cref{thm:uniform-riemann-integration} hold.
+\end{corollary}
+\begin{proof}
+This is an immediate application of
+\cref{thm:uniform-riemann-integration}.  The domination is often useful for
+obtaining bounds in applications, but uniform convergence, rather than
+domination, is what justifies the interchange in this Riemann statement.
+It is included here primarily to foreshadow the stronger Lebesgue Dominated
+Convergence Theorem.
+For each fixed \(x\), taking limits in \(\abs{f_n(x)}\leq g(x)\) gives the
+displayed bound for \(f\).
+\end{proof}
+
+\begin{remark}[The stronger Lebesgue theorem]
+The Lebesgue dominated convergence theorem is substantially stronger.  In
+its usual form, pointwise almost-everywhere convergence of measurable
+functions, together with domination by one integrable function, implies
+convergence of the integrals; uniform convergence is not required.  This
+result depends on measure and Lebesgue integration and is therefore not
+proved or used in these notes.
+\end{remark}
+
+\begin{theorem}[Dini's Theorem]
+\label{thm:dini-riemann}
+Let
+\[
+f_n:[a,b]\longrightarrow\R
+\]
+be continuous functions such that
+\[
+f_n(x)\leq f_{n+1}(x)
+\qquad(x\in[a,b],\ n\in\N),
+\]
+and suppose that \(f_n(x)\) converges pointwise to a continuous function
+\(f\) on \([a,b]\).  Then \(f_n\) converges uniformly to \(f\), and hence
+\[
+\lim_{n\to\infty}\int_a^b f_n(x)\,\dd x
+=
+\int_a^b f(x)\,\dd x.
+\]
+The same conclusion holds for a pointwise decreasing sequence.
+\end{theorem}
+\begin{proof}
+Consider the increasing case and put
+\[
+h_n=f-f_n.
+\]
+Each \(h_n\) is continuous, nonnegative, and the sequence \((h_n)\) is
+pointwise decreasing to zero.  If convergence were not uniform, some
+\(\eps>0\) and points
+\[
+x_n\in[a,b]
+\]
+would satisfy
+\[
+h_n(x_n)\geq\eps
+\qquad(n\in\N).
+\]
+By \cref{thm:compact-interval}, a subsequence \(x_{n_j}\) converges to
+some \(x\in[a,b]\).  For every fixed \(m\), eventually \(n_j\geq m\), and
+monotonicity gives
+\[
+h_m(x_{n_j})\geq h_{n_j}(x_{n_j})\geq\eps.
+\]
+Continuity of \(h_m\) implies \(h_m(x)\geq\eps\).  This holds for every
+\(m\), contradicting \(h_m(x)\to0\).  Thus convergence is uniform, and
+\cref{thm:uniform-riemann-integration} proves the integral formula.  Apply
+the increasing case to \(-f_n\) for a decreasing sequence.
+\end{proof}
+
+\begin{remark}[Dini versus Lebesgue monotone convergence]
+Dini's theorem uses a compact interval, continuity of every \(f_n\) and of
+the limit, and monotone pointwise convergence to produce \textbf{uniform}
+convergence.  The preceding integral formula follows only after applying
+\cref{thm:uniform-riemann-integration}.  By contrast, the Lebesgue Monotone
+Convergence Theorem concerns nonnegative measurable functions and gives
+convergence of integrals without continuity or uniform convergence.  It is a
+measure-theoretic result and is not used in the Riemann development.
+\end{remark}
+
+\section{The Fundamental Theorem of Calculus}
+
+Differentiation measures local change, while integration accumulates local
+change.  The Fundamental Theorem identifies these two operations under the
+continuity hypotheses that make both constructions stable.
+
+\begin{theorem}[Fundamental Theorem of Calculus, First Part]
+\label{thm:ftc-one}
+Let $f:[a,b]\to\R$ be continuous and define
+\[
+F(x)=\int_a^x f(t)\,\dd t.
+\]
+Then $F$ is differentiable on $(a,b)$ and $F'(x)=f(x)$.
+\end{theorem}
+\begin{proof}
+For $h>0$ with $x+h\in[a,b]$, integral additivity gives
+\[
+\frac{F(x+h)-F(x)}{h}-f(x)=\frac{1}{h}\int_x^{x+h}\bigl(f(t)-f(x)\bigr)\,\dd t.
+\]
+For $h<0$, additivity instead gives
+\[
+\frac{F(x+h)-F(x)}{h}-f(x)
+=\frac{1}{-h}\int_{x+h}^{x}\bigl(f(t)-f(x)\bigr)\,\dd t.
+\]
+In either case, the absolute value is bounded by the maximum of
+\[
+\abs{f(t)-f(x)}
+\]
+over the interval with endpoints $x$ and $x+h$, which tends to zero by continuity at $x$. Thus the difference quotient tends to $f(x)$.
+\end{proof}
+
+\begin{theorem}[Fundamental Theorem of Calculus, Second Part]
+\label{thm:ftc-two}
+Let $F:[a,b]\to\R$ be differentiable on $(a,b)$ and continuous on $[a,b]$. Suppose that its derivative extends to a continuous function $f:[a,b]\to\R$, so that
+\[
+F'(x)=f(x)
+\qquad\text{for every }x\in(a,b).
+\]
+Then
+\[
+\int_a^b f(x)\,\dd x=F(b)-F(a).
+\]
+\end{theorem}
+\begin{proof}
+Define
+\[
+G(x)=\int_a^x f(t)\,\dd t.
+\]
+By \cref{thm:ftc-one}, $G'(x)=f(x)$ for $x\in(a,b)$. Therefore the function $H=F-G$ is continuous on $[a,b]$, differentiable on $(a,b)$, and satisfies $H'(x)=0$ throughout $(a,b)$. For $x=a$, the identity
+\[
+H(x)=H(a)
+\]
+is immediate. If $x\in(a,b]$, the Mean Value Theorem applied on $[a,x]$ gives a point $c\in(a,x)$ for which
+\[
+H(x)-H(a)=H'(c)(x-a)=0.
+\]
+Thus $H$ is constant. Since $G(a)=0$, evaluating at $b$ gives
+\[
+F(b)-F(a)=G(b)=\int_a^b f(x)\,\dd x.
+\]
+\end{proof}
+
+\begin{definition}[Oriented interval integrals]
+\label{def:oriented-interval-integral}
+If \(f\) is Riemann integrable on the closed interval with endpoints \(r\)
+and \(s\), retain the preceding Riemann integral when
+\[
+r\leq s,
+\]
+and, when
+\[
+s<r,
+\]
+define
+\[
+\int_r^s f(x)\,\dd x
+=
+-\int_s^r f(x)\,\dd x.
+\]
+In particular,
+\[
+\int_r^r f(x)\,\dd x=0.
+\]
+Thus reversing endpoints reverses the orientation of an integral.
+\end{definition}
+
+\begin{theorem}[Substitution]
+\label{thm:one-variable-substitution}
+Let
+\[
+\phi:[\alpha,\beta]\longrightarrow\R
+\]
+be of class \(C^1\), and let \(f\) be continuous on an open interval
+containing
+\[
+\phi([\alpha,\beta]).
+\]
+Then
+\[
+\int_\alpha^\beta f(\phi(t))\phi'(t)\,\dd t
+=
+\int_{\phi(\alpha)}^{\phi(\beta)}f(u)\,\dd u.
+\]
+\end{theorem}
+\begin{proof}
+Choose \(c\) in the open interval on which \(f\) is defined and set
+\[
+F(x)=\int_c^x f(u)\,\dd u,
+\]
+using \cref{def:oriented-interval-integral}.  The first part of the
+Fundamental Theorem of Calculus, applied locally on closed subintervals,
+gives
+\[
+F'(x)=f(x).
+\]
+The chain rule therefore gives
+\[
+(F\circ\phi)'(t)=f(\phi(t))\phi'(t).
+\]
+Applying \cref{thm:ftc-two} to \(F\circ\phi\) yields
+\[
+\int_\alpha^\beta f(\phi(t))\phi'(t)\,\dd t
+=
+F(\phi(\beta))-F(\phi(\alpha))
+=
+\int_{\phi(\alpha)}^{\phi(\beta)}f(u)\,\dd u.
+\]
+\end{proof}
+
+\begin{remark}[Substitution, Jacobians, and pullbacks]
+In one variable, substitution is a short consequence of the chain rule and
+the Fundamental Theorem of Calculus; no injectivity of \(\phi\) is required.
+In several variables, the analogous transformation factor is
+\[
+\phi'(t)
+\quad\longrightarrow\quad
+\det D\Phi(x),
+\]
+and its rigorous Riemann/Jordan treatment is the genuinely nontrivial
+change-of-variables theorem of Chapter~12.  Chapter~13 then interprets both
+formulas as pullback: one-variable substitution leads to multivariable
+change of variables and then to the pullback of differential forms.
+\end{remark}
+
+\begin{theorem}[Integration by parts]
+\label{thm:one-variable-integration-by-parts}
+Let
+\[
+u,v:[a,b]\longrightarrow\R
+\]
+be of class \(C^1\).  Then
+\[
+\int_a^b u(x)v'(x)\,\dd x
+=
+\bigl[u(x)v(x)\bigr]_{x=a}^{x=b}
+-
+\int_a^b u'(x)v(x)\,\dd x.
+\]
+\end{theorem}
+\begin{proof}
+The product rule gives
+\[
+(uv)'=u'v+uv'.
+\]
+Integrating and applying \cref{thm:ftc-two} to \(uv\) gives
+\[
+u(b)v(b)-u(a)v(a)
+=
+\int_a^b u'(x)v(x)\,\dd x
++
+\int_a^b u(x)v'(x)\,\dd x.
+\]
+Rearrangement proves the formula.  The mnemonic notation
+\[
+\int u\,\dd v=uv-\int v\,\dd u
+\]
+records this identity but is not its formal statement.
+\end{proof}
+
+\begin{example}[A short integration-by-parts computation]
+Taking
+\[
+u(x)=x,
+\qquad
+v(x)=\exp x
+\]
+on \([0,1]\) gives
+\[
+\int_0^1 x\exp x\,\dd x
+=
+\bigl[x\exp x\bigr]_{x=0}^{x=1}
+-
+\int_0^1\exp x\,\dd x
+=1.
+\]
+\end{example}
+
+\begin{theorem}[Mean value theorem for integrals]
+Let \(f:[a,b]\to\R\) be continuous, where \(a<b\).  There is a point
+\[
+c\in[a,b]
+\]
+such that
+\[
+\int_a^b f(x)\,\dd x=f(c)(b-a).
+\]
+\end{theorem}
+\begin{proof}
+By the Extreme Value Theorem, \(f\) has a minimum \(m\) and maximum \(M\).
+Order preservation of the integral gives
+\[
+m(b-a)
+\leq
+\int_a^b f(x)\,\dd x
+\leq
+M(b-a).
+\]
+Dividing by \(b-a>0\) gives a number between \(m\) and \(M\).  The
+Intermediate Value Theorem supplies \(c\in[a,b]\) at which \(f\) takes that
+value.
+\end{proof}
+
+\section{Improper Integrals}
+
+Finite-interval Riemann integration does not directly cover infinite domains
+or unbounded behavior.  Improper integrals retain the finite theory and add
+an explicit limiting process whose convergence must be established.
+
+\begin{definition}[Improper Riemann Integral]
+Let $f:[a,\infty)\to\R$ be Riemann integrable on every finite interval $[a,b]$. The \textbf{improper integral} of $f$ converges if
+\[
+\int_a^{\infty}f(x)\,\dd x
+=\lim_{b\to\infty}\int_a^b f(x)\,\dd x
+\]
+exists as a finite real number. Define an improper integral at a finite endpoint analogously by a one-sided limit.
+\end{definition}
+
+Thus an improper integral is not a new kind of finite-interval integral: it is a limit of ordinary Riemann integrals whose existence must be proved.
+
+\begin{theorem}[Comparison for Improper Integrals]
+\label{thm:improper-comparison}
+Let $0\leq f\leq g$ on $[a,\infty)$, with both functions Riemann integrable on finite intervals. If the improper integral of $g$ converges, then that of $f$ converges.
+\end{theorem}
+\begin{proof}
+The truncated integrals of $f$ are increasing and bounded above by those of $g$. Monotone convergence supplies their finite limit.
+\end{proof}
+
+\begin{theorem}[Integral Test]
+\label{thm:integral-test}
+Let $f:[1,\infty)\to\R$ be continuous, nonnegative, and decreasing, and put $a_n=f(n)$. Then
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+converges if and only if the improper integral
+\[
+\int_1^{\infty}f(x)\,\dd x
+\]
+converges. More precisely, for every $N\in\N$,
+\[
+\int_1^{N+1}f(x)\,\dd x
+\leq\sum_{n=1}^{N}f(n)
+\leq f(1)+\int_1^{N}f(x)\,\dd x.
+\]
+\end{theorem}
+\begin{proof}
+For $x\in[n,n+1]$, monotonicity gives
+\[
+f(n+1)\leq f(x)\leq f(n).
+\]
+Integrating these inequalities over the unit intervals and summing gives the displayed bounds. The partial sums and truncated integrals are increasing, so each is bounded above if and only if the other is bounded above. Monotone convergence then proves the equivalence.
+\end{proof}
+
+\begin{theorem}[$p$-Series Test: Analytic Rederivation]
+\label{thm:p-series-test}
+For $p\in\R$, the series
+\[
+\sum_{n=1}^{\infty}\frac{1}{n^p}
+\]
+converges if and only if $p>1$.
+\end{theorem}
+\begin{proof}
+For rational $p$, this conclusion was already proved without integration in \cref{thm:rational-p-series-test}. We now give an analytic proof that extends the criterion to every real exponent, using the real powers constructed in Chapter~\ref{ch:differentiation}.
+
+For $p>0$, the function
+\[
+f(x)=x^{-p}
+\]
+is continuous, nonnegative, and decreasing on $[1,\infty)$ by \cref{thm:real-power-derivative}. If $p\ne1$, that theorem gives
+\[
+\frac{\dd}{\dd x}\left(\frac{x^{1-p}}{1-p}\right)=x^{-p};
+\]
+if $p=1$, \cref{thm:log-and-inverses} gives
+\[
+\frac{\dd}{\dd x}\log x=\frac1x.
+\]
+Thus \cref{thm:ftc-two} gives
+\[
+\int_1^b x^{-p}\,\dd x=
+\begin{cases}
+\dfrac{b^{1-p}-1}{1-p},&p\ne1,\\
+\log b,&p=1.
+\end{cases}
+\]
+Thus the improper integral converges exactly when $p>1$, and \cref{thm:integral-test} gives the conclusion. If $p\leq0$, the terms do not tend to zero, so the series diverges by \cref{prop:series-terms-zero}.
+\end{proof}
+
+\section{The Lebesgue Criterion for Riemann Integrability}
+
+Darboux sums measure the oscillation of a function on intervals.  The
+criterion below makes this local: integrability is equivalent to confining
+all discontinuities to interval covers of arbitrarily small total length.
+Thus it begins to distinguish a set that is dense from one that is large in
+the relevant covering sense.  We use only countable interval covers, not a
+formal theory of Lebesgue measure.
+
+\begin{definition}[Oscillation and Riemann-negligible sets]
+Let $f:[a,b]\to\R$ be bounded.  For each $x\in[a,b]$, define
+\[
+\omega_f(x)=
+\inf_{\delta>0}
+\sup\bigl\{\lvert f(y)-f(z)\rvert:
+y,z\in[a,b],\ \lvert y-x\rvert<\delta,\ \lvert z-x\rvert<\delta\bigr\}.
+\]
+A set $E\subseteq[a,b]$ is \textbf{Riemann-negligible} if, for every
+\[
+\eta>0,
+\]
+there are open intervals $I_1,I_2,\ldots$ such that
+\[
+E\subseteq\bigcup_{j=1}^{\infty}I_j
+\qquad\text{and}\qquad
+\sum_{j=1}^{\infty}\operatorname{length}(I_j)<\eta.
+\]
+Finite covers are allowed as a special case.
+\end{definition}
+
+\begin{remark}[Terminology]
+The temporary term \textbf{Riemann-negligible} refers only to the preceding
+covering property.  In measure theory, these are precisely the sets of
+Lebesgue measure zero.  No measure is being introduced or used here; the
+interval-covering property is all that is needed below.
+\end{remark}
+
+\begin{proposition}[Oscillation and continuity]
+\label{prop:oscillation-continuity}
+Let $f:[a,b]\to\R$ be bounded.  Then
+\[
+\omega_f(x)=0
+\]
+if and only if $f$ is continuous at $x$.
+\end{proposition}
+\begin{proof}
+If $f$ is continuous at $x$, then, for a given $\varepsilon>0$, all values
+in a sufficiently small relative neighborhood of $x$ lie within
+$\varepsilon/2$ of $f(x)$.  Their pairwise differences are therefore less
+than $\varepsilon$, so the defining infimum is zero.  Conversely, if
+$\omega_f(x)=0$, then the defining infimum supplies a $\delta>0$ for which
+the pairwise oscillation in the relative $\delta$-neighborhood of $x$ is
+less than $\varepsilon$.  Taking one of the two points to be $x$ gives
+\[
+\lvert f(y)-f(x)\rvert<\varepsilon
+\]
+whenever $\lvert y-x\rvert<\delta$.
+\end{proof}
+
+\begin{proposition}[Closed oscillation sets]
+\label{prop:closed-oscillation-sets}
+Let $f:[a,b]\to\R$ be bounded and let $\varepsilon>0$.  Then
+\[
+D_{\varepsilon}=\bigl\{x\in[a,b]:\omega_f(x)\geq\varepsilon\bigr\}
+\]
+is closed in $[a,b]$.
+\end{proposition}
+\begin{proof}
+If $\omega_f(x)<\varepsilon$, then some neighborhood of $x$ has pairwise
+oscillation less than $\varepsilon$.  If this neighborhood has radius
+$\delta$, then the relative $\delta/2$-neighborhood of every sufficiently
+nearby point is contained in it.  Thus
+\[
+\omega_f(y)<\varepsilon
+\]
+for every $y$ sufficiently near $x$.  Hence the complement of
+$D_{\varepsilon}$ is open.
+\end{proof}
+
+\begin{proposition}[Countable sets are Riemann-negligible]
+\label{prop:countable-negligible}
+Every countable subset of
+\[
+[a,b]
+\]
+is Riemann-negligible.
+\end{proposition}
+\begin{proof}
+Let
+\[
+E\subseteq\{x_1,x_2,\ldots\},
+\]
+where repetitions are allowed if $E$ is finite.  Given $\eta>0$, cover
+$x_n$ by an open interval of length
+\[
+\frac{\eta}{2^{n+1}}.
+\]
+These intervals cover $E$, and their total length is less than $\eta$.
+\end{proof}
+
+\begin{lemma}[Countable unions of negligible sets]
+\label{lem:countable-union-negligible}
+If
+\[
+E_1,E_2,\ldots\subseteq[a,b]
+\]
+are Riemann-negligible, then
+\[
+\bigcup_{m=1}^{\infty}E_m
+\]
+is Riemann-negligible.
+\end{lemma}
+\begin{proof}
+Given $\eta>0$, cover $E_m$ by open intervals having total length less
+than
+\[
+\frac{\eta}{2^{m+1}}.
+\]
+The combined countable family covers the displayed union and has total
+length less than $\eta$.
+\end{proof}
+
+\begin{lemma}[Lebesgue number for a closed interval]
+\label{lem:lebesgue-number-interval}
+Let $\mathcal U$ be an open cover of $[a,b]$.  There is a number
+$\lambda>0$ such that every interval contained in $[a,b]$ and having length
+less than $\lambda$ is contained in a member of $\mathcal U$.
+\end{lemma}
+\begin{proof}
+Suppose no such $\lambda$ exists.  For every $n\in\N$, choose an interval
+\[
+J_n\subseteq[a,b]
+\]
+of length less than $1/n$ that is contained in no member of $\mathcal U$, and choose
+$x_n\in J_n$.  By \cref{thm:bolzano-weierstrass}, some subsequence of
+$(x_n)$ converges to a point $x\in[a,b]$.  Choose
+$U\in\mathcal U$ containing $x$.  Since $U$ is open, there is $r_0>0$ such that
+\[
+(x-r_0,x+r_0)\cap[a,b]\subseteq U.
+\]
+For sufficiently large terms of the convergent subsequence, both the
+distance from $x_n$ to $x$ and the length of $J_n$ are less than $r_0/2$.
+Then
+\[
+J_n\subseteq U,
+\]
+a contradiction.
+\end{proof}
+
+\begin{corollary}[Finite subcovers of closed subsets]
+\label{cor:closed-subset-finite-subcover}
+Let $K\subseteq[a,b]$ be closed in $[a,b]$.  Every cover of $K$ by open
+intervals has a finite subcover.
+\end{corollary}
+\begin{proof}
+Let $\mathcal V$ be an open cover of $K$.  For every point of
+\[
+[a,b]\setminus K,
+\]
+there is an open interval in $\R$ whose intersection with $K$ is empty and
+which contains that point.  Let $W$ be the union of all open intervals with
+this property.
+Then
+\[
+\mathcal V\cup\{W\}
+\]
+is an open cover of $[a,b]$.  By \cref{lem:lebesgue-number-interval}, a
+finite partition of $[a,b]$ having sufficiently small mesh has each of its
+intervals contained in one member of this cover.  For every partition
+interval meeting $K$, that member cannot be $W$, so it belongs to
+$\mathcal V$.  The finitely many members thereby selected cover $K$.
+\end{proof}
+
+\begin{theorem}[Lebesgue Criterion for Riemann Integrability]
+\label{thm:riemann-lebesgue-criterion}
+Let $f:[a,b]\to\R$ be bounded.  The following are equivalent.
+\begin{enumerate}
+\item $f$ is Riemann integrable.
+\item For every
+\[
+\varepsilon>0,
+\]
+the set
+\[
+D_{\varepsilon}=\bigl\{x\in[a,b]:\omega_f(x)\geq\varepsilon\bigr\}
+\]
+is Riemann-negligible.
+\item The discontinuity set of $f$ is Riemann-negligible.
+\end{enumerate}
+\end{theorem}
+\begin{remark}[Terminology]
+This result is commonly called \textbf{Lebesgue's criterion for Riemann
+integrability}.  Some sources use a name such as the
+\textbf{Riemann--Lebesgue criterion}; it must not be confused with the
+Riemann--Lebesgue lemma from Fourier analysis.
+\end{remark}
+\begin{proof}
+Assume (1), and let $\varepsilon,\eta>0$.  Choose a partition $P$ satisfying
+\[
+U(f,P)-L(f,P)<\frac{\varepsilon\eta}{4}.
+\]
+Except for the finitely many partition points, $D_{\varepsilon}$ lies in
+partition intervals having oscillation at least $\varepsilon$: otherwise a
+small neighborhood of such a point contained in its partition interval
+would give oscillation less than $\varepsilon$.  Since
+\[
+U(f,P)-L(f,P)
+\]
+is the sum of each partition interval's oscillation times its length, the
+total length of the indicated intervals is less than $\eta/4$.  Enlarge the finitely many
+closed partition intervals in question to open intervals whose total length
+is less than $\eta/2$.  Cover the finitely many partition points by open
+intervals having total length less than $\eta/2$.  These two finite families
+form an open cover of $D_{\varepsilon}$ of total length less than $\eta$.
+Thus (2) holds.
+
+Conversely, let
+\[
+\lvert f(x)\rvert\leq M
+\qquad(x\in[a,b]),
+\]
+where $M\geq1$, and fix $\varepsilon>0$.  Put
+\[
+\delta=\frac{\varepsilon}{2(b-a+1)}.
+\]
+By (2), cover $D_\delta$ by open intervals whose total length is less than
+\[
+\frac{\varepsilon}{8M+4}.
+\]
+By \cref{prop:closed-oscillation-sets,cor:closed-subset-finite-subcover},
+finitely many of these intervals still cover $D_\delta$.  Let $O$ be their
+union.  For every
+\[
+x\in[a,b]\setminus O,
+\]
+one has $\omega_f(x)<\delta$, so there is an open interval $V_x$ containing
+$x$ on which the oscillation of $f$ is less than $\delta$.  The selected
+intervals together with all the intervals $V_x$ form an open cover of
+$[a,b]$.  Apply \cref{lem:lebesgue-number-interval}, and choose a partition
+of mesh less than the resulting number $\lambda$.
+
+Classify a partition interval as bad if it is contained in one of the
+selected intervals covering $D_\delta$; classify all other partition
+intervals as good.  A bad interval has oscillation at most $2M$, and the
+sum of the lengths of all bad intervals is at most the sum of the lengths
+of the selected intervals.  Hence the bad intervals contribute less than
+\[
+2M\frac{\varepsilon}{8M+4}<\frac{\varepsilon}{2}
+\]
+to the Darboux gap.  Every good interval lies in one of the intervals
+$V_x$ and therefore has oscillation less than $\delta$.  Thus the good
+intervals contribute less than
+\[
+\delta(b-a)<\frac{\varepsilon}{2}.
+\]
+
+The Darboux criterion proves (1).
+
+By \cref{prop:oscillation-continuity}, the discontinuity set is
+\[
+\bigcup_{m=1}^{\infty}D_{1/m}.
+\]
+By \cref{lem:countable-union-negligible}, (2) implies (3).  Conversely,
+\[
+D_{\varepsilon}
+\]
+is contained in the discontinuity set, so (3) implies (2).
+\end{proof}
+
+\begin{example}[The Dirichlet function]
+\label{ex:dirichlet-function}
+For
+\[
+\mathbf{1}_{\mathbb{Q}}:[0,1]\to\R,
+\]
+every neighborhood contains rational and irrational points.  Hence
+\[
+\omega_{\mathbf{1}_{\mathbb{Q}}}(x)=1
+\qquad(x\in[0,1]),
+\]
+so
+\[
+D_{1/2}=[0,1]
+\]
+is not Riemann-negligible.
+\end{example}
+
+\begin{example}[Thomae's function]
+\label{ex:thomae-function}
+For $x\in[0,1]$, define
+\[
+T(x)=
+\begin{cases}
+1/q,&x=p/q\text{ is rational and written in lowest terms},\\
+0,&x\text{ is irrational}.
+\end{cases}
+\]
+This is commonly called \textbf{Thomae's function}, or the
+\textbf{popcorn function}; some texts call it Riemann's function, a name
+best avoided because it is ambiguous in analysis.  The function $T$ is
+continuous at every irrational point and discontinuous at every rational
+point.  Consequently,
+\[
+\operatorname{Disc}(T)=\Q\cap[0,1],
+\]
+$T$ is Riemann integrable, and
+\[
+\int_0^1T(x)\,\dd x=0.
+\]
+\end{example}
+\begin{proof}
+Let $x$ be irrational, and fix $\varepsilon>0$.  There are only finitely
+many rational numbers in $[0,1]$ that, in lowest terms, have denominator
+\[
+q\leq\frac1\varepsilon;
+\]
+indeed, there are only finitely many possible numerators for each such
+denominator.  Let $F_\varepsilon$ be this finite set.  Since
+\[
+x\notin F_\varepsilon,
+\]
+there is a neighborhood of $x$ avoiding $F_\varepsilon$.  At every point
+$y$ in this neighborhood, either $y$ is irrational and $T(y)=0$, or its
+reduced denominator satisfies
+\[
+q>\frac1\varepsilon,
+\]
+so
+\[
+T(y)=\frac1q<\varepsilon.
+\]
+Since $T(x)=0$, this proves that $T$ is continuous at $x$.
+
+Because $(0,1)$ is uncountable by \cref{thm:cantor-diagonal}, whereas $\Q$
+is countable, choose an irrational number
+\[
+\alpha\in(0,1).
+\]
+If
+\[
+x=p/q
+\]
+is rational in lowest terms and $x<1$, choose $N\in\N$ such that
+\[
+\frac{\alpha}{N}<1-x,
+\]
+and set
+\[
+y_n=x+\frac{\alpha}{N+n}.
+\]
+Then
+\[
+y_n\in[0,1]\setminus\Q
+\qquad\text{and}\qquad
+\lim_{n\to\infty}y_n=x.
+\]
+If $x=1$, the sequence
+\[
+y_n=1-\frac{\alpha}{n+1}
+\]
+has the same two properties.  In either formula, rationality of $y_n$ would
+force $\alpha$ to be rational, so the asserted irrationality is justified.
+Thus, in every case, rational $x$ is
+approached by irrational points $y_n$ with
+\[
+\lim_{n\to\infty}T(y_n)=0\ne\frac1q=T(x).
+\]
+Thus $T$ is discontinuous at every rational point, which proves the
+displayed description of its discontinuity set.
+
+The set
+\[
+\Q\cap[0,1]
+\]
+is countable and therefore Riemann-negligible by
+\cref{prop:countable-negligible}.  The criterion proves that $T$ is
+integrable.  Finally, every nondegenerate subinterval of $[0,1]$ contains an
+irrational point: it is uncountable by an affine rescaling of
+\cref{thm:cantor-diagonal}, while its rational points form a countable set.
+The infimum of $T$ on it is therefore zero.  Every lower Darboux sum is zero;
+since $T$ is integrable, its integral is zero.
+\end{proof}
+
+\begin{remark}[The Dirichlet--Thomae Contrast]
+Both functions are defined using the dense subset $\Q$ of $\R$, but density
+alone does not decide Riemann integrability:
+\[
+\begin{array}{c@{\qquad}c}
+\text{Dirichlet:}&
+\operatorname{Disc}(\mathbf{1}_{\Q})=[0,1]
+\quad\Longrightarrow\quad
+\text{not Riemann integrable},\\[4pt]
+\text{Thomae:}&
+\operatorname{Disc}(T)=\Q\cap[0,1]
+\quad\Longrightarrow\quad
+\text{Riemann integrable}.
+\end{array}
+\]
+The criterion measures the size of the discontinuity set in the covering
+sense, not whether that set is dense.
+\end{remark}
+
+
+
+
+\section{Limits of the Riemann Theory}
+
+Riemann integration is deliberately tied to partitions of intervals and to the
+size of a function's oscillation on each subinterval.  This makes it
+excellent for continuous functions and for much of elementary calculus, but
+it also has sharp limitations.  The contrast between
+\cref{ex:dirichlet-function} and \cref{ex:thomae-function} identifies the
+next obstacle precisely: dense sets can still be negligible, so a more
+systematic notion of the size of a subset of the real line is beginning to
+be required.
+
+The Dirichlet function is not pathological from the viewpoint of total
+amount: the rational numbers are sparse, yet the Riemann criterion cannot
+ignore them because they occur in every interval.  More generally, Riemann
+integration is awkward for functions with discontinuities distributed
+throughout an interval, for limits of functions, and for integrals on
+complicated sets.  Improper integrals also force one to treat unbounded
+behavior and infinite domains by separate limiting conventions.
+
+\begin{remark}[Riemann--Stieltjes integration]
+Another classical extension replaces the ordinary Riemann sums
+\[
+\sum_i f(t_i)(x_i-x_{i-1})
+\]
+by sums of the form
+\[
+\sum_i f(t_i)\bigl(\alpha(x_i)-\alpha(x_{i-1})\bigr),
+\]
+whose limiting value, when it exists, is denoted by
+\[
+\int_a^b f\,\dd\alpha.
+\]
+The ordinary Riemann integral is recovered when
+\[
+\alpha(x)=x.
+\]
+This Riemann--Stieltjes integral records accumulation relative to changes in
+another function: increasing or step-function integrators can encode weighted
+or discrete contributions, and the theory leads naturally to functions of
+bounded variation.  Under suitable regularity hypotheses, it has the later
+integration-by-parts identity
+\[
+\int_a^b f\,\dd\alpha
++
+\int_a^b \alpha\,\dd f
+=
+f(b)\alpha(b)-f(a)\alpha(a),
+\]
+which generalizes \cref{thm:one-variable-integration-by-parts}.  No
+Riemann--Stieltjes theory is developed here.  The measure-theoretic viewpoint
+later subsumes many such integrals by associating suitable measures to
+increasing functions; it gives the broader framework previewed again in
+\cref{sec:perspective-further-directions}.
+\end{remark}
+
+Measure theory introduces a systematic notion of size for sets that is fine
+enough to distinguish a sparse set from an interval.  The Lebesgue integral
+then organizes summation by the values of a function and by the sizes of
+their level sets, rather than solely by partitions of the domain.  This gives
+stronger convergence theorems and integrates many functions beyond the
+Riemann class.  We will not define measures or the Lebesgue integral in these
+notes; the point here is motivational: the Lebesgue criterion already shows
+that Riemann integrability is controlled by the size of the discontinuity
+set, while the limitations above indicate why a more flexible theory is
+valuable.
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Use \cref{thm:riemann-lebesgue-criterion} to prove that a bounded function
+with finitely many discontinuities is Riemann integrable.
+\end{exercise}
+
+\begin{exercise}
+Let $f:[a,b]\to\R$ be monotone.  Show that, for each
+\[
+\varepsilon>0,
+\]
+the set
+\[
+D_\varepsilon
+\]
+is finite.
+\end{exercise}
+
+\begin{exercise}
+Prove directly from the Darboux criterion that a function having only finitely many discontinuities on
+\[
+[a,b]
+\]
+and otherwise constant on finitely many intervals is Riemann integrable.
+\end{exercise}
+
+\begin{exercise}
+Determine whether
+\[
+\int_1^\infty\frac{1}{x^2}\,\dd x
+\]
+and
+\[
+\int_1^\infty\frac{1}{x}\,\dd x
+\]
+converge. Use \cref{thm:ftc-two}, then compare the conclusion with the two corresponding series.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:one-variable-substitution} to evaluate
+\[
+\int_0^1 2t\exp(t^2)\,\dd t.
+\]
+State the substitution and identify the endpoint values.
+\end{exercise}
+
+\begin{exercise}
+Use \cref{thm:one-variable-integration-by-parts} to evaluate
+\[
+\int_0^1 x\sin x\,\dd x.
+\]
+\end{exercise}
+
+\begin{exercise}
+Explain why the function
+\[
+\mathbf{1}_{\Q}
+\]
+on
+\[
+[0,1]
+\]
+has the same upper and lower sums for no partition. Which density facts from earlier chapters are being used?
+\end{exercise}

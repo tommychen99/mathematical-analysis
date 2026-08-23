@@ -1,0 +1,278 @@
+\chapter{Limits and Continuity of Functions}
+\label{ch:continuity}
+
+\section{Limits at a Point}
+
+Sequence limits describe processes indexed by natural numbers.  A function
+limit asks the same question when the input can approach a point through all
+nearby domain values, so the value assigned at the target itself must be
+kept logically separate.
+
+\begin{definition}[Limit point]
+Let $D\subseteq\R$ and $a\in\R$. The point $a$ is a \emph{limit point} of $D$ if, for every $\delta>0$, there is an $x\in D$ such that $0<\abs{x-a}<\delta$.
+\end{definition}
+
+The condition excludes $x=a$: a function's value at $a$ should not affect its limit at $a$.
+
+\begin{definition}[Function limit]
+\label{def:function-limit}
+Let $f:D\to\R$, let $a$ be a limit point of $D$, and let $L\in\R$. We write
+\[
+\lim_{x\to a}f(x)=L
+\]
+if, for every $\eps>0$, there is $\delta>0$ such that every $x\in D$ satisfying $0<\abs{x-a}<\delta$ also satisfies $\abs{f(x)-L}<\eps$.
+\end{definition}
+
+\begin{theorem}[Uniqueness of function limits]
+\label{thm:unique-function-limit}
+Under the hypotheses of \cref{def:function-limit}, there is at most one value $L$ for which the displayed limit holds.
+\end{theorem}
+\begin{proof}
+Suppose $L$ and $M$ both satisfy the definition. Given $\eps>0$, obtain positive numbers $\delta_L,\delta_M$ for tolerance $\eps/2$. Since $a$ is a limit point, choose $x\in D$ with
+\[
+0<\abs{x-a}<\min\{\delta_L,\delta_M\}.
+\]
+Then
+\[
+\abs{L-M}\leq\abs{L-f(x)}+\abs{f(x)-M}<\eps.
+\]
+By \cref{lem:positive-small}, $L=M$.
+\end{proof}
+
+\begin{theorem}[Sequential criterion]
+\label{thm:sequential-function-limit}
+Let $f:D\to\R$ and let $a$ be a limit point of $D$. Then
+\[
+\lim_{x\to a}f(x)=L
+\]
+if and only if, for every sequence $(x_n)$ in $D\setminus\{a\}$ with $x_n\to a$, one has $f(x_n)\to L$.
+\end{theorem}
+\begin{proof}
+Suppose first that the function limit exists. Given $\eps>0$, take $\delta$ from \cref{def:function-limit}. Since $x_n\to a$, eventually $\abs{x_n-a}<\delta$, so eventually $\abs{f(x_n)-L}<\eps$.
+
+Conversely, suppose the sequential statement holds but the function limit fails. Then there is $\eps_0>0$ such that, for every $n\in\N$, one can choose $x_n\in D$ with
+\[
+0<\abs{x_n-a}<1/n
+\qquad\text{and}\qquad
+\abs{f(x_n)-L}\geq\eps_0.
+\]
+The first inequality and the Archimedean property imply $x_n\to a$, while the second prevents $f(x_n)$ from converging to $L$, a contradiction.
+\end{proof}
+
+\section{Continuity}
+
+Continuity is the condition that removes that separation: the local limiting
+value agrees with the value of the function.  Open and closed sets provide a
+second language for this stability and prepare for compactness.
+
+\begin{definition}[Neighborhoods, Open Sets, and Closed Sets]
+For $a\in\R$ and $r>0$, the open interval
+\[
+B(a,r)=\set{x\in\R:\abs{x-a}<r}
+\]
+is the \textbf{open ball} of radius $r$ about $a$. A set $U\subseteq\R$ is \textbf{open} if every $a\in U$ has some $r>0$ for which
+\[
+B(a,r)\subseteq U.
+\]
+A set $C\subseteq\R$ is \textbf{closed} if its complement is open.
+\end{definition}
+
+\begin{theorem}[Sequential Characterization of Closed Sets]
+\label{thm:sequentially-closed}
+A set $C\subseteq\R$ is closed if and only if every convergent sequence in $C$ has its limit in $C$.
+\end{theorem}
+\begin{proof}
+Suppose first that $C$ is closed and that $x_n\in C$ converges to $x$. If $x\notin C$, then the open set $C^c$ contains a ball
+\[
+B(x,r).
+\]
+Eventually $x_n\in B(x,r)$, contradicting $x_n\in C$. Conversely, suppose the sequential condition holds and let $x\in C^c$. If no ball about $x$ were contained in $C^c$, then for every $n$ one could choose
+\[
+x_n\in C,\qquad \abs{x_n-x}<1/n.
+\]
+Then $x_n\to x$, contradicting the sequential condition. Hence $C^c$ is open.
+\end{proof}
+
+\begin{definition}[Continuity]
+\label{def:continuity}
+Let $f:D\to\R$ and let $a\in D$. The function $f$ is \emph{continuous at $a$} if, for every $\eps>0$, there is $\delta>0$ such that every $x\in D$ satisfying $\abs{x-a}<\delta$ satisfies $\abs{f(x)-f(a)}<\eps$. It is \emph{continuous on $D$} if it is continuous at every point of $D$.
+\end{definition}
+
+If $a$ is a limit point of $D$, continuity at $a$ is equivalent to the statement that the limit of $f(x)$ as $x$ tends to $a$ equals $f(a)$. The definition also handles isolated points: every function is continuous at an isolated point of its domain.
+
+\begin{theorem}[Sequential criterion for continuity]
+\label{thm:sequential-continuity}
+Let $f:D\to\R$ and $a\in D$. Then $f$ is continuous at $a$ if and only if every sequence $(x_n)$ in $D$ satisfying $x_n\to a$ also satisfies $f(x_n)\to f(a)$.
+\end{theorem}
+\begin{proof}
+The proof is the same as \cref{thm:sequential-function-limit}, except that terms equal to $a$ require no exclusion: for such a term, $\abs{f(x_n)-f(a)}=0$. Conversely, failure of continuity gives, for each $n$, an $x_n\in D$ with $\abs{x_n-a}<1/n$ and $\abs{f(x_n)-f(a)}\geq\eps_0$.
+\end{proof}
+
+\begin{theorem}[Algebra of continuous functions]
+\label{thm:continuity-algebra}
+Let $f,g:D\to\R$ be continuous at $a\in D$, and let $c\in\R$. Then $f+g$, $cf$, and $fg$ are continuous at $a$. If $g(a)\ne0$, then $f/g$ is continuous at $a$ on the set where it is defined.
+\end{theorem}
+\begin{proof}
+For every sequence $x_n\to a$ in $D$, continuity gives $f(x_n)\to f(a)$ and $g(x_n)\to g(a)$. Apply the sequence limit laws of \cref{thm:limit-algebra} and then \cref{thm:sequential-continuity}.
+\end{proof}
+
+\begin{example}
+Every polynomial is continuous on $\R$: constant and identity functions are continuous directly from \cref{def:continuity}, and repeated application of \cref{thm:continuity-algebra} proves the claim. Every rational function is continuous wherever its denominator is nonzero.
+\end{example}
+
+\section{Uniform Continuity}
+
+Ordinary continuity permits the required input tolerance to vary from point
+to point.  Uniform continuity asks for one tolerance that works everywhere
+on the domain, precisely the stronger control needed for approximation and
+integration.
+
+\begin{definition}[Uniform continuity]
+\label{def:uniform-continuity}
+Let $f:D\to\R$. The function $f$ is \emph{uniformly continuous on $D$} if, for every $\eps>0$, there is $\delta>0$ such that, for all $x,y\in D$,
+\[
+\abs{x-y}<\delta\Longrightarrow\abs{f(x)-f(y)}<\eps.
+\]
+\end{definition}
+
+The difference from ordinary continuity is that $\delta$ may depend on $\eps$, but not on the point of $D$.
+
+\begin{proposition}[Lipschitz functions]
+\label{prop:lipschitz-uniform}
+Let $f:D\to\R$. If there is $K\geq0$ such that
+\[
+\abs{f(x)-f(y)}\leq K\abs{x-y}
+\qquad\text{for all }x,y\in D,
+\]
+then $f$ is uniformly continuous on $D$.
+\end{proposition}
+\begin{proof}
+If $K=0$, the function is constant. If $K>0$, choose $\delta=\eps/K$. Then the displayed inequality gives the conclusion of \cref{def:uniform-continuity}.
+\end{proof}
+
+\begin{example}[Continuity need not be uniform]
+The function $f:(0,1)\to\R$ given by $f(x)=1/x$ is continuous by \cref{thm:continuity-algebra}, but not uniformly continuous. Indeed, put $x_n=1/n$ and $y_n=1/(n+1)$. Then $\abs{x_n-y_n}\to0$, whereas $\abs{f(x_n)-f(y_n)}=1$ for every $n$.
+\end{example}
+
+\section{Intermediate Values}
+
+Continuity has a qualitative consequence beyond limiting estimates: it
+prevents a function from jumping over a value.  Completeness supplies the
+point at which this intuitive crossing must occur.
+
+\begin{theorem}[Intermediate Value Theorem]
+\label{thm:ivt}
+Let $f:[a,b]\to\R$ be continuous, with $a<b$. If $u$ lies between $f(a)$ and $f(b)$, then there is $c\in[a,b]$ such that $f(c)=u$.
+\end{theorem}
+\begin{proof}
+It is enough to treat $f(a)\leq u\leq f(b)$. Let
+\[
+S=\set{x\in[a,b]:f(x)\leq u}.
+\]
+The set is nonempty and bounded above, so let $c=\sup S$. If $f(c)<u$, then $c\ne b$ because
+\[
+f(b)\geq u.
+\]
+Continuity gives a positive $\delta$ such that $f(x)<u$ whenever
+\[
+\abs{x-c}<\delta.
+\]
+Choose
+\[
+0<r<\min(\delta,b-c).
+\]
+Then $c+r\in S$, contradicting that $c$ is an upper bound of $S$. If $f(c)>u$, then $c\ne a$ because
+\[
+f(a)\leq u.
+\]
+Continuity gives a positive $\delta$ such that $f(x)>u$ whenever
+\[
+\abs{x-c}<\delta.
+\]
+By the defining property of the supremum, there is
+\[
+x\in S
+\]
+with
+\[
+c-\delta<x\leq c,
+\]
+which contradicts $f(x)\leq u$. Therefore $f(c)=u$.
+\end{proof}
+
+\section{Compact Intervals}
+
+Closed bounded intervals are the domains on which local information can be
+made global.  Compactness will turn subsequential control into maxima,
+minima, and uniform continuity.
+
+\begin{definition}[Sequential compactness]
+A set $K\subseteq\R$ is \textbf{sequentially compact} if every sequence in $K$ has a subsequence converging to an element of $K$.
+\end{definition}
+
+\begin{theorem}[Compactness of closed bounded intervals]
+\label{thm:compact-interval}
+If $a\leq b$, then $[a,b]$ is sequentially compact.
+\end{theorem}
+\begin{proof}
+Let $(x_n)$ be a sequence in $[a,b]$. It is bounded, so \cref{thm:bolzano-weierstrass} gives a subsequence converging to some $x\in\R$. Since $a\leq x_{n_k}\leq b$ for every $k$, \cref{thm:limit-order} gives $a\leq x\leq b$. Thus $x\in[a,b]$.
+\end{proof}
+
+\begin{theorem}[Extreme Value Theorem]
+\label{thm:extreme-value}
+Let $f:[a,b]\to\R$ be continuous, where $a\leq b$. Then there are points $x_{\min},x_{\max}\in[a,b]$ such that
+\[
+f(x_{\min})\leq f(x)\leq f(x_{\max})
+\qquad\text{for every }x\in[a,b].
+\]
+\end{theorem}
+\begin{proof}
+Let $s=\sup f([a,b])$. To justify that this supremum exists, suppose first that $f([a,b])$ were unbounded above. For each $n$, choose $x_n\in[a,b]$ with $f(x_n)>n$. By \cref{thm:compact-interval}, a subsequence $x_{n_k}$ converges to $x\in[a,b]$. Continuity gives $f(x_{n_k})\to f(x)$, but $f(x_{n_k})\geq n_k\to\infty$, an impossibility. Hence the image is bounded above, and it is nonempty. For each $n$, choose $x_n\in[a,b]$ with $f(x_n)>s-1/n$. A convergent subsequence has limit $x_{\max}\in[a,b]$. Continuity and the squeeze theorem give $f(x_{\max})=s$. Applying the same argument to $-f$ gives $x_{\min}$.
+\end{proof}
+
+\begin{theorem}[Heine--Cantor theorem]
+\label{thm:heine-cantor}
+Every continuous function $f:[a,b]\to\R$, where $a\leq b$, is uniformly continuous.
+\end{theorem}
+\begin{proof}
+Suppose not. Then some $\eps_0>0$ has the property that, for every $n$, there are $x_n,y_n\in[a,b]$ such that
+\[
+\abs{x_n-y_n}<1/n
+\qquad\text{and}\qquad
+\abs{f(x_n)-f(y_n)}\geq\eps_0.
+\]
+By \cref{thm:compact-interval}, a subsequence $x_{n_k}$ converges to $x\in[a,b]$. The first inequality gives $y_{n_k}\to x$ as well. Continuity gives both $f(x_{n_k})\to f(x)$ and $f(y_{n_k})\to f(x)$, so their difference tends to $0$, contradicting the second inequality.
+\end{proof}
+
+
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Use the sequential criterion to prove that
+\[
+f(x)=x^2
+\]
+is continuous at every real number.
+\end{exercise}
+
+\begin{exercise}
+Let
+\[
+f(x)=
+\begin{cases}
+0,&x\leq0,\\
+1,&x>0.
+\end{cases}
+\]
+Determine all points at which $f$ is continuous, and explain your answer using sequences.
+\end{exercise}
+
+\begin{exercise}
+Let $f:[a,b]\to\R$ be continuous and suppose
+\[
+f(a)f(b)<0.
+\]
+Use the Intermediate Value Theorem to prove that $f$ has a zero in $(a,b)$.
+\end{exercise}
