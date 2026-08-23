@@ -1,12 +1,13 @@
 # Lecture Notes on Mathematical Analysis
 
+Repository: <https://github.com/tommychen99/mathematical-analysis>
+
 ## Single and Multivariable Calculus
 
 **Author:** Tommy Chen  
-**Current version:** Version 1.0 Release Candidate  
+**Current version:** Version 1.0  
 **Revision date:** August 23, 2026  
-**Status:** Publication-preparation release candidate; mathematical and editorial
-corrections may still be made before a final v1.0 release.
+**Status:** Version 1.0 public release.
 
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real
@@ -75,11 +76,9 @@ appropriate attribution.
 
 ## Errors and errata
 
-The notes may contain errors. Please report them through GitHub Issues if this
-repository is hosted on GitHub and Issues are enabled; otherwise record them in
-[`ERRATA.md`](ERRATA.md) or contact the maintainer through the publication
-venue. The author must choose and document a public reporting channel before
-the final release.
+The notes may contain errors. Please report them through
+[GitHub Issues](https://github.com/tommychen99/mathematical-analysis/issues)
+or record them in [`ERRATA.md`](ERRATA.md).
 
 ## Release preparation
 
