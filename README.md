@@ -5,9 +5,9 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 ## Single and Multivariable Calculus
 
 **Author:** Tommy Chen  
-**Current version:** Version 1.0  
+**Current version:** Version 1.0.1  
 **Revision date:** August 23, 2026  
-**Status:** Version 1.0 public release.
+**Status:** Version 1.0.1 public release.
 
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real

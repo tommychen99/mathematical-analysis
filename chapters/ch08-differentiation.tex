@@ -108,28 +108,117 @@ h(x)=\bigl(f(b)-f(a)\bigr)g(x)-\bigl(g(b)-g(a)\bigr)f(x).
 The endpoint values of $h$ agree, and $h'(c)=0$ is exactly the displayed identity.
 \end{proof}
 
-\begin{theorem}[L'H\^opital's Rule: the $0/0$ Form]
-\label{thm:lhopital}
-Let $f,g:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$, and suppose
+\noindent\textbf{Infinite limits.} Let $h:(a,b)\to\R$. We write
 \[
-f(a)=g(a)=0.
+\lim_{x\to a^+}h(x)=+\infty
 \]
-Assume $g'(x)\ne0$ for every $x\in(a,b)$ and that
+if, for every $M>0$, there is a $\delta>0$ such that
+\[
+0<x-a<\delta
+\quad\Longrightarrow\quad
+h(x)>M.
+\]
+The meanings of $h(x)\to-\infty$ and $\abs{h(x)}\to\infty$ are obtained by
+replacing the final inequality respectively by $h(x)<-M$ and
+$\abs{h(x)}>M$. Thus, expressions such as $\infty/\infty$ name an
+\textbf{indeterminate limiting form}; they are not arithmetic quotients of
+numbers called infinity. The absolute-divergence formulation permits either
+sign for each function.
+
+\begin{theorem}[L'H\^opital's Rule: the $0/0$ and $\infty/\infty$ Forms]
+\label{thm:lhopital}
+Let $f,g:[a,b)\to\R$ be continuous on $[a,b)$ and differentiable on $(a,b)$,
+where $a<b$. Assume that
+\[
+g'(x)\ne0
+\qquad\text{for every }x\in(a,b),
+\]
+and that one of the following alternatives holds:
+\begin{enumerate}
+\item
+\[
+f(a)=g(a)=0;
+\]
+\item
+\[
+\lim_{x\to a^+}\abs{f(x)}=\infty
+\qquad\text{and}\qquad
+\lim_{x\to a^+}\abs{g(x)}=\infty.
+\]
+\end{enumerate}
+If $L\in\R$ and
 \[
 \lim_{x\to a^+}\frac{f'(x)}{g'(x)}=L.
 \]
-Then $g(x)\ne0$ for $x\in(a,b)$ and
+then the quotient is defined sufficiently close to $a$ and
 \[
 \lim_{x\to a^+}\frac{f(x)}{g(x)}=L.
 \]
 \end{theorem}
 \begin{proof}
-If $g(x)=0$ for some $x>a$, Rolle's theorem applied to $g$ on $[a,x]$ would give a point where $g'$ vanishes. Thus the quotient is defined. Fix $x\in(a,b)$. Cauchy's theorem on $[a,x]$ gives $c_x\in(a,x)$ such that
+First suppose that $f(a)=g(a)=0$. If $g(x)=0$ for some $x>a$, Rolle's theorem
+applied to $g$ on $[a,x]$ would give a point where $g'$ vanishes. Thus the
+quotient is defined. Fix $x\in(a,b)$. Cauchy's theorem on $[a,x]$ gives
+$c_x\in(a,x)$ such that
 \[
 \frac{f(x)}{g(x)}=\frac{f'(c_x)}{g'(c_x)}.
 \]
 As $x\to a^+$, one has $a<c_x<x$, hence $c_x\to a^+$. The assumed derivative-quotient limit therefore gives the conclusion.
+
+Now suppose that both absolute values diverge. Let $\eps>0$. Choose
+$\delta>0$ so that
+\[
+\abs{\frac{f'(t)}{g'(t)}-L}<\frac{\eps}{4}
+\qquad\text{whenever}\qquad
+a<t<a+\delta,
+\]
+and choose $c\in(a,a+\delta)$. For $x\in(a,c)$, Rolle's theorem shows that
+$g(x)\ne g(c)$, and Cauchy's Mean Value Theorem on $[x,c]$ gives a point
+$\xi_x\in(x,c)$ for which
+\[
+\frac{f(x)-f(c)}{g(x)-g(c)}
+=\frac{f'(\xi_x)}{g'(\xi_x)}.
+\]
+Thus this quotient differs from $L$ by less than $\eps/4$. Since
+$\abs{g(x)}\to\infty$, for all $x$ sufficiently close to $a$ we also have
+\[
+\abs{\frac{g(x)-g(c)}{g(x)}}\leq\frac32
+\qquad\text{and}\qquad
+\abs{\frac{f(c)-Lg(c)}{g(x)}}<\frac{\eps}{2}.
+\]
+Writing the desired difference as
+\[
+\frac{f(x)}{g(x)}-L
+=\frac{g(x)-g(c)}{g(x)}
+\left(\frac{f(x)-f(c)}{g(x)-g(c)}-L\right)
++\frac{f(c)-Lg(c)}{g(x)},
+\]
+the triangle inequality proves that its absolute value is less than $\eps$.
 \end{proof}
+
+\noindent\textbf{Infinite derivative-quotient variants.} Under the same
+hypotheses, if the derivative quotient tends to $+\infty$ (respectively,
+$-\infty$), then so does $f(x)/g(x)$. For the $0/0$ form this follows from
+the displayed Cauchy-Mean-Value identity in the proof. For the
+$\infty/\infty$ form, use the second displayed decomposition there: the
+first factor tends to $1$, while the second term tends to $0$. Taking the
+derivative quotient arbitrarily large positive (respectively, negative)
+therefore gives the stated conclusion.
+
+\noindent\textbf{Other domains and forms.} The same proof works for limits
+as $x\to a^-$ and as $x\to\pm\infty$, after the evident changes of domain.
+For example,
+\[
+\lim_{x\to\infty}\frac{3x^2+x}{2x^2-1}
+=\lim_{x\to\infty}\frac{6x+1}{4x}
+=\frac32.
+\]
+Here both the numerator and denominator have absolute value tending to
+infinity; their signs can affect the resulting quotient, but they require no
+separate theorem. L'H\^opital's Rule applies directly only to quotient forms
+of type $0/0$ and $\infty/\infty$. Forms such as $0\cdot\infty$,
+$\infty-\infty$, $1^\infty$, $0^0$, and $\infty^0$ must first be transformed
+into a suitable quotient or logarithmic form.
 
 \section{Definitions of Elementary Functions}
 
