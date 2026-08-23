@@ -82,8 +82,8 @@ or record them in [`ERRATA.md`](ERRATA.md).
 
 ## Release preparation
 
-The source is prepared for a future `v1.0` tag, but no release has been
-created. Keep the version and revision date synchronized between `preamble.tex`,
-the title page, and this README. After `v1.0`, use approximately `1.0.1` for
-minor corrections, `1.1` for meaningful additions or improvements, and `2.0`
-for substantial restructuring.
+Version 1.0 was released on August 23, 2026.
+
+For subsequent versions, use approximately `1.0.1` for minor corrections,
+`1.1` for meaningful additions or improvements, and `2.0` for substantial
+restructuring.
