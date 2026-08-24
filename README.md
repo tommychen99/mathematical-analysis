@@ -69,7 +69,7 @@ policy imposed by the intended university, repository, publisher, or platform.
 
 ## License and copyright
 
-Copyright \(\copyright\) 2026 Tommy Chen. This work is licensed under the
+Copyright © 2026 Tommy Chen. This work is licensed under the
 [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 You may share and adapt the notes under the terms of that license, with
 appropriate attribution.
