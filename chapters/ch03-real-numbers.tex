@@ -131,9 +131,66 @@ gives
 which is the triangle inequality.
 \end{proof}
 
-\begin{definition}[Upper bounds and completeness]
-Let $S\subseteq F$. An element $u\in F$ is an \textbf{upper bound} of $S$ if $s\leq u$ for every $s\in S$. A \textbf{least upper bound} of $S$ is an upper bound $u$ with $u\leq v$ for every upper bound $v$ of $S$. An ordered field has the \textbf{least-upper-bound property} if every nonempty set having an upper bound has a least upper bound.
+\begin{definition}[Bounds, Suprema, and Infima]
+Let $S\subseteq F$ be nonempty. An element $u\in F$ is an \textbf{upper
+bound} of $S$ if
+\[
+s\leq u
+\qquad\text{for every }s\in S.
+\]
+An element $\ell\in F$ is a \textbf{lower bound} of $S$ if
+\[
+\ell\leq s
+\qquad\text{for every }s\in S.
+\]
+The set $S$ is \textbf{bounded above} or \textbf{bounded below} when it has
+an upper bound or a lower bound, respectively.
+
+An element $s\in F$ is the \textbf{supremum} of $S$, or its \textbf{least
+upper bound}, if $s$ is an upper bound of $S$ and
+\[
+s\leq u
+\qquad\text{for every upper bound }u\text{ of }S.
+\]
+When it exists, we write
+\[
+s=\sup S.
+\]
+Similarly, an element $i\in F$ is the \textbf{infimum} of $S$, or its
+\textbf{greatest lower bound}, if $i$ is a lower bound of $S$ and
+\[
+\ell\leq i
+\qquad\text{for every lower bound }\ell\text{ of }S.
+\]
+When it exists, we write
+\[
+i=\inf S.
+\]
 \end{definition}
+
+A set has a supremum or infimum only when an element with the indicated
+property exists; the symbols $\sup S$ and $\inf S$ denote those elements once
+they exist. Each is unique: if $s$ and $t$ are both least upper bounds, then
+$s\leq t$ because $t$ is an upper bound and $t\leq s$ because $s$ is an upper
+bound. The argument for greatest lower bounds is identical. A supremum need
+not belong to its set. For example, for
+\[
+S=\set{x\in F:0<x<1},
+\]
+one has $\sup S=1$ and $\inf S=0$, but $S$ has neither a maximum nor a
+minimum. In general, $\sup S$ is the maximum precisely when it belongs to
+$S$, and $\inf S$ is the minimum precisely when it belongs to $S$.
+
+For a function $h:A\to F$, the notation
+\[
+\sup_{x\in A}h(x)
+\]
+means $\sup\set{h(x):x\in A}$ whenever this supremum exists; the analogous
+convention applies to infima. A subscript such as $\sup_F$ specifies the
+ambient ordered field when that clarification is needed.
+
+An ordered field has the \textbf{least-upper-bound property} if every
+nonempty subset that is bounded above has a supremum in the field.
 
 \begin{definition}[Complete ordered field]
 An ordered field having the least-upper-bound property is called a \textbf{complete ordered field}. This is a characterization, not a construction: it says what the real numbers are like, but does not yet exhibit them.
