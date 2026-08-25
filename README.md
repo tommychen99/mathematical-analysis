@@ -6,7 +6,7 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 
 **Author:** Tommy Chen  
 **Current version:** Version 1.0.2
-**Revision date:** August 23, 2026  
+**Revision date:** August 24, 2026  
 **Status:** Version 1.0.2 public release.
 
 These notes give a rigorous introduction to real analysis and rebuild the
