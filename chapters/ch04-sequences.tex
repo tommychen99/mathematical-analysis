@@ -155,8 +155,31 @@ It converts bounded monotone approximation into a limit, prevents Cauchy
 approximations from leaving a gap, and forces bounded sequences to have
 convergent subsequences.
 
-\begin{definition}[Monotone sequence]
-A sequence $(a_n)$ is \textbf{increasing} if $a_n\leq a_{n+1}$ for all $n$, \textbf{decreasing} if $a_{n+1}\leq a_n$ for all $n$, and \textbf{monotone} if it is increasing or decreasing.
+\begin{definition}[Monotonicity]
+Let $D\subseteq\R$ and let $f:D\to\R$. The function $f$ is \textbf{increasing}
+(or \textbf{nondecreasing}) if
+\[
+x<y\quad\Longrightarrow\quad f(x)\leq f(y)
+\qquad(x,y\in D),
+\]
+and \textbf{strictly increasing} if the conclusion is $f(x)<f(y)$. It is
+\textbf{decreasing} if the displayed implication holds with
+$f(x)\geq f(y)$, and \textbf{strictly decreasing} if it holds with
+$f(x)>f(y)$. A function is \textbf{monotone} if it is increasing or
+decreasing, and \textbf{strictly monotone} if it is strictly increasing or
+strictly decreasing.
+
+Throughout these notes, \textbf{increasing} and \textbf{decreasing} have
+their non-strict meanings; strict inequalities are indicated explicitly.
+
+A sequence $(a_n)$ is viewed as a function on $\N$. Thus it is increasing
+exactly when
+\[
+a_n\leq a_{n+1}
+\qquad(n\in\N),
+\]
+and the analogous statements define decreasing and strict monotonicity for
+sequences.
 \end{definition}
 
 \begin{theorem}[Monotone convergence]

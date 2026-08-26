@@ -1,6 +1,6 @@
 # Errata
 
-No errata have been recorded for Version 1.0.2.
+No errata have been recorded for Version 1.0.3.
 
 ## Entry format
 

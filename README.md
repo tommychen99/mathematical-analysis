@@ -5,9 +5,9 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 ## Single and Multivariable Calculus
 
 **Author:** Tommy Chen  
-**Current version:** Version 1.0.2
-**Revision date:** August 24, 2026  
-**Status:** Version 1.0.2 public release.
+**Current version:** Version 1.0.3
+**Revision date:** August 26, 2026
+**Status:** Version 1.0.3 public release.
 
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real
@@ -86,7 +86,8 @@ Version 1.0 was released on August 23, 2026.
 
 Version 1.0.1 expands L'Hopital's Rule to include the
 infinity-over-infinity indeterminate form. Version 1.0.2 clarifies the
-notation and basic terminology for suprema and infima.
+notation and basic terminology for suprema and infima. Version 1.0.3 defines
+strict monotonicity with the first treatment of monotonicity in Chapter 4.
 
 For subsequent versions, use approximately `1.0.1` for minor corrections,
 `1.1` for meaningful additions or improvements, and `2.0` for substantial
