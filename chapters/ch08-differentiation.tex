@@ -15,7 +15,7 @@ f'(a)=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}.
 The number $f'(a)$ is the \textbf{derivative} of $f$ at $a$.
 \end{definition}
 
-\begin{theorem}[Differentiability Implies Continuity]
+\begin{theorem}[Differentiability implies continuity]
 \label{thm:differentiability-continuity}
 If $f$ is differentiable at $a$, then it is continuous at $a$.
 \end{theorem}
@@ -27,7 +27,7 @@ f(x)-f(a)=(x-a)\frac{f(x)-f(a)}{x-a}.
 The first factor tends to zero and the second tends to $f'(a)$, so the product tends to zero by the algebra of limits. Thus $f(x)\to f(a)$.
 \end{proof}
 
-\begin{theorem}[Derivative Rules]
+\begin{theorem}[Derivative rules]
 \label{thm:derivative-rules}
 Let $f,g:D\to\R$ be differentiable at $a$, and let $c\in\R$. Then $f+g$, $cf$, and $fg$ are differentiable at $a$, with
 \[
@@ -49,13 +49,42 @@ f(x)g(x)-f(a)g(a)=f(x)\bigl(g(x)-g(a)\bigr)+g(a)\bigl(f(x)-f(a)\bigr).
 Divide by $x-a$, then use continuity of differentiable functions and the algebra of limits. The quotient formula follows by applying the product formula to $f\cdot(1/g)$ and differentiating the identity $g\cdot(1/g)=1$.
 \end{proof}
 
+\begin{example}[Exceptional points require the definition]
+Away from $0$, the absolute-value function is given by a polynomial and has
+derivative $1$ or $-1$.  At $0$, however,
+\[
+\frac{\abs{h}-\abs0}{h}=
+\begin{cases}1,&h>0,\\-1,&h<0,\end{cases}
+\]
+so the one-sided derivatives disagree and $\abs{x}$ is not differentiable
+there.  It is nevertheless continuous.  This shows both that continuity is
+necessary but insufficient and that a formula valid on separate pieces
+does not settle a junction point.
+\end{example}
+
+\begin{example}[A piecewise differentiability check]
+Let
+\[
+f(x)=\begin{cases}x^2\sin(1/x),&x\ne0,\\0,&x=0.\end{cases}
+\]
+Temporarily using the familiar prior-calculus bound
+$\abs{\sin t}\leq1$ (proved later from the power-series construction),
+\[
+\left\lvert\frac{f(h)-f(0)}h\right\rvert
+=\abs{h\sin(1/h)}\leq\abs h\longrightarrow0.
+\]
+Thus $f'(0)=0$.  The correct workflow is to use differentiation rules where
+their hypotheses apply and return to the limit definition at exceptional
+points.
+\end{example}
+
 \section{Chain Rule and Mean Value Theorems}
 
 Derivative rules explain how local linear approximations combine.  The mean
 value theorems add a global principle: a net change across an interval is
 recorded by a derivative at some interior point.
 
-\begin{theorem}[Chain Rule]
+\begin{theorem}[Chain rule]
 \label{thm:chain-rule}
 Let $f:D\to\R$ be differentiable at $a$, let $g:E\to\R$ be differentiable at $f(a)$, and suppose $f(x)\in E$ for all $x\in D$ sufficiently near $a$. Then $g\circ f$ is differentiable at $a$, with
 \[
@@ -70,7 +99,7 @@ For $f(x)\ne f(a)$, factor the difference quotient as
 The first factor tends to $g'(f(a))$ along points where it is defined, and the second tends to $f'(a)$. If $f(x)=f(a)$, define the first factor to be $g'(f(a))$; the product identity still holds because the second factor is zero. The limit algebra now gives the formula.
 \end{proof}
 
-\begin{theorem}[Rolle's Theorem]
+\begin{theorem}[Rolle's theorem]
 \label{thm:rolle}
 Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. If $f(a)=f(b)$, then some $c\in(a,b)$ satisfies $f'(c)=0$.
 \end{theorem}
@@ -78,7 +107,7 @@ Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where
 By \cref{thm:extreme-value}, $f$ attains a maximum and a minimum. If both values equal $f(a)$, then $f$ is constant and every interior point works. Otherwise an extremum occurs at an interior point $c$. At an interior maximum, the difference quotient is nonnegative for $x<c$ and nonpositive for $x>c$; since its two-sided limit exists, it is zero. The minimum case is identical with signs reversed.
 \end{proof}
 
-\begin{theorem}[Mean Value Theorem]
+\begin{theorem}[Mean value theorem]
 \label{thm:mean-value}
 Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. Then some $c\in(a,b)$ satisfies
 \[
@@ -93,7 +122,39 @@ h(x)=f(x)-f(a)-\frac{f(b)-f(a)}{b-a}(x-a).
 Then $h(a)=h(b)=0$. Apply \cref{thm:rolle} to $h$ and compute $h'(c)=0$.
 \end{proof}
 
-\begin{theorem}[Cauchy's Mean Value Theorem]
+\begin{definition}[Monotonicity]
+Let $I\subseteq\R$ be an interval and $f:I\to\R$. The function $f$ is \emph{increasing} (or \emph{nondecreasing}) if
+\[
+x<y\quad\Longrightarrow\quad f(x)\leq f(y),
+\]
+and \emph{strictly increasing} if the final inequality is strict. It is \emph{decreasing} (or \emph{nonincreasing}) if
+\[
+x<y\quad\Longrightarrow\quad f(x)\geq f(y),
+\]
+and \emph{strictly decreasing} if the final inequality is strict. A function is \emph{monotone} if it is increasing or decreasing, and \emph{strictly monotone} if it is strictly increasing or strictly decreasing. Throughout these notes, ``increasing'' and ``decreasing'' are used in the non-strict sense; strict inequalities are indicated by ``strictly increasing'' and ``strictly decreasing.''
+\end{definition}
+
+\begin{corollary}[Bounded derivative criterion for Lipschitz continuity]
+\label{cor:bounded-derivative-lipschitz}
+If $f$ is continuous on an interval $I$, differentiable in its interior,
+and $\abs{f'}\leq M$ there, then
+\[
+\abs{f(y)-f(x)}\leq M\abs{y-x}
+\qquad(x,y\in I).
+\]
+Hence $f$ is Lipschitz, and therefore uniformly continuous, on $I$.
+\end{corollary}
+\begin{proof}
+Apply the Mean Value Theorem on the closed interval with endpoints $x$ and
+$y$; endpoint cases follow by continuity.
+\end{proof}
+
+The ordinary Mean Value Theorem compares the net change of one function with
+one derivative.  Cauchy's version compares the changes of two functions at
+once, which is exactly the structure needed later when L'H\^opital's Rule
+relates a quotient of function increments to a quotient of derivatives.
+
+\begin{theorem}[Cauchy's mean value theorem]
 \label{thm:cauchy-mvt}
 Let $f,g:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. Then some $c\in(a,b)$ satisfies
 \[
@@ -108,37 +169,23 @@ h(x)=\bigl(f(b)-f(a)\bigr)g(x)-\bigl(g(b)-g(a)\bigr)f(x).
 The endpoint values of $h$ agree, and $h'(c)=0$ is exactly the displayed identity.
 \end{proof}
 
-\noindent\textbf{Infinite limits.} Let $h:(a,b)\to\R$. We write
-\[
-\lim_{x\to a^+}h(x)=+\infty
-\]
-if, for every $M>0$, there is a $\delta>0$ such that
-\[
-0<x-a<\delta
-\quad\Longrightarrow\quad
-h(x)>M.
-\]
-The meanings of $h(x)\to-\infty$ and $\abs{h(x)}\to\infty$ are obtained by
-replacing the final inequality respectively by $h(x)<-M$ and
-$\abs{h(x)}>M$. Thus, expressions such as $\infty/\infty$ name an
+\noindent\textbf{Infinite limits.} We use the eventual-inequality
+definitions from Chapter~\ref{ch:continuity}.  In particular, expressions
+such as $\infty/\infty$ name an
 \textbf{indeterminate limiting form}; they are not arithmetic quotients of
 numbers called infinity. The absolute-divergence formulation permits either
 sign for each function.
 
-\begin{theorem}[L'H\^opital's Rule: the $0/0$ and $\infty/\infty$ Forms]
+\begin{theorem}[L'H\^opital's rule: the $0/0$ and $\infty/\infty$ forms]
 \label{thm:lhopital}
-Let $f,g:[a,b)\to\R$ be continuous on $[a,b)$ and differentiable on $(a,b)$,
-where $a<b$. Assume that
+Let $f,g:(a,b)\to\R$ be differentiable, where $a<b$. Assume that
 \[
 g'(x)\ne0
 \qquad\text{for every }x\in(a,b),
 \]
 and that one of the following alternatives holds:
 \begin{enumerate}
-\item
-\[
-f(a)=g(a)=0;
-\]
+\item $f$ and $g$ extend continuously to $a$ with $f(a)=g(a)=0$;
 \item
 \[
 \lim_{x\to a^+}\abs{f(x)}=\infty
@@ -220,14 +267,83 @@ of type $0/0$ and $\infty/\infty$. Forms such as $0\cdot\infty$,
 $\infty-\infty$, $1^\infty$, $0^0$, and $\infty^0$ must first be transformed
 into a suitable quotient or logarithmic form.
 
+\begin{example}[Two legitimate applications]
+Once the elementary-function derivatives below have been established,
+L'H\^opital's Rule gives
+\[
+\lim_{x\to0}\frac{e^x-1}{x}
+=\lim_{x\to0}\frac{e^x}{1}=1
+\]
+from the $0/0$ form, and
+\[
+\lim_{x\to+\infty}\frac{\log x}{x}
+=\lim_{x\to+\infty}\frac{1/x}{1}=0
+\]
+from the $\infty/\infty$ form.  In each calculation the equal sign relates
+two limits under the theorem's hypotheses; it is not the pointwise identity
+$f/g=f'/g'$.
+\end{example}
+
+\begin{remark}[When not to apply the rule]
+The quotient $(x^2+1)/x$ tends to $+\infty$ as $x\to0^+$, but it is not a
+$0/0$ or $\infty/\infty$ form, so differentiating numerator and denominator
+would incorrectly suggest the limit $0$.  For
+$x^2\sin(1/x)/x$ at $0$, the derivative quotient is more complicated than
+the original expression, while the estimate
+$\abs{x\sin(1/x)}\leq\abs x$ settles the limit immediately.  Finally, if
+$f'/g'$ has no limit, the theorem gives no conclusion; the original quotient
+may still have a limit by another method.  Always identify the form and
+verify the hypotheses before differentiating.
+\end{remark}
+
 \section{Definitions of Elementary Functions}
 
-The familiar elementary functions must be defined before their differentiation
-rules can be proved.  Power series provide definitions that do not appeal to
-geometry, areas, or already-known calculus formulas.  Their continuity,
-identities, and derivatives will be theorems.
+\begin{remark}[From familiar formulas to rigorous objects]
+Polynomials
+\[
+a_0+a_1x+\cdots+a_nx^n
+\]
+are available as soon as the field operations on $\R$ are available, and
+rational functions are defined wherever their denominators are nonzero.
+Roots require the existence and uniqueness theorem proved from continuity
+and completeness in Chapter~\ref{ch:continuity}; rational powers then use
+those roots.  The expressions $a^x$, $\log x$, $\sin x$, and $\cos x$ for
+arbitrary real $x$ require more analysis.  Earlier calculus treated them as
+familiar computational objects; here we now give definitions and prove the
+identities and derivative formulas previously used informally.
+\end{remark}
 
-\begin{definition}[Exponential and Trigonometric Functions]
+Power series provide one coherent construction that does not appeal to
+geometry, areas, or already-known calculus formulas.  Their continuity,
+identities, periodicity, and derivatives will be theorems rather than parts
+of the definitions.
+
+\begin{proposition}[Convergence of the elementary power series]
+For every \(x\in\R\), the three series
+\[
+\sum_{n=0}^{\infty}\frac{x^n}{n!},
+\qquad
+\sum_{n=0}^{\infty}\frac{(-1)^n x^{2n+1}}{(2n+1)!},
+\qquad
+\sum_{n=0}^{\infty}\frac{(-1)^n x^{2n}}{(2n)!}
+\]
+converge absolutely.
+\end{proposition}
+\begin{proof}
+For the exponential series, the ratio of consecutive absolute terms is
+\[
+\frac{\abs{x}}{n+1}\longrightarrow0.
+\]
+For the sine and cosine series, the corresponding ratios are
+\[
+\frac{\abs{x}^2}{(2n+2)(2n+3)}\longrightarrow0,
+\qquad
+\frac{\abs{x}^2}{(2n+1)(2n+2)}\longrightarrow0.
+\]
+The Ratio Test proves the claim in all three cases.
+\end{proof}
+
+\begin{definition}[Exponential and trigonometric functions]
 For $x\in\R$, define
 \[
 \exp(x)=\sum_{n=0}^{\infty}\frac{x^n}{n!},
@@ -247,7 +363,7 @@ the derivative series, together with one anchored value, supplies exactly
 the hypothesis that prevents differentiation from being an unjustified
 interchange of limits.
 
-\begin{theorem}[Termwise Differentiation]
+\begin{theorem}[Termwise differentiation]
 \label{thm:termwise-differentiation}
 Let
 \[
@@ -298,7 +414,7 @@ f'(x)=g(x).
 \]
 \end{proof}
 
-\begin{theorem}[Power-Series Differentiation]
+\begin{theorem}[Power-series differentiation]
 \label{thm:power-series-differentiation}
 Let
 \[
@@ -336,7 +452,7 @@ The original series converges at $a$, so \cref{thm:termwise-differentiation} giv
 
 This theorem is the analytic justification for formal power-series differentiation: the formal derivative represents the derivative of the summed function only after uniform convergence of the derivative series has been verified on smaller closed intervals.
 
-\begin{definition}[Higher Derivatives]
+\begin{definition}[Higher derivatives]
 If $f'$ is differentiable, write
 \[
 f''=(f')'.
@@ -347,7 +463,16 @@ f^{(0)}=f.
 \]
 \end{definition}
 
-\begin{theorem}[Taylor's Theorem with Lagrange Remainder]
+Successive derivatives provide increasingly accurate local polynomial
+models:
+\[
+f(x)\approx f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots.
+\]
+Taylor's theorem makes this familiar calculus approximation rigorous.  Its
+new content is the remainder term, which quantifies the error and foreshadows
+the local linearization estimates used in multivariable analysis.
+
+\begin{theorem}[Taylor's theorem with Lagrange remainder]
 \label{thm:taylor}
 Let $f:[a,b]\to\R$ have $n+1$ continuous derivatives on $[a,b]$, where $n\geq0$. For every $x\in[a,b]$ there is a number $\xi$ between $a$ and $x$ such that
 \[
@@ -385,9 +510,9 @@ The preceding machinery now turns the power-series definitions into the
 familiar exponential, logarithmic, trigonometric, and inverse trigonometric
 functions.  Their standard properties are consequences, not assumptions.
 
-\begin{theorem}[Convergence and Derivatives of the Power-Series Definitions]
+\begin{theorem}[Derivatives of the power-series definitions]
 \label{thm:elementary-series}
-The series defining $\exp$, $\sin$, and $\cos$ have infinite radius of convergence. They satisfy
+The functions $\exp$, $\sin$, and $\cos$ defined above satisfy
 \[
 \exp'(x)=\exp(x),
 \qquad
@@ -397,14 +522,12 @@ The series defining $\exp$, $\sin$, and $\cos$ have infinite radius of convergen
 \]
 \end{theorem}
 \begin{proof}
-For a fixed $t\geq0$, the ratios of consecutive absolute terms in the exponential series are
-\[
-\frac{t}{n+1},
-\]
-which are eventually at most $1/2$. The Ratio Test proves convergence for every $t$, hence infinite radius. The sine and cosine series are dominated termwise by the exponential series at $\abs{x}$ and therefore also have infinite radius. \cref{thm:power-series-differentiation} now gives the three derivative formulas.
+The preceding proposition shows that all three series have infinite radius of
+convergence.  \cref{thm:power-series-differentiation} now gives the three
+derivative formulas.
 \end{proof}
 
-\begin{theorem}[Addition Formulas and Fundamental Identities]
+\begin{theorem}[Addition formulas and fundamental identities]
 \label{thm:elementary-identities}
 For all $x,y\in\R$,
 \[
@@ -438,7 +561,7 @@ as follows from their series. Hence both differences vanish identically. Finally
 is zero, and its value at $0$ is $1$; the Mean Value Theorem proves the last identity.
 \end{proof}
 
-\begin{theorem}[Exponential Bijection]
+\begin{theorem}[Exponential bijection]
 \label{thm:exponential-bijection}
 The function $\exp$ is a strictly increasing bijection from $\R$ onto
 \[
@@ -470,7 +593,7 @@ and hence $\exp(x)$ tends to $0$ as $x\to-\infty$. If $y>0$, choose real numbers
 Continuity and the Intermediate Value Theorem then give an $x\in(A,B)$ with $\exp(x)=y$. Positivity shows that no other values occur, proving the asserted range.
 \end{proof}
 
-\begin{definition}[Natural Logarithm]
+\begin{definition}[Natural logarithm]
 Define
 \[
 \log:(0,\infty)\to\R,
@@ -479,7 +602,7 @@ Define
 \]
 \end{definition}
 
-\begin{theorem}[Inverse Derivative Theorem]
+\begin{theorem}[Inverse derivative theorem]
 \label{thm:log-and-inverses}
 Let $I\subseteq\R$ be an interval, and let $f:I\to\R$ be continuously differentiable and strictly monotone. If
 \[
@@ -509,14 +632,14 @@ As $z\to y$, continuity of the inverse gives $u\to x$, hence $c\to x$; continuit
 \]
 \end{proof}
 
-\begin{definition}[Real Powers of Positive Numbers]
+\begin{definition}[Real powers of positive numbers]
 For $x>0$ and $p\in\R$, define
 \[
 x^p=\exp(p\log x).
 \]
 \end{definition}
 
-\begin{theorem}[Derivative of a Real Power]
+\begin{theorem}[Derivative of a real power]
 \label{thm:real-power-derivative}
 For every $p\in\R$, the function
 \[
@@ -536,7 +659,7 @@ The chain rule and \cref{thm:log-and-inverses} give
 \]
 \end{proof}
 
-\begin{theorem}[Construction of $\pi$ and the Trigonometric Ranges]
+\begin{theorem}[Construction of $\pi$ and the trigonometric ranges]
 \label{thm:pi-construction}
 There is a least positive zero $c$ of $\cos$. Put
 \[
@@ -618,7 +741,7 @@ define
 \]
 \end{definition}
 
-\begin{theorem}[Trigonometric Restrictions]
+\begin{theorem}[Trigonometric restrictions]
 \label{thm:trigonometric-restrictions}
 The function
 \[
@@ -664,7 +787,7 @@ Thus tangent is strictly increasing. As $x\to(\pi/2)^-$, continuity gives $\sin 
 then $\tan x>M$. Oddness gives the corresponding limit $-\infty$ at $-\pi/2$. The Intermediate Value Theorem proves that tangent is onto $\R$.
 \end{proof}
 
-\begin{definition}[Inverse Trigonometric Functions]
+\begin{definition}[Inverse trigonometric functions]
 \label{def:inverse-trigonometric}
 Define
 \[
@@ -685,7 +808,7 @@ and
 \]
 \end{definition}
 
-\begin{theorem}[Derivatives of the Inverse Trigonometric Functions]
+\begin{theorem}[Derivatives of the inverse trigonometric functions]
 \label{thm:inverse-trigonometric}
 The derivative formulas are
 \[
@@ -711,6 +834,68 @@ give the first two formulas using $\sin^2+\cos^2=1$. The tangent formula follows
 \tan'(x)=1+\tan^2x.
 \]
 \end{proof}
+
+\section{Convexity and a Continuous Nondifferentiable Example}
+
+\begin{definition}[Convex function]
+Let $I$ be an interval.  A function $f:I\to\R$ is \textbf{convex} if
+\[
+f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)
+\]
+for all $x,y\in I$ and $0\leq t\leq1$.  Geometrically, the graph lies below
+each of its chords.
+\end{definition}
+
+\begin{theorem}[Derivative criteria for convexity]
+\label{thm:convex-derivative-criteria}
+Let $f$ be differentiable on an open interval $I$.  Then $f$ is convex if
+and only if $f'$ is nondecreasing.  In that case every tangent line supports
+the graph:
+\[
+f(y)\geq f(x)+f'(x)(y-x)
+\qquad(x,y\in I).
+\]
+If $f''$ exists throughout $I$ and $f''\geq0$, then $f$ is convex.
+\end{theorem}
+\begin{proof}
+For $x<z<y$, convexity rearranges to
+\[
+\frac{f(z)-f(x)}{z-x}
+\leq
+\frac{f(y)-f(x)}{y-x}
+\leq
+\frac{f(y)-f(z)}{y-z}.
+\]
+Letting endpoints approach $z$ shows that $f'$ is nondecreasing.  Conversely,
+the Mean Value Theorem applied on the two sides of $z=tx+(1-t)y$ compares
+the corresponding secant slopes and yields the chord inequality.  Letting
+$z\to x$ in the first secant comparison gives the tangent-line inequality.
+Finally, $f''\geq0$ makes $f'$ nondecreasing by the Mean Value Theorem.
+\end{proof}
+
+Thus $x^2$, $e^x$, and $-\log x$ are convex on their natural domains, by
+their nonnegative second derivatives.  The function $-x^2$ is not convex;
+at the midpoint of $-1$ and $1$ its value $0$ lies above the chord value
+$-1$.  Applying the tangent inequality to $e^x$ at $0$ gives the useful
+estimate
+\[
+e^y\geq1+y.
+\]
+
+\begin{example}[Weierstrass's warning]
+For suitable constants $0<a<1$ and odd integer $b$ (for example under the
+classical sufficient condition $ab>1+3\pi/2$), the series
+\[
+W(x)=\sum_{n=0}^{\infty}a^n\cos(\pi b^n x)
+\]
+converges uniformly and hence defines a continuous function on $\R$, yet
+$W$ is differentiable nowhere.  Uniform convergence follows immediately
+from $\abs{a^n\cos(\pi b^n x)}\leq a^n$ and the geometric series.  The
+nowhere-differentiability proof requires a delicate oscillation estimate and
+is not needed later, so it is omitted.  The example decisively separates
+continuity from differentiability: continuity alone supplies no hidden
+smoothness.
+\end{example}
 
 
 

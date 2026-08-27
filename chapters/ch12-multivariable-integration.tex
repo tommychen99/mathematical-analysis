@@ -97,6 +97,22 @@ U(f,\mathcal P)-L(f,\mathcal P)<\eps,
 and \cref{prop:multivariable-darboux} applies.
 \end{proof}
 
+\begin{example}[Continuity succeeds; boundedness alone fails]
+On $Q=[0,1]^2$, the function $f(x,y)=x^2+y^2$ is integrable by
+\cref{thm:continuous-multivariable-riemann}.  In contrast, define
+\[
+g(x,y)=\begin{cases}1,&x\in\Q,\\0,&x\notin\Q.\end{cases}
+\]
+Every nondegenerate subrectangle contains points of both kinds, so its
+oscillation is $1$.  Consequently every grid partition satisfies
+\[
+U(g,\mathcal P)-L(g,\mathcal P)=\operatorname{vol}(Q)=1,
+\]
+and $g$ is not Riemann integrable.  The example separates boundedness from
+integrability in several variables just as the Dirichlet function does in
+one variable.
+\end{example}
+
 \begin{theorem}[Basic properties]
 \label{thm:multivariable-integral-properties}
 If $f,g:Q\to\R$ are integrable and $c\in\R$, then
@@ -243,6 +259,18 @@ by at most \(2\eta\).  Since \(\eta\) is arbitrary, the first equality
 follows.  Interchanging \(A\) and \(B\) proves the second.
 \end{proof}
 
+\begin{example}[A double integral on a rectangle]
+For the continuous function $f(x,y)=x+2y$ on $[0,1]\times[0,2]$,
+Riemann--Fubini gives
+\begin{align*}
+\int_{[0,1]\times[0,2]}(x+2y)\,\dd(x,y)
+&=\int_0^1\left(\int_0^2(x+2y)\,\dd y\right)\dd x\\
+&=\int_0^1(2x+4)\,\dd x=5.
+\end{align*}
+Here the rectangle makes iterated integration natural; no coordinate change
+is needed.
+\end{example}
+
 \begin{theorem}[Coordinatewise integration by parts]
 \label{thm:coordinatewise-integration-by-parts}
 Let
@@ -344,7 +372,11 @@ Theorem, which replaces uniform convergence with appropriate
 almost-everywhere convergence in a measure-theoretic setting.
 \end{remark}
 
-\begin{theorem}[Dini's Theorem]
+As in one variable, pointwise convergence alone does not control a Riemann
+integral.  On a compact rectangle, continuity and monotonicity provide the
+extra structure that can force uniform convergence.
+
+\begin{theorem}[Dini's theorem]
 \label{thm:dini-multivariable-riemann}
 Let \(Q\subseteq\R^n\) be a rectangle, and let
 \[
@@ -578,6 +610,30 @@ mathematical content, not merely a technicality.
 
 
 \section{Linear Changes of Variables}
+
+The one-variable substitution rule says that $\abs{\phi'(t)}$ measures the
+local stretching of length.  In several variables, the corresponding linear
+fact comes first: an invertible linear map $L$ sends a small box to a
+parallelepiped and scales its volume by $\abs{\det L}$.  A coordinate scaling
+by $c$ has factor $\abs c$, a diagonal map has the product of its coordinate
+scalings, a shear has factor $1$, and an orthogonal map preserves volume.
+Thus the determinant is the natural volume-scaling number, not a formal
+correction inserted after the fact.
+
+\begin{example}[A rectangle becomes a parallelogram]
+Let
+\[
+L(s,t)=(2s+t,s+3t).
+\]
+The unit square is sent to the parallelogram spanned by $(2,1)$ and $(1,3)$.
+Since
+\[
+\det L=\det\begin{pmatrix}2&1\\1&3\end{pmatrix}=5,
+\]
+its area is $5$.  More generally, the image of a rectangle of area $A$ has
+area $5A$.  The linear change-of-variables theorem below turns this geometric
+calculation into an integral formula.
+\end{example}
 
 \begin{lemma}[Volume under an invertible linear map]
 \label{lem:linear-volume}
@@ -845,6 +901,24 @@ identity into the asserted formula.
 \end{proof}
 
 \section{Nonlinear Changes of Variables}
+
+For a differentiable nonlinear map,
+\[
+\Phi(a+h)=\Phi(a)+D\Phi(a)h+o(\norm h).
+\]
+Consequently, a sufficiently small box near $a$ behaves approximately like
+the parallelepiped produced by the linear map $D\Phi(a)$.  The progression is
+therefore
+\[
+\text{linear volume scaling}
+\longrightarrow
+\text{local linearization}
+\longrightarrow
+\abs{\det D\Phi(a)}\text{ as local volume distortion}.
+\]
+The following lemma makes this geometric principle quantitative; the theorem
+then adds the Riemann-sum bookkeeping needed to integrate over a whole
+region.
 
 \begin{lemma}[Local volume comparison on cubes]
 \label{lem:local-volume-comparison}
@@ -1312,6 +1386,19 @@ Since \(\varepsilon>0\) was arbitrary,
 the change-of-variables formula follows.
 \end{proof}
 
+\begin{remark}[A working strategy for multiple integrals]
+First identify the domain.  On a rectangle, iterated integration is often
+the simplest computational tool.  For a nonrectangular region, ask whether
+it decomposes into simple pieces or suggests coordinates adapted to its
+geometry.  For a proposed change of variables, compute $D\Phi$ and
+$\abs{\det D\Phi}$, transform both the integrand and the domain, and verify
+the injectivity and nonvanishing-Jacobian hypotheses (allowing only carefully
+controlled boundary exceptions).  Keep two tasks distinct: continuity,
+Darboux estimates, and Jordan measurability address existence of an
+integral; iterated integration and change of variables usually address its
+calculation.
+\end{remark}
+
 \subsection{Alternative Viewpoint: Pullbacks and Manifold Integration}
 \label{subsec:change-variables-forms}
 
@@ -1400,33 +1487,48 @@ countable decompositions.  Measure theory is not introduced here; see
 \cref{sec:perspective-further-directions} for its place among the natural
 continuations of these notes.
 
-\begin{example}[Polar coordinates]
-On a rectangle
+\begin{example}[Polar coordinates and the unit disk]
+Consider
 \[
-[\alpha,\beta]\times[r_0,r_1]
+\Phi(\theta,r)=(r\cos\theta,r\sin\theta).
 \]
-with
+Its derivative and Jacobian are
 \[
-0<r_0<r_1
-\]
-and
-\[
-\beta-\alpha<2\pi,
-\]
-the map
-\[
-\Phi(\theta,r)=(r\cos\theta,r\sin\theta)
-\]
-is injective and has
-\[
+D\Phi(\theta,r)=
+\begin{pmatrix}
+-r\sin\theta&\cos\theta\\
+r\cos\theta&\sin\theta
+\end{pmatrix},
+\qquad
 \abs{\det D\Phi(\theta,r)}=r.
 \]
-Thus, for continuous $f$ on its image,
+The factor $r$ is geometric: an angular change $\dd\theta$ at radius $r$
+sweeps an arc of length approximately $r\,\dd\theta$, while the radial
+change has length approximately $\dd r$.
+
+To use the theorem without hiding its hypotheses, first take
 \[
-\int_{\Phi(Q)}f(x,y)\,\dd(x,y)
-=
-\int_\alpha^\beta\int_{r_0}^{r_1}
-f(r\cos\theta,r\sin\theta)r\,\dd r\,\dd\theta.
+Q_{\varepsilon,\eta}=[\eta,2\pi-\eta]\times[\varepsilon,1]
+\]
+with $\varepsilon,\eta>0$.  On this rectangle the map is injective and its
+Jacobian never vanishes.  Its image is an annular sector.  For example,
+since $x^2+y^2=r^2$,
+\begin{align*}
+\int_{\Phi(Q_{\varepsilon,\eta})}(x^2+y^2)\,\dd(x,y)
+&=\int_\eta^{2\pi-\eta}\int_\varepsilon^1r^2\,r\,\dd r\,\dd\theta\\
+&=\frac{(2\pi-2\eta)(1-\varepsilon^4)}4.
+\end{align*}
+Letting $\varepsilon,\eta\to0^+$ gives
+\[
+\int_{x^2+y^2\leq1}(x^2+y^2)\,\dd(x,y)=\frac\pi2.
+\]
+The omitted central disk and angular wedge have areas tending to zero, and
+the integrand is bounded by $1$ on the unit disk, so their contributions
+tend to zero by the bounded-integral estimate.  Equivalently, the origin
+and the two angular boundary rays are Jordan-null exceptional sets.  The
+same calculation with integrand $1$ gives the area of the unit disk:
+\[
+\int_{x^2+y^2\leq1}1\,\dd(x,y)=\pi.
 \]
 \end{example}
 

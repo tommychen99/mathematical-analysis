@@ -3,12 +3,29 @@
 
 \section{Metric Spaces and Topological Spaces}
 
-The metric language of Part~I was developed mainly for subsets of the real
-line.  The Euclidean distance on \(\R^n\) is the direct analogue of the
-absolute-value distance on \(\R\), and the epsilon--delta definition of
-continuity is unchanged once distance is available.  Multivariable analysis
-also needs spaces that are not naturally subsets of Euclidean space, so we
-separate the ideas of distance and openness before returning to vector spaces.
+Part~I lived mainly on the real line.  Moving from $\R$ to $\R^n$ requires
+three structural languages that will work together rather than sit as an
+unrelated prerequisite appendix:
+\[
+\begin{gathered}
+\text{topology: nearness, continuity, compactness, and local structure},\\
+\text{linear algebra: derivatives as linear maps},\\
+\text{determinants and orientation: volume distortion and sign}.
+\end{gathered}
+\]
+The route through Part~II is
+\[
+\begin{gathered}
+\R\longrightarrow\R^n\longrightarrow\text{metric/topological structure}\\
+\longrightarrow\text{linear approximation}\longrightarrow
+\text{differentiation, integration, forms, and Stokes}.
+\end{gathered}
+\]
+Nearness on $\R$ is measured by $\abs{x-y}$; norms and metrics provide its
+analogue on $\R^n$ and beyond.  Topology retains the open-set information
+needed for continuity when a particular numerical distance is not central.
+This matters later because derivatives are defined on open sets, and the
+manifolds of Chapter~13 are locally modeled on Euclidean open sets.
 
 \begin{definition}[Metric space]
 A \textbf{metric} on a set $X$ is a function
@@ -56,6 +73,17 @@ and applying Cauchy--Schwarz proves the triangle inequality.  The other
 metric axioms are immediate.
 \end{proof}
 
+For later estimates, if
+\[
+\norm{x}_\infty=\max_{1\leq j\leq n}\abs{x_j},
+\]
+then
+\[
+\abs{x_i}\leq\norm{x}_2\leq\sqrt n\,\norm{x}_\infty.
+\]
+The first inequality drops nonnegative terms from the sum of squares, and
+the second bounds each of its $n$ terms by $\norm{x}_\infty^2$.
+
 \begin{definition}[Open and closed sets]
 Let $(X,d)$ be a metric space.  A set $U\subseteq X$ is \textbf{open} if for
 every $x\in U$ there is $r>0$ such that $B_d(x,r)\subseteq U$.
@@ -65,6 +93,12 @@ X\setminus F
 \]
 is open.
 \end{definition}
+
+In $\R$, an open interval has no endpoint while $[a,b]$ is closed.  In
+$\R^2$, an open disk consists of points that have a little disk around them
+still inside it; the closed disk includes its boundary circle.  These are
+the same familiar inside-versus-edge ideas, now phrased so that they work in
+any metric space.
 
 \begin{proposition}[Metric open sets]
 \label{prop:metric-open-sets}
@@ -118,6 +152,13 @@ E^\circ=\bigcup\set{U:U\text{ is open and }U\subseteq E},
 These are respectively the \textbf{interior}, \textbf{closure}, and
 \textbf{boundary} of $E$.
 \end{definition}
+
+The interior $E^\circ$ consists of points definitely inside $E$; the closure
+$\overline E$ adds every point that can be approached from $E$; and the
+boundary consists of points approachable both from $E$ and from its
+complement.  For example, the interior, closure, and boundary of $(0,1)$ in
+$\R$ are $(0,1)$, $[0,1]$, and $\{0,1\}$; for an open disk in $\R^2$, the
+boundary is its surrounding circle.
 
 \begin{proposition}[Closure characterizations]
 \label{prop:closure-characterizations}
@@ -180,6 +221,48 @@ d_X(x,y)<\delta\Longrightarrow d_Y(f(x),f(y))<\eps.
 \]
 \end{definition}
 
+\begin{definition}[Limit of a map]
+Let $D\subseteq X$, let $a$ be a limit point of $D$, and let
+$f:D\to Y$, where $X,Y$ are metric spaces.  We write
+\[
+\lim_{x\to a}f(x)=L
+\]
+if for every $\eps>0$ there is $\delta>0$ such that
+\[
+x\in D,\quad0<d_X(x,a)<\delta
+\quad\Longrightarrow\quad d_Y(f(x),L)<\eps.
+\]
+For Euclidean spaces this single condition controls approach from every
+direction and along every path.
+\end{definition}
+
+\begin{example}[Paths disprove, estimates prove]
+For
+\[
+g(x,y)=\frac{xy}{x^2+y^2},
+\]
+approach $(0,0)$ along $y=x$ and $y=-x$.  The resulting values are
+$1/2$ and $-1/2$, so the limit does not exist.  By contrast, if
+\[
+h(x,y)=\frac{x^2y}{x^2+y^2}
+\qquad((x,y)\ne(0,0)),
+\]
+then
+\[
+\abs{h(x,y)}\leq\abs y\leq\norm{(x,y)}_2,
+\]
+which proves $h(x,y)\to0$ as $(x,y)\to(0,0)$.  This estimate is genuinely
+multivariable: it controls every approach at once.
+\end{example}
+
+\begin{remark}[The path test is one-sided]
+Finding two paths with different limiting values proves nonexistence.
+Finding several paths with the same limiting value does not prove existence,
+because untested paths remain.  To prove existence, seek a norm estimate
+that is independent of direction, or use a theorem whose hypotheses provide
+such uniform control.
+\end{remark}
+
 \begin{theorem}[Topological characterization of continuity]
 \label{thm:topological-continuity}
 A map $f:X\to Y$ of topological spaces is continuous if and only if
@@ -216,6 +299,17 @@ open-set structure, even when their elements or their ambient descriptions
 differ.
 \end{definition}
 
+A homeomorphism preserves the topological shape of a space while ignoring
+metric quantities such as length, angle, area, and curvature.  For example,
+\[
+(0,1)\longrightarrow\R,
+\qquad x\longmapsto\tan\bigl(\pi(x-1/2)\bigr),
+\]
+is a homeomorphism.  Thus an open interval and the whole line are
+topologically equivalent despite their very different Euclidean sizes.
+Connectedness and compactness are preserved by homeomorphisms; Chapter~13
+will use the same idea in coordinate charts on manifolds.
+
 \begin{proposition}[Sequential continuity]
 \label{prop:sequential-continuity}
 A map $f:X\to Y$ between metric spaces is continuous at $x$ if and only if
@@ -240,12 +334,20 @@ This contradicts the stated sequential property.
 
 \section{Products, Compactness, and Connectedness}
 
+Because $\R^n=\R\times\cdots\times\R$, multivariable analysis must first
+understand products.  The product topology is designed so that a map
+\[
+f=(f_1,\ldots,f_n)
+\]
+is continuous exactly when its coordinate functions are continuous, just as
+one checks a familiar vector-valued formula coordinate by coordinate.
+
 Open intervals and compact intervals in Part~I are the first examples of
-these notions: open intervals are open in \(\R\), and the crucial finite
-subcover property of \([a,b]\) is compactness.  The next definitions retain
-that property in spaces where intervals are unavailable.  In metric spaces,
-the Bolzano--Weierstrass viewpoint of Part~I reappears as sequential
-compactness.
+the next two notions.  Compactness is the principle that turns local
+information into finite, hence global, control.  An open cover records an
+arbitrary collection of local neighborhoods, and compactness says finitely
+many already suffice.  In metric spaces, the Bolzano--Weierstrass viewpoint
+of Part~I reappears as sequential compactness.
 
 \begin{definition}[Product topology]
 For topological spaces $X$ and $Y$, the \textbf{product topology} on
@@ -314,6 +416,28 @@ cover of \(X\) has a finite subcover.  A subset is compact when it is compact
 in its subspace topology.
 \end{definition}
 
+\begin{example}[A finite subcover in action]
+View $[0,1]$ as a subspace of $\R$ and, for each $t\in[0,1]$, let
+\[
+U_t=[0,1]\cap(t-1/4,t+1/4).
+\]
+These relatively open intervals form an open cover: each point is surrounded
+by one of the displayed local neighborhoods.  The five members
+\[
+U_0,\quad U_{1/4},\quad U_{1/2},\quad U_{3/4},\quad U_1
+\]
+already cover $[0,1]$.  Thus this finite subcover keeps the same coverage
+while replacing a continuum of local intervals by finitely many of them.
+For an arbitrary open cover, compactness guarantees that some finite choice
+is possible even when no such choice is apparent.
+\end{example}
+
+The set $[0,1]$ is compact, while $(0,1)$ and $\R$ are not; in $\R^n$, the
+closed balls are compact by Heine--Borel, whereas open balls are not.  The
+later payoff is substantial: compactness permits convergent subsequences,
+forces continuous functions to attain extrema, and upgrades local
+continuity estimates to uniform ones on a compact region.
+
 \paragraph{Hausdorff spaces.}
 A topological space $X$ is \textbf{Hausdorff} if, for every two distinct
 points $x,y\in X$, there are disjoint open sets $U,V$ such that
@@ -360,7 +484,7 @@ Assume (a) and let $(x_n)$ be a sequence.  Put
 \[
 F_N=\overline{\set{x_n:n\geq N}}.
 \]
-Every $F_N$ is nonempty because the corresponding tail contains $x_N$; it is
+Every $F_N$ is nonempty, since the corresponding tail contains $x_N$, and is
 closed by \cref{prop:closure-characterizations}.  Moreover,
 \[
 F_{N+1}\subseteq F_N,
@@ -526,6 +650,22 @@ a continuous map
 with $\gamma(0)=x$ and $\gamma(1)=y$.  The space is \textbf{path connected}
 if every two points are joined by a path.
 \end{definition}
+
+\begin{example}[Paths and separation]
+If $x,y$ lie in an interval $I\subseteq\R$, then
+\[
+\gamma(t)=(1-t)x+ty
+\]
+stays in $I$, so $I$ is path connected (and hence connected).  In contrast,
+$[0,1]\cup[2,3]$ is disconnected: its two displayed intervals are disjoint
+nonempty relatively open subsets whose union is the whole set.  More
+generally, the same straight-line formula shows that every convex subset of
+$\R^n$ is path connected.
+\end{example}
+
+Later, a continuous nonzero determinant on a connected domain cannot change
+sign without vanishing somewhere, which is why connectedness enters
+orientation and change of variables.
 
 \begin{proposition}[Connectedness]
 \label{prop:connectedness}
@@ -783,6 +923,25 @@ formula successively to two maps gives
 Expanding the \(i\)th coordinate gives the displayed multiplication rule.
 \end{proof}
 
+\begin{example}[Composition explains matrix multiplication]
+Let $T(x,y)=(x+y,y)$ and $S(u,v)=(2u-v,u)$.  Their standard matrices are
+\[
+A=\begin{pmatrix}1&1\\0&1\end{pmatrix},
+\qquad
+B=\begin{pmatrix}2&-1\\1&0\end{pmatrix}.
+\]
+Applying $T$ and then $S$ gives
+\[
+S(T(x,y))=(x+2y,x),
+\]
+whose matrix is
+\[
+BA=\begin{pmatrix}2&1\\1&1\end{pmatrix}.
+\]
+Thus the matrix-product formula is not arbitrary bookkeeping: it is the
+coordinate rule for composition of linear maps.
+\end{example}
+
 \begin{lemma}[Subspaces and extensions]
 \label{lem:subspace-basis}
 Every subspace of a finite-dimensional vector space has a finite basis, and
@@ -840,14 +999,12 @@ which, under the hypothesis, is equivalent to $T(V)=W$.
 
 \section{Norms, Permutations, Determinants, and Orientation}
 
-The determinant will do more than decide whether a square matrix is
-invertible.  It records the signed factor by which an invertible linear map
-scales volume; Chapter~12 will turn this into the factor
-\[
-\lvert\det D\Phi(x)\rvert
-\]
-in change of variables.  We first introduce precisely the small amount of
-permutation language required by the formula.
+The determinant has three roles that will recur throughout the rest of the
+notes: $\det A\ne0$ detects invertibility, $\abs{\det A}$ measures volume
+scaling, and the sign of $\det A$ records orientation.  Thus it will govern
+local inverses in Chapter~11, Jacobian factors in Chapter~12, and oriented
+integration and Stokes' theorem in Chapter~13.  We first build the small
+amount of permutation language needed for its formula.
 
 \begin{definition}[Permutations and their sign]
 A \textbf{permutation} of
@@ -858,7 +1015,9 @@ is a bijection of this set to itself.  The set of all such permutations is
 denoted by \(S_n\).  Composition is its operation, the identity permutation
 is its identity, and every permutation has an inverse; thus \(S_n\) is a
 group under composition.  A \textbf{transposition} exchanges two elements
-and fixes all others.
+and fixes all others.  An \textbf{inversion} of $\sigma$ is a pair of
+positions $i<j$ whose values appear in the opposite order,
+$\sigma(i)>\sigma(j)$.
 
 For \(\sigma\in S_n\), its number of \textbf{inversions} is
 \[
@@ -871,6 +1030,16 @@ Define its \textbf{sign} by
 \]
 \end{definition}
 
+For example, in $S_3$, the permutation written as the list
+\[
+\sigma=(2,3,1)
+\]
+has inversions $(1,3)$ and $(2,3)$, so
+$\operatorname{inv}(\sigma)=2$ and $\operatorname{sgn}(\sigma)=1$.
+The list $(2,1,3)$ has the single inversion $(1,2)$ and therefore has sign
+$-1$.  Permutations of sign $1$ are \textbf{even}; those of sign $-1$ are
+\textbf{odd}.
+
 \begin{proposition}[Sign of a permutation]
 \label{prop:permutation-sign}
 For \(\sigma,\tau\in S_n\),
@@ -881,25 +1050,28 @@ For \(\sigma,\tau\in S_n\),
 Moreover, a transposition has sign \(-1\).
 \end{proposition}
 \begin{proof}
-Swapping two adjacent entries of a list changes its inversion number by one,
-and hence changes its parity.  Repeatedly swapping an adjacent inverted pair
-sorts the list
+Swapping an adjacent inverted pair decreases the inversion number by exactly
+one.  Repeatedly swap an adjacent inverted pair in the list
 \[
 \sigma(1),\ldots,\sigma(n)
 \]
-and terminates after exactly \(\operatorname{inv}(\sigma)\) swaps.  Reversing
-these swaps writes \(\sigma\) as a product of adjacent transpositions.
+Each such swap lowers the nonnegative integer
+\(\operatorname{inv}(\sigma)\), so after exactly
+\(\operatorname{inv}(\sigma)\) swaps the list is sorted.  Reversing the
+steps writes \(\sigma\) as a product of exactly that many adjacent
+transpositions.
 
-Concatenating such expressions for \(\sigma\) and \(\tau\) gives an expression
-for \(\sigma\tau\) with
+More generally, every expression of a permutation as adjacent
+transpositions has length congruent modulo $2$ to its inversion number,
+because each factor reverses inversion parity.  Concatenating expressions
+for \(\sigma\) and \(\tau\) gives one for \(\sigma\tau\), so
 \[
-\operatorname{inv}(\sigma)+\operatorname{inv}(\tau)
+\operatorname{inv}(\sigma\tau)
+\equiv\operatorname{inv}(\sigma)+\operatorname{inv}(\tau)\pmod2.
 \]
-adjacent transpositions.  Since every adjacent transposition reverses
-inversion parity, its length has the same parity as
-\(\operatorname{inv}(\sigma\tau)\).  Taking \((-1)\) to these powers proves
-multiplicativity.  A transposition is conjugate to an adjacent
-transposition, so multiplicativity gives it sign \(-1\).
+Taking \((-1)\) to these exponents proves multiplicativity.  Finally, the
+transposition exchanging positions $i<j$ is a product of
+$2(j-i)-1$ adjacent transpositions, hence has odd sign.
 \end{proof}
 
 \begin{definition}[Norm]
@@ -918,6 +1090,29 @@ The associated metric is
 d(v,w)=\norm{v-w}.
 \]
 \end{definition}
+
+Norms measure vector size and therefore quantify errors in linear
+approximations.  On $\R^2$, the unit balls of
+$\norm{x}_1=|x_1|+|x_2|$, $\norm{x}_2$, and $\norm{x}_\infty$ are,
+respectively, a diamond, a circle, and a square.  They look different, but
+in finite dimensions they lead to the same convergence and continuity
+theory; the next theorem explains why this is important before derivatives
+are defined.
+
+For a map $r$ with values in a normed space, the notation
+\[
+r(h)=o(\norm h)
+\qquad(h\to0)
+\]
+means precisely
+\[
+\frac{\norm{r(h)}}{\norm h}\longrightarrow0.
+\]
+Likewise, $r(h)=O(\norm h)$ means that
+$\norm{r(h)}\leq C\norm h$ for all sufficiently small $h$.  This is the
+norm-valued version of the asymptotic notation introduced in
+Chapter~\ref{ch:continuity}; it will describe approximation errors in
+Chapter~\ref{ch:multivariable-differentiation}.
 
 
 \begin{proposition}[Reverse triangle inequality]
@@ -981,6 +1176,10 @@ follows coordinatewise from \cref{thm:real-cauchy-complete} and compactness
 from \cref{thm:heine-borel-rn}; use \cref{thm:equivalent-norms}.
 \end{proof}
 
+Completeness is not merely formal here.  It ensures that Cauchy
+approximations have limits, which is the key step in the contraction theorem
+and in the nonlinear existence arguments of Chapter~11.
+
 \begin{proposition}[Continuity of linear maps]
 \label{prop:linear-continuity}
 Every linear map between finite-dimensional normed spaces is continuous.
@@ -993,6 +1192,19 @@ In coordinates, matrix multiplication and Cauchy--Schwarz give
 for some $M$.  Norm equivalence transfers this estimate to arbitrary norms,
 which proves continuity at zero and hence everywhere by linearity.
 \end{proof}
+
+The estimate $\norm{T(v)}\leq C\norm v$ says quantitatively that a linear
+map cannot amplify a small input error without bound.  Every
+finite-dimensional linear map has such a bound; this is the prototype for
+the operator-norm estimates on derivatives used later.
+
+The determinant formula sums one contribution from each possible choice of
+one entry in every row and column.  Its sign is essential: swapping two
+columns must reverse the determinant, just as swapping two ordered
+coordinate directions reverses orientation.  The permutation sign is
+exactly what forces this alternating behavior.  Its absolute value will
+measure volume, while its sign distinguishes orientation preservation from
+orientation reversal.
 
 \begin{definition}[Determinant]
 For $A=(a_{ij})\in M_n(\R)$, define
@@ -1036,6 +1248,13 @@ has an inverse $B$; then
 \]
 This proves all assertions.
 \end{proof}
+
+In the plane, an ordered coordinate pair can be counterclockwise or
+clockwise; in three dimensions this is the familiar distinction between
+right-handed and left-handed coordinates.  In arbitrary finite dimension,
+the sign of a change-of-basis determinant is the algebraic version of this
+handedness.  Orientation matters because scalar volume forgets the sign via
+$\abs{\det}$, while oriented integration and Stokes' theorem retain it.
 
 \begin{definition}[Orientation]
 Two ordered bases of an $n$-dimensional real vector space are

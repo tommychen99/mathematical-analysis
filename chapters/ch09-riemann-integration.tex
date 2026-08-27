@@ -1,4 +1,4 @@
-\chapter[Riemann Integration and FTC]{Riemann Integration and the Fundamental Theorem of Calculus}
+\chapter[Riemann Integration and the Fundamental Theorem]{Riemann Integration and the Fundamental Theorem of Calculus}
 \label{ch:riemann}
 
 \section{Partitions and Riemann Sums}
@@ -61,7 +61,7 @@ Continuity prevents large oscillation on sufficiently short intervals.
 Uniform continuity on a compact interval makes this local control uniform,
 which is exactly what the Darboux criterion requires.
 
-\begin{theorem}[Integrability of Continuous Functions]
+\begin{theorem}[Integrability of continuous functions]
 \label{thm:continuous-riemann-integrable}
 Every continuous function $f:[a,b]\to\R$ is Riemann integrable.
 \end{theorem}
@@ -77,7 +77,7 @@ U(f,P)-L(f,P)=\sum_{i=1}^{n}(M_i-m_i)(x_i-x_{i-1})\leq\eps.
 The Darboux criterion proves integrability.
 \end{proof}
 
-\begin{theorem}[Basic Properties of the Integral]
+\begin{theorem}[Basic properties of the integral]
 \label{thm:integral-properties}
 If $f,g:[a,b]\to\R$ are Riemann integrable and $c\in\R$, then $f+g$ and $cf$ are Riemann integrable, and
 \[
@@ -154,7 +154,7 @@ for every partition $P$. Taking infima and using integrability gives
 \]
 \end{proof}
 
-\begin{theorem}[Additivity and Absolute-Value Estimates]
+\begin{theorem}[Additivity and absolute-value estimates]
 \label{thm:integral-additivity-absolute}
 Let $a<c<b$.
 \begin{enumerate}
@@ -196,7 +196,7 @@ shows on every partition interval that the oscillation of $\abs f$ is at most th
 \]
 \end{proof}
 
-\begin{theorem}[Integrability of Monotone Functions]
+\begin{theorem}[Integrability of monotone functions]
 \label{thm:monotone-riemann-integrable}
 Every monotone function $f:[a,b]\to\R$ is Riemann integrable.
 \end{theorem}
@@ -315,7 +315,12 @@ result depends on measure and Lebesgue integration and is therefore not
 proved or used in these notes.
 \end{remark}
 
-\begin{theorem}[Dini's Theorem]
+Pointwise convergence is generally too weak to preserve continuity or to
+justify passing a limit through an integral.  Dini's theorem is a striking
+special case in which compactness, continuity, and monotonicity cooperate to
+upgrade pointwise convergence to uniform convergence.
+
+\begin{theorem}[Dini's theorem]
 \label{thm:dini-riemann}
 Let
 \[
@@ -379,7 +384,7 @@ Differentiation measures local change, while integration accumulates local
 change.  The Fundamental Theorem identifies these two operations under the
 continuity hypotheses that make both constructions stable.
 
-\begin{theorem}[Fundamental Theorem of Calculus, First Part]
+\begin{theorem}[Fundamental theorem of calculus, first part]
 \label{thm:ftc-one}
 Let $f:[a,b]\to\R$ be continuous and define
 \[
@@ -404,7 +409,7 @@ In either case, the absolute value is bounded by the maximum of
 over the interval with endpoints $x$ and $x+h$, which tends to zero by continuity at $x$. Thus the difference quotient tends to $f(x)$.
 \end{proof}
 
-\begin{theorem}[Fundamental Theorem of Calculus, Second Part]
+\begin{theorem}[Fundamental theorem of calculus, second part]
 \label{thm:ftc-two}
 Let $F:[a,b]\to\R$ be differentiable on $(a,b)$ and continuous on $[a,b]$. Suppose that its derivative extends to a continuous function $f:[a,b]\to\R$, so that
 \[
@@ -601,7 +606,7 @@ Finite-interval Riemann integration does not directly cover infinite domains
 or unbounded behavior.  Improper integrals retain the finite theory and add
 an explicit limiting process whose convergence must be established.
 
-\begin{definition}[Improper Riemann Integral]
+\begin{definition}[Improper Riemann integral]
 Let $f:[a,\infty)\to\R$ be Riemann integrable on every finite interval $[a,b]$. The \textbf{improper integral} of $f$ converges if
 \[
 \int_a^{\infty}f(x)\,\dd x
@@ -612,7 +617,53 @@ exists as a finite real number. Define an improper integral at a finite endpoint
 
 Thus an improper integral is not a new kind of finite-interval integral: it is a limit of ordinary Riemann integrals whose existence must be proved.
 
-\begin{theorem}[Comparison for Improper Integrals]
+At a singular left endpoint, the definition is
+\[
+\int_a^b f(x)\,\dd x
+=\lim_{c\to a^+}\int_c^b f(x)\,\dd x,
+\]
+when this limit exists finitely; a right-endpoint singularity is analogous.
+An interior singularity at $c$ requires two separately convergent integrals,
+\[
+\int_a^c f+\int_c^b f,
+\]
+and cancellation between divergent sides is not allowed.  Likewise,
+\[
+\int_{-\infty}^{\infty}f
+=\int_{-\infty}^{c}f+\int_c^{\infty}f
+\]
+means that both one-sided improper integrals converge, independently of the
+chosen finite splitting point $c$.  Infinity is never an endpoint in $\R$.
+
+\begin{example}[$p$-integrals at infinity and at zero]
+For real $p$, direct evaluation of the truncated proper integrals gives
+\[
+\int_1^\infty x^{-p}\,\dd x
+\text{ converges exactly when }p>1,
+\]
+whereas
+\[
+\int_0^1 x^{-p}\,\dd x
+\text{ converges exactly when }p<1.
+\]
+In particular,
+\[
+\int_0^1\frac{1}{\sqrt{x}}\,\dd x
+=\lim_{c\to0^+}2(1-\sqrt c)=2,
+\]
+while $\int_0^1x^{-1}\,\dd x$ and $\int_1^\infty x^{-1}\,\dd x$ diverge.
+The opposite thresholds are a useful reminder to identify which endpoint
+causes the improper behavior.
+\end{example}
+
+\begin{definition}[Absolute convergence of an improper integral]
+An improper integral of $f$ is \textbf{absolutely convergent} if the
+corresponding improper integral of $\abs f$ converges.  Absolute convergence
+implies convergence, because the Cauchy estimate for any truncated tail is
+bounded by the corresponding tail integral of $\abs f$.
+\end{definition}
+
+\begin{theorem}[Comparison for improper integrals]
 \label{thm:improper-comparison}
 Let $0\leq f\leq g$ on $[a,\infty)$, with both functions Riemann integrable on finite intervals. If the improper integral of $g$ converges, then that of $f$ converges.
 \end{theorem}
@@ -620,7 +671,20 @@ Let $0\leq f\leq g$ on $[a,\infty)$, with both functions Riemann integrable on f
 The truncated integrals of $f$ are increasing and bounded above by those of $g$. Monotone convergence supplies their finite limit.
 \end{proof}
 
-\begin{theorem}[Integral Test]
+\begin{corollary}[Limit comparison for improper integrals]
+Suppose $f,g>0$ eventually on $[a,\infty)$ and
+\[
+\lim_{x\to\infty}\frac{f(x)}{g(x)}=L,
+\qquad0<L<\infty.
+\]
+Then their improper integrals have the same convergence behavior.
+\end{corollary}
+\begin{proof}
+Eventually $(L/2)g\leq f\leq(3L/2)g$.  Apply comparison in both directions;
+changing a finite initial interval does not affect convergence.
+\end{proof}
+
+\begin{theorem}[Integral test]
 \label{thm:integral-test}
 Let $f:[1,\infty)\to\R$ be continuous, nonnegative, and decreasing, and put $a_n=f(n)$. Then
 \[
@@ -645,7 +709,7 @@ f(n+1)\leq f(x)\leq f(n).
 Integrating these inequalities over the unit intervals and summing gives the displayed bounds. The partial sums and truncated integrals are increasing, so each is bounded above if and only if the other is bounded above. Monotone convergence then proves the equivalence.
 \end{proof}
 
-\begin{theorem}[$p$-Series Test: Analytic Rederivation]
+\begin{theorem}[$p$-series test: analytic rederivation]
 \label{thm:p-series-test}
 For $p\in\R$, the series
 \[
@@ -681,12 +745,14 @@ Thus the improper integral converges exactly when $p>1$, and \cref{thm:integral-
 
 \section{The Lebesgue Criterion for Riemann Integrability}
 
-Darboux sums measure the oscillation of a function on intervals.  The
-criterion below makes this local: integrability is equivalent to confining
-all discontinuities to interval covers of arbitrarily small total length.
-Thus it begins to distinguish a set that is dense from one that is large in
-the relevant covering sense.  We use only countable interval covers, not a
-formal theory of Lebesgue measure.
+Continuity is sufficient for Riemann integrability, but it is not necessary.
+The natural question is how large a discontinuity set Riemann integration can
+tolerate.  Darboux sums measure oscillation on intervals; the criterion below
+answers the question by asking whether discontinuities fit inside interval
+covers of arbitrarily small total length.  This will make the
+Dirichlet--Thomae comparison decisive: density alone does not decide
+integrability.  We use only countable interval covers, not a formal theory of
+Lebesgue measure.
 
 \begin{definition}[Oscillation and Riemann-negligible sets]
 Let $f:[a,b]\to\R$ be bounded.  For each $x\in[a,b]$, define
@@ -852,7 +918,7 @@ interval meeting $K$, that member cannot be $W$, so it belongs to
 $\mathcal V$.  The finitely many members thereby selected cover $K$.
 \end{proof}
 
-\begin{theorem}[Lebesgue Criterion for Riemann Integrability]
+\begin{theorem}[Lebesgue criterion for Riemann integrability]
 \label{thm:riemann-lebesgue-criterion}
 Let $f:[a,b]\to\R$ be bounded.  The following are equivalent.
 \begin{enumerate}
@@ -1062,7 +1128,7 @@ The infimum of $T$ on it is therefore zero.  Every lower Darboux sum is zero;
 since $T$ is integrable, its integral is zero.
 \end{proof}
 
-\begin{remark}[The Dirichlet--Thomae Contrast]
+\begin{remark}[The Dirichlet--Thomae contrast]
 Both functions are defined using the dense subset $\Q$ of $\R$, but density
 alone does not decide Riemann integrability:
 \[

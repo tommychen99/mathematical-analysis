@@ -59,13 +59,125 @@ Conversely, suppose the sequential statement holds but the function limit fails.
 The first inequality and the Archimedean property imply $x_n\to a$, while the second prevents $f(x_n)$ from converging to $L$, a contradiction.
 \end{proof}
 
+\begin{definition}[One-sided and infinite limits]
+Let $f:D\to\R$.  The assertion
+\[
+\lim_{x\to a^+}f(x)=L
+\]
+means that for every $\eps>0$ there is $\delta>0$ such that
+\[
+x\in D,\quad 0<x-a<\delta
+\quad\Longrightarrow\quad
+\abs{f(x)-L}<\eps.
+\]
+The left-hand limit is defined with $0<a-x<\delta$.  We write
+$f(x)\to+\infty$ as $x\to a^+$ if for every $M\in\R$ there is
+$\delta>0$ such that the same hypotheses imply $f(x)>M$; replace the last
+inequality by $f(x)<M$ for a limit of $-\infty$.  The analogous two-sided
+definitions use $0<\abs{x-a}<\delta$.
+
+At an unbounded end of the domain,
+\[
+\lim_{x\to+\infty}f(x)=L
+\]
+means that for every $\eps>0$ there is $A\in\R$ such that $x\in D$ and
+$x>A$ imply $\abs{f(x)-L}<\eps$.  Replacing this conclusion by $f(x)>M$
+defines $f(x)\to+\infty$ as $x\to+\infty$; changing the direction of the
+input or output inequalities gives the other cases.
+\end{definition}
+
+\begin{remark}[Infinity is behavior, not a value]
+The notation $f(x)\to+\infty$ does not assert convergence to a member of
+$\R$.  It abbreviates an eventual-inequality statement.  For example,
+$1/x\to+\infty$ as $x\to0^+$, but the two-sided limit at $0$ does not tend
+to either sign of infinity because $1/x\to-\infty$ from the left.
+\end{remark}
+
+\begin{example}[Direct proof and rationalization]
+To prove
+\[
+\lim_{x\to2}(3x-1)=5,
+\]
+observe that $\abs{(3x-1)-5}=3\abs{x-2}$ and choose
+$\delta=\eps/3$.  For a less direct example,
+\[
+\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}
+=\lim_{x\to0}\frac1{\sqrt{1+x}+1}=\frac12,
+\]
+where the equality for $x\ne0$ follows by rationalization and the last
+step follows from continuity and the quotient law.
+\end{example}
+
+\begin{example}[One-sided limits detect nonexistence]
+For $f(x)=x/\abs{x}$ on $\R\setminus\{0\}$,
+\[
+\lim_{x\to0^-}f(x)=-1,
+\qquad
+\lim_{x\to0^+}f(x)=1.
+\]
+Hence the two-sided limit does not exist.  Indeed, the sequences
+$x_n=-1/n$ and $y_n=1/n$ approach the same point while their images have
+different limits.
+\end{example}
+
+\begin{remark}[A working strategy for function limits]
+First discover a plausible answer by substitution, simplification, a graph,
+or comparison.  Next prove it: use limit laws only after their hypotheses
+are met; cancel only on the punctured neighborhood; rationalize radicals;
+or bound the error by a simpler expression and squeeze.  For nonexistence,
+compare one-sided limits or produce two approaching sequences with
+different image limits.  The exact value $f(a)$ is irrelevant to
+$\lim_{x\to a}f(x)$.
+\end{remark}
+
+\section{Asymptotic Notation}
+
+Limit arguments often need only a comparison of sizes rather than an exact
+formula.  The following compact notation records two common kinds of
+comparison without replacing the underlying estimates.
+
+\begin{definition}[Big-O and little-o]
+Let $f,g$ be real-valued functions defined sufficiently near $a$.  We write
+\[
+f(x)=O(g(x))\qquad(x\to a)
+\]
+if there are $C>0$ and a punctured neighborhood of $a$ on which
+\[
+\abs{f(x)}\leq C\abs{g(x)}.
+\]
+We write
+\[
+f(x)=o(g(x))\qquad(x\to a)
+\]
+if $g(x)\ne0$ sufficiently near $a$ and
+\[
+\frac{f(x)}{g(x)}\longrightarrow0.
+\]
+For sequences, $a_n=O(b_n)$ as $n\to\infty$ and $a_n=o(b_n)$ as
+$n\to\infty$ have the identical eventual-bound and quotient-limit meanings.
+\end{definition}
+
+Thus $O(g)$ means ``eventually controlled by a constant multiple of $g$,''
+whereas $o(g)$ means ``negligible compared with $g$.''  For example,
+\[
+x^2=o(x),\qquad x=O(x),\qquad x\ne o(x)
+\qquad(x\to0),
+\]
+and
+\[
+\frac1{n^2}=o\left(\frac1n\right)
+\qquad(n\to\infty).
+\]
+The notation always abbreviates a concrete bound or limit; its usefulness is
+that it keeps the main comparison visible in a longer calculation.
+
 \section{Continuity}
 
 Continuity is the condition that removes that separation: the local limiting
 value agrees with the value of the function.  Open and closed sets provide a
 second language for this stability and prepare for compactness.
 
-\begin{definition}[Neighborhoods, Open Sets, and Closed Sets]
+\begin{definition}[Neighborhoods, open sets, and closed sets]
 For $a\in\R$ and $r>0$, the open interval
 \[
 B(a,r)=\set{x\in\R:\abs{x-a}<r}
@@ -77,7 +189,7 @@ B(a,r)\subseteq U.
 A set $C\subseteq\R$ is \textbf{closed} if its complement is open.
 \end{definition}
 
-\begin{theorem}[Sequential Characterization of Closed Sets]
+\begin{theorem}[Sequential characterization of closed sets]
 \label{thm:sequentially-closed}
 A set $C\subseteq\R$ is closed if and only if every convergent sequence in $C$ has its limit in $C$.
 \end{theorem}
@@ -137,6 +249,18 @@ Let $f:D\to\R$. The function $f$ is \emph{uniformly continuous on $D$} if, for e
 
 The difference from ordinary continuity is that $\delta$ may depend on $\eps$, but not on the point of $D$.
 
+Schematically, the quantifiers are
+\[
+\text{continuity:}\quad
+\forall a\in D\;\forall\eps>0\;\exists\delta=\delta(a,\eps)>0,
+\]
+whereas
+\[
+\text{uniform continuity:}\quad
+\forall\eps>0\;\exists\delta=\delta(\eps)>0\;\forall x,y\in D.
+\]
+Moving the point quantifiers past $\exists\delta$ is the whole strengthening.
+
 \begin{proposition}[Lipschitz functions]
 \label{prop:lipschitz-uniform}
 Let $f:D\to\R$. If there is $K\geq0$ such that
@@ -150,9 +274,45 @@ then $f$ is uniformly continuous on $D$.
 If $K=0$, the function is constant. If $K>0$, choose $\delta=\eps/K$. Then the displayed inequality gives the conclusion of \cref{def:uniform-continuity}.
 \end{proof}
 
+The displayed hypothesis defines a \textbf{Lipschitz function}, and $K$ is
+a Lipschitz constant.  Thus
+\[
+\text{Lipschitz}\Longrightarrow\text{uniformly continuous}
+\Longrightarrow\text{continuous}.
+\]
+Neither converse holds in general.
+
+\begin{example}[The three levels of control]
+The function $x\mapsto x^2$ is not uniformly continuous on $\R$: with
+$x_n=n$ and $y_n=n+1/n$, the inputs approach one another while
+\[
+y_n^2-x_n^2=2+1/n^2.
+\]
+On $[-A,A]$, however,
+\[
+\abs{x^2-y^2}\leq2A\abs{x-y},
+\]
+so it is Lipschitz there.  The function $\sqrt{x}$ on $[0,1]$ is uniformly
+continuous because
+\[
+\abs{\sqrt{x}-\sqrt{y}}\leq\sqrt{\abs{x-y}},
+\]
+but it is not Lipschitz: if a
+constant $K$ worked, then $\sqrt{x}\leq Kx$ for every $x>0$, equivalently
+$1/\sqrt{x}\leq K$, which fails near $0$.
+\end{example}
+
 \begin{example}[Continuity need not be uniform]
 The function $f:(0,1)\to\R$ given by $f(x)=1/x$ is continuous by \cref{thm:continuity-algebra}, but not uniformly continuous. Indeed, put $x_n=1/n$ and $y_n=1/(n+1)$. Then $\abs{x_n-y_n}\to0$, whereas $\abs{f(x_n)-f(y_n)}=1$ for every $n$.
 \end{example}
+
+On $[a,\infty)$ with $a>0$, the same function $1/x$ is Lipschitz, since
+\[
+\abs{\frac1x-\frac1y}=\frac{\abs{x-y}}{xy}
+\leq\frac1{a^2}\abs{x-y}.
+\]
+This contrast shows that uniform continuity depends on the domain as well
+as on the formula.
 
 \section{Intermediate Values}
 
@@ -160,7 +320,7 @@ Continuity has a qualitative consequence beyond limiting estimates: it
 prevents a function from jumping over a value.  Completeness supplies the
 point at which this intuitive crossing must occur.
 
-\begin{theorem}[Intermediate Value Theorem]
+\begin{theorem}[Intermediate value theorem]
 \label{thm:ivt}
 Let $f:[a,b]\to\R$ be continuous, with $a<b$. If $u$ lies between $f(a)$ and $f(b)$, then there is $c\in[a,b]$ such that $f(c)=u$.
 \end{theorem}
@@ -200,6 +360,32 @@ c-\delta<x\leq c,
 which contradicts $f(x)\leq u$. Therefore $f(c)=u$.
 \end{proof}
 
+\begin{theorem}[Existence and uniqueness of roots]
+\label{thm:real-roots}
+For every $c\geq0$ and $n\in\N$, there is a unique $r\geq0$ such that
+$r^n=c$.
+\end{theorem}
+\begin{proof}
+The polynomial $p(t)=t^n-c$ is continuous.  On
+$[0,\max\{1,c\}]$ its endpoint values have opposite weak signs, so the
+Intermediate Value Theorem gives a zero.  If $0\leq r<s$, then
+\[
+s^n-r^n=(s-r)(s^{n-1}+s^{n-2}r+\cdots+r^{n-1})>0,
+\]
+so $t\mapsto t^n$ is strictly increasing on $[0,\infty)$ and the root is
+unique.
+\end{proof}
+
+\begin{remark}[Looking back at familiar radicals]
+The notation $\sqrt[n]{c}$ now names the unique root supplied by the
+theorem; it was not justified merely by writing the symbol.  For even $n$,
+a real $n$th root requires $c\geq0$.  For odd $n$, a negative input has the
+unique negative root $-\sqrt[n]{-c}$.  Chapter~\ref{ch:series} uses these
+roots to define rational powers consistently, and
+Chapter~\ref{ch:differentiation} later defines arbitrary real powers of
+positive bases through $\exp$ and $\log$.
+\end{remark}
+
 \section{Compact Intervals}
 
 Closed bounded intervals are the domains on which local information can be
@@ -218,7 +404,7 @@ If $a\leq b$, then $[a,b]$ is sequentially compact.
 Let $(x_n)$ be a sequence in $[a,b]$. It is bounded, so \cref{thm:bolzano-weierstrass} gives a subsequence converging to some $x\in\R$. Since $a\leq x_{n_k}\leq b$ for every $k$, \cref{thm:limit-order} gives $a\leq x\leq b$. Thus $x\in[a,b]$.
 \end{proof}
 
-\begin{theorem}[Extreme Value Theorem]
+\begin{theorem}[Extreme value theorem]
 \label{thm:extreme-value}
 Let $f:[a,b]\to\R$ be continuous, where $a\leq b$. Then there are points $x_{\min},x_{\max}\in[a,b]$ such that
 \[

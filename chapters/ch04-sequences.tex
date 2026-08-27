@@ -63,6 +63,41 @@ The sequence $a_n=1/n$ converges to $0$. For a given $\eps>0$, \cref{thm:archime
 \]
 \end{example}
 
+\begin{definition}[Divergence to infinity]
+\label{def:sequence-infinite-limit}
+We write
+\[
+a_n\longrightarrow+\infty
+\]
+if, for every $M\in\R$, there is $N\in\N$ such that
+\[
+n\geq N\quad\Longrightarrow\quad a_n>M.
+\]
+We write $a_n\to-\infty$ if, for every $M\in\R$, there is $N$ such that
+\[
+n\geq N\quad\Longrightarrow\quad a_n<M.
+\]
+These statements describe two particular forms of divergence.  Neither
+$+\infty$ nor $-\infty$ is a real number, and neither statement says that
+$(a_n)$ converges in $\R$.
+\end{definition}
+
+\begin{example}[Examples and nonexamples]
+The sequence $n^2$ tends to $+\infty$: given $M\in\R$, choose
+$N>\sqrt{\max\{M,0\}}$.  The sequence $-n$ tends to $-\infty$.  By contrast,
+$(-1)^n n$ is unbounded in both directions but tends to neither infinity;
+for every proposed stage, later terms occur with each sign.  Thus
+``unbounded'' is much weaker than ``eventually larger than every real
+bound.''
+\end{example}
+
+\begin{remark}[A useful proof pattern]
+To prove $a_n\to+\infty$, start with an arbitrary target height $M$ and
+solve the inequality $a_n>M$ for a sufficient condition on $n$.  This is
+the infinite-limit analogue of solving $\abs{a_n-L}<\eps$ in an ordinary
+$\eps$--$N$ proof.
+\end{remark}
+
 \section{Algebra and Order of Limits}
 
 Once limits have been defined, the next question is whether familiar algebra
@@ -115,6 +150,35 @@ If $a>b$, let $\eps=(a-b)/3>0$. For all sufficiently large $n$, $\abs{a_n-a}<\ep
 \label{cor:squeeze}
 If $a_n\leq b_n\leq c_n$ eventually and $a_n\to L$, $c_n\to L$, then $b_n\to L$.
 \end{corollary}
+
+\begin{example}[Algebraic simplification and rationalization]
+The candidate limit in
+\[
+a_n=\frac{3n^2-n}{2n^2+5}
+\]
+becomes visible after division by $n^2$; the limit laws then give
+$a_n\to3/2$.  For
+\[
+b_n=\sqrt{n^2+n}-n,
+\]
+direct substitution hides the answer.  Multiplying by the conjugate gives
+\[
+b_n=\frac{n}{\sqrt{n^2+n}+n}
+=\frac{1}{\sqrt{1+1/n}+1}\longrightarrow\frac12.
+\]
+The algebra does not itself prove a limit; it rewrites the expression into
+terms to which already proved limit laws apply.
+\end{example}
+
+\begin{remark}[Strategy for sequence limits]
+Separate discovery from proof.  First simplify, compute a few terms, or
+compare dominant terms to guess a candidate.  Then prove it using the
+definition, the limit laws, a squeeze estimate, or monotonicity and
+boundedness.  To prove that no finite limit exists, look for incompatible
+subsequences, failure of the Cauchy condition, or divergence to
+$\pm\infty$.  A failed attempt to find a limit is not a proof of
+nonexistence.
+\end{remark}
 \begin{proof}
 For large $n$, $0\leq b_n-a_n\leq c_n-a_n$. The limit algebra gives $c_n-a_n\to0$. Given $\eps>0$, eventually $c_n-a_n<\eps$, and then $\abs{b_n-L}\leq\abs{b_n-a_n}+\abs{a_n-L}<\eps/2+\eps/2$ after increasing the stage if necessary.
 \end{proof}
@@ -155,31 +219,8 @@ It converts bounded monotone approximation into a limit, prevents Cauchy
 approximations from leaving a gap, and forces bounded sequences to have
 convergent subsequences.
 
-\begin{definition}[Monotonicity]
-Let $D\subseteq\R$ and let $f:D\to\R$. The function $f$ is \textbf{increasing}
-(or \textbf{nondecreasing}) if
-\[
-x<y\quad\Longrightarrow\quad f(x)\leq f(y)
-\qquad(x,y\in D),
-\]
-and \textbf{strictly increasing} if the conclusion is $f(x)<f(y)$. It is
-\textbf{decreasing} if the displayed implication holds with
-$f(x)\geq f(y)$, and \textbf{strictly decreasing} if it holds with
-$f(x)>f(y)$. A function is \textbf{monotone} if it is increasing or
-decreasing, and \textbf{strictly monotone} if it is strictly increasing or
-strictly decreasing.
-
-Throughout these notes, \textbf{increasing} and \textbf{decreasing} have
-their non-strict meanings; strict inequalities are indicated explicitly.
-
-A sequence $(a_n)$ is viewed as a function on $\N$. Thus it is increasing
-exactly when
-\[
-a_n\leq a_{n+1}
-\qquad(n\in\N),
-\]
-and the analogous statements define decreasing and strict monotonicity for
-sequences.
+\begin{definition}[Monotone sequence]
+A sequence $(a_n)$ is \textbf{increasing} if $a_n\leq a_{n+1}$ for all $n$, \textbf{decreasing} if $a_{n+1}\leq a_n$ for all $n$, and \textbf{monotone} if it is increasing or decreasing.
 \end{definition}
 
 \begin{theorem}[Monotone convergence]
@@ -235,8 +276,11 @@ The sequence $(s_n)$ is decreasing and bounded below, while $(i_n)$ is increasin
 For every tail beginning after that stage, its infimum is at least $L-\eps/2$ and its supremum is at most $L+\eps/2$. Their limits therefore equal $L$. Conversely, if both limits equal $L$, then for a given $\eps>0$, eventually $i_n>L-\eps$ and $s_n<L+\eps$. Since $i_n\leq a_n\leq s_n$, the squeeze theorem gives $a_n\to L$.
 \end{proof}
 
-\paragraph{Extended limsup and liminf.}
-The boundedness hypothesis in the definition can be relaxed by adjoining the formal values $+\infty$ and $-\infty$. We postpone that extension because ordinary real-valued limits are sufficient for the present development.
+\paragraph{Why boundedness remains in this definition.}
+One can develop conventions for limsup and liminf of unbounded sequences,
+but they are unnecessary here.  We retain real-valued suprema and infima
+and use \cref{def:sequence-infinite-limit} when a sequence eventually
+escapes every real bound.
 
 \section{Equivalent Completeness Principles}
 
@@ -245,7 +289,7 @@ completeness.  The equivalences below explain why several apparently
 different principles may all serve as the decisive feature distinguishing
 the real numbers from the rationals.
 
-\begin{theorem}[Equivalence of Standard Completeness Principles]
+\begin{theorem}[Equivalence of standard completeness principles]
 \label{thm:completeness-equivalences}
 Let $F$ be an Archimedean ordered field. The following assertions are equivalent.
 \begin{enumerate}

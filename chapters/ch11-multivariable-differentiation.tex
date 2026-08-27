@@ -3,10 +3,14 @@
 
 \section{Differentiability and the Derivative}
 
-In Part~I, differentiability at \(a\) meant
+With the little-o notation introduced in Chapter~\ref{ch:continuity} and
+extended to norm-valued remainders in Chapter~\ref{ch:topology-linear-algebra},
+one-variable differentiability at \(a\) may be written as
 \[
 f(a+h)=f(a)+f'(a)h+o(\lvert h\rvert).
 \]
+The remainder is negligible relative to the increment: after subtracting
+the best linear approximation, its size divided by $|h|$ tends to zero.
 Multiplication by the scalar \(f'(a)\) is already a linear map of the
 increment \(h\).  For a map between higher-dimensional spaces, the correct
 replacement is a linear map \(Df(a)\), and the derivative remains the best
@@ -290,6 +294,47 @@ when its derivative is continuous as a map into the finite-dimensional space
 of linear maps.
 \end{definition}
 
+\begin{remark}[A practical differentiability workflow]
+First compute the only possible derivative: if differentiability holds, its
+matrix must have the partial derivatives as columns.  If the partial
+derivatives exist in a neighborhood and are continuous at the point, apply
+\cref{thm:c1-implies-differentiable}.  Otherwise return to the definition,
+subtract the candidate linear map, and estimate the remainder divided by
+$\norm h$.  Partial or directional derivatives inspect individual lines;
+total differentiability requires one linear approximation that controls all
+small increments simultaneously.
+\end{remark}
+
+\begin{example}[A direct remainder estimate]
+Define $F(0,0)=0$ and, away from the origin,
+\[
+F(x,y)=\frac{x^2y^2}{x^2+y^2}.
+\]
+The candidate derivative at the origin is zero.  Since
+$4x^2y^2\leq(x^2+y^2)^2$,
+\[
+\frac{\abs{F(x,y)}}{\norm{(x,y)}_2}
+\leq\frac14\norm{(x,y)}_2\longrightarrow0.
+\]
+Hence $F$ is differentiable at the origin by the definition, even without
+first proving continuity of its nearby partial derivatives.
+\end{example}
+
+\begin{example}[Directional derivatives are still not enough]
+Set $G(0,0)=0$ and
+\[
+G(x,y)=\frac{x^3}{x^2+y^2}
+\]
+elsewhere.  For every $v\ne0$,
+\[
+D_vG(0)=\frac{v_1^3}{v_1^2+v_2^2}.
+\]
+All directional derivatives therefore exist, but their dependence on $v$ is
+not linear.  They cannot equal $DG(0)v$ for a linear map, so $G$ is not
+differentiable at the origin.  Existence of all partial derivatives is an
+even weaker condition.
+\end{example}
+
 \begin{definition}[Operator norm]
 For a linear map $L:V\to W$ between normed spaces, define
 \[
@@ -391,6 +436,35 @@ as either mixed partial at a point tending to $a$.  Letting
 \]
 and using continuity gives the result.
 \end{proof}
+
+\begin{definition}[Gradient, Hessian, and critical points]
+Let $f:U\subseteq\R^n\to\R$ be differentiable at $a$.  Its
+\textbf{gradient} is the coordinate vector
+\[
+\nabla f(a)=
+\left(\frac{\partial f}{\partial x_1}(a),\ldots,
+\frac{\partial f}{\partial x_n}(a)\right).
+\]
+Thus the invariant derivative has the coordinate form
+\[
+Df(a)h=\nabla f(a)\cdot h.
+\]
+If $f$ is of class $C^2$, its \textbf{Hessian} at $a$ is the matrix
+\[
+H_f(a)=
+\left(\frac{\partial^2f}{\partial x_i\partial x_j}(a)\right)_{i,j=1}^n.
+\]
+Under the standard coordinate identification,
+\[
+D^2f(a)[h,k]=h^{\mathsf T}H_f(a)k.
+\]
+By \cref{thm:schwarz}, the Hessian is symmetric.  A point $a\in U$ is a
+\textbf{critical point} of a differentiable scalar-valued function when
+\[
+Df(a)=0,
+\]
+or equivalently when $\nabla f(a)=0$.
+\end{definition}
 
 \begin{theorem}[Taylor's theorem along a segment]
 \label{thm:multivariable-taylor}
@@ -511,6 +585,23 @@ d(x,y)\leq qd(x,y),
 so $x=y$.
 \end{proof}
 
+\begin{example}[Solving $x=\cos x$ by iteration]
+On $X=[1/2,1]$ with the usual metric, $T(x)=\cos x$ maps $X$ into itself.
+Indeed, the elementary-function theory gives
+$1/2<\cos1\leq\cos x<1$ there.  The Mean Value Theorem and
+$\abs{\sin x}\leq\sin1<1$ give
+\[
+\abs{T(x)-T(y)}\leq(\sin1)\abs{x-y}.
+\]
+The closed interval is complete, so the contraction theorem gives a unique
+solution in $X$, and the numerical iteration
+$x_{n+1}=\cos x_n$ converges to it from every starting point in $X$.
+Completeness is used precisely when the Cauchy iterates are asserted to have
+a limit.  The same mechanism later underlies existence arguments for
+differential equations, integral equations, and problems in functional
+analysis.
+\end{example}
+
 \begin{proposition}[Perturbation of an invertible map]
 \label{prop:perturbation}
 Let $A,B:\R^n\to\R^n$ be linear and let $A$ be invertible.  If
@@ -539,16 +630,38 @@ the result follows.
 
 \section{Inverse and Implicit Functions}
 
-In one variable, the hypothesis \(f'(a)\ne0\) says that the linear
-approximation \(h\mapsto f'(a)h\) can be inverted.  For a map
+For an invertible linear map $T:\R^n\to\R^n$, invertibility is equivalent
+to $\det T\ne0$.  In one variable, the corresponding hypothesis
+\(f'(a)\ne0\) says that the linear approximation \(h\mapsto f'(a)h\) can
+be inverted.  For a map
 \[
 \R^n\longrightarrow\R^n,
 \]
-the exact replacement is that \(Df(a)\) is an invertible linear map.  The
-inverse function theorem makes this local linear picture into a genuine
-local inverse.
+the exact replacement is that \(Df(a)\) is an invertible linear map.  Since
+\[
+f(a+h)=f(a)+Df(a)h+o(\norm h),
+\]
+the natural question is whether an invertible best linear approximation
+forces $f$ itself to be invertible nearby.  The inverse function theorem
+answers yes, locally: close to $a$, the map neither folds space nor collapses
+a direction, and nearby points can be recovered uniquely from their images.
 
-\begin{theorem}[Inverse Function Theorem]
+\begin{example}[Local is not global]
+The map
+\[
+P(u,v)=(e^u\cos v,e^u\sin v)
+\]
+has
+\[
+\det DP(u,v)=e^{2u}>0
+\]
+at every point.  It is therefore locally invertible everywhere, but it is
+not globally one-to-one because $P(u,v)=P(u,v+2\pi)$.  A nonzero determinant
+at a point, or even at every point, is a local conclusion unless additional
+global information is supplied.
+\end{example}
+
+\begin{theorem}[Inverse function theorem]
 \label{thm:multivariable-inverse-function}
 Let $U\subseteq\R^n$ be open and let
 \[
@@ -754,6 +867,35 @@ are continuous and \(Df(g(y))\) is invertible throughout \(V_0\), the
 formula for \(Dg\) is continuous.  Thus \(g\) is of class \(C^1\).
 \end{proof}
 
+\begin{example}[Using the inverse function theorem]
+Let
+\[
+f(u,v)=(u+v^2,u^2+v).
+\]
+Its Jacobian is
+\[
+Df(u,v)=
+\begin{pmatrix}1&2v\\2u&1\end{pmatrix},
+\qquad
+\det Df(u,v)=1-4uv.
+\]
+At $(0,0)$ the determinant is $1$, so the theorem supplies neighborhoods of
+$(0,0)$ on which $f$ has a unique $C^1$ inverse.  In ordinary language,
+every output sufficiently close to $(0,0)$ comes from exactly one nearby
+input, and that input varies differentiably with the output.  The theorem
+does not make a global claim; on the curve $uv=1/4$ the derivative is
+singular, so the Inverse Function Theorem gives no conclusion about local
+invertibility there.
+
+The derivative formula is exactly what formal differentiation predicts:
+from $f^{-1}\circ f=\operatorname{id}$, the chain rule suggests
+\[
+D(f^{-1})(f(a))Df(a)=I,
+\]
+and hence $D(f^{-1})(f(a))=Df(a)^{-1}$.  The theorem proves that this
+formal calculation applies to an actual local inverse.
+\end{example}
+
 \begin{definition}[Diffeomorphisms]
 \label{def:diffeomorphism}
 Let \(U\subseteq\R^n\) and \(V\subseteq\R^m\) be open.  A bijection
@@ -768,7 +910,34 @@ that a \(C^1\) map with invertible derivative at a point is a
 neighborhoods.
 \end{definition}
 
-\begin{theorem}[Implicit Function Theorem]
+\begin{remark}[From an equation to a local graph]
+The circle
+\[
+x^2+y^2=1
+\]
+is not the graph of one function $y=g(x)$ globally: most $x$ values have two
+points on the circle.  Yet near $(0,1)$, the equation
+\[
+F(x,y)=x^2+y^2-1=0
+\]
+can be solved for $y$ because $F_y(0,1)=2\ne0$.  Near $(1,0)$ it can instead
+be solved for $x$, since $F_x(1,0)=2\ne0$.  The Implicit Function Theorem
+is the general existence-and-local-parametrization principle behind this
+familiar calculus picture: it solves selected variables locally even when
+there is no useful explicit algebraic formula.
+\end{remark}
+
+Conceptually it is another form of local invertibility.  For
+$F:\R^n\times\R^m\to\R^m$, the auxiliary map
+\[
+H(x,y)=(x,F(x,y))
+\]
+keeps the prospective independent variables and records the equations as
+the remaining output coordinates.  Invertibility of $D_yF$ makes $DH$
+invertible, so a local inverse for $H$ recovers the desired dependent
+variables.
+
+\begin{theorem}[Implicit function theorem]
 \label{thm:implicit-function}
 Let $U\subseteq\R^n\times\R^m$ be open and let
 \[
@@ -935,6 +1104,94 @@ This is a local, rather than a global, parametrization of the circle.
 \end{example}
 
 
+
+\begin{example}[Implicit differentiation justified]
+For $F(x,y)=x^2+y^2-1$, take $(a,b)=(0,1)$.  Then
+\[
+F(0,1)=0,
+\qquad
+F_y(0,1)=2\ne0.
+\]
+The Implicit Function Theorem therefore gives a unique differentiable
+function $y=g(x)$ near $0$ with $g(0)=1$ and
+$x^2+g(x)^2=1$.  Its derivative is
+\[
+g'(x)=-\frac{F_x(x,g(x))}{F_y(x,g(x))}
+=-\frac{x}{g(x)}.
+\]
+This is the familiar implicit-differentiation rule from calculus, now backed
+by a theorem that first supplies the local function being differentiated.
+At $(0,-1)$ one obtains the lower local graph; at $(\pm1,0)$ one must solve
+locally for $x$ as a function of $y$ instead.
+\end{example}
+
+\begin{theorem}[Lagrange multipliers for one constraint]
+\label{thm:lagrange-multipliers}
+Let $f,g:U\subseteq\R^n\to\R$ be of class $C^1$.  Suppose that $a$ is a
+local extremum of $f$ subject to
+\[
+g(x)=c,
+\]
+with $g(a)=c$, and that $\nabla g(a)\ne0$.  Then there is $\lambda\in\R$ such that
+\[
+\nabla f(a)=\lambda\nabla g(a).
+\]
+\end{theorem}
+\begin{proof}
+The Implicit Function Theorem makes the level set $g=c$ near $a$ a smooth
+hypersurface.  Its tangent directions form
+\[
+T=\ker Dg(a).
+\]
+Indeed, after relabeling coordinates so that a partial derivative of $g$ is
+nonzero, the theorem writes the level set as a local graph, whose derivative
+has precisely this tangent range.  Restricting $f$ to that graph gives a
+local unconstrained extremum, so
+\[
+Df(a)v=0
+\qquad(v\in T).
+\]
+Thus $Df(a)$ vanishes on $\ker Dg(a)$.  Since $Dg(a)$ is a nonzero linear
+functional, any linear functional vanishing on this kernel is a scalar
+multiple of $Dg(a)$.  Hence $Df(a)=\lambda Dg(a)$, which is the displayed
+gradient equation.
+\end{proof}
+
+\begin{example}[Extrema of $xy$ on the unit circle]
+To maximize or minimize
+\[
+f(x,y)=xy
+\]
+subject to $g(x,y)=x^2+y^2=1$, observe that
+\[
+\nabla f=(y,x),
+\qquad
+\nabla g=(2x,2y).
+\]
+The Lagrange equations are
+\[
+(y,x)=\lambda(2x,2y),
+\qquad x^2+y^2=1.
+\]
+They give $\lambda=1/2$ and $y=x$, or $\lambda=-1/2$ and $y=-x$.
+Thus $f=1/2$ at
+\[
+\left(\frac1{\sqrt2},\frac1{\sqrt2}\right),
+\qquad
+\left(-\frac1{\sqrt2},-\frac1{\sqrt2}\right),
+\]
+and $f=-1/2$ at the two points with $y=-x$.  These are respectively the
+maximum and minimum, as also follows from $2\abs{xy}\leq x^2+y^2=1$.
+\end{example}
+
+\begin{remark}[How to recognize which theorem to use]
+For a map $f:\R^n\to\R^n$, a question about a local inverse calls for
+computing $Df(a)$ and checking that it is invertible (equivalently, that its
+determinant is nonzero).  For equations $F(x,y)=0$ and a request to solve for
+the $y$ variables, compute the block $D_yF(a,b)$ instead.  In either case,
+the result concerns neighborhoods of the specified point, not a global
+inverse or a global parametrization.
+\end{remark}
 
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}

@@ -131,66 +131,9 @@ gives
 which is the triangle inequality.
 \end{proof}
 
-\begin{definition}[Bounds, Suprema, and Infima]
-Let $S\subseteq F$ be nonempty. An element $u\in F$ is an \textbf{upper
-bound} of $S$ if
-\[
-s\leq u
-\qquad\text{for every }s\in S.
-\]
-An element $\ell\in F$ is a \textbf{lower bound} of $S$ if
-\[
-\ell\leq s
-\qquad\text{for every }s\in S.
-\]
-The set $S$ is \textbf{bounded above} or \textbf{bounded below} when it has
-an upper bound or a lower bound, respectively.
-
-An element $s\in F$ is the \textbf{supremum} of $S$, or its \textbf{least
-upper bound}, if $s$ is an upper bound of $S$ and
-\[
-s\leq u
-\qquad\text{for every upper bound }u\text{ of }S.
-\]
-When it exists, we write
-\[
-s=\sup S.
-\]
-Similarly, an element $i\in F$ is the \textbf{infimum} of $S$, or its
-\textbf{greatest lower bound}, if $i$ is a lower bound of $S$ and
-\[
-\ell\leq i
-\qquad\text{for every lower bound }\ell\text{ of }S.
-\]
-When it exists, we write
-\[
-i=\inf S.
-\]
+\begin{definition}[Upper bounds and completeness]
+Let $S\subseteq F$. An element $u\in F$ is an \textbf{upper bound} of $S$ if $s\leq u$ for every $s\in S$. A \textbf{least upper bound} of $S$ is an upper bound $u$ with $u\leq v$ for every upper bound $v$ of $S$. An ordered field has the \textbf{least-upper-bound property} if every nonempty set having an upper bound has a least upper bound.
 \end{definition}
-
-A set has a supremum or infimum only when an element with the indicated
-property exists; the symbols $\sup S$ and $\inf S$ denote those elements once
-they exist. Each is unique: if $s$ and $t$ are both least upper bounds, then
-$s\leq t$ because $t$ is an upper bound and $t\leq s$ because $s$ is an upper
-bound. The argument for greatest lower bounds is identical. A supremum need
-not belong to its set. For example, for
-\[
-S=\set{x\in F:0<x<1},
-\]
-one has $\sup S=1$ and $\inf S=0$, but $S$ has neither a maximum nor a
-minimum. In general, $\sup S$ is the maximum precisely when it belongs to
-$S$, and $\inf S$ is the minimum precisely when it belongs to $S$.
-
-For a function $h:A\to F$, the notation
-\[
-\sup_{x\in A}h(x)
-\]
-means $\sup\set{h(x):x\in A}$ whenever this supremum exists; the analogous
-convention applies to infima. A subscript such as $\sup_F$ specifies the
-ambient ordered field when that clarification is needed.
-
-An ordered field has the \textbf{least-upper-bound property} if every
-nonempty subset that is bounded above has a supremum in the field.
 
 \begin{definition}[Complete ordered field]
 An ordered field having the least-upper-bound property is called a \textbf{complete ordered field}. This is a characterization, not a construction: it says what the real numbers are like, but does not yet exhibit them.
@@ -515,7 +458,7 @@ The relation $\sim$ is an equivalence relation on the set of rational Cauchy seq
 Reflexivity and symmetry are immediate. If $q\sim r$ and $r\sim s$, then for a given $\eps>0$, both $\abs{q_n-r_n}<\eps/2$ and $\abs{r_n-s_n}<\eps/2$ eventually hold. The triangle inequality gives $\abs{q_n-s_n}<\eps$, proving transitivity.
 \end{proof}
 
-\begin{lemma}[Eventual Separation]
+\begin{lemma}[Eventual separation]
 \label{lem:eventual-separation}
 Let $(q_n)$ be a rational Cauchy sequence that is not null-equivalent to the zero sequence. Then there are $\delta>0$ in $\Q$ and $N\in\N$ such that either $q_n\geq\delta$ for every $n\geq N$, or $q_n\leq-\delta$ for every $n\geq N$.
 \end{lemma}
@@ -576,7 +519,7 @@ For every $x\in\R$, there is $N\in\N$ with $x<N$. Consequently, for every $\eps>
 Let $x=[(q_n)]$. By \cref{lem:cauchy-facts-q}, the rational sequence $(q_n)$ has a rational upper bound $M$. Choose an integer $N>M$, using the Archimedean property of $\Q$. Then $q_n<N$ for all $n$, hence $x\leq N$; replacing $N$ by $N+1$ yields $x<N+1$. For the consequence choose $N>1/\eps$.
 \end{proof}
 
-\begin{lemma}[Integer-Part Lemma]
+\begin{lemma}[Integer-part lemma]
 \label{lem:integer-part}
 For every $x\in\R$, there is an integer $k\in\Z$ such that
 \[
@@ -591,7 +534,7 @@ E=\set{n\in\N:n>x+M}
 has a least element $n$ by well ordering. Since $n-1\notin E$ when $n>1$, one has $n-1\leq x+M<n$. The case $n=1$ gives the same left inequality because $x+M>0$. Thus $k=n-M-1$ is an integer satisfying $k\leq x<k+1$.
 \end{proof}
 
-\begin{theorem}[Density of the Rational Numbers]
+\begin{theorem}[Density of the rational numbers]
 \label{thm:rational-density}
 If $x,y\in\R$ and $x<y$, then there is $q\in\Q$ such that
 \[
@@ -621,7 +564,7 @@ n\geq N\quad\Longrightarrow\quad \abs{x_n-x}<\eps.
 A real sequence $(x_n)$ is \emph{Cauchy} if, for every $\eps>0$, there is $N\in\N$ such that $m,n\geq N$ implies $\abs{x_m-x_n}<\eps$.
 \end{definition}
 
-\begin{lemma}[Tail Estimates for Classes]
+\begin{lemma}[Tail estimates for classes]
 \label{lem:tail-estimates-classes}
 Let $(u_n)$ be a rational Cauchy sequence, let $u=[(u_n)]$, and let $e\in\Q$ satisfy $e>0$.
 \begin{enumerate}
@@ -643,7 +586,7 @@ e-u_n>0,\qquad e+u_n>0
 eventually. In fact both quantities are eventually greater than $e/2$. Thus $\iota(e)-u>0$ and $\iota(e)+u>0$, which says precisely that $\abs{u}<\iota(e)$. For the second assertion, $u_n\geq a$ eventually implies that $\iota(a)-u$ cannot be positive: otherwise the definition of positivity would give $a-u_n>\delta>0$ eventually, contradicting $u_n\geq a$. Hence $\iota(a)\leq u$. The upper estimate is analogous.
 \end{proof}
 
-\begin{lemma}[Rational Approximation from a Representative]
+\begin{lemma}[Rational approximation from a representative]
 \label{lem:rational-representatives-converge}
 Let $x=[(q_n)]\in\R$. Then
 \[
@@ -739,7 +682,7 @@ completeness properties.  Once that has been done, however, the uniqueness
 theorem supplies its canonical order-preserving field isomorphism with the
 Cauchy-sequence model and hence with \(\R\).
 
-\begin{theorem}[Greatest-Lower-Bound Property]
+\begin{theorem}[Greatest-lower-bound property]
 \label{thm:real-glb}
 Every nonempty subset of $\R$ that is bounded below has a greatest lower bound.
 \end{theorem}
@@ -751,7 +694,7 @@ Let $S\subseteq\R$ be nonempty and bounded below. Define
 Then $-S$ is nonempty and bounded above. By \cref{thm:real-lub}, let $u=\sup(-S)$, and put $\ell=-u$. For every $s\in S$, one has $-s\leq u$, hence $\ell\leq s$; thus $\ell$ is a lower bound. If $v$ is any lower bound of $S$, then $-s\leq-v$ for every $s\in S$, so $-v$ is an upper bound of $-S$. Therefore $u\leq-v$, or $v\leq\ell$. Hence $\ell$ is the greatest lower bound.
 \end{proof}
 
-\begin{theorem}[Nested-Interval Property]
+\begin{theorem}[Nested-interval property]
 \label{thm:nested-interval}
 Let
 \[
@@ -768,6 +711,61 @@ The sequence $(a_n)$ is increasing and bounded above by $b_1$, so its range has 
 
 If $d$ belongs to every interval, then $\abs{c-d}\leq b_n-a_n$ for every $n$. Taking the limit gives $\abs{c-d}=0$, so $c=d$. Thus the common point is unique.
 \end{proof}
+
+\section{A Small Toolkit of Inequalities}
+
+Exact computation is often unnecessary in analysis.  The decisive step is
+usually an estimate that replaces a complicated quantity by one already
+known to be small or bounded.
+
+\begin{proposition}[Basic absolute-value estimates]
+For $x,y\in\R$,
+\[
+\abs{x+y}\leq\abs{x}+\abs{y},
+\qquad
+\bigl\lvert\abs{x}-\abs{y}\bigr\rvert\leq\abs{x-y}.
+\]
+Consequently, $\abs{x_1+\cdots+x_n}\leq\sum_{j=1}^n\abs{x_j}$.
+\end{proposition}
+\begin{proof}
+The triangle inequality was established with the ordered-field absolute
+value.  Applying it to $x=(x-y)+y$ gives
+$\abs{x}-\abs{y}\leq\abs{x-y}$; exchange $x$ and $y$ for the reverse
+bound.  The finite form follows by induction.
+\end{proof}
+
+\begin{proposition}[Quadratic and Bernoulli inequalities]
+For $u,v\in\R$,
+\[
+2uv\leq u^2+v^2.
+\]
+If $t\geq-1$ and $n\in\N$, then
+\[
+(1+t)^n\geq1+nt.
+\]
+\end{proposition}
+\begin{proof}
+The first inequality is $(u-v)^2\geq0$.  For the second, induction begins at $n=1$.
+If the assertion holds for $n$, multiplication by $1+t\geq0$ gives
+\[
+(1+t)^{n+1}\geq1+(n+1)t+nt^2\geq1+(n+1)t.
+\]
+\end{proof}
+
+\begin{remark}[How estimates are used]
+The triangle inequality splits an error into controllable pieces; the
+reverse triangle inequality keeps denominators away from zero; the quadratic
+estimate turns products into sums; and Bernoulli compares powers with linear
+growth.  For nonnegative inputs, the quadratic estimate later yields the
+usual arithmetic--geometric mean inequality after roots are available.
+Chapter~\ref{ch:topology-linear-algebra} adds Cauchy--Schwarz and the norm
+comparisons
+\[
+\abs{x_i}\leq\norm{x}_2\leq\sqrt n\,\norm{x}_\infty
+\]
+for multivariable estimates.  Later examples will repeatedly seek a
+sufficiently strong bound rather than an exact formula.
+\end{remark}
 
 
 

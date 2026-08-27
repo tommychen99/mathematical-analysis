@@ -462,21 +462,26 @@ Let \(V\subseteq\R^n\) be open, and let
 \]
 be a continuous top-degree form whose support
 \[
-K=\overline{\set{x\in V:f(x)\ne0}}
+K=\operatorname{supp}(\omega)
+=\overline{\set{x\in V:f(x)\ne0}}
 \]
-is compact and contained in \(V\).  Extend \(f\) by zero outside \(V\).
-The resulting function \(\widetilde f\) is continuous: compactness of \(K\)
-provides a neighborhood of \(\R^n\setminus V\) disjoint from \(K\), on
-which both definitions give zero.  Choose any rectangle \(Q\) whose interior
-contains \(K\), and define
+is compact and contained in \(V\), where the closure is taken in \(V\).
+Because a compact subset of the open set \(V\) is separated from
+\(\R^n\setminus V\) (by a positive distance when \(K\ne\varnothing\)), there
+is a neighborhood of \(\R^n\setminus V\) disjoint from \(K\).  The function
+\(f\) vanishes on the part of that neighborhood lying in \(V\).  Consequently,
+extending \(f\) by zero outside \(V\) gives a continuous function
+\(\widetilde f\).  Choose any rectangle \(Q\) whose interior contains \(K\),
+and define
 \[
 \int_V\omega=\int_Q\widetilde f(x)\,\dd x.
 \]
 This is independent of \(Q\).  Indeed, after enlarging two such rectangles
 to a common containing rectangle, finite additivity of the Riemann integral
 and the vanishing of \(\widetilde f\) off \(K\) show that both integrals
-equal the integral over the larger rectangle.  If \(\omega\) is smooth, its
-zero extension is smooth near the complement of \(V\) for the same reason.
+equal the integral over the larger rectangle.  If \(\omega\) is smooth, then
+the extended coefficients are identically zero on a neighborhood of the
+artificial boundary of \(V\), so the same zero extension is smooth.
 
 \begin{definition}[Boundary orientation]
 The boundary of the standard rectangle is oriented by the
@@ -572,6 +577,13 @@ orientation-reversing cases.
 
 
 \section{Manifolds and the Global Stokes Theorem}
+
+The local Stokes theorem works inside one coordinate region.  A curved global
+space generally needs many overlapping charts, so a global integral and
+boundary formula require coordinate invariance together with a mechanism by
+which artificial internal boundaries cancel.  The manifold and refinement
+machinery introduced next supplies exactly that passage from local Euclidean
+calculations to one coherent global theorem.
 
 \paragraph{Topology terminology.}
 The following modest amount of general-topology language will be used only to
@@ -706,19 +718,18 @@ The form has \textbf{compact support} when this closed set is compact.
 \begin{theorem}[External refinement theorem (used without proof)]
 \label{thm:manifold-refinement-external}
 Every second-countable Hausdorff smooth manifold, possibly with boundary, is
-paracompact. In
-particular, every open cover has a countable locally finite refinement by
-precompact coordinate neighborhoods; after shrinking, it may be arranged
-that
+paracompact.  Given an open cover of \(M\), there are countable locally finite
+families of open coordinate neighborhoods \(V_j\) and \(W_j\), with the
+\(V_j\) covering \(M\), such that
+\(\overline{V_j}\) is compact and
 \[
 \overline{V_j}\subseteq W_j\subseteq U_{\alpha(j)}
 \]
-for coordinate neighborhoods \(W_j\) and members \(U_{\alpha(j)}\) of the
-original cover.
+for a suitable index \(\alpha(j)\in I\).
 \end{theorem}
 
 We use this standard topological refinement theorem without proof; see, for
-example, \cite[Chapters~2 and~10]{lee-smooth}. Its proof belongs to general
+example, \cite[Chapters~1--2]{lee-smooth}. Its proof belongs to general
 topology rather than to the Euclidean calculus developed here. The smooth
 bump-function construction and normalization required for partitions of unity
 are proved below.
@@ -759,7 +770,8 @@ For a manifold with boundary, use boundary charts in this construction; the
 smooth-extension convention in the definition of a manifold with boundary
 makes the same Euclidean bump-function construction applicable.
 
-For each \(j\), choose a Euclidean chart on \(W_j\).  The function
+For each \(j\), choose a chart
+\(\varphi_j:W_j\to\varphi_j(W_j)\subseteq\R^n\).  The function
 \[
 \theta(t)=
 \begin{cases}
@@ -768,34 +780,55 @@ For each \(j\), choose a Euclidean chart on \(W_j\).  The function
 \end{cases}
 \]
 is smooth.  Since the compact set \(\varphi_j(\overline{V_j})\) lies in the
-open set \(\varphi_j(W_j)\), finitely many Euclidean balls have closures in
-that open set and cover it.  Products of the corresponding translated and
-rescaled functions \(\theta(1-\lVert x-c\rVert_2^2/r^2)\), combined by
+open set \(\varphi_j(W_j)\), finitely many Euclidean balls whose closures lie
+in that open set cover \(\varphi_j(\overline{V_j})\).  For those balls, the
+corresponding translated and rescaled functions
+\(\theta(1-\lVert x-c\rVert_2^2/r^2)\), combined by
 \[
 1-\prod(1-\theta),
 \]
-give a smooth function \(\chi_j\) which is positive on
-\(\overline{V_j}\), nonnegative, and supported in \(W_j\).  Transport
-\(\chi_j\) through the chart and extend it by zero; the support condition
-makes this extension smooth.
+give a smooth nonnegative function \(b_j\) on \(\R^n\) which is positive on
+\(\varphi_j(\overline{V_j})\) and whose support is contained in the finite
+union of the closed balls, hence in \(\varphi_j(W_j)\).  Define \(\chi_j\) on
+\(W_j\) by \(b_j\circ\varphi_j\) and extend it by zero to \(M\).  The compact
+support of \(b_j\) inside \(\varphi_j(W_j)\) makes this extension smooth, and
+\[
+\chi_j\geq0,\qquad \chi_j>0\ \hbox{on }V_j,\qquad
+\operatorname{supp}(\chi_j)\subseteq W_j.
+\]
 
-The locally finite sum
+Because the family \((W_j)\) is locally finite and
+\(\operatorname{supp}(\chi_j)\subseteq W_j\), the family of supports
+\((\operatorname{supp}(\chi_j))\) is locally finite.  Therefore the sum
 \[
 \chi=\sum_{j=1}^{\infty}\chi_j
 \]
-is smooth and positive, because the \(V_j\) cover \(M\).  Set
+is locally finite, smooth, and well defined; it is positive because the
+\(V_j\) cover \(M\).  Set
 \[
 \rho_j=\frac{\chi_j}{\chi}.
 \]
-The denominator is positive, and local finiteness makes both \(\chi\) and
-each quotient smooth.  The family \((\rho_j)\) is locally finite, has
-support in \(U_{\alpha(j)}\), and sums to one.  For each original index
-\(\alpha\), define
+The denominator is positive, and local finiteness makes \(\chi\) smooth and
+each quotient smooth.  The family \((\rho_j)\) is locally finite, satisfies
+\[
+\operatorname{supp}(\rho_j)\subseteq\operatorname{supp}(\chi_j)
+\subseteq W_j\subseteq U_{\alpha(j)},
+\]
+and sums to one.  For each original index \(\alpha\), define
 \[
 \rho_\alpha=\sum_{\{j:\alpha(j)=\alpha\}}\rho_j.
 \]
-These sums are locally finite, so the \(\rho_\alpha\) are smooth, subordinate
-to \(U_\alpha\), and have sum one.
+These sums are locally finite, so the \(\rho_\alpha\) are smooth and the
+regrouped family remains locally finite.  Moreover, a locally finite union of
+closed sets is closed, and therefore
+\[
+\operatorname{supp}(\rho_\alpha)
+\subseteq\bigcup_{\{j:\alpha(j)=\alpha\}}\operatorname{supp}(\rho_j)
+\subseteq U_\alpha.
+\]
+Regrouping the locally finite sum also gives
+\(\sum_\alpha\rho_\alpha=1\).  Thus the partition is subordinate to the
+original cover.
 \end{proof}
 
 \begin{definition}[Integration on an oriented manifold]
@@ -808,8 +841,19 @@ coordinate charts and define
 \sum_\alpha\int_{\varphi_\alpha(U_\alpha)}
 (\varphi_\alpha^{-1})^*(\rho_\alpha\omega).
 \]
-Each summand is the compactly supported Euclidean open-set integral defined
-above.
+Only finitely many supports \(\operatorname{supp}(\rho_\alpha)\) meet the
+compact set \(\operatorname{supp}(\omega)\).  Furthermore,
+\[
+\operatorname{supp}(\rho_\alpha\omega)
+\subseteq
+\operatorname{supp}(\rho_\alpha)\cap\operatorname{supp}(\omega)
+\subseteq U_\alpha.
+\]
+This support is a closed subset of the compact set
+\(\operatorname{supp}(\omega)\), so it is compact.  Its image under
+\(\varphi_\alpha\) is therefore compact and contained in the open chart
+image.  Thus every nonzero summand is legitimately the compactly supported
+Euclidean open-set integral defined above, and the displayed sum is finite.
 \end{definition}
 
 \begin{proposition}[Well-definedness]
@@ -832,10 +876,13 @@ only finitely many \(\sigma_\beta\), and hence only finitely many products
 =
 \sum_\alpha\rho_\alpha\sigma_\beta\omega.
 \]
-Each product is supported in an overlap of the corresponding chart domains.
-On that overlap, \cref{prop:change-parametrization} identifies its two
-oriented coordinate integrals. Linearity and the finite double sum then show
-that both definitions equal the same sum of the integrals of
+Each product has compact support contained in the overlap of the corresponding
+chart domains, since its support is contained in
+\(\operatorname{supp}(\rho_\alpha)\cap
+\operatorname{supp}(\sigma_\beta)\cap\operatorname{supp}(\omega)\).
+On that overlap, \cref{prop:change-parametrization} identifies its two oriented
+coordinate integrals. Linearity and the finite double sum then show that both
+definitions equal the same sum of the integrals of
 \(\rho_\alpha\sigma_\beta\omega\), proving independence.
 \end{proof}
 
@@ -860,7 +907,11 @@ show that only finitely many forms
 \[
 \rho_\alpha\omega
 \]
-are nonzero.  By the product rule,
+are nonzero.  Each has compact support contained in the corresponding chart,
+because
+\(\operatorname{supp}(\rho_\alpha\omega)\subseteq
+\operatorname{supp}(\rho_\alpha)\cap\operatorname{supp}(\omega)\).
+By the product rule,
 \[
 \dd(\rho_\alpha\omega)
 =
@@ -876,24 +927,30 @@ This identity is legitimate because the partition is locally finite: near
 each point both sums are finite, so exterior differentiation commutes with
 the displayed sum.
 It is therefore enough to prove the formula for a form supported in one
-chart.  In an interior chart, its compact coordinate support lies in a
-rectangle contained in the chart image.  Extending it by zero to that
-rectangle is smooth near its boundary because the original support is compact
-in the chart; \cref{thm:local-stokes} gives the formula, with no manifold
-boundary contribution.  In a boundary chart, the half-space definition of
-smoothness gives a smooth extension of the coordinate representative across
+chart, where ``supported in'' means that its closure-based support lies in the
+chart domain.  In an interior chart, the coordinate support is compact in the
+open chart image.  Hence the coordinate representative vanishes on a
+neighborhood of the artificial boundary of that image and extends smoothly by
+zero to \(\R^n\).  Choose a rectangle whose interior contains the extended
+support.  The extension vanishes near the rectangle boundary, so
+\cref{thm:local-stokes} gives the formula with no manifold boundary
+contribution.  In a boundary chart, the half-space definition of smoothness
+gives a smooth (not necessarily zero) extension of the coordinate
+representative across
 \[
 x_n=0
 \]
-to a neighborhood in \(\R^n\).  Compact support also permits zero extension
-across the remaining, artificial boundary of the coordinate image; no zero
-extension is made across the genuine face \(x_n=0\).  Choose a rectangle
+to a neighborhood in \(\R^n\).  Compact coordinate support permits zero
+extension across the remaining artificial boundary of the coordinate image;
+no zero extension is made across the genuine face \(x_n=0\).  Choose a
+rectangle
 \[
 [a_1,b_1]\times\cdots\times[a_{n-1},b_{n-1}]\times[0,b_n]
 \]
-containing its coordinate support.  Using a cutoff which is one near that
-support, extend by zero only across the artificial faces of this rectangle;
-the resulting form vanishes near all of those faces.  Apply
+whose relative interior contains its coordinate support and whose artificial
+faces are disjoint from it.  Using a cutoff which is one near that support,
+retain the smooth extension across \(x_n=0\) and extend by zero only across the
+artificial faces; the resulting form vanishes near all of those faces.  Apply
 \cref{thm:local-stokes} to the smooth extension.  Its only surviving boundary
 term is the face \(x_n=0\), which is the coordinate representative of the
 genuine manifold boundary.  The outward-normal-first convention gives

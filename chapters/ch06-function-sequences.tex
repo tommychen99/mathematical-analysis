@@ -23,7 +23,43 @@ Under the same hypotheses, $(f_n)$ \emph{converges uniformly} to $f$ on $D$ if, 
 \]
 \end{definition}
 
+\begin{definition}[Sup norm]
+If $h:D\to\R$ is bounded, define
+\[
+\norm{h}_\infty=\sup_{x\in D}\abs{h(x)}.
+\]
+Whenever $f_n-f$ is bounded, uniform convergence is equivalently
+\[
+\norm{f_n-f}_\infty\longrightarrow0.
+\]
+Indeed, the inequality $\norm{f_n-f}_\infty<\eps$ gives the same error
+bound at every $x$, while a uniform error bound of $\eps/2$ forces the
+supremum to be at most $\eps/2<\eps$.
+\end{definition}
+
+The dependence of the index is worth displaying:
+\[
+\begin{array}{ll}
+\text{pointwise:}&
+\forall x\in D\;\forall\eps>0\;\exists N=N(x,\eps),\\[2mm]
+\text{uniform:}&
+\forall\eps>0\;\exists N=N(\eps)\;\forall x\in D.
+\end{array}
+\]
+
 Uniform convergence implies pointwise convergence, because one may fix $x$ after choosing the common stage $N$. The converse fails: $f_n(x)=x^n$ on $[0,1]$ converges pointwise to the discontinuous function described in Chapter~\ref{ch:motivation}, and hence cannot converge uniformly by \cref{thm:uniform-limit-continuity} below.
+
+More directly, the pointwise limit of $x^n$ on $[0,1]$ equals $0$ on
+$[0,1)$ and $1$ at $1$.  For every $n$, choosing
+$x_n=2^{-1/n}$ gives $x_n<1$ and hence $f(x_n)=0$, but
+\[
+\abs{f_n(x_n)-f(x_n)}=\frac12.
+\]
+Thus the sup-norm error never tends to zero.  In contrast,
+$g_n(x)=x/n$ on $[0,1]$ converges uniformly to zero because
+\[
+\norm{g_n}_\infty=\frac1n.
+\]
 
 \begin{proposition}[Uniform Cauchy criterion]
 \label{prop:uniform-cauchy}
@@ -53,6 +89,16 @@ Given $\eps>0$, choose $N$ such that $\abs{f_N(x)-f(x)}<\eps/3$ for every $x\in 
 \]
 \end{proof}
 
+\begin{remark}[What uniform convergence permits]
+Uniform limits of continuous functions are continuous by the theorem above.
+Chapter~\ref{ch:riemann} proves that a uniform limit may also be passed
+through a Riemann integral.  Differentiation is more delicate: uniform
+convergence of $f_n$ alone does not control the difference quotients, so
+Chapter~\ref{ch:differentiation} imposes uniform convergence on derivatives
+and fixes one anchor value.  The general lesson is to identify the estimate
+needed by the operation before interchanging two limiting processes.
+\end{remark}
+
 \begin{proposition}[Uniform convergence respects algebra]
 \label{prop:uniform-algebra}
 Let $f_n\to f$ and $g_n\to g$ uniformly on $D$. Then $f_n+g_n\to f+g$ uniformly. If both $(f_n)$ and $(g_n)$ are uniformly bounded, then
@@ -81,7 +127,7 @@ Then
 Choose a common stage making both terms uniformly small.
 \end{proof}
 
-\begin{proposition}[Uniform Limits Preserve Boundedness]
+\begin{proposition}[Uniform limits preserve boundedness]
 \label{prop:uniform-boundedness}
 Let $f_n\to f$ uniformly on $D$. If one function $f_N$ is bounded on $D$, then $f$ is bounded on $D$.
 \end{proposition}
@@ -98,7 +144,7 @@ If $\abs{f_N(x)}\leq M$ throughout $D$, then
 \]
 \end{proof}
 
-\begin{example}[Pointwise Limits Need Not Preserve Boundedness]
+\begin{example}[Pointwise limits need not preserve boundedness]
 On
 \[
 D=(0,1],
@@ -118,7 +164,7 @@ Each $f_n$ is bounded by $n$, while for every $x\in D$,
 The pointwise limit is unbounded. Thus the uniform hypothesis in \cref{prop:uniform-boundedness} cannot be weakened to pointwise convergence.
 \end{example}
 
-\begin{example}[Two Limits Need Not Be Interchanged]
+\begin{example}[Two limits need not be interchanged]
 For
 \[
 f_n(x)=x^n
@@ -134,6 +180,75 @@ whereas
 \]
 The convergence in $n$ is pointwise but not uniform near $x=1$. This is the basic obstruction behind unjustified interchanges of limits.
 \end{example}
+
+\section{Polynomial Approximation}
+
+Polynomials are among the simplest continuous functions: they can be added,
+multiplied, and differentiated exactly.  A natural question is how much of
+$C([a,b])$ they occupy.  The answer is strikingly strong: every continuous
+function can be approximated everywhere on a compact interval by one
+polynomial with one common error bound.
+
+\begin{theorem}[Weierstrass approximation theorem]
+\label{thm:weierstrass-approximation}
+If $f\in C([a,b])$, then for every $\eps>0$ there is a polynomial $p$ such
+that
+\[
+\norm{f-p}_\infty<\eps.
+\]
+Equivalently, polynomials are uniformly dense in $C([a,b])$.
+\end{theorem}
+\begin{proof}
+We first work on $[0,1]$.  For $f\in C([0,1])$, define its $n$th Bernstein
+polynomial by
+\[
+B_n(f)(x)=\sum_{k=0}^nf(k/n)\binom nkx^k(1-x)^{n-k}.
+\]
+It is a polynomial.  Its nonnegative weights have sum $1$ by the binomial
+theorem, so $B_n(f)(x)$ is a weighted average of sampled values $f(k/n)$.
+The weights concentrate near $k/n=x$: direct differentiation of the finite
+binomial sum, or the usual binomial identities, gives
+\[
+\sum_{k=0}^n\left(\frac{k}{n}-x\right)^2
+\binom nkx^k(1-x)^{n-k}=\frac{x(1-x)}n\leq\frac1{4n}.
+\]
+
+Let $M=\norm f_\infty$.  Given $\eps>0$, uniform continuity of $f$ supplies
+$\delta>0$ such that $|s-t|<\delta$ implies
+$|f(s)-f(t)|<\eps/2$.  Split the defining weighted average for
+$B_n(f)(x)-f(x)$ according as $|k/n-x|<\delta$ or not.  The first part has
+absolute value at most $\eps/2$.  On the second part, the error is at most
+$2M$, while
+\[
+\sum_{|k/n-x|\geq\delta}\binom nkx^k(1-x)^{n-k}
+\leq\frac1{\delta^2}\sum_{k=0}^n\left(\frac{k}{n}-x\right)^2
+\binom nkx^k(1-x)^{n-k}
+\leq\frac1{4n\delta^2}.
+\]
+For sufficiently large $n$, this second contribution is below $\eps/2$,
+uniformly in $x$.  Hence $B_n(f)\to f$ uniformly on $[0,1]$.
+
+For a general interval $[a,b]$, apply this result to
+$F(t)=f(a+(b-a)t)$ and substitute $t=(x-a)/(b-a)$.  The resulting expression
+is a polynomial in $x$ and has the required uniform error.
+\end{proof}
+
+\begin{example}[Approximating a corner]
+The function $f(x)=\abs{x}$ on $[-1,1]$ is not a polynomial and is not
+differentiable at $0$.  Nevertheless, the theorem provides polynomials
+$p_n$ with $\norm{p_n-\abs{x}}_\infty\to0$.  This does not contradict the
+fact that uniform limits of differentiable functions need not be
+differentiable: uniform convergence preserves continuity, but derivatives
+require the stronger hypotheses discussed in Chapter~\ref{ch:differentiation}.
+\end{example}
+
+\begin{remark}[Optional perspective: Stone--Weierstrass]
+For a compact Hausdorff space $X$, the real Stone--Weierstrass theorem says
+that a subalgebra of $C(X,\R)$ which contains the constants and separates
+points is dense in the sup norm.  On $[a,b]$, polynomials have these
+properties, so the classical theorem is its first example.  The general
+result belongs naturally to functional analysis and is not used here.
+\end{remark}
 
 \section{Equicontinuity}
 
@@ -157,8 +272,74 @@ If $f_n\to f$ uniformly on $D$ and the family $\set{f_n:n\in\N}$ is equicontinuo
 Given $\eps>0$, choose $N$ such that $\abs{f_N-f}<\eps/3$ throughout $D$. Equicontinuity supplies $\delta$ for $f_N$ and tolerance $\eps/3$. The three-term estimate in \cref{thm:uniform-limit-continuity} proves continuity of $f$.
 \end{proof}
 
-\paragraph{Later compactness application.}
-Equicontinuity becomes especially powerful together with compactness: it is one of the hypotheses in the Arzel\`a--Ascoli theorem. We do not need that theorem for the one-variable development, so it is deferred to a later compactness chapter.
+\begin{lemma}[Uniform equicontinuity on a compact interval]
+\label{lem:uniform-equicontinuity-interval}
+Let $\mathcal F$ be an equicontinuous family of functions
+\[
+[a,b]\longrightarrow\R.
+\]
+Then, for every $\eps>0$, there is $\delta>0$ such that
+\[
+\abs{x-y}<\delta
+\quad\Longrightarrow\quad
+\abs{f(x)-f(y)}<\eps
+\]
+for every $f\in\mathcal F$ and every $x,y\in[a,b]$.
+\end{lemma}
+\begin{proof}
+If not, there would be $\eps>0$, functions $h_n\in\mathcal F$, and points
+$x_n,y_n\in[a,b]$ such that
+\[
+\abs{x_n-y_n}<\frac1n,
+\qquad
+\abs{h_n(x_n)-h_n(y_n)}\geq\eps.
+\]
+By compactness of $[a,b]$, pass to a subsequence with $x_n\to x$.  Then also
+$y_n\to x$.  Relabel this subsequence as $(x_n,y_n,h_n)$.  Equicontinuity at
+$x$, with tolerance $\eps/3$, makes both
+$\abs{h_n(x_n)-h_n(x)}$ and $\abs{h_n(y_n)-h_n(x)}$ less than $\eps/3$ for
+all sufficiently large $n$.  The triangle inequality gives a contradiction.
+\end{proof}
+
+\begin{theorem}[Arzel\`a--Ascoli on an interval]
+\label{thm:arzela-ascoli-interval}
+Let $(f_n)$ be an equicontinuous sequence in $C([a,b])$ for which there is
+$M>0$ satisfying
+\[
+\abs{f_n(x)}\leq M
+\qquad(n\in\N,\ x\in[a,b]).
+\]
+Then it has a subsequence that converges uniformly on $[a,b]$ to a
+continuous function.
+\end{theorem}
+\begin{proof}
+The idea is to first obtain convergence on a countable dense set and then
+use equicontinuity to make that convergence uniform.  Enumerate a countable
+dense subset of $[a,b]$ as $(q_j)$.  Uniform boundedness and
+Bolzano--Weierstrass allow us to choose successively a subsequence converging
+at $q_1$, then a subsequence of it converging at $q_2$, and so on.  The
+diagonal subsequence $(g_k)$ converges at every $q_j$.
+
+Given $\eps>0$, \cref{lem:uniform-equicontinuity-interval} supplies
+$\delta>0$ such that
+\[
+\abs{x-y}<\delta
+\quad\Longrightarrow\quad
+\abs{g_k(x)-g_k(y)}<\eps/3
+\qquad(k\in\N).
+\]
+Using density and a finite partition of $[a,b]$, choose finitely many of the
+$q_j$ so that every $x\in[a,b]$ lies within $\delta$ of one of them.  Since
+$(g_k)$ is Cauchy at each of these finitely many points, there is $N$ such
+that for $r,s\geq N$ its values there differ by less than $\eps/3$.  The
+triangle inequality then gives
+\[
+\abs{g_r(x)-g_s(x)}<\eps
+\qquad(x\in[a,b]).
+\]
+Thus $(g_k)$ is uniformly Cauchy, so \cref{prop:uniform-cauchy} gives a
+uniform limit.  It is continuous by \cref{thm:uniform-limit-continuity}.
+\end{proof}
 
 
 

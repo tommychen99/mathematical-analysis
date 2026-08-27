@@ -70,7 +70,8 @@ Prerequisites: Chapters 2--4.
 2. Uniform Cauchy criterion and uniform-limit theorem
 3. Algebra and boundedness under uniform convergence
 4. Counterexamples to unjustified interchange
-5. Equicontinuity as preparation for later compactness theory
+5. Weierstrass approximation and the Stone--Weierstrass perspective
+6. Equicontinuity and Arzelà--Ascoli on a compact interval
 
 Prerequisites: Chapters 4--5; integration-dependent results await Chapter 9.
 
@@ -91,6 +92,7 @@ Prerequisites: Chapters 3--6.
 3. Higher derivatives and Taylor's theorem
 4. Exponential and logarithm
 5. Trigonometric and inverse trigonometric functions
+6. Convexity and a continuous nondifferentiable example
 
 Prerequisites: Chapters 3--7; the integral construction may be coordinated with Chapter 9 to avoid circularity.
 
@@ -125,6 +127,7 @@ Prerequisites: Part I foundations. State genuinely topological results at topolo
 3. Higher derivatives, mixed partials, and Taylor's theorem
 4. Contraction method
 5. Inverse and implicit function theorems
+6. Lagrange multipliers
 
 Prerequisites: Chapter 10 and one-variable differentiation.
 

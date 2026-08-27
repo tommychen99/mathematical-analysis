@@ -5,9 +5,9 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 ## Single and Multivariable Calculus
 
 **Author:** Tommy Chen  
-**Current version:** Version 1.0.3
-**Revision date:** August 26, 2026
-**Status:** Version 1.0.3 public release.
+**Current version:** Version 1.1.1  
+**Revision date:** August 27, 2026  
+**Status:** Version 1.1.1 pedagogical revision.
 
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real
@@ -69,7 +69,7 @@ policy imposed by the intended university, repository, publisher, or platform.
 
 ## License and copyright
 
-Copyright © 2026 Tommy Chen. This work is licensed under the
+Copyright \(\copyright\) 2026 Tommy Chen. This work is licensed under the
 [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 You may share and adapt the notes under the terms of that license, with
 appropriate attribution.
@@ -80,15 +80,11 @@ The notes may contain errors. Please report them through
 [GitHub Issues](https://github.com/tommychen99/mathematical-analysis/issues)
 or record them in [`ERRATA.md`](ERRATA.md).
 
-## Release notes and versioning
+## Release preparation
 
-Version 1.0 was released on August 23, 2026.
-
-Version 1.0.1 expands L'Hopital's Rule to include the
-infinity-over-infinity indeterminate form. Version 1.0.2 clarifies the
-notation and basic terminology for suprema and infima. Version 1.0.3 defines
-strict monotonicity with the first treatment of monotonicity in Chapter 4.
-
-For subsequent versions, use approximately `1.0.1` for minor corrections,
-`1.1` for meaningful additions or improvements, and `2.0` for substantial
-restructuring.
+The source is prepared for a `v1.1.1` tag, but no tag or GitHub release is
+created automatically. Keep the version and revision date synchronized between
+`preamble.tex`, the title page, and this README. Use a patch release (for
+example, `1.1.2`) for minor corrections, a minor release (for example, `1.2.0`)
+for meaningful additions or improvements, and a major release (for example,
+`2.0.0`) for substantial restructuring.

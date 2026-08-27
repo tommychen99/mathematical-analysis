@@ -22,7 +22,7 @@ It \textbf{converges} when $(s_N)$ converges; its sum is then
 \]
 \end{definition}
 
-\begin{theorem}[Cauchy Criterion for Series]
+\begin{theorem}[Cauchy criterion for series]
 \label{thm:series-cauchy}
 The series
 \[
@@ -43,7 +43,51 @@ s_m-s_n=\sum_{k=n+1}^{m}a_k.
 Thus the stated condition says exactly that the partial sums are Cauchy. Apply \cref{thm:cauchy-criterion}.
 \end{proof}
 
-\begin{proposition}[Finite Changes and Telescoping]
+\begin{theorem}[Weierstrass M-test]
+\label{thm:weierstrass-m-test}
+Let $f_n:D\to\R$ be functions, and suppose that there are numbers $M_n\geq0$
+such that
+\[
+\abs{f_n(x)}\leq M_n
+\qquad(x\in D, n\in\N).
+\]
+If
+\[
+\sum_{n=1}^{\infty}M_n
+\]
+converges, then
+\[
+\sum_{n=1}^{\infty}f_n
+\]
+converges uniformly and absolutely on $D$.
+\end{theorem}
+\begin{proof}
+For $q\geq p$,
+\[
+\abs{\sum_{n=p}^{q}f_n(x)}
+\leq\sum_{n=p}^{q}\abs{f_n(x)}
+\leq\sum_{n=p}^{q}M_n.
+\]
+The final bound is independent of $x$ and tends uniformly to zero as
+$p,q\to\infty$ by the numerical Cauchy criterion.  The uniform Cauchy
+criterion of Chapter~\ref{ch:function-sequences} proves uniform convergence.
+The same estimate applied to $\abs{f_n}$ proves absolute convergence at every
+point.
+\end{proof}
+
+\begin{example}[A uniform majorant]
+On $[-1,1]$,
+\[
+\abs{\frac{x^n}{n^2}}\leq\frac1{n^2}.
+\]
+Since $\sum_{n=1}^{\infty}1/n^2$ converges, the M-test shows that
+\[
+\sum_{n=1}^{\infty}\frac{x^n}{n^2}
+\]
+converges uniformly and absolutely on $[-1,1]$.
+\end{example}
+
+\begin{proposition}[Finite changes and telescoping]
 \label{prop:finite-changes-telescoping}
 Changing finitely many terms of a series does not affect convergence. If
 \[
@@ -62,7 +106,7 @@ b_1-\lim_{n\to\infty}b_n.
 Partial sums after a finite change differ by a constant from some point onward. The displayed finite identity follows by cancellation; its limit proves the last assertion.
 \end{proof}
 
-\begin{proposition}[Necessary Condition]
+\begin{proposition}[Necessary condition]
 \label{prop:series-terms-zero}
 If a series converges, then its terms tend to zero.
 \end{proposition}
@@ -75,13 +119,25 @@ a_N=s_N-s_{N-1}
 The algebra of limits gives $a_N\to0$.
 \end{proof}
 
+\begin{remark}[Preliminary strategy for choosing a test]
+Before trying a sophisticated theorem, check the necessary condition
+$a_n\to0$; failure settles divergence, although success proves nothing by
+itself.  Next look for exact geometric or telescoping structure.  For
+nonnegative terms, compare with an already understood benchmark.  Factorials
+and exponentials often favor the Ratio Test, while expressions raised to the
+$n$th power often favor the Root Test.  Alternating signs suggest checking
+absolute convergence first and then the Alternating-Series Test.  An
+inconclusive test is information about the test, not a verdict about the
+series.
+\end{remark}
+
 \section{Nonnegative Series and Comparison}
 
 When terms are nonnegative, partial sums can only increase.  This lets order
 and completeness convert estimates by simpler benchmark series into decisive
 convergence tests.
 
-\begin{theorem}[Comparison Test]
+\begin{theorem}[Comparison test]
 \label{thm:comparison-test}
 Let
 \[
@@ -102,7 +158,7 @@ converges. If the latter series diverges, then the former diverges.
 The partial sums of $(a_n)$ are increasing and bounded above by the sum of the series with terms $b_n$. Apply \cref{thm:monotone-convergence}. The second statement is the contrapositive.
 \end{proof}
 
-\begin{theorem}[Limit Comparison Test]
+\begin{theorem}[Limit comparison test]
 \label{thm:limit-comparison}
 Let $a_n,b_n>0$ eventually, and suppose
 \[
@@ -122,7 +178,7 @@ Eventually,
 The conclusion follows from two applications of \cref{thm:comparison-test} and \cref{prop:finite-changes-telescoping}.
 \end{proof}
 
-\begin{theorem}[Geometric Series]
+\begin{theorem}[Geometric series]
 \label{thm:geometric-series}
 For $r\in\R$, the series with terms $r^n$, beginning at $n=0$, converges if and only if
 \[
@@ -153,7 +209,7 @@ The same conclusion holds whenever $\abs r<1$, because
 Taking limits proves the formula. If $\abs r\geq1$, the terms do not tend to zero, so \cref{prop:series-terms-zero} proves divergence.
 \end{proof}
 
-\begin{theorem}[Cauchy Condensation Test]
+\begin{theorem}[Cauchy condensation test]
 \label{thm:cauchy-condensation}
 Let $(b_n)$ be a nonincreasing sequence of nonnegative real numbers. Then
 \[
@@ -190,7 +246,7 @@ small only because large positive and negative tails offset each other.
 Absolute convergence rules out that instability and will justify changing
 orders and multiplying series.
 
-\begin{definition}[Absolute and Conditional Convergence]
+\begin{definition}[Absolute and conditional convergence]
 A series with real terms $a_n$ \textbf{converges absolutely} if
 \[
 \sum_{n=1}^{\infty}\abs{a_n}
@@ -200,7 +256,7 @@ converges. It \textbf{converges conditionally} if it converges but does not conv
 
 Absolute convergence controls the total size of the terms; this is why it will justify rearrangement. Conditional convergence is weaker, so changing the order of its terms requires separate care.
 
-\begin{theorem}[Absolute Convergence Test]
+\begin{theorem}[Absolute convergence test]
 \label{thm:absolute-convergence}
 Absolute convergence implies convergence.
 \end{theorem}
@@ -214,7 +270,7 @@ For $m>n$,
 The Cauchy criterion for the absolute-value series and \cref{thm:series-cauchy} show that the original partial sums are Cauchy.
 \end{proof}
 
-\begin{theorem}[Rearrangement of an Absolutely Convergent Series]
+\begin{theorem}[Rearrangement of an absolutely convergent series]
 \label{thm:absolute-rearrangement}
 Let
 \[
@@ -238,7 +294,7 @@ Choose $M$ so that
 For $m\geq M$, cancellation of the common first $N$ terms shows that the difference between the $m$th rearranged partial sum and the original sum has absolute value less than $\eps$. Thus the sums agree.
 \end{proof}
 
-\begin{theorem}[Cauchy Product]
+\begin{theorem}[Cauchy product]
 \label{thm:cauchy-product}
 Suppose that
 \[
@@ -294,7 +350,7 @@ Many series are best compared not term by term with a fixed model, but by
 examining how consecutive terms or their roots behave.  The following tests
 make that asymptotic comparison precise.
 
-\begin{definition}[Positive Roots]
+\begin{definition}[Positive roots]
 For $x\geq0$ and $n\in\N$, $n\geq1$, write
 \[
 x^{1/n}
@@ -306,7 +362,7 @@ t\longmapsto t^n
 on a sufficiently large compact interval; uniqueness follows from strict increase on $[0,\infty)$.
 \end{definition}
 
-\begin{definition}[Rational Powers]
+\begin{definition}[Rational powers]
 Let
 \[
 x>0,
@@ -326,7 +382,7 @@ x^p=(x^a)^{1/b}.
 The next lemma proves that this does not depend on the chosen representation of $p$.
 \end{definition}
 
-\begin{lemma}[Elementary Laws of Rational Powers]
+\begin{lemma}[Elementary laws of rational powers]
 \label{lem:rational-power-laws}
 For $x>0$ and $p,q\in\Q$, rational powers are well defined and satisfy
 \[
@@ -384,7 +440,7 @@ one has
 Thus $z^p>1$, for otherwise its positive $b$th power would be at most $1$. Hence $y^p>x^p$.
 \end{proof}
 
-\begin{theorem}[Rational $p$-Series Test]
+\begin{theorem}[Rational $p$-series test]
 \label{thm:rational-p-series-test}
 Let
 \[
@@ -434,7 +490,28 @@ so the terms do not tend to zero. The necessary condition in \cref{prop:series-t
 \end{proof}
 
 
-\begin{theorem}[Ratio Test]
+\begin{remark}[From calculus to analysis: an area preview]
+The familiar calculus picture compares a positive decreasing sequence
+$a_n=f(n)$ with rectangles under and over the graph of $f$.  It suggests
+that
+\[
+\sum_{n=1}^{\infty}f(n)
+\quad\hbox{and}\quad
+\int_1^\infty f(x)\,\dd x
+\]
+should have the same convergence behavior.  This is only a preview here:
+improper integrals have not yet been defined, so the picture is not used as
+a theorem.  Chapter~\ref{ch:riemann} defines the integral as a limit of
+proper integrals, proves the Integral Test, and recovers the full real
+$p$-series rule
+\[
+\sum\frac1{n^p}\text{ converges exactly when }p>1.
+\]
+The preceding theorem has already established the rational-exponent case
+without integration.
+\end{remark}
+
+\begin{theorem}[Ratio test]
 \label{thm:ratio-test}
 Let $a_n\ne0$ eventually. If there are $r<1$ and $N$ such that
 \[
@@ -456,7 +533,7 @@ The first inequality gives
 so geometric comparison applies. The second makes the absolute values eventually increasing and nonzero, so the terms cannot tend to zero.
 \end{proof}
 
-\begin{theorem}[Root Test]
+\begin{theorem}[Root test]
 \label{thm:root-test}
 Let $(a_n)$ be a real sequence. If there are $r$ and $N$ such that
 \[
@@ -487,7 +564,19 @@ so geometric comparison applies. The second gives
 eventually, so the terms do not tend to zero.
 \end{proof}
 
-\begin{theorem}[Alternating-Series Test]
+\begin{example}[When a test says nothing]
+For $a_n=1/n^2$,
+\[
+\frac{a_{n+1}}{a_n}=\left(\frac{n}{n+1}\right)^2\longrightarrow1,
+\]
+so the common limit form of the Ratio Test is inconclusive.  The series
+nevertheless converges by the rational $p$-series theorem.  The same ratio
+limit is $1$ for the divergent harmonic series.  A value of $1$ therefore
+cannot distinguish the two cases; comparison or the $p$-series theorem is
+the appropriate tool.
+\end{example}
+
+\begin{theorem}[Alternating-series test]
 \label{thm:alternating-test}
 Let $b_n\geq0$ decrease to $0$. Then
 \[
@@ -502,20 +591,31 @@ The even partial sums are increasing and the odd partial sums are decreasing. Ea
 \paragraph{Forward reference: the Integral Test and real exponents.}
 The Integral Test compares a decreasing sequence of positive terms with an improper integral, so it belongs in Chapter~\ref{ch:riemann}. The rational $p$-series criterion above uses only Chapter~7 material. Arbitrary real powers have not yet been defined; after Chapter~\ref{ch:differentiation} constructs them from $\exp$ and $\log$, Chapter~\ref{ch:riemann} gives an analytic rederivation of the $p$-series criterion for every real exponent.
 
+\begin{remark}[Expanded test-selection guide]
+Once the full toolkit is available, rational functions of $n$ usually invite
+comparison with the power determined by their leading degrees.  A positive
+decreasing term given by a manageable function invites the Integral Test.
+Factorials and exponentials invite ratios; $n$th powers invite roots; signs
+invite absolute convergence and then alternation.  Limit comparison is often
+cleaner than forcing a termwise inequality.  Always record the hypotheses
+(positivity, monotonicity, or eventual nonvanishing) before computing, and
+switch tests when the conclusion is inconclusive.
+\end{remark}
+
 \section{Power Series}
 
 Power series are infinite polynomials.  Their special feature is a sharp
 radius inside which convergence is uniform on smaller intervals, allowing
 algebra and later differentiation to be recovered from finite polynomials.
 
-\begin{definition}[Power Series]
+\begin{definition}[Power series]
 For real coefficients $(c_n)$ and center $a\in\R$, a \textbf{power series} is
 \[
 \sum_{n=0}^{\infty}c_n(x-a)^n.
 \]
 \end{definition}
 
-\begin{theorem}[Radius of Convergence]
+\begin{theorem}[Radius of convergence]
 \label{thm:radius}
 Every power series has a number
 \[
@@ -562,7 +662,7 @@ The theorem intentionally makes no assertion at points satisfying
 \]
 Endpoint behavior depends on the particular coefficients and must be examined separately.
 
-\begin{theorem}[Uniform Convergence Inside the Radius]
+\begin{theorem}[Uniform convergence inside the radius]
 \label{thm:power-uniform-inside}
 Let a power series have radius $R$, and let
 \[
@@ -586,7 +686,7 @@ converges. For $\abs{x-a}\leq\rho$,
 \[
 \abs{c_n(x-a)^n}\leq\abs{c_n}t^n.
 \]
-The uniform Cauchy criterion of Chapter~\ref{ch:function-sequences} proves the assertion.
+The Weierstrass M-test, \cref{thm:weierstrass-m-test}, proves the assertion.
 \end{proof}
 
 \paragraph{Power-series operations deferred.}
