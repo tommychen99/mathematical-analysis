@@ -52,7 +52,59 @@ U(f,P)-L(f,P)<\eps.
 \]
 \end{proposition}
 \begin{proof}
-Every lower sum is at most every upper sum: refine both partitions by taking their union, then compare each subinterval. Thus the lower supremum is at most the upper infimum. If they are equal to $I$, choose partitions $P,Q$ with $U(f,P)<I+\eps/2$ and $L(f,Q)>I-\eps/2$. Their common refinement $R$ satisfies $U(f,R)\leq U(f,P)$ and $L(f,R)\geq L(f,Q)$, giving the claim. Conversely, the displayed condition forces the gap between the lower supremum and upper infimum to be at most every positive $\eps$, hence zero by \cref{lem:positive-small}.
+We first record what refinement does to the sums.  If $R$ refines a
+partition $P$, then each interval of $R$ lies in an interval of $P$.  On a
+smaller interval the infimum of $f$ cannot be smaller than the infimum on
+its parent interval, so splitting intervals can only increase the lower
+sum.  Similarly, the supremum on a smaller interval cannot be larger than
+the supremum on its parent interval, so splitting intervals can only
+decrease the upper sum.  Thus
+\[
+L(f,P)\leq L(f,R)\leq U(f,R)\leq U(f,P),
+\]
+where the middle inequality follows from $\inf_I f\leq\sup_I f$ on each
+subinterval $I$, after multiplying by its positive length and summing.
+
+Now let $P$ and $Q$ be arbitrary partitions, and let $R=P\cup Q$ be their
+common refinement.  The preceding observation gives
+\[
+L(f,P)\leq L(f,R)\leq U(f,R)\leq U(f,Q).
+\]
+Hence $L(f,P)\leq U(f,Q)$ for every pair of partitions $P,Q$.  Therefore
+\[
+\sup_P L(f,P)\leq U(f,Q)
+\]
+for every $Q$, and taking the infimum over $Q$ yields
+\[
+\sup_P L(f,P)\leq\inf_Q U(f,Q).
+\]
+
+Put $L^*=\sup_P L(f,P)$ and $U^*=\inf_P U(f,P)$.  If $f$ is integrable,
+then $L^*=U^*=I$.  Given $\eps>0$, choose partitions $P,Q$ such that
+\[
+U(f,P)<I+\frac{\eps}{2},
+\qquad
+L(f,Q)>I-\frac{\eps}{2}.
+\]
+For their common refinement $R$,
+\[
+L(f,R)\geq L(f,Q)>I-\frac{\eps}{2},
+\qquad
+U(f,R)\leq U(f,P)<I+\frac{\eps}{2}.
+\]
+Consequently $U(f,R)-L(f,R)<\eps$.
+
+Conversely, suppose that for every $\eps>0$ there is a partition $P$ with
+$U(f,P)-L(f,P)<\eps$.  Then
+\[
+L(f,P)\leq L^*\leq U^*\leq U(f,P),
+\]
+and hence
+\[
+0\leq U^*-L^*\leq U(f,P)-L(f,P)<\eps.
+\]
+Since this holds for every $\eps>0$, \cref{lem:positive-small} gives
+$U^*-L^*=0$.  Thus $L^*=U^*$, so $f$ is Riemann integrable.
 \end{proof}
 
 \section{Continuous Functions Are Integrable}
@@ -94,13 +146,14 @@ U(f,P_f)-L(f,P_f)<\frac{\eps}{2},
 \qquad
 U(g,P_g)-L(g,P_g)<\frac{\eps}{2}.
 \]
-Let $P$ be their common refinement. Refinement can only decrease upper sums and increase lower sums. On each interval of $P$,
+Let $P$ be their common refinement.  Refinement can only decrease upper
+sums and increase lower sums.  On each interval $I_i$ of $P$,
 \[
-\sup(f+g)-\inf(f+g)
-\leq
-\bigl(\sup f-\inf f\bigr)+\bigl(\sup g-\inf g\bigr).
+\sup_{I_i}(f+g)\leq\sup_{I_i}f+\sup_{I_i}g,
+\qquad
+\inf_{I_i}(f+g)\geq\inf_{I_i}f+\inf_{I_i}g.
 \]
-Equivalently,
+Multiplying by the length of $I_i$ and summing gives
 \[
 U(f+g,P)\leq U(f,P)+U(g,P),
 \qquad
@@ -108,7 +161,8 @@ L(f+g,P)\geq L(f,P)+L(g,P)
 \]
 and therefore
 \[
-U(f+g,P)-L(f+g,P)<\eps.
+U(f+g,P)-L(f+g,P)
+\leq [U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps.
 \]
 Thus $f+g$ is integrable. Write
 \[
@@ -116,39 +170,61 @@ I_f=\int_a^b f\,\dd x,
 \qquad
 I_g=\int_a^b g\,\dd x.
 \]
-The same inequalities, together with
+Because $P$ refines $P_f$,
+\[
+L(f,P)\geq L(f,P_f).
+\]
+Moreover, $I_f=\sup_Q L(f,Q)\leq U(f,P_f)$, so
+\[
+0\leq I_f-L(f,P_f)\leq U(f,P_f)-L(f,P_f)<\frac{\eps}{2}.
+\]
+Also $L(f,P_f)\leq I_f$, and since $P$ refines $P_f$,
+\[
+0\leq U(f,P)-I_f\leq U(f,P_f)-I_f
+\leq U(f,P_f)-L(f,P_f)<\frac{\eps}{2}.
+\]
+Thus
 \[
 L(f,P)>I_f-\frac{\eps}{2},
 \qquad
+U(f,P)<I_f+\frac{\eps}{2},
+\]
+and the same argument, with $P_g$ in place of $P_f$, gives
+\[
 L(g,P)>I_g-\frac{\eps}{2},
+\qquad
+U(g,P)<I_g+\frac{\eps}{2}.
 \]
-give
+The lower and upper sum inequalities above now imply
 \[
-\int_a^b(f+g)\,\dd x>I_f+I_g-\eps.
-\]
-Similarly, using the upper sums gives
-\[
-\int_a^b(f+g)\,\dd x<I_f+I_g+\eps.
+I_f+I_g-\eps<L(f+g,P)
+\leq\int_a^b(f+g)\,\dd x
+\leq U(f+g,P)<I_f+I_g+\eps.
 \]
 Since this holds for every $\eps>0$, \cref{lem:positive-small} gives the asserted equality.
 
-For a scalar $c>0$, the identities
+For a scalar $c>0$ and every interval $I$,
 \[
-U(cf,P)=cU(f,P),
+\sup_I(cf)=c\sup_I f,
 \qquad
-L(cf,P)=cL(f,P)
+\inf_I(cf)=c\inf_I f.
 \]
-prove both integrability and the scalar formula by the Darboux criterion. If $c<0$, then
+Thus $U(cf,P)=cU(f,P)$ and $L(cf,P)=cL(f,P)$, which prove both
+integrability and the scalar formula by the Darboux criterion.  If $c<0$,
+multiplication reverses order, so
 \[
-U(cf,P)=cL(f,P),
+\sup_I(cf)=c\inf_I f,
 \qquad
-L(cf,P)=cU(f,P),
+\inf_I(cf)=c\sup_I f.
 \]
-and the same conclusion follows; the case $c=0$ is immediate. Finally, if $f\leq g$, then
+Hence $U(cf,P)=cL(f,P)$ and $L(cf,P)=cU(f,P)$, and the same conclusion
+follows; the case $c=0$ is immediate. Finally, if $f\leq g$, then on every
+partition interval $I$,
 \[
-U(f,P)\leq U(g,P)
+\sup_I f\leq\sup_I g.
 \]
-for every partition $P$. Taking infima and using integrability gives
+Therefore $U(f,P)\leq U(g,P)$ for every partition $P$. Taking infima and
+using integrability gives
 \[
 \int_a^b f\,\dd x\leq\int_a^b g\,\dd x.
 \]
@@ -180,20 +256,77 @@ then
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-For (1), insert $c$ into a partition. Upper and lower sums then split exactly into the corresponding sums on the two subintervals. Refining partitions and applying \cref{prop:darboux-criterion} proves integrability of the restrictions and the displayed equality.
+For (1), let $\eps>0$ and choose a partition $P$ of $[a,b]$ with
+$U(f,P)-L(f,P)<\eps$.  Refine $P$ by inserting $c$; the Darboux gap cannot
+increase under refinement.  Let $P_{\mathrm{left}}$ and
+$P_{\mathrm{right}}$ be the induced partitions of $[a,c]$ and $[c,b]$.
+The sums split as
+\[
+U_{[a,b]}(f,P)=U_{[a,c]}(f,P_{\mathrm{left}})+U_{[c,b]}(f,P_{\mathrm{right}})
+\]
+and
+\[
+L_{[a,b]}(f,P)=L_{[a,c]}(f,P_{\mathrm{left}})+L_{[c,b]}(f,P_{\mathrm{right}}).
+\]
+Consequently,
+\[
+U_{[a,b]}-L_{[a,b]}
+=(U_{[a,c]}-L_{[a,c]})+(U_{[c,b]}-L_{[c,b]}).
+\]
+Both terms on the right are nonnegative, so each is less than $\eps$.
+The Darboux criterion proves that both restrictions are integrable.
+
+Write $I=\int_a^b f$, $I_{\mathrm{left}}=\int_a^c f$, and
+$I_{\mathrm{right}}=\int_c^b f$.  For every partition containing $c$, the
+split lower and upper sums give
+\[
+L_{[a,b]}(f,P)\leq I_{\mathrm{left}}+I_{\mathrm{right}}
+\leq U_{[a,b]}(f,P).
+\]
+Choose such a partition with $U_{[a,b]}(f,P)-L_{[a,b]}(f,P)<\eps$.  Since
+$L_{[a,b]}(f,P)\leq I\leq U_{[a,b]}(f,P)$, it follows that
+\[
+I-\eps<I_{\mathrm{left}}+I_{\mathrm{right}}<I+\eps.
+\]
+As this holds for every $\eps>0$, the desired additivity identity follows.
 
 For (2), the inequality
 \[
 \bigl\lvert\abs{u}-\abs{v}\bigr\rvert\leq\abs{u-v}
 \]
-shows on every partition interval that the oscillation of $\abs f$ is at most the oscillation of $f$. The Darboux criterion proves integrability of $\abs f$. Since
+implies that, for $x,y$ in a partition interval $I_i$,
+\[
+\bigl\lvert\abs{f(x)}-\abs{f(y)}\bigr\rvert\leq\abs{f(x)-f(y)}.
+\]
+Thus the oscillation of $\abs f$ on $I_i$ satisfies
+\[
+\sup_{I_i}\abs f-\inf_{I_i}\abs f
+\leq\sup_{I_i}f-\inf_{I_i}f,
+\]
+because the right-hand side is the supremum of the possible differences
+$\abs{f(x)-f(y)}$ for $x,y\in I_i$.  Multiplying by the interval lengths and
+summing gives
+\[
+U(\abs f,P)-L(\abs f,P)\leq U(f,P)-L(f,P).
+\]
+The Darboux criterion proves integrability of $\abs f$. Since
 \[
 -\abs f\leq f\leq\abs f,
 \]
-\cref{thm:integral-properties} gives the stated inequality. Part (3) follows from (2) and
+\cref{thm:integral-properties} gives
+\[
+-\int_a^b\abs f\,\dd x\leq\int_a^b f\,\dd x
+\leq\int_a^b\abs f\,\dd x,
+\]
+which yields the stated inequality.  For (3), order preservation applied to
 \[
 0\leq\abs f\leq M.
 \]
+gives
+\[
+\int_a^b\abs f\,\dd x\leq\int_a^b M\,\dd x=M(b-a).
+\]
+Combine this with (2).
 \end{proof}
 
 \begin{theorem}[Integrability of monotone functions]
@@ -211,7 +344,16 @@ Thus
 \[
 U(f,P)-L(f,P)
 =\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr)(x_i-x_{i-1})
-\leq\norm{P}\bigl(f(b)-f(a)\bigr).
+\leq\norm{P}\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr).
+\]
+Here $x_i-x_{i-1}\leq\norm{P}$ and each difference
+$f(x_i)-f(x_{i-1})$ is nonnegative.  The sum telescopes:
+\[
+\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr)=f(b)-f(a).
+\]
+Therefore
+\[
+U(f,P)-L(f,P)\leq\norm{P}\bigl(f(b)-f(a)\bigr).
 \]
 Choose a partition with norm less than
 \[

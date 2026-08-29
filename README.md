@@ -5,9 +5,9 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 ## Single and Multivariable Calculus
 
 **Author:** Tommy Chen  
-**Current version:** Version 1.1.1  
-**Revision date:** August 27, 2026  
-**Status:** Version 1.1.1 pedagogical revision.
+**Current version:** Version 1.2.0  
+**Revision date:** August 28, 2026  
+**Status:** Version 1.2.0 Chapter 9 expansion and clarification.
 
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real
@@ -80,9 +80,17 @@ The notes may contain errors. Please report them through
 [GitHub Issues](https://github.com/tommychen99/mathematical-analysis/issues)
 or record them in [`ERRATA.md`](ERRATA.md).
 
+## Release notes
+
+Version 1.2.0 expands Chapter 9's proofs of the Darboux criterion, basic
+integral properties, additivity, absolute-value estimates, and integrability
+of monotone functions. It also corrects the wording in Theorem 9.7(b): the
+oscillation of $f$ is described as the supremum of the possible differences
+$|f(x)-f(y)|$, without assuming that the supremum or infimum is attained.
+
 ## Release preparation
 
-The source is prepared for a `v1.1.1` tag, but no tag or GitHub release is
+The source is prepared for a `v1.2.0` tag, but no tag or GitHub release is
 created automatically. Keep the version and revision date synchronized between
 `preamble.tex`, the title page, and this README. Use a patch release (for
 example, `1.1.2`) for minor corrections, a minor release (for example, `1.2.0`)
