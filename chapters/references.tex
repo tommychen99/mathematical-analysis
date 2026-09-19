@@ -1,13 +1,123 @@
 \renewcommand{\bibname}{References and Further Reading}
-\addcontentsline{toc}{chapter}{References and Further Reading}
-\begin{thebibliography}{9}
+\AddToHookNext{cmd/@makeschapterhead/before}{%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{References and Further Reading}}
+\begin{thebibliography}{99}
+
+\bibitem{bartle-elements}
+Robert G. Bartle. \emph{The Elements of Real Analysis}.
+Second edition, John Wiley \& Sons, 1976.
+\newblock A broad classical companion for Cartesian-space topology,
+sequences and function convergence, asymptotic and order notation,
+Riemann integration and convergence, finite-dimensional differentiation,
+and multivariable integration and change of variables. The manifold and
+differential-form development instead uses Munkres, Spivak, Tu, and Lee
+as its geometric references.
+
+\bibitem{fis-linear}
+Stephen H. Friedberg, Arnold J. Insel, and Lawrence E. Spence.
+\emph{Linear Algebra}. Fifth edition, Pearson.
+\newblock Chapters 1--2 provide the organizational benchmark for vector
+spaces, replacement, bases, linear maps, and their matrix representations.
+The analysis main text selects only the finite-dimensional real foundations.
+
+\bibitem{apostol-calculus-two}
+Tom M. Apostol. \emph{Calculus, Volume 2}. Second edition, Wiley.
+\newblock Further reading for the integration of linear algebra with
+multivariable calculus and a structural approach to determinants.
+
+\bibitem{chen-algebra}
+Tommy Chen. \emph{Algebra lecture notes}. Author's local revision draft,
+consulted September 12, 2026.
+\newblock Theorem 5.12.3, ``Existence and uniqueness of the determinant
+form,'' supplies the slot-by-slot expansion pattern adapted in Chapter~10.
+Section 1.5 guides the concrete permutation discussion in Appendix~\ref{app:determinants}.
+Chapter 8 informs the treatment of universal properties in Appendix~\ref{app:tensors},
+specialized here to vector spaces over fields.
 
 \bibitem{lee-smooth}
 John M. Lee.
 \newblock \emph{Introduction to Smooth Manifolds}.
 \newblock Graduate Texts in Mathematics 218, second edition, Springer, 2013.
-\newblock Cited for the external manifold-refinement theorem used in
-Chapter~13.
+\newblock Primary supplementary technical benchmark for Chapter~13: boundary
+charts, tangent spaces, orientation, partitions of unity, integration, and
+Stokes. Appendices~\ref{app:submanifolds}--\ref{app:cohomology} compare Chapters 4--8, 17--18, and 20: rank
+and slice theorems, embeddings, Lie groups and brackets, cohomology and
+integration, and one-parameter subgroups. The strong Whitney theorem
+(Theorem 6.19) and de Rham theorem (Theorem 18.14) are stated without proof.
+The earlier imported refinement is localized to Theorem~1.15 and the
+coordinate-neighborhood construction in the proof of Theorem~2.23, with
+the boundary adaptation in Exercise~2.24.
+
+\bibitem{tao-analysis}
+Terence Tao. \emph{Analysis I}. Springer.
+\newblock Foundations and rational Cauchy constructions; useful for checking
+the order of logical dependencies in Chapters~2--4.
+
+\bibitem{abbott-analysis}
+Stephen Abbott. \emph{Understanding Analysis}. Second edition, Springer, 2015.
+\newblock A companion for motivation, counterexamples, and learning to write
+the elementary proofs in Part~I.
+
+\bibitem{ross-analysis}
+Kenneth A. Ross. \emph{Elementary Analysis: The Theory of Calculus}.
+Second edition, Springer, 2013.
+\newblock Elementary rigor and graduated practice with sequences, continuity,
+and one-variable calculus.
+
+\bibitem{pugh-analysis}
+Charles C. Pugh. \emph{Real Mathematical Analysis}. Second edition,
+Springer, 2015.
+\newblock Geometric viewpoints on analysis, finite-dimensional topology,
+multivariable differentiation, and the geometric volume viewpoint.
+
+\bibitem{knapp-basic-real}
+Anthony W. Knapp. \emph{Basic Real Analysis}. Cornerstones, first edition,
+Birkh\"auser Boston, 2005.
+\newblock A systematic companion for metric and normed spaces,
+finite-dimensional differentiation, inverse and implicit functions,
+finite partitions of unity, and reduction of substitutions to elementary
+coordinate transformations. The author's digital second edition (2016)
+is also available from \url{https://www.math.stonybrook.edu/~aknapp/}.
+
+\bibitem{zorich-analysis}
+Vladimir A. Zorich. \emph{Mathematical Analysis I--II}. Springer.
+\newblock A broader analysis perspective, with geometric interpretations of
+multivariable derivatives, integration, and classical vector analysis.
+
+\bibitem{hubbard-vector}
+John H. Hubbard and Barbara Burke Hubbard.
+\emph{Vector Calculus, Linear Algebra, and Differential Forms:
+A Unified Approach}. Fifth edition, Matrix Editions, 2015.
+\newblock Geometric companion for interpreting forms as oriented
+measurements and connecting them to vector calculus. The publisher's
+Chapter~6 sample supplies a selective pedagogical benchmark;
+\url{https://matrixeditions.com/UnifiedApproach5thedSamples.html}.
+
+\bibitem{munkres-analysis}
+James R. Munkres. \emph{Analysis on Manifolds}. Addison--Wesley, 1991.
+\newblock A systematic companion for multivariable differentiation,
+primitive local diffeomorphisms, integration, and the route from forms to Stokes.
+
+\bibitem{spivak-manifolds}
+Michael Spivak. \emph{Calculus on Manifolds}. W. A. Benjamin, 1965.
+\newblock A compact account of the unity of the classical integral theorems;
+best read after the more detailed developments here.
+
+\bibitem{tu-manifolds}
+Loring W. Tu. \emph{An Introduction to Manifolds}. Second edition,
+Springer, 2011.
+\newblock Primary pedagogical and organizational benchmark for Chapter~13's
+expanded manifold introduction: gradual chart and atlas definitions,
+tangent and cotangent spaces, differential forms, orientation, and integration.
+Sections 3.10 and 4.1--4.2 also benchmark the distinction between
+pointwise covectors, their coordinate basis, and varying form fields.
+Appendices~\ref{app:submanifolds}--\ref{app:cohomology} also compare Sections 9 and 11 (submanifolds and rank),
+14--16 (vector fields, matrix groups, and Lie algebras), and 24--29
+(cohomology, examples, and homotopy). The elementary circle and torus
+period proofs avoid importing the book's Mayer--Vietoris machinery.
+The exposition here is reconstructed in the manuscript's own notation
+and dependency order.
 
 \bibitem{rudin-pma}
 Walter Rudin.
@@ -29,11 +139,97 @@ Michael Spivak.
 \newblock Fourth edition, Publish or Perish, 2008.
 \newblock Further reading for rigorous single-variable calculus.
 
+\bibitem{gessel-lagrange}
+Ira M. Gessel. Lagrange inversion.
+\emph{Journal of Combinatorial Theory, Series A} 144 (2016), 212--249.
+\newblock Coefficient formulations and formal power-series proofs of the
+optional analytic refinement; \url{https://arxiv.org/abs/1609.05988}.
+
+\bibitem{sokal-implicit}
+Alan D. Sokal. A ridiculously simple and explicit implicit function theorem.
+\emph{S\'eminaire Lotharingien de Combinatoire} 61A (2009), Article B61Ad,
+21 pages. \url{https://www.mat.univie.ac.at/~slc/s/s61Asokal2.html}.
+\newblock Analytic convergence and formal versions of Lagrange inversion.
+
+\bibitem{schwartz-change}
+J. Schwartz. The formula for change in variables in a multiple integral.
+\emph{The American Mathematical Monthly} 61, no.~2 (1954), 81--85.
+\newblock An alternative direct Riemann/Jordan proof using a one-sided
+estimate and the inverse map.
+\url{https://doi.org/10.1080/00029890.1954.11988420}.
+
+\bibitem{hatcher-topology}
+Allen Hatcher. \emph{Algebraic Topology}. Cambridge University Press, 2002.
+\newblock Further reading and a benchmark for the optional fundamental-group,
+CW-complex, homology, and cohomology previews in Section~13.17;
+not a claim of wholesale adaptation. The author's freely available edition
+is at \url{https://pi.math.cornell.edu/~hatcher/AT/ATpage.html}.
+
+\bibitem{xiao-topology-notes}
+Luciena Xiao Xiao. \emph{MAST31023 Introduction to Algebraic Topology
+Lecture Notes}. Supplied lecture-note PDF.
+\newblock Supplementary pedagogical benchmark and further reading for the
+optional algebraic-topology preview: spaces and maps, homotopy, fundamental
+groups, singular chains, and CW characteristic maps and examples. The
+manuscript keeps real coefficients and does not adopt the source's full course.
+
+\bibitem{xuewang-manifold-notes}
+Xuewang Ai Shuxue (author name romanized from the supplied Chinese notes).
+\emph{Weifen Liuxing Biji} [Notes on Smooth Manifolds]. Chinese-language
+lecture notes; Section~1, example~7, printed page~4.
+\newblock Selective benchmark for Appendix~\ref{app:quotients}'s projective-space proof
+architecture: scaling quotient, affine ratio charts, and transitions.
+The present Hausdorff proof uses the common isometric-quotient criterion.
+This acknowledgment applies to that construction,
+not to Appendix~\ref{app:quotients} as a whole. No date or publication venue is supplied.
+
+\bibitem{dummit-foote}
+David S. Dummit and Richard M. Foote,
+\emph{Abstract Algebra}, 3rd ed., Wiley, 2004.
+Sections 10.4 and 11.4--11.5 provide a selective comparison for tensor
+products, determinant expansions, and exterior powers.
+
 \end{thebibliography}
 
 \noindent\textbf{Attribution note.}
-Except for the external refinement theorem explicitly cited in Chapter~13,
-the principal results in these notes are proved internally. The references
-listed here provide verification and further reading; they are not claims
-that the manuscript's proofs or exposition were adapted from a particular
-source.
+The principal results used in the manuscript's later development are proved
+internally, apart from the external refinement theorem explicitly cited in
+Chapter~13. The optional analytic Lagrange inversion theorem in Chapter~11
+and the Lebesgue transformation-of-measure preview in Chapter~12 are also
+explicitly stated without proof and are not prerequisites. Chapter~9 also contains clearly marked, unproved previews of the
+Lipschitz/a.e. and Lebesgue forms of the Fundamental Theorem of Calculus and
+of the Cantor function; those statements are not prerequisites for the later
+development and carry local references. The references listed here provide
+verification and further reading. Section~13.17 contains additional explicitly
+unproved preview results, including dominated convergence, Hilbert-space Riesz
+representation, Cauchy's integral formula, fundamental-group computations,
+Euler-characteristic invariance, cellular--singular homology comparison,
+the homological Euler formula, and the maximum
+principle; none is a prerequisite. Appendix~\ref{app:submanifolds} states Whitney's embedding
+theorem without proof. Appendix~\ref{app:foundations} explicitly states
+recursion and the equivalence of the choice principles without full proofs;
+its Zorn application is proved assuming Zorn. Appendix~\ref{app:cohomology}
+states the Snake and Five Lemmas, long exact sequence theorem,
+Mayer--Vietoris, and de Rham theorem without full proofs.
+The bibliography entries are not claims that all of the
+manuscript's proofs or exposition were adapted from those sources. The
+author's algebra notes~\cite{chen-algebra} are acknowledged
+locally for the determinant expansion pattern, their influence on the
+permutation exposition, and Appendix~\ref{app:tensors}'s proof architecture adapted from
+their Chapter~8. These specific adaptations do not describe the origin
+of the entire manuscript.
+
+\paragraph{A reading route.}
+For a second pass through foundations, pair Tao with Abbott or Ross.
+For Part~II, use Pugh or Zorich for geometry and Munkres for a systematic
+calculus-on-manifolds treatment. Read Spivak for the compressed unifying
+picture after the details are familiar. Tu offers a gradual continuation
+into manifolds; Lee supplies a more extensive technical reference. None of
+their larger scopes is a prerequisite for these notes.
+For the algebraic foundations, compare Chapters~1--2 of
+Friedberg--Insel--Spence~\cite{fis-linear}; for determinants and their
+calculus role, compare Apostol~\cite{apostol-calculus-two} and Munkres.
+Appendices~\ref{app:foundations} and~\ref{app:categories} collect foundational
+and categorical language. Appendices~\ref{app:determinants}--\ref{app:cohomology}
+develop algebraic extensions, quotient constructions, submanifolds,
+Lie theory, and de Rham cohomology along explicit dependency routes.

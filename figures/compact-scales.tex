@@ -1,0 +1,14 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\foreach \y/\r/\step/\max in {1.5/.65/1/6,0/.34/.5/12}{
+\draw[very thick] (0,\y)--(6,\y);
+\foreach \j in {0,...,\max}{\pgfmathsetmacro{\x}{\j*\step}
+\draw[blue,dashed] (\x,\y) circle (\r);\fill (\x,\y) circle (1.2pt);}}
+\node[right] at (6.8,1.5) {one radius};\node[right] at (6.8,0) {a finer radius};
+
+\end{tikzpicture}
+\caption{Total boundedness requires a finite cover by equal-radius balls at every positive radius. Finer resolution may require more balls, but still only finitely many. The balls in the pictured interval are relative balls.}
+\label{fig:compact-scales}
+\end{figure}

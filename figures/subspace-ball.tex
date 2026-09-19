@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\fill[blue!8] (0,0) circle (1.25);
+\draw[blue!70,dashed] (0,0) circle (1.25);
+\draw[gray,thick,->] (-4,0)--(4,0) node[right] {$Y\subset\R^2$};
+\draw[orange!80!black,line width=3pt] (-2.7,0)--(2.7,0);
+\draw[blue!70!black,line width=3pt] (-1.25,0)--(1.25,0);
+\foreach \x in {-2.7,2.7}{\draw[orange!80!black,fill=white,thick] (\x,0) circle(.07);}
+\foreach \x in {-1.25,1.25}{\draw[blue!70!black,fill=white] (\x,0) circle(.06);}
+\fill (0,0) circle(.05) node[below] {$x$};
+\node[orange!80!black,above] at (2,0) {$A$};
+\node[blue!70!black] at (0,-1.7) {$B_Y(x,r)=Y\cap B_{\R^2}(x,r)$};
+\draw[->] (2.2,1.45) node[right] {$B_{\R^2}(x,r)$} --(.8,.8);
+\node at (-3,1.35) {ambient plane $\R^2$};
+\end{tikzpicture}
+\caption{A relative ball stays on the line and fits inside the open segment
+$A$. Every planar ball about $x$ also contains points off the line, so $A$
+is open in $Y$ but not in $\R^2$. Endpoints of the colored open intervals
+are excluded. The ambient space determines the meaning of openness.}
+\label{fig:subspace-ball}
+\end{figure}

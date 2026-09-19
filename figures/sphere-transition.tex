@@ -1,0 +1,23 @@
+% Original vector figure for Version 3.9.0.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.65pt]
+\begin{scope}
+\draw[gray,dashed] (0,0) circle(1);
+\fill[blue!12] (0,-1) arc(-90:90:1)--cycle;
+\draw[blue,dashed] (0,-1)--(0,1);
+\node[above] at (0,1.2) {$\varphi_3^+(U_3^+\cap U_1^+)$};
+\node[below] at (0,-1.15) {$a>0$};
+\end{scope}
+\draw[->] (1.4,0)--(4,0) node[midway,above] {$\varphi_1^+\circ(\varphi_3^+)^{-1}$};
+\begin{scope}[xshift=5.4cm]
+\draw[gray,dashed] (0,0) circle(1);
+\fill[blue!12] (1,0) arc(0:180:1)--cycle;
+\draw[blue,dashed] (-1,0)--(1,0);
+\node[above] at (0,1.2) {$\varphi_1^+(U_3^+\cap U_1^+)$};
+\node[below] at (0,-1.15) {$c>0$};
+\end{scope}
+\node[below] at (2.7,-1.7) {$(a,b)\longmapsto(b,\sqrt{1-a^2-b^2})$};
+\end{tikzpicture}
+\caption{The same sphere overlap has two different coordinate images: a right half-disk and an upper half-disk. All displayed boundaries are excluded.}\label{fig:sphere-transition}
+\end{figure}

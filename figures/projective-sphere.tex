@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\draw[fill=gray!6] (0,0) circle(1.4);
+\draw[dashed,gray] (-1.4,0) arc[start angle=180,end angle=0,x radius=1.4,y radius=.4];
+\draw[gray] (-1.4,0) arc[start angle=180,end angle=360,x radius=1.4,y radius=.4];
+\draw[thick,<->] (-1.7,-1.275)--(1.7,1.275);
+\fill (0,0) circle(.04) node[below right] {$0$};
+\foreach \x/\y/\lab/\pos in {1.12/.84/x/above left,-1.12/-.84/{-x}/below right}{
+\fill[blue!75!black] (\x,\y) circle(.075);\node[\pos] at (\x,\y) {$\lab$};}
+\node[left] at (-1.4,.65) {$S^2$};
+\node[above right] at (1.7,1.275) {line $\R x$};
+\draw[->,thick] (2.7,0)--(4.2,0) node[midway,above] {$\pi_S$};
+\fill[blue!75!black] (4.8,0) circle(.075);
+\node[right,align=left] at (5,0) {one point $[x]=[-x]$\\of $\mathbb{RP}^2$};
+\node[align=center] at (2.5,-2) {a line through the origin $=$ an antipodal pair $=$ a projective point};
+\end{tikzpicture}
+\caption{The sphere model of projective space pairs $x$ only with $-x$.
+The matching filled markers lie on the same line through the origin.
+The final dot represents one class, not a drawing of the whole quotient.}
+\label{fig:projective-sphere}
+\end{figure}

@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\fill[blue!10] (0,0) circle (1);\draw[blue,thick] (0,0) circle (1);
+\draw[red!70!black,thick] (-.6,-.5)--(.7,.3);
+\node[align=center] at (0,-1.6) {disk: convex};
+\draw[blue,thick] (4,0) circle (1);
+\draw[red!70!black,dashed] (3,0)--(5,0);
+\draw[->,red!70!black,thick] (5,0) arc (0:155:1);
+\node[align=center] at (4,-1.6) {circle: paths,\\but missing chords};
+\draw[blue,thick] (7,-1)--(7,1);
+\draw[blue,domain=.1:1.5,samples=250] plot ({7+\x},{sin(180/pi/\x)});
+\node[align=center] at (8,-1.6) {sine curve closure:\\connected, no crossing path};
+
+\end{tikzpicture}
+\caption{The implications convex implies path connected implies connected cannot be reversed. Dashed chords need not stay in the circle; the sine curve has a stronger obstruction to paths.}
+\label{fig:connected-hierarchy}
+\end{figure}

@@ -1,0 +1,57 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.7pt]
+\begin{scope}[shift={(0,4.2)}]
+\node at (1.1,2.65) {1. Parameter square};
+\fill[gray!6] (0,0) rectangle(2.2,2.2);
+\draw[red!75!black,very thick,->] (0,0)--(0,2.2);
+\draw[red!75!black,very thick,->] (2.2,0)--(2.2,2.2);
+\draw[blue!75!black,very thick,->] (0,0)--(2.2,0);
+\draw[blue!75!black,very thick,->] (0,2.2)--(2.2,2.2);
+\node[below] at (1.1,0) {$x=\theta/(2\pi)$};
+\node[left] at (0,1.1) {$y$};
+\end{scope}
+\draw[->,thick] (3,5.25)--(4.2,5.25) node[midway,above,align=center] {glue\\blue};
+\begin{scope}[shift={(5.2,5.25)}]
+\node at (1.3,1.6) {2. Straight cylinder};
+\fill[gray!8] (0,-.6) rectangle(2.6,.6);
+\draw (0,-.6)--(2.6,-.6) (0,.6)--(2.6,.6);
+\foreach \a in {0,2.6}{
+\draw[red!75!black,thick] (\a,0) ellipse(.25 and .6);
+\draw[red!75!black,very thick,->] plot[domain=-70:80,samples=25] ({\a+.25*cos(\x)},{.6*sin(\x)});}
+\draw[blue!75!black,very thick,->] (0,-.6)--(2.6,-.6);
+\node[below,align=center] at (1.3,-.8) {$x$: along the tube\\$y$: around each red end};
+\end{scope}
+\draw[->,thick] (9,4.1)--(9,3.1)--(1.1,3.1)--(1.1,2.8);
+\node[fill=white] at (5,3.1) {bend; keep both ends open};
+\node at (1.1,2.4) {3. Bent cylinder, ends separate};
+\begin{scope}[shift={(1.1,.8)},x={(.9cm,-.1cm)},y={(.3cm,.42cm)},z={(0cm,.8cm)}]
+\foreach \v in {0,60,...,300}{\draw[gray!55] plot[domain=35:325,samples=60] ({(1.45+.4*cos(\v))*cos(\x)},{(1.45+.4*cos(\v))*sin(\x)},{.4*sin(\v)});}
+\foreach \u in {35,70,...,315}{\draw[gray!40] plot[domain=0:360,samples=35] ({(1.45+.4*cos(\x))*cos(\u)},{(1.45+.4*cos(\x))*sin(\u)},{.4*sin(\x)});}
+\draw[blue!75!black,very thick,->] plot[domain=35:325,samples=70] ({1.85*cos(\x)},{1.85*sin(\x)},0);
+\foreach \u in {35,325}{
+\draw[red!75!black,very thick,->] plot[domain=0:345,samples=50] ({(1.45+.4*cos(\x))*cos(\u)},{(1.45+.4*cos(\x))*sin(\u)},{.4*sin(\x)});
+\fill[blue!75!black] ({1.85*cos(\u)},{1.85*sin(\u)},0) circle(.055);}
+\end{scope}
+\node[below,align=center] at (1.1,-.35) {two red circles face the gap;\\blue seam still has two endpoints};
+\draw[->,thick] (3.3,.8)--(4.6,.8) node[midway,above,align=center] {join\\red ends};
+\node at (6.9,2.4) {4. Torus};
+\begin{scope}[shift={(6.9,.8)},x={(.9cm,-.1cm)},y={(.3cm,.42cm)},z={(0cm,.8cm)}]
+\foreach \v in {0,60,...,300}{\draw[gray!55] plot[domain=0:360,samples=65] ({(1.45+.4*cos(\v))*cos(\x)},{(1.45+.4*cos(\v))*sin(\x)},{.4*sin(\v)});}
+\foreach \u in {0,45,...,315}{\draw[gray!40] plot[domain=0:360,samples=40] ({(1.45+.4*cos(\x))*cos(\u)},{(1.45+.4*cos(\x))*sin(\u)},{.4*sin(\x)});}
+\draw[blue!75!black,very thick,->] plot[domain=0:345,samples=65] ({1.85*cos(\x)},{1.85*sin(\x)},0);
+\draw[red!75!black,very thick,->] plot[domain=0:345,samples=50] ({1.45+.4*cos(\x)},0,{.4*sin(\x)});
+\fill (1.85,0,0) circle(.055);
+\end{scope}
+\node[blue!75!black,below] at (6.9,-.35) {$x=\theta/(2\pi)$: major circle};
+\node[red!75!black,below] at (6.9,-.9) {$y=\varphi/(2\pi)$: minor circle};
+\end{tikzpicture}
+\caption{Square, straight cylinder, bent cylinder, and torus. Glue the blue
+edges first, making $y$ circular while $x$ runs along the tube. Bending
+preserves these directions. The two red end circles remain separate in
+panel 3; joining corresponding points closes the blue $x$-curve in panel 4.
+Either pair can be glued first, but this order agrees throughout with the
+angles in Figure~\ref{fig:embedded-torus}. The square is a fundamental
+domain, not a global chart; see \cref{sec:quotient-torus}.}
+\label{fig:torus-parameter-square}
+\end{figure}

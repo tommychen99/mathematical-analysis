@@ -1,6 +1,10 @@
 \chapter{Sequences and Families of Functions}
 \label{ch:function-sequences}
 
+For a sequence of functions, $f_k$ means the $k$th whole function,
+whereas $f_k(x)$ is its scalar value at the fixed input $x$. Varying $k$
+with $x$ fixed gives a sequence of numbers.
+
 \section{Pointwise and Uniform Convergence}
 
 For functions, convergence has two distinct quantifier patterns.  Pointwise
@@ -51,7 +55,7 @@ Uniform convergence implies pointwise convergence, because one may fix $x$ after
 
 More directly, the pointwise limit of $x^n$ on $[0,1]$ equals $0$ on
 $[0,1)$ and $1$ at $1$.  For every $n$, choosing
-$x_n=2^{-1/n}$ gives $x_n<1$ and hence $f(x_n)=0$, but
+$x_n=\sqrt[n]{1/2}$ gives $x_n<1$ and hence $f(x_n)=0$, but
 \[
 \abs{f_n(x_n)-f(x_n)}=\frac12.
 \]
@@ -61,6 +65,49 @@ $g_n(x)=x/n$ on $[0,1]$ converges uniformly to zero because
 \norm{g_n}_\infty=\frac1n.
 \]
 
+\paragraph{A working procedure.}
+\[
+\boxed{\text{Fix }x\text{ first; only then let }n\to\infty.}
+\]
+Find the pointwise candidate, separating exceptional inputs. To prove
+uniform convergence, bound the error independently of $x$, or compute
+$\sup_{x\in D}|f_n(x)-f(x)|$ and show it tends to zero.
+To disprove it, find \emph{moving witnesses} $x_n\in D$ and a fixed
+$\eps_0>0$ with $|f_n(x_n)-f(x_n)|\geq\eps_0$ for arbitrarily
+large $n$. The witnesses may depend on $n$; the positive gap may not.
+
+\begin{example}[Cases and domains]
+For $f_n(x)=1/(1+nx^2)$ on $\R$, fixing $x=0$ gives the limit $1$.
+For fixed $x\ne0$, $0<f_n(x)\leq1/(nx^2)\to0$.
+Thus the limit has two cases. The witnesses $x_n=1/n$ have
+$f(x_n)=0$ but $f_n(x_n)=1/(1+1/n)\geq1/2$, so convergence is
+not uniform. On $D=\{x:|x|\geq d\}$, where $d>0$,
+$\sup_D|f_n|=1/(1+nd^2)\to0$: the same formula converges uniformly
+on this unbounded domain.
+
+For $g_n(x)=x/n$, the pointwise limit is zero on $\R$.
+On a bounded interval the error has a common bound:
+\[
+\|g_n\|_{\infty,[-A,A]}=\frac An.
+\]
+Choose $N>A/\eps$ for a uniform tolerance $\eps$. On $\R$, however,
+the moving input $x=n$ gives $g_n(n)=1$, disproving uniform convergence. Boundedness of the domain often helps, but the preceding
+example shows that an unbounded domain does not force failure.
+\end{example}
+
+\begin{example}[A uniform approximation guarantee]
+Suppose a normalized input $x\in[0,1]$ should produce output
+$f(x)=x^2$, while approximation level $n$ produces
+$f_n(x)=x^2+x(1-x)/n$. Since
+$0\leq x(1-x)=1/4-(x-1/2)^2\leq1/4$,
+\[
+\|f_n-f\|_\infty=\frac1{4n}.
+\]
+Choosing $N>1/(4\eps)$ guarantees output error below $\eps$ for
+every input and every $n\geq N$. Testing only a few fixed inputs
+would not establish this simultaneous guarantee.
+\end{example}
+
 \begin{proposition}[Uniform Cauchy criterion]
 \label{prop:uniform-cauchy}
 Let $f_n:D\to\R$. There is a function $f:D\to\R$ to which $f_n$ converges uniformly if and only if, for every $\eps>0$, there is $N$ such that, for all $m,n\geq N$ and all $x\in D$,
@@ -69,7 +116,16 @@ Let $f_n:D\to\R$. There is a function $f:D\to\R$ to which $f_n$ converges unifor
 \]
 \end{proposition}
 \begin{proof}
-If $f_n\to f$ uniformly, apply the triangle inequality with tolerance $\eps/2$. Conversely, the displayed condition makes $(f_n(x))$ a Cauchy real sequence for each fixed $x$. By \cref{thm:cauchy-criterion}, define $f(x)$ to be its limit. Fix $\eps>0$ and choose $N$ from the displayed condition. For $n\geq N$, take the limit as $m\to\infty$ in the inequality with fixed $n,x$; the order preservation of limits gives $\abs{f_n(x)-f(x)}\leq\eps$. Repeating with $\eps/2$ proves the strict inequality required by \cref{def:uniform-convergence}.
+If $f_n\to f$ uniformly, choose $N$ so that
+$|f_j(x)-f(x)|<\eps/2$ for every $j\geq N$ and $x\in D$.
+For $m,n\geq N$ the triangle inequality gives
+$|f_n(x)-f_m(x)|<\eps$ on all of $D$.
+Conversely, each $(f_n(x))$ is a Cauchy real sequence, so define
+$f(x)=\lim_n f_n(x)$ by completeness. Given $\eps>0$, choose $N$
+from the uniform Cauchy hypothesis with tolerance $\eps/2$.
+For fixed $n\geq N$ and $x\in D$, let $m\to\infty$; order
+preservation gives $|f_n(x)-f(x)|\leq\eps/2<\eps$.
+The same $N$ works for every $x$, proving uniform convergence.
 \end{proof}
 
 \section{Continuous Limits}
@@ -95,8 +151,9 @@ Chapter~\ref{ch:riemann} proves that a uniform limit may also be passed
 through a Riemann integral.  Differentiation is more delicate: uniform
 convergence of $f_n$ alone does not control the difference quotients, so
 Chapter~\ref{ch:differentiation} imposes uniform convergence on derivatives
-and fixes one anchor value.  The general lesson is to identify the estimate
-needed by the operation before interchanging two limiting processes.
+and fixes one anchor value. Each interchange requires an estimate suited
+to the operation: an integral uses a bound on function values, while a
+derivative requires control of difference quotients.
 \end{remark}
 
 \begin{proposition}[Uniform convergence respects algebra]
@@ -108,7 +165,9 @@ f_ng_n\to fg
 uniformly on $D$.
 \end{proposition}
 \begin{proof}
-The sum follows from the triangle inequality. Let
+For the sum choose $N_1,N_2$ for the uniform errors below $\eps/2$;
+the triangle inequality works for every $n\geq\max\{N_1,N_2\}$.
+For the product let
 \[
 \abs{f_n(x)}\leq M,
 \qquad
@@ -124,12 +183,15 @@ Then
 \[
 \abs{f_n(x)g_n(x)-f(x)g(x)}\leq M\abs{g_n(x)-g(x)}+K\abs{f_n(x)-f(x)}.
 \]
-Choose a common stage making both terms uniformly small.
+Choose $N_1$ with $\|g_n-g\|_\infty<\eps/(2(M+1))$ for $n\geq N_1$
+and $N_2$ with $\|f_n-f\|_\infty<\eps/(2(K+1))$ for $n\geq N_2$.
+For every $n\geq\max\{N_1,N_2\}$ the displayed error is below
+$\eps$, simultaneously at every input.
 \end{proof}
 
 \begin{proposition}[Uniform limits preserve boundedness]
 \label{prop:uniform-boundedness}
-Let $f_n\to f$ uniformly on $D$. If one function $f_N$ is bounded on $D$, then $f$ is bounded on $D$.
+Let $f_n\to f$ uniformly on $D$. If every function $f_n$ is bounded on $D$, then $f$ is bounded on $D$.
 \end{proposition}
 \begin{proof}
 Choose $N$ so that
@@ -144,17 +206,26 @@ If $\abs{f_N(x)}\leq M$ throughout $D$, then
 \]
 \end{proof}
 
+No common bound on the approximating functions is required: only the
+chosen late function needs to supply a bound. An arbitrary early bounded
+term cannot do this. On $\R$, take $f_1=0$ and $f_n(x)=x$ for $n\geq2$.
+Convergence to $x$ is uniform, but the limit is unbounded.
+
+\begin{example}[A continuous limit without uniform convergence]
+On $[0,1]$, put $f_n(x)=\max\{1-n|x-1/n|,0\}$. Each graph is a continuous
+triangular spike. At $0$ its value is zero; for fixed $x>0$, it is zero once
+$n>2/x$. Thus $f_n\to0$ pointwise, with a continuous limit. Nevertheless
+$f_n(1/n)=1$, so $\|f_n\|_\infty=1$ for every $n$. Continuity of the limit
+does not supply the missing uniform control.
+\end{example}
+
 \begin{example}[Pointwise limits need not preserve boundedness]
-On
-\[
-D=(0,1],
-\]
-define
+On $D=(0,1]$, define
 \[
 f_n(x)=
 \begin{cases}
-n,&0<x\leq1/n,\\
-1/x,&1/n<x\leq1.
+n,&0<x\leq\dfrac1n,\\
+\dfrac1x,&\dfrac1n<x\leq1.
 \end{cases}
 \]
 Each $f_n$ is bounded by $n$, while for every $x\in D$,
@@ -184,11 +255,22 @@ The convergence in $n$ is pointwise but not uniform near $x=1$. This is the basi
 \section{Polynomial Approximation}
 
 Polynomials are among the simplest continuous functions: they can be added,
-multiplied, and differentiated exactly.  A natural question is how much of
-$C([a,b])$ they occupy.  The answer is strikingly strong: every continuous
-function can be approximated everywhere on a compact interval by one
-polynomial with one common error bound.
+multiplied, and differentiated exactly. How closely can they approximate
+other continuous functions? Write $C([a,b])$ for the vector space of
+continuous real-valued functions on $[a,b]$. Every function in this space
+can be approximated on the whole interval by a polynomial, to any
+prescribed uniform tolerance.
 
+\subsection*{Reading the Bernstein weights}
+For degree two the approximation is
+\[
+B_2(f)(x)=f(0)(1-x)^2+2f\left(\frac12\right)x(1-x)+f(1)x^2.
+\]
+At $x=1/2$ its weights are $1/4,1/2,1/4$. For $f(t)=t^2$ this
+gives $B_2(f)(x)=(x+x^2)/2$, not $x^2$ itself. The approximating
+polynomial samples nearby values heavily; exact reproduction of every
+quadratic is not the aim. The proof below establishes concentration using
+finite algebraic sums, with no probability prerequisite.
 \begin{theorem}[Weierstrass approximation theorem]
 \label{thm:weierstrass-approximation}
 If $f\in C([a,b])$, then for every $\eps>0$ there is a polynomial $p$ such
@@ -202,12 +284,29 @@ Equivalently, polynomials are uniformly dense in $C([a,b])$.
 We first work on $[0,1]$.  For $f\in C([0,1])$, define its $n$th Bernstein
 polynomial by
 \[
-B_n(f)(x)=\sum_{k=0}^nf(k/n)\binom nkx^k(1-x)^{n-k}.
+B_n(f)(x)=\sum_{k=0}^nf\left(\frac kn\right)\binom nkx^k(1-x)^{n-k}.
 \]
 It is a polynomial.  Its nonnegative weights have sum $1$ by the binomial
 theorem, so $B_n(f)(x)$ is a weighted average of sampled values $f(k/n)$.
-The weights concentrate near $k/n=x$: direct differentiation of the finite
-binomial sum, or the usual binomial identities, gives
+Before estimating a general function, check the samples $1,t,t^2$:
+\[
+B_n(1)=1,\qquad B_n(t)=x,\qquad B_n(t^2)=x^2+\frac{x(1-x)}n.
+\]
+For weights $w_{n,k}=\binom nkx^k(1-x)^{n-k}$, the first moment is
+\[
+\sum_{k=0}^n\frac{k}{n}w_{n,k}
+=x\sum_{k=1}^n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}=x.
+\]
+The factorial second moment is similarly
+$\sum k(k-1)w_{n,k}=n(n-1)x^2$. Since $k^2=k(k-1)+k$,
+division by $n^2$ gives the displayed quadratic identity.
+
+These follow without differentiation: use
+$k\binom nk=n\binom{n-1}{k-1}$ and
+$k(k-1)\binom nk=n(n-1)\binom{n-2}{k-2}$, sum with the binomial theorem
+from \cref{thm:appendix-binomial},
+and write $k^2=k(k-1)+k$ (the case $n=1$ is direct).
+Expanding the square now shows that the weights concentrate near $k/n=x$:
 \[
 \sum_{k=0}^n\left(\frac{k}{n}-x\right)^2
 \binom nkx^k(1-x)^{n-k}=\frac{x(1-x)}n\leq\frac1{4n}.
@@ -225,7 +324,8 @@ $2M$, while
 \binom nkx^k(1-x)^{n-k}
 \leq\frac1{4n\delta^2}.
 \]
-For sufficiently large $n$, this second contribution is below $\eps/2$,
+Choose $N>\max\{1,M/(\eps\delta^2)\}$. For every $n\geq N$,
+the second contribution is at most $M/(2n\delta^2)<\eps/2$,
 uniformly in $x$.  Hence $B_n(f)\to f$ uniformly on $[0,1]$.
 
 For a general interval $[a,b]$, apply this result to
@@ -233,6 +333,19 @@ $F(t)=f(a+(b-a)t)$ and substitute $t=(x-a)/(b-a)$.  The resulting expression
 is a polynomial in $x$ and has the required uniform error.
 \end{proof}
 
+The error estimate separates two reasons a contribution can be small:
+\[
+\begin{array}{c|c|c}
+\text{samples}&\text{function error}&\text{total weight}\\\hline
+|k/n-x|<\delta&<\eps/2&\leq1\\
+|k/n-x|\geq\delta&\leq2M&\leq1/(4n\delta^2)
+\end{array}
+\]
+The near samples are accurate because of uniform continuity. The far
+samples need not be accurate, but together carry little weight because
+each contributes at least $\delta^2$ times its weight to the squared
+distance sum. First choose $\delta$ from $f$, then choose $N$ as above.
+Neither choice depends on the evaluation point $x$.
 \begin{example}[Approximating a corner]
 The function $f(x)=\abs{x}$ on $[-1,1]$ is not a polynomial and is not
 differentiable at $0$.  Nevertheless, the theorem provides polynomials
@@ -266,12 +379,26 @@ It is equicontinuous on $D$ if it is equicontinuous at every point of $D$.
 \end{definition}
 
 \begin{proposition}
-If $f_n\to f$ uniformly on $D$ and the family $\set{f_n:n\in\N}$ is equicontinuous at $a$, then $f$ is continuous at $a$.
+If $f_n\to f$ pointwise on $D$ and the family $\set{f_n:n\in\N}$ is equicontinuous at $a$, then $f$ is continuous at $a$.
 \end{proposition}
 \begin{proof}
-Given $\eps>0$, choose $N$ such that $\abs{f_N-f}<\eps/3$ throughout $D$. Equicontinuity supplies $\delta$ for $f_N$ and tolerance $\eps/3$. The three-term estimate in \cref{thm:uniform-limit-continuity} proves continuity of $f$.
+Choose the common input neighborhood first, then take
+pointwise limits at the two fixed points. Equicontinuity gives $\delta$
+such that $|f_n(x)-f_n(a)|<\eps/2$ for every $n$ whenever
+$x\in D$ and $|x-a|<\delta$. Fix such $x$ and let $n\to\infty$.
+The inequality becomes $|f(x)-f(a)|\leq\eps/2<\eps$.
+This is continuity at $a$; no uniform convergence was needed.
 \end{proof}
 
+\begin{example}[A shared Lipschitz bound and moving spikes]
+If $|f(x)-f(y)|\leq L|x-y|$ for every member of a family, then
+$\delta=\eps/(L+1)$ proves equicontinuity at every point.
+The functions $x\mapsto c+sx$ with $|s|\leq3$ give an example even
+when their constants $c$ are unbounded. Equicontinuity controls variation,
+not absolute heights. The triangular spikes introduced earlier are not
+equicontinuous at zero: $f_n(0)=0$, $f_n(1/n)=1$, and $1/n\to0$.
+Every proposed common $\delta$ fails for a late spike.
+\end{example}
 \begin{lemma}[Uniform equicontinuity on a compact interval]
 \label{lem:uniform-equicontinuity-interval}
 Let $\mathcal F$ be an equicontinuous family of functions
@@ -296,9 +423,10 @@ $x_n,y_n\in[a,b]$ such that
 \]
 By compactness of $[a,b]$, pass to a subsequence with $x_n\to x$.  Then also
 $y_n\to x$.  Relabel this subsequence as $(x_n,y_n,h_n)$.  Equicontinuity at
-$x$, with tolerance $\eps/3$, makes both
-$\abs{h_n(x_n)-h_n(x)}$ and $\abs{h_n(y_n)-h_n(x)}$ less than $\eps/3$ for
-all sufficiently large $n$.  The triangle inequality gives a contradiction.
+$x$, with tolerance $\eps/3$, supplies $\delta>0$ working for every $h_n$.
+Choose $N_1,N_2$ so that $|x_n-x|<\delta$ for $n\geq N_1$ and
+$|y_n-x|<\delta$ for $n\geq N_2$. For $n\geq\max\{N_1,N_2\}$,
+both $|h_n(x_n)-h_n(x)|$ and $|h_n(y_n)-h_n(x)|$ are below $\eps/3$.  The triangle inequality gives a contradiction.
 \end{proof}
 
 \begin{theorem}[Arzel\`a--Ascoli on an interval]
@@ -318,7 +446,24 @@ use equicontinuity to make that convergence uniform.  Enumerate a countable
 dense subset of $[a,b]$ as $(q_j)$.  Uniform boundedness and
 Bolzano--Weierstrass allow us to choose successively a subsequence converging
 at $q_1$, then a subsequence of it converging at $q_2$, and so on.  The
-diagonal subsequence $(g_k)$ converges at every $q_j$.
+diagonal subsequence can be made explicit. Write the nested increasing
+index lists as $(n^{(j)}_k)_{k\geq1}$ and take $g_k=f_{n^{(k)}_k}$.
+Because list $k+1$ is a subsequence of list $k$,
+$n^{(k+1)}_{k+1}\geq n^{(k)}_{k+1}>n^{(k)}_k$. For fixed $j$, all entries
+with $k\geq j$ belong to list $j$, in increasing order. Thus $(g_k(q_j))$
+converges. The remaining step upgrades these separate convergences to one
+uniform estimate by using only finitely many nearby test points.
+
+The diagonal selection can be pictured as follows; each row is a
+subsequence of the preceding row, and the marked diagonal gives $g_k$:
+\[
+\begin{array}{c|cccc|l}
+&1&2&3&\cdots&\text{convergence guaranteed at}\\\hline
+1&\boxed{n^{(1)}_1}&n^{(1)}_2&n^{(1)}_3&\cdots&q_1\\
+2&n^{(2)}_1&\boxed{n^{(2)}_2}&n^{(2)}_3&\cdots&q_1,q_2\\
+3&n^{(3)}_1&n^{(3)}_2&\boxed{n^{(3)}_3}&\cdots&q_1,q_2,q_3
+\end{array}
+\]
 
 Given $\eps>0$, \cref{lem:uniform-equicontinuity-interval} supplies
 $\delta>0$ such that
@@ -329,10 +474,19 @@ $\delta>0$ such that
 \qquad(k\in\N).
 \]
 Using density and a finite partition of $[a,b]$, choose finitely many of the
-$q_j$ so that every $x\in[a,b]$ lies within $\delta$ of one of them.  Since
-$(g_k)$ is Cauchy at each of these finitely many points, there is $N$ such
-that for $r,s\geq N$ its values there differ by less than $\eps/3$.  The
-triangle inequality then gives
+$q_j$ so that every $x\in[a,b]$ lies within $\delta$ of one of them.  List the selected points as $q_{j_1},\ldots,q_{j_\ell}$.
+At $q_{j_i}$ choose a Cauchy stage $N_i$ for tolerance $\eps/3$.
+Put $N=\max\{N_1,\ldots,N_\ell\}$. For $r,s\geq N$ the values
+at every selected point differ by less than $\eps/3$.  For a nearby selected point $q$, the
+three-term estimate is
+\[
+|g_r(x)-g_s(x)|\leq
+\underbrace{|g_r(x)-g_r(q)|}_{\text{equicontinuity}}
++\underbrace{|g_r(q)-g_s(q)|}_{\text{finite test points}}
++\underbrace{|g_s(q)-g_s(x)|}_{\text{equicontinuity}}.
+\]
+There are only finitely many test points, so taking the maximum of their
+Cauchy stages gives one $N$. The triangle inequality then gives
 \[
 \abs{g_r(x)-g_s(x)}<\eps
 \qquad(x\in[a,b]).
@@ -346,35 +500,62 @@ uniform limit.  It is continuous by \cref{thm:uniform-limit-continuity}.
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
 
+\begin{hexercise}{uniform-cases}
+Find the pointwise limit of $x^n$ on $[-1,1]$ wherever it exists. Determine uniform convergence on $[0,r]$ for $0<r<1$, on $[0,1)$, and on $[0,1]$.
+\end{hexercise}
+
 \begin{exercise}
-On
-\[
-[0,1],
-\]
-let
-\[
-f_n(x)=x^n.
-\]
+For $f_n(x)=x/(1+nx)$ on $[0,\infty)$, find the pointwise limit and an input-independent error bound. Does unboundedness of the domain prevent uniform convergence?
+\end{exercise}
+
+\begin{hexercise}{uniform-model}
+On a normalized input interval $[0,1]$, an approximation adds $x(1-x)/n$ to the desired output. Derive a worst-case error, and choose a level guaranteeing error below $10^{-3}$ for every input.
+\end{hexercise}
+
+\begin{exercise}
+Prove directly that a uniform limit of functions with a shared Lipschitz constant $K$ has the same Lipschitz constant. Can a uniformly convergent sequence have Lipschitz constants tending to infinity?
+\end{exercise}
+
+\begin{exercise}
+On $[0,1]$, let $f_n(x)=x^n$.
 Determine its pointwise limit and prove directly from \cref{def:uniform-convergence} that the convergence is not uniform.
 \end{exercise}
 
 \begin{exercise}
-Let
-\[
-f_n(x)=\frac{x}{n}
-\qquad(x\in\R).
-\]
+Let $f_n(x)=x/n$ for $x\in\R$.
 Prove that $f_n$ converges pointwise to zero but not uniformly on $\R$.
 \end{exercise}
 
 \begin{exercise}
-Suppose that
-\[
-f_n\to f
-\]
-uniformly on $D$ and that every $f_n$ is bounded by the same number $M$. Prove that
+Suppose that $f_n\to f$ uniformly on $D$ and that every $f_n$ is bounded by the same number $M$. Prove that
 \[
 \abs{f(x)}\leq M
 \qquad(x\in D).
 \]
+\end{exercise}
+
+\begin{hexercise}{moving-spike}
+For $f_n(x)=nx/(1+n^2x^2)$ on $[0,1]$, find the pointwise limit and
+a moving point preventing uniform convergence. Prove uniform convergence
+on $[\delta,1]$ for each $\delta>0$.
+\end{hexercise}
+\begin{exercise}
+Compute $B_2(f)$ for $f(t)=|2t-1|$. Compare its error at $0,1/2,1$.
+Which part of the Bernstein argument depends on continuity, and which
+part only on the binomial identities?
+\end{exercise}
+\begin{exercise}
+Show that pointwise convergence to $f$ and equicontinuity on $[a,b]$
+imply uniform convergence there. Use the continuity of $f$ proved above
+and a finite set of nearby test points. Contrast the moving-spike example.
+\end{exercise}
+\begin{exercise}
+Give a uniformly bounded family that is not equicontinuous, and an
+equicontinuous family that is not uniformly bounded. Explain why neither
+alone supplies the hypotheses of Arzel\`a--Ascoli.
+\end{exercise}
+\begin{exercise}
+Suppose $f_n(0)=0$ and $|f_n(x)-f_n(y)|\leq2|x-y|$ on $[0,1]$.
+Use Arzel\`a--Ascoli and prove that every uniform subsequential limit
+also has this Lipschitz bound. Must the original sequence converge?
 \end{exercise}

@@ -1,12 +1,5 @@
 # Errata
 
-No errata have been recorded for the current release candidate.
-
-## Entry format
-
-| Version affected | Location | Error | Correction | Date corrected |
-|---|---|---|---|---|
-| | | | | |
-
-Use one row for each verified correction. Preserve earlier entries so that
-readers can determine which versions are affected.
+Historical corrections and all release notes are maintained in
+[README](README.md#historical-correction-record). Record future versioned
+corrections and validation summaries in README.md.

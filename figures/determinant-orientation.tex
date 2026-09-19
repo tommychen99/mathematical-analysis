@@ -1,0 +1,20 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\foreach \shift in {0,5.4}{
+\begin{scope}[xshift=\shift cm]
+\filldraw[fill=blue!8,draw=gray] (0,0)--(2,0)--(2.7,1.5)--(.7,1.5)--cycle;
+\draw[->,thick,blue] (0,0)--(2,0) node[below] {$a$};
+\draw[->,thick,orange!80!black] (0,0)--(.7,1.5) node[above left] {$b$};
+\end{scope}}
+\draw[->,thick] (.75,.2) arc[start angle=15,end angle=62,radius=.75];
+\node at (1.3,-.8) {$(a,b):\ \det(a,b)=3$};
+\begin{scope}[xshift=5.4cm]
+\draw[->,thick] (.35,.68) arc[start angle=62,end angle=15,radius=.75];
+\node at (1.3,-.8) {$(b,a):\ \det(b,a)=-3$};
+\end{scope}
+\end{tikzpicture}
+\caption{Swapping the ordered edges reverses orientation while preserving
+area. Here $a=(2,0)$ and $b=(0.7,1.5)$; both parallelograms have area $3$.}
+\label{fig:determinant-orientation}
+\end{figure}

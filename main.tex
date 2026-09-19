@@ -22,8 +22,12 @@
 {\normalsize \noteslicense\par}
 \end{titlepage}
 \pdfbookmark[0]{Contents}{contents}
+\begingroup
+\fontsize{10}{10.8}\selectfont
 \tableofcontents
+\endgroup
 \input{chapters/preface}
+\input{chapters/notation}
 \mainmatter
 \part{Single-Variable Calculus and Analysis}
 \input{chapters/ch01-motivation}
@@ -40,6 +44,16 @@
 \input{chapters/ch11-multivariable-differentiation}
 \input{chapters/ch12-multivariable-integration}
 \input{chapters/ch13-forms-stokes}
+\appendix
+\input{chapters/app-foundations}
+\input{chapters/app-categories}
+\input{chapters/app-determinants}
+\input{chapters/app-tensors}
+\input{chapters/app-quotients}
+\input{chapters/app-submanifolds}
+\input{chapters/app-lie}
+\input{chapters/app-cohomology}
+\input{chapters/app-hints}
 \backmatter
 \input{chapters/references}
 \end{document}

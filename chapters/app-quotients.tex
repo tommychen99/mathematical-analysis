@@ -1,0 +1,754 @@
+\appendixchapter{Quotient Spaces, Gluing, and Classical Manifolds}
+\label{app:quotients}
+\chaptermark{Quotient Spaces and Classical Manifolds}
+\section*{Introduction}
+This appendix makes the gluing pictures of Chapter~13 precise. It uses
+Chapter~10's open-set, product, compactness, and Hausdorff language, and
+Chapter~13's definitions of smooth manifolds and manifolds with boundary.
+The analysis-to-Stokes route uses the product, subspace, and chart
+constructions already given and does not depend on this appendix.
+The practical idea is to specify which points represent the same point,
+then determine continuity and local coordinates from that specification.
+These examples prepare the global questions of geometric topology and
+provide spaces on which the cohomological ideas of Appendix~\ref{app:cohomology}
+can be tested. The quotient tools are reusable structural constructions,
+not additional hypotheses in the main integration theorems.
+
+\section{Quotient Topology and Quotient Maps}\label{sec:quotient-topology}
+Appendix~\ref{app:tensors} forms quotient vector spaces by declaring vectors equivalent.
+Here we retain that idea but allow any equivalence relation on any topological
+space. The extra question is which subsets of the resulting set should be open.
+The progression is from quotient vector spaces to topological-group quotients
+to arbitrary equivalence-relation quotients: increasing generality does not
+mean that every quotient has a vector-space or group structure.
+
+\begin{definition}[Quotient topology]
+Let $\sim$ be an equivalence relation on a topological space $X$.
+Its quotient set $X/{\sim}$ consists of the classes $[x]$.
+The \textbf{canonical projection} and the \textbf{quotient topology} are
+\[
+\pi:X\longrightarrow X/{\sim},\quad \pi(x)=[x],\qquad
+U\text{ open in }X/{\sim}\ \Longleftrightarrow\ \pi^{-1}(U)\text{ open in }X.
+\]
+Here $\pi^{-1}(U)$ denotes an inverse image, not an inverse function.
+\end{definition}
+\begin{proposition}[The open-set rule defines a topology]
+The quotient topology is the finest topology making $\pi$ continuous.
+\end{proposition}
+\begin{proof}
+Inverse images take the empty set and whole quotient to $\varnothing$ and
+$X$, and preserve arbitrary unions and finite intersections. The open-set
+axioms in $X$ therefore imply the three topology axioms on the quotient.
+The rule makes $\pi$ continuous. Any topology making $\pi$ continuous can
+contain only sets whose inverse images are open, so it is contained in this one.
+\end{proof}
+\begin{definition}[Quotient map]
+A surjection $q:X\to Q$ between topological spaces is a \textbf{quotient map}
+if $U\subseteq Q$ is open exactly when $q^{-1}(U)$ is open in $X$.
+\end{definition}
+We reserve $\pi$ for canonical projections onto equivalence classes and
+$q$ for general quotient maps; $Q$ need not literally be written $X/{\sim}$.
+
+\begin{proposition}[The universal property]\label{prop:quotient-universal}
+For any topological space $Y$, a map $h:X/{\sim}\to Y$ is continuous
+if and only if $h\circ\pi$ is continuous. Consequently, every continuous
+$f:X\to Y$ constant on equivalence classes has a unique continuous factor
+\[
+\widetilde f:X/{\sim}\to Y,\qquad
+\widetilde f([x])=f(x),\qquad f=\widetilde f\circ\pi.
+\]
+\end{proposition}
+\begin{proof}
+For open $V\subseteq Y$, $(h\circ\pi)^{-1}(V)=\pi^{-1}(h^{-1}(V))$.
+The quotient rule makes this open exactly when $h^{-1}(V)$ is open.
+For the factorization, constancy on classes makes the displayed rule
+well defined; surjectivity of $\pi$ gives uniqueness, and the equivalence
+just proved gives continuity.
+\end{proof}
+\begin{center}
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"\pi"]\arrow[dr,"f"']&X/{\sim}\arrow[d,dashed,"\widetilde f"]\\
+&Y
+\end{tikzcd}
+\end{center}
+Construct $f$ before gluing and check that its values agree at glued points;
+the dashed arrow is the uniquely induced map. We use a tilde for a map
+produced by such a factorization, while retaining structural names such as
+$T_1\otimes T_2$ and $\Lambda^kT$ in Appendix~\ref{app:tensors}.
+The same inverse-image proof works for every quotient map.
+The factor need not be injective: a constant map may collapse distinct
+classes. It is injective exactly when $f(x)=f(y)$ implies $x\sim y$,
+so that the classes are precisely the fibers of $f$.
+
+\begin{example}[Coset quotients]
+Let $G$ be an abelian group written additively, equipped with a topology
+for which addition and negation are continuous, and let $H\leq G$ be a subgroup.
+Then
+\[
+x\sim y\ \Longleftrightarrow\ x-y\in H,\qquad [x]=x+H,\qquad
+\pi:G\to G/H.
+\]
+The subgroup laws give an equivalence relation; equip its classes with the
+quotient topology above. This is a special case of the same definition.
+If $V$ is a topological vector space and $W$ a linear subspace, it equips
+Appendix~\ref{app:tensors}'s quotient vector space $V/W$ with a topology. For the torus,
+$\Z^2$ is an additive subgroup of $\R^2$, but it is not an $\R$-linear
+subspace (scalar multiplication by $1/2$ does not preserve it).
+\end{example}
+
+\section{Practical Quotient-Space Tools}\label{sec:quotient-tools}
+\begin{proposition}[Compact quotients]
+A quotient of a compact space is compact.
+\end{proposition}
+\begin{proof}
+Its canonical projection is continuous and onto, so the continuous-image
+compactness theorem applies.
+\end{proof}
+\paragraph{Separation can fail.} The quotient need not be Hausdorff even when the
+original space is. For example, in $\R$ collapse all of $(0,1)$ to a single
+class and leave other points separate. If $[0]$ and the collapsed class had
+disjoint open neighborhoods, the inverse image of the first would be an
+open set containing $0$ and hence meeting $(0,1)$, whereas the inverse image
+of the second contains all of $(0,1)$. This is impossible.
+
+Recall \cref{def:hausdorff}: in a Hausdorff space, any two distinct
+points have disjoint open neighborhoods. Closed points alone do not
+ensure this separation, as \cref{ex:zariski-line} shows. The following
+criterion uses only the compactness results of Chapter~10.
+\begin{proposition}[Compact-to-Hausdorff criterion]\label{prop:quotient-compact-bijection}
+A continuous bijection $h:K\to H$ from a compact space to a Hausdorff
+space is a homeomorphism. No Hausdorff hypothesis on $K$ is needed.
+\end{proposition}
+\begin{proof}
+A closed subset $F$ of $K$ is compact: express a relatively open cover
+of $F$ using open subsets of $K$, adjoin $K\setminus F$, use compactness
+of $K$, and discard that extra set.
+Its image $h(F)$ is compact and hence closed in $H$ by
+\cref{thm:compact-closed}. Thus $h$ is a closed bijection, so
+$(h^{-1})^{-1}(F)=h(F)$ is closed for every closed $F$. This proves
+continuity of $h^{-1}$.
+\end{proof}
+For the examples below, use this five-step strategy:
+\begin{enumerate}
+\item Build a continuous map on the original space.
+\item Check that it is constant on the prescribed equivalence classes.
+\item Descend it by \cref{prop:quotient-universal}.
+\item Check that the descended map is bijective, by identifying its fibers.
+\item Prove the source compact and target Hausdorff, then apply
+\cref{prop:quotient-compact-bijection}.
+\end{enumerate}
+Compactness may come from a compact set of representatives even when the
+original space is not compact. This is the key to the next two examples.
+
+\begin{proposition}[A metric for separated isometric identifications]
+\label{prop:isometric-quotient-metric}
+Let $Y\subseteq\R^d$ have its relative Euclidean metric. Let $\mathcal G$
+be a family of bijective isometries of $Y$, containing the identity and
+closed under composition and inverse. Suppose that for every $p,q\in Y$
+and $R>0$ the set
+\[
+\{g\in\mathcal G:\|p-g(q)\|\leq R\}
+\]
+is finite. Identify $p$ and $q$ when $p=g(q)$ for some $g$. Then
+\[
+d([p],[q])=\min_{g\in\mathcal G}\|p-g(q)\|
+\]
+is a metric inducing the quotient topology. If in addition no nonidentity
+map fixes a point, every point has a sufficiently small relative ball
+that projects homeomorphically onto an open quotient neighborhood.
+\end{proposition}
+\begin{proof}
+The idea is to find a nearest representative and then compare small balls.
+Only finitely many maps can improve the identity's distance, so the minimum
+exists. Replacing $p,q$ by $a(p),b(q)$ reindexes it by the bijection
+$g\mapsto a^{-1}gb$ of $\mathcal G$. An attained zero means equal classes;
+inverses give symmetry. If $g,h$ minimize for $(p,q)$ and $(q,r)$, then
+\[
+d([p],[r])\leq\|p-gh(r)\|
+\leq\|p-g(q)\|+\|q-h(r)\|.
+\]
+This proves the triangle inequality.
+
+The inverse image of a metric ball about $[p]$ is the union of the relative
+balls of the same radius about $g(p)$, hence is open in $Y$. Conversely,
+if $\pi^{-1}(U)$ is open and contains $p$, choose a relative ball
+$B_Y(p,\rho)\subseteq\pi^{-1}(U)$. Every class at distance less than
+$\rho$ has a representative in this ball and belongs to $U$.
+Thus the two topologies agree. Also $\pi$ is open: for open $A\subseteq Y$,
+$\pi^{-1}(\pi(A))=\bigcup_g g(A)$ is open.
+
+For the last assertion, finiteness with $p=q$ and $R=1$, together with
+the absence of fixed points, gives $\delta_p>0$ such that
+$\|p-g(p)\|\geq\delta_p$ for every nonidentity $g$.
+If $0<2\rho<\delta_p$, the balls $B_Y(p,\rho)$ and
+$g(B_Y(p,\rho))$ are disjoint: an intersection would put their centers
+at distance less than $2\rho$. The projection is consequently injective
+on this ball, and its continuity and openness make the restriction a
+homeomorphism onto an open neighborhood.
+\end{proof}
+
+\begin{lemma}[Separated translates give quotient neighborhoods]
+\label{lem:separated-quotient-neighborhood}
+Let a family $\mathcal G$ of isometries of a Euclidean subspace $Y$
+contain the identity and be closed under composition and inverse. Identify
+points carried to each other by these maps, and give $Y/{\sim}$ its
+quotient topology. If a relatively open ball $D$ satisfies
+$D\cap g(D)=\varnothing$ for every nonidentity $g\in\mathcal G$, then
+$\pi|_D:D\to\pi(D)$ is a homeomorphism and $\pi(D)$ is open.
+\end{lemma}
+\begin{proof}
+If $x,y\in D$ have the same class, then $y=g(x)$ for some $g$.
+Disjointness forces $g$ to be the identity, hence $x=y$. This proves
+injectivity. For any relatively open $A\subseteq D$, the set $A$ is
+open in $Y$ because $D$ is, and the saturation has the exact description
+\[
+\pi^{-1}(\pi(A))=\bigcup_{g\in\mathcal G}g(A).
+\]
+Both inclusions follow by writing equality of classes as $y=g(a)$.
+Every $g(A)$ is open since an isometry with inverse is a homeomorphism.
+Thus $\pi(A)$ is open by the quotient definition
+(\cref{sec:quotient-topology}). The restriction is continuous and bijective
+onto its image; its openness proves continuity of its inverse. Taking
+$A=D$ proves that its image is an open neighborhood.
+\end{proof}
+
+\section{Circles and Spheres as Quotients}\label{sec:quotient-circle}
+\paragraph{Construction and descent.}
+For $s,t\in\R$, write $s\sim t$ if $s-t\in\Z$. The continuous map
+\[
+e(t)=(\cos2\pi t,\sin2\pi t)
+\]
+is onto $S^1$, and $e(s)=e(t)$ exactly when $s-t\in\Z$.
+It therefore descends to a continuous bijection
+$\widetilde e:\R/\Z\to S^1$. 
+\paragraph{Topology.}
+Every class has a representative in $[0,1]$,
+so the restriction of the canonical projection to $[0,1]$ is a continuous
+surjection. Thus $\R/\Z$ is compact. The circle is Hausdorff as a
+subspace of $\R^2$. The criterion proves
+\[
+\R/\Z\cong S^1.
+\]
+\paragraph{The finite interval model.}
+Restricting $e$ to $[0,1]$ gives exactly the endpoint relation $0\sim1$,
+with every other class a singleton. The same factorization and
+compact-to-Hausdorff argument give
+$[0,1]/(0\sim1)\cong S^1$. Joining endpoints is therefore a precise
+topological construction, illustrated in Figure~\ref{fig:circle-gluing}.
+The resulting circle has the local arc charts already used in Chapter~13;
+the whole closed interval is not one chart.
+\input{figures/circle-gluing}
+\FloatBarrier
+
+\Needspace{13\baselineskip}
+\subsection*{Collapsing the boundary of a disk}\label{sec:quotient-sphere}
+Closing an interval joins its two endpoints. In higher dimensions we can
+instead collapse the entire boundary to a single point.
+\begin{proposition}[Sphere as a disk quotient]
+For $n\geq1$, collapsing $\partial D^n$ to one class gives
+$D^n/\partial D^n\cong S^n$.
+\end{proposition}
+\begin{proof}
+Write $r=\|x\|$ and define the continuous map $f:D^n\to S^n$ by
+\[
+f(x)=\left(\frac{\sin(\pi r)}{r}x,\cos(\pi r)\right)\quad(r>0),
+\qquad f(0)=(0,\ldots,0,1).
+\]
+Continuity at zero follows from $\sin(\pi r)/r\to\pi$.
+The whole boundary maps to the south pole. For $0<r<1$ the last
+coordinate determines $r$ uniquely, and the first $n$ coordinates
+determine the direction of $x$. To see surjectivity explicitly, write a
+sphere point as $(u,t)$ with $\|u\|^2+t^2=1$. If $-1<t<1$, let
+$r=\arccos(t)/\pi\in(0,1)$ and $x=ru/\sin(\pi r)$. Since
+$\|u\|=\sin(\pi r)$, this has $\|x\|=r$ and $f(x)=(u,t)$.
+The north pole comes only from $x=0$; the south pole comes exactly from
+the boundary. Thus the fibers are precisely the prescribed classes. The universal property gives
+a continuous bijection $\widetilde f:D^n/\partial D^n\to S^n$.
+The domain is compact and the sphere Hausdorff, so it is a homeomorphism.
+\end{proof}
+Figure~\ref{fig:quotient-sphere} shows the two-dimensional case. This
+construction also explains the sphere's one $0$-cell and one $n$-cell
+in the optional CW discussion of \cref{sec:algebraic-topology-preview}.
+\input{figures/quotient-sphere}
+\FloatBarrier
+
+\Needspace{12\baselineskip}
+\section{The Torus as a Quotient}\label{sec:quotient-torus}
+The formal smooth torus of Chapter~13 is $T^2=S^1\times S^1$.
+\paragraph{Construction and fibers.}
+To identify the topology of the gluing model, define
+\[
+E(x,y)=\big((\cos2\pi x,\sin2\pi x),
+                 (\cos2\pi y,\sin2\pi y)\big).
+\]
+This map is continuous and onto. Equality of its first circle coordinates
+means the first parameters differ by an integer; equality of the second
+means the same for the second parameters. Its fibers are therefore exactly
+\[
+(x,y)\sim(x+m,y+n),\qquad (m,n)\in\Z^2.
+\]
+The universal property gives a continuous bijection
+$\widetilde E:\R^2/\Z^2\to S^1\times S^1$.
+\paragraph{Topology.}
+Every class has a representative in $[0,1]^2$, so the continuous image of
+this compact square is the whole quotient. The target is Hausdorff:
+if two pairs differ, disjoint neighborhoods in a differing factor,
+together with the entire other factor, separate them. Thus
+\cref{prop:quotient-compact-bijection} proves
+\[
+\R^2/\Z^2\cong S^1\times S^1.
+\]
+\paragraph{The square model.}
+On the square, the fibers of $E$ are precisely the equivalence relation
+generated by $(0,y)\sim(1,y)$ and $(x,0)\sim(x,1)$.
+In particular the four corners form one class. Descending the restricted
+map gives a continuous bijection from the compact square quotient to the
+same Hausdorff product, hence a homeomorphism. This formally justifies
+Figure~\ref{fig:torus-parameter-square}, including both stages of gluing.
+
+\input{figures/quotient-torus}
+\FloatBarrier
+
+\paragraph{Coordinate conventions.}
+The linear rescaling $(\theta,\varphi)\mapsto
+(\theta/(2\pi),\varphi/(2\pi))$ and its inverse respect the respective
+relations; both descend continuously by the universal property. Hence
+$\R^2/(2\pi\Z)^2\cong\R^2/\Z^2$.
+These homeomorphisms identify the topological models. The smooth structure
+is the product-circle structure already constructed in Chapter~13,
+transported through the homeomorphism if the quotient notation is used.
+No general smooth-quotient theorem is needed.
+
+\Needspace{13\baselineskip}
+\section{Cylinder and M\"obius Strip}\label{sec:quotient-bands}
+Gluing two edges leaves boundary; reversing that gluing changes the way
+in which the remaining edges join.
+\begin{definition}[Finite rectangle models]
+For $\sigma\in\{1,-1\}$, put
+\[
+Q_\sigma=([0,1]\times[-1,1])/{\sim},\qquad (0,t)\sim(1,\sigma t),
+\]
+with only the equivalence relation generated by these edge identifications.
+The \textbf{cylinder} is $Q_1$ and the \textbf{M\"obius strip} is $Q_{-1}$.
+Both have the quotient topology and are compact.
+\end{definition}
+\input{figures/quotient-mobius}
+\FloatBarrier
+
+For the cylinder, $(x,t)\mapsto(e(x),t)$ has exactly these fibers. The
+compact-to-Hausdorff criterion therefore identifies $Q_1$ with
+$S^1\times[-1,1]$.
+
+\subsection{An infinite strip for local coordinates}
+The finite rectangle shows the global gluing; an infinite strip lets a
+neighborhood continue across a seam without cutting its coordinates.
+\begin{construction}[Infinite strip model]
+Set $B=\R\times[-1,1]$ and define
+\[
+f_k(x,t)=(x+k,\sigma^k t),\qquad k\in\Z.
+\]
+These Euclidean isometries satisfy $f_kf_l=f_{k+l}$ and
+$f_k^{-1}=f_{-k}$. Declare $p\sim r$ when $p=f_k(r)$ for some $k$;
+the identities verify equivalence. Write $\widehat Q_\sigma=B/{\sim}$
+and $\pi:B\to\widehat Q_\sigma$ for its canonical projection.
+\end{construction}
+To compare the two models by compact-to-Hausdorff, we first establish
+Hausdorffness of the infinite model directly.
+\begin{lemma}[Distance between strip classes]\label{lem:band-metric}
+The formula
+\[
+d([p],[r])=\min_{k\in\Z}\|p-f_k(r)\|
+\]
+defines a metric on $\widehat Q_\sigma$.
+\end{lemma}
+\begin{proof}
+A bound on $\|p-f_k(r)\|$ bounds the horizontal displacement and hence
+allows only finitely many integers $k$. No $f_k$ with $k\ne0$ fixes a
+point, and $\|p-f_k(p)\|\geq |k|\geq1$. Thus
+\cref{prop:isometric-quotient-metric} applies. It also shows that this
+metric induces the quotient topology and that relative balls of radius
+less than $1/2$ project to quotient neighborhoods. In particular the
+quotient is Hausdorff.
+\end{proof}
+\begin{proposition}[The finite and infinite models agree]
+The rectangle inclusion induces a homeomorphism
+$Q_\sigma\cong\widehat Q_\sigma$.
+\end{proposition}
+\begin{proof}
+\emph{Construct the map.} Compose inclusion with $\pi$. It respects the
+edge relation because $f_1(0,t)=(1,\sigma t)$, so
+$\pi(0,t)=\pi(1,\sigma t)$. Constancy on these generating pairs implies
+constancy on every equivalence class. The quotient universal property
+therefore gives the continuous map $[x,t]\mapsto\pi(x,t)$.
+
+\emph{Check the fibers.} Reducing the first coordinate modulo integers gives
+a representative in the rectangle: for $x\in\R$ choose integer $k$
+with $x-k\in[0,1]$ and apply $f_{-k}$. If rectangle points satisfy
+$(x,t)=f_k(y,u)$, then $x-y=k$ with $x,y\in[0,1]$. Thus $k=0$ gives
+identical points, while $k=\pm1$ forces the paired endpoints $0,1$ and
+the specified sign change in the second coordinate. There are no other
+possibilities. These are exactly the finite-model fibers, proving bijectivity.
+
+\emph{Compare the topologies.} Its source is compact and its target is
+Hausdorff by \cref{lem:band-metric}. Apply
+\cref{prop:quotient-compact-bijection}.
+\end{proof}
+
+\subsection{Charts across seams and at boundary points}
+\begin{proposition}[Small strip neighborhoods are quotient charts]
+For $p\in B$ and $0<\rho<1/4$, let
+$D=B\cap B_{\R^2}(p,\rho)$. Then
+$\pi|_D:D\to\pi(D)$ is a homeomorphism onto an open quotient neighborhood.
+\end{proposition}
+\begin{proof}
+For $k\ne0$, the centers $p$ and $f_k(p)$ have horizontal separation
+at least $1$. If $z\in D\cap f_k(D)$, then
+\[
+1\leq\|p-f_k(p)\|\leq\|p-z\|+\|z-f_k(p)\|<2\rho<1,
+\]
+a contradiction. Apply \cref{lem:separated-quotient-neighborhood} to the
+relative ball and the maps $f_k$.
+\end{proof}
+At an interior point $p=(x_0,t_0)$ choose also $\rho<1-|t_0|$; $D$ is
+an ordinary disk. At $t_0=1$ use $(x-x_0,1-t)$, and at $t_0=-1$ use
+$(x-x_0,t+1)$; the image is an open half-disk relative to $v\geq0$.
+These points give genuine boundary charts.
+
+For a seam chart centered at $(0,t_0)$, let $D$ be such a relative disk.
+In the finite rectangle use precisely the pieces
+\[
+D_0=D\cap\{x\geq0\},\qquad D_1=f_1(D\cap\{x\leq0\}).
+\]
+The coordinate map into $D$ is
+\[
+\chi([x,t])=
+\begin{cases}(x,t),&(x,t)\in D_0,\\
+(x-1,\sigma t),&(x,t)\in D_1.
+\end{cases}
+\]
+At the identified edges $(0,t)\sim(1,\sigma t)$ both formulas give
+$(0,t)$. Thus the map is well defined; the small-disk proposition proves
+it is a homeomorphism. Interior seams assemble two half-disks into a disk;
+seam endpoints assemble two quarter-disks into a half-disk.
+\input{figures/quotient-seam}
+\FloatBarrier
+
+\paragraph{Smoothness and second countability.}
+On an overlap, lifts differ locally by one $f_k$; the integer is locally
+constant: disjoint translated small balls make the chosen lift unique
+on a neighborhood. It is constant on each connected overlap component
+by \cref{prop:clopen-locally-constant,def:connected-component}. Transitions, including the boundary coordinates, are locally
+affine and therefore smooth. Their maximal compatible atlas is the smooth
+structure. The projection is open by the saturation argument above.
+Second countability means having a countable topological basis
+(\cref{def:second-countable}). By
+\cref{ex:rational-basis,prop:second-countable-inheritance}, $B$ has a
+countable relative Euclidean basis. Its images form a countable
+basis: lift a point of an open quotient set and choose a basis element
+inside its inverse image. Both spaces are consequently Hausdorff,
+second countable smooth surfaces with boundary.
+
+\begin{proposition}[Boundary components]
+\[
+\partial Q_1\cong S^1\sqcup S^1,\qquad \partial Q_{-1}\cong S^1.
+\]
+\end{proposition}
+\begin{proof}
+The charts identify the boundary as the image of $t=\pm1$.
+For $\sigma=1$ the two levels remain separate; on each, parameters are
+identified modulo $\Z$, giving two circles. For $\sigma=-1$, every boundary
+class has a representative $(x,1)$, and two such representatives agree
+exactly when their parameters differ by an even integer. Thus the map
+$x\mapsto[x,1]$ descends to a continuous bijection
+$\R/(2\Z)\to\partial Q_{-1}$. Its source is compact and its target is
+Hausdorff, so it is a homeomorphism. Rescaling $x$ by $1/2$ identifies the
+source with $\R/\Z\cong S^1$.
+\end{proof}
+Following the top rectangle edge continues along the bottom edge before
+returning to the start, as traced in Figure~\ref{fig:mobius-gluing}.
+
+\Needspace{12\baselineskip}
+\section{The Klein Bottle}\label{sec:quotient-klein}
+\begin{definition}[Square model]
+With exactly the convention of Figure~\ref{fig:klein-gluing}, set
+\[
+K=[0,1]^2/{\sim},\qquad(0,y)\sim(1,y),\qquad(x,0)\sim(1-x,1).
+\]
+The equivalence relation is generated by these edge identifications.
+All four corners form one class, and $K$ is compact.
+\end{definition}
+\input{figures/quotient-klein}
+\FloatBarrier
+
+\subsection{The plane model and its topology}
+As for the strip, extending coordinates past the seams makes neighborhoods
+easier to construct. On $\R^2$ introduce the isometries
+\[
+G_{m,n}(x,y)=((-1)^n x+m,y+n),\qquad m,n\in\Z.
+\]
+They satisfy
+\[
+G_{m,n}G_{a,b}=G_{m+(-1)^na,n+b},\qquad
+G_{m,n}^{-1}=G_{-(-1)^nm,-n}.
+\]
+Their orbits are equivalence classes; denote the quotient by $\widehat K$
+and its projection by $\pi:\R^2\to\widehat K$.
+
+\begin{proposition}[Quotient metric and Hausdorffness]
+The formula
+\[
+d([p],[r])=\min_{m,n\in\Z}\|p-G_{m,n}(r)\|
+\]
+is a metric inducing the quotient topology on $\widehat K$.
+The square inclusion induces a homeomorphism $K\cong\widehat K$.
+\end{proposition}
+\begin{proof}
+\emph{Apply the common metric criterion.} A distance bound first bounds
+the vertical integer $n$ and then the horizontal integer $m$, so only
+finitely many pairs occur. For a nonidentity $G_{m,n}$, displacement is
+at least $1$: use the vertical coordinate if $n\ne0$, and the horizontal
+coordinate otherwise. The family therefore satisfies
+\cref{prop:isometric-quotient-metric}, proving the metric and topology
+claims and providing small quotient disks. No metric axioms need to be
+reconstructed for this model.
+
+\emph{Finite model.} Reduce $y$ and then $x$ to place any representative in
+the square. In the square the only duplications are the prescribed edges
+and corners: $G_{1,0}$ identifies vertical edges and $G_{1,1}$ identifies
+$(x,0)$ with $(1-x,1)$. Inclusion therefore descends to a continuous
+bijection from compact $K$ onto Hausdorff $\widehat K$, a homeomorphism.
+\end{proof}
+
+\Needspace{12\baselineskip}
+\subsection{Interior, edge, and corner neighborhoods}
+\begin{proposition}[Local Euclidean structure]
+Every point of $K$ has an ordinary open-disk neighborhood, including the
+single class represented by all four square corners.
+\end{proposition}
+\begin{proof}
+For $(m,n)\ne(0,0)$ the displacement of a point under $G_{m,n}$ is at
+least $1$: use the vertical displacement when $n\ne0$ and the horizontal
+one otherwise. A disk of radius $\rho<1/4$ therefore has disjoint translates.
+The triangle estimate in the strip proof shows the disk misses every
+nontrivial translate. By \cref{lem:separated-quotient-neighborhood}, its
+projection is a homeomorphism onto an open neighborhood.
+
+\emph{Interior.} A sufficiently small disk remains inside the square and
+already supplies the desired neighborhood.
+
+\emph{Edges.} A disk centered on an edge away from the corners has two
+half-disk pieces, represented at the paired edges. The edge rule fits
+them into the full disk, not a half-disk.
+
+\emph{Corner class.} Center the plane disk at $(0,0)$. Write its coordinates
+as $(u,v)$. Its four quadrant pieces have square representatives
+\[
+\begin{array}{c|c}
+\text{quadrant}&\text{representative in the square}\\\hline
+u\geq0,\ v\geq0&(u,v)\\
+u\leq0,\ v\geq0&(1+u,v)\\
+u\geq0,\ v\leq0&(1-u,1+v)\\
+u\leq0,\ v\leq0&(-u,1+v)
+\end{array}
+\]
+On the axes these choices agree as classes by the edge relations.
+Thus four quarter-disks assemble into one disk. There is no boundary
+or corner singularity.
+\end{proof}
+\input{figures/klein-corner}
+\FloatBarrier
+
+\paragraph{Smooth structure.}
+Lifted charts have transitions locally given by one $G_{m,n}$. These are
+affine maps and hence smooth; their maximal extension is a smooth atlas.
+\paragraph{Second countability.}
+Projection is open since saturations are unions of isometric translates.
+Images of the rational disks of \cref{ex:rational-basis} form a countable quotient basis,
+by the same lift-and-shrink argument as for the strip. This checks the
+remaining manifold hypothesis independently of the pictures.
+\paragraph{The three-dimensional picture.}
+The familiar bottle-like drawing in $\R^3$ self-intersects and is not an
+embedding. Its crossing represents distinct sheets, not an additional
+identification in $K$. The abstract compact smooth surface has the ordinary
+disk neighborhoods just proved.
+
+
+\section{Real Projective Space}\label{sec:projective-space}
+To record a direction without choosing a length or a sign, replace each
+nonzero vector by the line it spans. Ratios of coordinates will then give
+ordinary local coordinates on the resulting space.
+The proof architecture selectively follows the supplied smooth-manifolds
+notes~\cite{xuewang-manifold-notes}, with explicit quotient factorizations
+and chart inverses in the notation used here.
+\begin{definition}[Scaling quotient and homogeneous coordinates]
+For $n\geq0$, define
+\[
+\mathbb{RP}^n=(\R^{n+1}\setminus\{0\})/{\sim},\qquad
+x\sim y\ \Longleftrightarrow\ y=\lambda x\text{ for some }\lambda\ne0,
+\]
+with the quotient topology and canonical projection
+$\pi:\R^{n+1}\setminus\{0\}\to\mathbb{RP}^n$.
+Write $[x_0:\cdots:x_n]$ for the class of $x$.
+\end{definition}
+The scalars $1$, $\lambda^{-1}$, and products of nonzero scalars verify
+reflexivity, symmetry, and transitivity. Each class consists of the nonzero
+vectors in exactly one one-dimensional linear subspace of $\R^{n+1}$.
+Thus a projective point is a line through the origin.
+Homogeneous coordinates are not ordinary global coordinates: common
+nonzero rescaling describes the same projective point.
+
+\subsection{The antipodal sphere model}
+Every line meets $S^n$ in exactly two antipodal points. To identify the
+topologies, rather than just the sets, we use the universal property twice.
+\begin{proposition}[Scaling and antipodal quotients]
+There is a natural homeomorphism $\mathbb{RP}^n\cong S^n/(x\sim-x)$.
+\end{proposition}
+\begin{proof}
+Let $\pi_S:S^n\to S^n/{\pm1}$ be the antipodal projection and let
+$N(x)=x/\|x\|$. The continuous composite $\pi_S\circ N$ is unchanged
+by nonzero scaling, including negative scaling, so it induces a continuous
+map $\widetilde N:\mathbb{RP}^n\to S^n/{\pm1}$.
+The inclusion $\iota:S^n\to\R^{n+1}\setminus\{0\}$ followed by $\pi$
+is constant on antipodal pairs, so it induces a continuous map
+$\widetilde\iota:S^n/{\pm1}\to\mathbb{RP}^n$.
+Normalizing a unit vector changes nothing, and normalizing a nonzero
+vector leaves its line unchanged. Thus both composites are identities.
+\end{proof}
+\input{figures/projective-sphere}
+\FloatBarrier
+
+\paragraph{Example: the projective line is a circle.}
+For $n=1$, the map $(x,y)\mapsto(x^2-y^2,2xy)$ from $S^1$ onto $S^1$
+has exactly antipodal fibers (it doubles the angle). Its continuous factor
+is a bijection from a compact space to a Hausdorff space, proving
+$\mathbb{RP}^1\cong S^1$.
+
+\subsection{Affine patches and their coordinates}
+A line with $x_i\ne0$ meets the affine plane $x_i=1$ in exactly one point.
+The remaining coordinates of that intersection give the desired chart.
+\begin{definition}[Standard affine patches]
+For $i=0,\ldots,n$, define
+\[
+U_i=\{[x_0:\cdots:x_n]:x_i\ne0\},\qquad
+\varphi_i:U_i\to\R^n,\quad \varphi_i([x])=(x_j/x_i)_{j\ne i},
+\]
+with the retained indices in increasing order.
+\end{definition}
+\begin{proposition}[Affine charts]
+The $U_i$ are open, cover $\mathbb{RP}^n$, and each $\varphi_i$ is a
+homeomorphism onto $\R^n$.
+\end{proposition}
+\begin{proof}
+\emph{Domains and representative independence.}
+The preimage $\pi^{-1}(U_i)=\{x:x_i\ne0\}$ is open in
+$\R^{n+1}\setminus\{0\}$, so $U_i$ is open. Every nonzero vector has
+a nonzero coordinate, proving the cover assertion. Rescaling multiplies
+both numerator and denominator by the same nonzero scalar, so the ratios
+and their domains are independent of the representative.
+
+\emph{Continuity by descent.} On $\{x_i\ne0\}$ define the continuous
+ratio map $\gamma_i(x)=(x_j/x_i)_{j\ne i}$. The restriction of $\pi$
+over $U_i$ is quotient: a preimage open in this restricted source is open
+in the full source, since $\pi^{-1}(U_i)$ is open; the quotient criterion
+then applies. The universal property gives
+$\widetilde{\gamma_i}=\varphi_i$, proving continuity.
+
+\emph{Continuous inverse.} For $u=(u_j)_{j\ne i}\in\R^n$, let $s_i(u)$
+insert $1$ in position $i$, keeping all other entries in increasing index
+order. This is a continuous map into $\R^{n+1}\setminus\{0\}$, and
+\[
+\varphi_i^{-1}=\pi\circ s_i.
+\]
+Indeed, taking ratios of $s_i(u)$ returns $u$, while inserting $1$ into
+the ratios of $x$ returns $x/x_i$, representing the same line as $x$.
+This verifies both inverse identities and continuity of the inverse.
+\end{proof}
+
+\begin{example}[The first overlap]
+For $n\geq1$, if $\varphi_0([x])=(u_1,\ldots,u_n)$, then $U_0\cap U_1$
+corresponds to $u_1\ne0$. Dividing instead by $x_1$ gives
+\[
+\varphi_1\circ\varphi_0^{-1}(u_1,\ldots,u_n)
+=\left(\frac1{u_1},\frac{u_2}{u_1},\ldots,\frac{u_n}{u_1}\right).
+\]
+For $n=1$, only the first entry remains.
+\end{example}
+\paragraph{General transitions.}
+For $i\ne j$, the domain of $\varphi_j\circ\varphi_i^{-1}$ is
+$\{u:u_j\ne0\}$. Its output has indices $k\ne j$, in increasing order:
+\[
+v_i=1/u_j,\qquad v_k=u_k/u_j\quad(k\ne i,j).
+\]
+These rational maps are smooth where their denominators are nonzero;
+the inverse exchanges $i$ and $j$.
+
+\begin{proposition}[Hausdorffness from the antipodal metric]
+The space $\mathbb{RP}^n$ is Hausdorff.
+\end{proposition}
+\begin{proof}
+Apply \cref{prop:isometric-quotient-metric} to $Y=S^n$ and the two
+isometries $\operatorname{id}$ and $-\operatorname{id}$. The finiteness
+hypothesis is automatic, and $\|x-(-x)\|=2$. The metric
+\[
+d([x],[y])=\min\{\|x-y\|,\|x+y\|\}\qquad(x,y\in S^n)
+\]
+induces the antipodal quotient topology, already identified with the
+scaling quotient. Every metric space is Hausdorff.
+\end{proof}
+
+\paragraph{Second countability, compactness, and smooth structure.}
+Pull back the countable Euclidean basis of \cref{ex:rational-basis} in
+each of the $n+1$ open charts.
+Their finite union is countable and is a basis: intersect any open
+neighborhood with a chart containing its point and choose a basis member
+there. Thus the space is second countable. It is compact because the
+continuous map $S^n\to S^n/{\pm1}\cong\mathbb{RP}^n$ is onto and $S^n$
+is compact. The smooth transitions give an atlas; extending it maximally
+proves that $\mathbb{RP}^n$ is a compact smooth $n$-manifold without boundary.
+For $n=0$ the space is a point with a chart into $\R^0$.
+
+
+\Needspace{24\baselineskip}
+\begin{example}[The disk model of $\mathbb{RP}^2$]
+Every antipodal pair on $S^2$ has a representative in the closed upper
+hemisphere; the representative is unique in its interior, while equatorial
+points remain paired antipodally. Projection of the hemisphere onto its
+first two coordinates is a homeomorphism onto $D^2$, with inverse
+$u\mapsto(u,\sqrt{1-\|u\|^2})$. The induced map from the disk quotient
+to $\mathbb{RP}^2$ is a continuous bijection. Compactness of the disk
+quotient and the Hausdorff property just proved make it a homeomorphism.
+Thus $\mathbb{RP}^2$ identifies only antipodal boundary pairs, whereas
+$D^2/\partial D^2\cong S^2$ collapses the entire boundary to one point.
+\end{example}
+\input{figures/projective-disk}
+\FloatBarrier
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\begin{hexercise}{app-e-1}
+Show that $g(t)=(\cos 2\pi t,\sin 2\pi t)$ descends to $\R/\Z$.
+Explain separately why the descended map is well defined, continuous,
+and a homeomorphism.
+\end{hexercise}
+\begin{exercise}
+Descend $(x,t)\mapsto(e(x),t)$ from the rectangle to $Q_1$ and prove
+$Q_1\cong S^1\times[-1,1]$. Identify its two boundary components.
+\end{exercise}
+\begin{hexercise}{app-e-3}
+For $\sigma=-1$, write the seam chart centered at $[0,1/2]$ using a disk
+of radius $1/8$. State its two finite-rectangle domains and its inverse.
+Repeat at $[0,1]$, using half-disk coordinates.
+\end{hexercise}
+\begin{exercise}
+Trace the M\"obius boundary from $(0,1)$ through both horizontal edges.
+Write a parametrization with period $2$ and prove that its classes have
+no smaller positive period.
+\end{exercise}
+\begin{exercise}
+For $\mathbb{RP}^2$, compute $\varphi_1\varphi_0^{-1}(u_1,u_2)$,
+state its domain, and check its inverse explicitly.
+\end{exercise}
+\begin{hexercise}{app-e-6}
+Verify that $(x,y)\mapsto(x^2-y^2,2xy)$ on $S^1$ has exactly antipodal
+fibers and descends to a homeomorphism $\mathbb{RP}^1\to S^1$.
+\end{hexercise}

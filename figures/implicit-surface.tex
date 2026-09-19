@@ -1,0 +1,15 @@
+% Original vector figure for Version 3.9.0.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.65pt]
+\begin{scope}[x={(1cm,-.28cm)},y={(-.65cm,-.38cm)},z={(0cm,.8cm)}]
+\filldraw[fill=orange!15,draw=orange!70!black] (-1.2,-1.2,1)--(1.2,-1.2,1)--(1.2,1.2,1)--(-1.2,1.2,1)--cycle;
+\foreach \v in {-.9,-.45,0,.45,.9}{\draw[blue!70] plot[domain=-.9:.9,samples=30] (\x,\v,{1-.35*(\x*\x+\v*\v)});}
+\foreach \u in {-.9,-.45,0,.45,.9}{\draw[blue!70] plot[domain=-.9:.9,samples=30] (\u,\x,{1-.35*(\x*\x+\u*\u)});}
+\fill (0,0,1) circle(2pt) node[left] {$a$};
+\draw[->,red!80!black,thick] (0,0,1)--(0,0,2.6) node[above] {$\nabla f(a)$};
+\end{scope}
+\node[right,align=left] at (2.4,.2) {$f(x,y,z)=c$\\$T_a(f^{-1}(c))=\ker Df(a)$};
+\end{tikzpicture}
+\caption{The regular level surface has tangent direction space $\ker Df(a)$. Its affine tangent plane passes through $a$; the gradient is normal to it.}\label{fig:implicit-surface}
+\end{figure}

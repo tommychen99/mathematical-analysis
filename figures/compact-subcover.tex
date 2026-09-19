@@ -1,0 +1,16 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\draw[very thick] (0,0)--(6,0) node[right] {$K=[0,1]$};
+\foreach \x/\y in {0/.4,1/.65,2/.9,3/1.15,4/1.4,5/1.65,6/1.9}{
+\draw[gray,dashed] (\x-1.15,\y)--(\x+1.15,\y);}
+\foreach \x/\y in {0/.4,2/.9,4/1.4,6/1.9}{
+\draw[blue,very thick] (\x-1.15,\y)--(\x+1.15,\y);
+\draw[blue,fill=white] (\x-1.15,\y) circle (1.5pt) (\x+1.15,\y) circle (1.5pt);}
+\node[align=center] at (3,-.65) {blue intervals are retained members; gray intervals may be discarded};
+
+\end{tikzpicture}
+\caption{A finite subcover retains members of the original cover. The vertical offsets separate the intervals visually; all intervals live on the same horizontal line. This schematic illustrates one cover, whereas compactness controls every open cover.}
+\label{fig:compact-subcover}
+\end{figure}

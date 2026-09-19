@@ -1,0 +1,60 @@
+\chapter*{Notation and Conventions}
+\addcontentsline{toc}{chapter}{Notation and Conventions}
+\markboth{Notation and Conventions}{Notation and Conventions}
+\begingroup
+\small
+Most notation is introduced again when it first becomes mathematically
+relevant. The conventions collected here are those used repeatedly
+throughout the notes, especially where closely related meanings coexist.
+
+\paragraph{Numbers and maps.}
+We use $\N=\{1,2,3,\ldots\}$ and $\N_0=\N\cup\{0\}$.
+The symbols $\Z,\Q,\R,\C$ denote the integers, rationals, reals, and
+complex numbers. General maps usually use $f,g,h$; linear maps and
+operators use $T,S,L$. Charts and coordinate maps use $\varphi,\psi,\chi$,
+curves use $\gamma$, and surface parametrizations usually use $\sigma$.
+Conventional symbols such as a force field $F$ are retained.
+Composition is $(g\circ f)(x)=g(f(x))$; $f|_A$ is the
+restriction to $A$.
+
+\paragraph{Four related differential notations.}
+\[
+\begin{array}{c|l}
+Df(a)&\text{Euclidean/Fr\'echet derivative at }a\\
+(df)_p&\text{value of the exact scalar-function $1$-form at }p\\
+df_p:T_pM\to T_{f(p)}N&\text{intrinsic differential of a smooth map }f:M\to N\\
+d\omega&\text{exterior derivative of a differential form}
+\end{array}
+\]
+For a Euclidean scalar function, $(df)_p=Df(p)$ under the usual
+tangent-space identification. For a manifold scalar function, identify
+$T_{f(p)}\R$ with $\R$ to regard its differential as a covector.
+\[
+\boxed{\begin{gathered}
+D\text{ emphasizes Euclidean differentiation;}\\
+d\text{ is used for intrinsic differentials and forms.}
+\end{gathered}}
+\]
+\paragraph{Bases and their measurements.}
+A basis $e_1,\ldots,e_n$ has dual basis $e^1,\ldots,e^n$, with
+$e^i(e_j)=\delta^i_j$. The Kronecker delta $\delta^i_j$ is $1$ when
+$i=j$ and $0$ otherwise. In manifold coordinates the corresponding pair is
+\[
+\left.\frac{\partial}{\partial x^i}\right|_p,
+\qquad dx^i|_p.
+\]
+The first is a tangent direction; the second measures its $i$th coordinate.
+A topological basis, by contrast, is a family of open sets, not vectors.
+
+\paragraph{Sets and boundaries.}
+The symbols $\overline A$, $A^\circ$, and $\partial A$ denote closure,
+interior, and topological boundary in the stated ambient space, with
+$\partial A=\overline A\setminus A^\circ$. The intrinsic manifold boundary
+$\partial M$ is defined by half-space charts and need not equal the
+boundary of $M$ as a subset of an ambient Euclidean space. For example,
+a circle has empty intrinsic boundary, while its topological boundary in
+$\R^2$ is the entire circle. Context and the specified ambient space
+matter. The notation $\operatorname{supp}f$ or $\operatorname{supp}\omega$
+means the closure of the set where the function or form is nonzero.
+\par
+\endgroup

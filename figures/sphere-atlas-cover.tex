@@ -1,0 +1,18 @@
+% Original vector figure for Version 3.9.0.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.65pt]
+\foreach \shift/\lab in {0/{U_3^+},3.2/{U_3^-},6.4/{U_1^+}}{
+\begin{scope}[xshift=\shift cm]
+\draw (0,0) circle(1.15);
+\node[below] at (0,-1.4) {$\lab$};
+\end{scope}}
+\fill[blue!15] (1.15,0) arc(0:180:1.15)--cycle;
+\draw[blue,dashed] (-1.15,0)--(1.15,0);
+\fill[blue!15] (4.35,0) arc(0:-180:1.15)--cycle;
+\draw[blue,dashed] (2.05,0)--(4.35,0);
+\fill[orange!20] (6.4,1.15) arc(90:-90:1.15)--cycle;
+\draw[orange!80!black,dashed] (6.4,-1.15)--(6.4,1.15);
+\end{tikzpicture}
+\caption{Front-view silhouettes of three hemisphere domains; dashed great-circle boundaries are excluded. Upper and lower hemispheres miss the equator, so side hemispheres are needed too. The six domains $U_i^\pm$ cover the sphere and overlap.}\label{fig:sphere-atlas-cover}
+\end{figure}

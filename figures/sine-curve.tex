@@ -1,0 +1,16 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\draw[->,gray] (-.5,0)--(8.6,0) node[right] {$x$};
+\draw[->,gray] (0,-1.6)--(0,1.7) node[above] {$y$};
+\draw[red!70!black,very thick] (0,-1.2)--(0,1.2);
+\draw[blue,domain=.018:1,samples=2200] plot ({8*\x},{1.2*sin(180/pi/\x)});
+\node[anchor=west] at (2,1.65) {$y=\sin(1/x)$};
+\node[anchor=east] at (-.15,1.2) {$1$};\node[anchor=east] at (-.15,-1.2) {$-1$};
+\node[below] at (8,0) {$1$};
+
+\end{tikzpicture}
+\caption{The vertical segment belongs to the closure of the oscillating graph. The drawing truncates the oscillations near zero; the proof uses all of them. A path leaving the segment would have to attain both heights arbitrarily close to one time.}
+\label{fig:sine-curve}
+\end{figure}

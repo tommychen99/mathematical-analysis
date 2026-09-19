@@ -1,0 +1,567 @@
+\appendixchapter{Foundations: Natural Numbers, Induction, and Choice}
+\label{app:foundations}
+\chaptermark{Natural Numbers, Induction, and Choice}
+\section*{Introduction}
+Chapter~\ref{ch:foundations} uses natural numbers, induction, and finite
+recursive constructions directly. This optional appendix separates their
+logical roles and gives practical instruction in induction before turning to
+the genuinely different issue of choice. Throughout,
+\[
+\boxed{\N=\{1,2,3,\ldots\},\qquad 0\notin\N,\qquad \N_0=\N\cup\{0\}.}
+\]
+No particular set-theoretic realization of the natural numbers is needed.
+
+\section{The Natural Numbers and the Peano Axioms}
+The \textbf{Peano axioms} express the elementary structure of \(\N\). At
+this stage \(n+1\) denotes the successor of \(n\); the notation does not yet
+presuppose that the usual binary addition operation has already been defined.
+They assert:
+\begin{enumerate}
+\item \(1\in\N\);
+\item if \(n\in\N\), then \(n+1\in\N\);
+\item \(n+1\ne1\) for every \(n\in\N\);
+\item if \(m+1=n+1\), then \(m=n\);
+\item if \(A\subseteq\N\) satisfies
+\[
+1\in A
+\]
+and
+\[
+n\in A\Longrightarrow n+1\in A\qquad(n\in\N),
+\]
+then \(A=\N\).
+\end{enumerate}
+The final assertion is induction. We need neither model-theoretic
+qualifications nor a separate successor function for these analysis notes.
+
+\section{Addition, Induction, and Well-Ordering}
+\subsection*{Addition by recursion}
+The recursion principle permits a value at the next stage to be specified
+from values already constructed.
+\begin{theorem}[Recursion principle; stated without proof]
+\label{thm:natural-recursion}
+Let $X$ be a set, let $x_0\in X$, and let
+\[
+\Phi:\N_0\times X\longrightarrow X.
+\]
+There is a unique function $f:\N_0\to X$ such that
+\[
+f(0)=x_0,
+\qquad
+f(n+1)=\Phi(n,f(n))
+\quad(n\in\N_0).
+\]
+\end{theorem}
+
+Before using induction from zero, record the required form explicitly.
+\begin{proposition}[Induction on \(\N_0\)]
+\label{prop:n-zero-induction}
+If $P(0)$ holds and
+\[
+P(n)\Longrightarrow P(n+1)
+\qquad(n\in\N_0),
+\]
+then $P(n)$ holds for every $n\in\N_0$.
+\end{proposition}
+\begin{proof}
+Apply ordinary induction on \(\N\) to the assertion $Q(k)=P(k-1)$.
+Its base case is $P(0)$, and its induction step is exactly the displayed
+implication with $n=k-1$. Thus $P(n)$ holds for every $n\geq0$.
+\end{proof}
+
+For each fixed \(m\in\N_0\), apply recursion with $X=\N_0$, initial
+value $m$, and update rule $\Phi(n,x)=x+1$, where $+1$ still means
+successor. This produces the unique map $n\mapsto m+n$ satisfying
+\[
+m+0=m,
+\qquad
+m+(n+1)=(m+n)+1.
+\]
+The final \(+1\) on the right initially means taking the successor. Once
+this construction is made for every $m$, it defines a binary operation
+\[
++:\N_0\times\N_0\longrightarrow\N_0.
+\]
+The earlier successor notation is then compatible with ordinary addition.
+Induction now proves properties of the operation. For example, \(0+n=n\):
+it holds at \(n=0\), and
+\[
+0+(n+1)=(0+n)+1=n+1.
+\]
+Thus
+\[
+\boxed{\text{recursion defines;}\qquad\text{induction proves}.}
+\]
+
+\begin{proposition}[Elementary addition laws]
+For all $m,n,r\in\N_0$,
+\[
+0+n=n,
+\qquad
+m+0=m,
+\qquad
+(m+1)+n=(m+n)+1,
+\]
+and
+\[
+(m+n)+r=m+(n+r),
+\qquad
+m+n=n+m.
+\]
+\end{proposition}
+\begin{proof}
+The first identity was just proved; the second is part of the recursive
+definition. Fix $m$ and induct on $n$ for successor compatibility. At
+$n=0$, both sides equal $m+1$. If the identity holds at $n$, then
+\[
+(m+1)+(n+1)=((m+1)+n)+1=((m+n)+1)+1=(m+(n+1))+1.
+\]
+
+For associativity, fix $m,n$ and induct on $r$. The case $r=0$ is
+immediate. If the identity holds at $r$, then
+\[
+\begin{aligned}
+(m+n)+(r+1)
+&=((m+n)+r)+1\\
+&=(m+(n+r))+1\\
+&=m+(n+(r+1)).
+\end{aligned}
+\]
+Finally fix $m$ and induct on $n$ for commutativity. The case $n=0$
+uses $0+m=m=m+0$. If $m+n=n+m$, then successor compatibility gives
+\[
+m+(n+1)=(m+n)+1=(n+m)+1=(n+1)+m.
+\]
+Each proof uses the previously established law and does not smuggle the
+desired arithmetic into the recursion principle.
+\end{proof}
+
+Further arithmetic---multiplication, order, \(\Z\), and \(\Q\)---is
+developed in Chapter~\ref{ch:foundations} rather than duplicated here.
+
+\subsection*{How an induction proof works}
+To prove \(P(n)\) for every \(n\in\N\), organize the argument as
+\[
+\boxed{\text{state }P(n)\to\text{base case}\to\text{induction hypothesis}
+\to\text{prove }P(n+1)\to\text{conclude}.}
+\]
+The induction hypothesis is not an assumption that the theorem is already
+true. It is the temporary assumption that \(P(n)\) holds at one arbitrary
+stage \(n\), used to prove the next stage.
+
+\begin{example}[A finite-sum identity]
+For every \(n\in\N\),
+\[
+1+2+\cdots+n=\frac{n(n+1)}2.
+\]
+\textbf{Base case.} At \(n=1\), both sides equal \(1\).
+
+\textbf{Induction hypothesis.} Fix arbitrary \(n\in\N\) and suppose
+\[
+1+2+\cdots+n=\frac{n(n+1)}2.
+\]
+\textbf{Induction step.} Add the next term and use the hypothesis:
+\begin{align*}
+1+2+\cdots+n+(n+1)
+&=\frac{n(n+1)}2+(n+1)\\
+&=\frac{(n+1)(n+2)}2.
+\end{align*}
+\textbf{Conclusion.} By induction, the identity holds for every
+\(n\in\N\).
+\end{example}
+
+\begin{proposition}[Bernoulli's inequality]
+If \(x\in\R\) and \(x\geq-1\), then, for every \(n\in\N_0\),
+\[
+(1+x)^n\geq1+nx.
+\]
+\end{proposition}
+\begin{proof}
+The assertion is equality at \(n=0\). If it holds at \(n\), then
+\begin{align*}
+(1+x)^{n+1}
+&=(1+x)^n(1+x)\\
+&\geq(1+nx)(1+x)\\
+&=1+(n+1)x+nx^2\\
+&\geq1+(n+1)x.
+\end{align*}
+Here \(1+x\geq0\) justifies multiplying the induction inequality.
+\end{proof}
+
+\subsection*{Common variants}
+\paragraph{Shifted induction.}
+If \(P(n_0)\) holds and
+\[
+P(n)\Longrightarrow P(n+1)\qquad(n\geq n_0),
+\]
+then \(P(n)\) holds for every \(n\geq n_0\). This is ordinary induction
+with a shifted start and is useful when a statement is meaningful only after
+an initial index.
+
+\paragraph{Strong induction.}
+Suppose \(P(1)\) holds and, for every \(n\in\N\),
+\[
+P(1),P(2),\ldots,P(n)\Longrightarrow P(n+1).
+\]
+Then \(P(n)\) holds for every \(n\in\N\). This is not a stronger axiom.
+Define
+\[
+Q(n):\quad P(1),P(2),\ldots,P(n)\text{ all hold}.
+\]
+The initial case gives \(Q(1)\). If \(Q(n)\) holds, the strong-induction
+hypothesis gives \(P(n+1)\), hence \(Q(n+1)\). Ordinary induction proves
+every \(Q(n)\), and therefore every \(P(n)\). Thus
+\[
+\boxed{\text{when the next step needs more information, strengthen the induction statement}.}
+\]
+
+\begin{theorem}[Prime factorization: existence]
+Every integer \(n\geq2\) can be written as a product of primes.
+\end{theorem}
+\begin{proof}
+Use strong induction beginning at \(2\). The integer \(2\) is prime. Fix
+\(n\geq2\) and suppose every integer \(k\) with \(2\leq k\leq n\) is a
+product of primes. If \(n+1\) is prime, there is nothing to prove. If it is
+composite, then
+\[
+n+1=ab,
+\qquad
+2\leq a,b<n+1.
+\]
+The induction hypothesis applies to both smaller factors. Writing each as a
+product of primes and multiplying gives the required representation.
+\end{proof}
+Knowing the assertion only at \(n\) would not address the possibly much
+smaller factors \(a\) and \(b\), which is why strong induction is natural.
+
+\paragraph{Two-step induction.}
+If
+\[
+P(n_0),\qquad P(n_0+1)
+\]
+hold, and
+\[
+P(n)\text{ and }P(n+1)\Longrightarrow P(n+2)
+\qquad(n\geq n_0),
+\]
+then \(P(n)\) holds for every \(n\geq n_0\). Reduce this to ordinary
+induction by defining
+\[
+Q(n):\quad P(n)\text{ and }P(n+1).
+\]
+The two initial cases give \(Q(n_0)\), and the two-step hypothesis turns
+\(Q(n)\) into \(Q(n+1)\). This is convenient for recurrences depending on
+the previous two stages. The same idea extends to any fixed finite number of
+preceding stages.
+
+\subsection*{Binomial coefficients and the binomial theorem}
+Using the arithmetic developed in Chapter~\ref{ch:foundations}, define, for
+\(n\in\N_0\) and \(0\leq k\leq n\),
+\[
+\binom nk=\frac{n!}{k!(n-k)!},
+\qquad
+0!=1.
+\]
+Adopt the extended convention
+\[
+\boxed{\binom nk=0\qquad\text{if }k<0\text{ or }k>n.}
+\]
+In particular, \(n<k\) implies \(\binom nk=0\). This convention simplifies
+endpoint formulas and reindexing.
+
+\begin{proposition}[Pascal's identity]
+For \(n\in\N_0\) and every integer \(k\),
+\[
+\boxed{\binom n{k-1}+\binom nk=\binom{n+1}k.}
+\]
+\end{proposition}
+\begin{proof}
+For \(1\leq k\leq n\),
+\begin{align*}
+\binom n{k-1}+\binom nk
+&=\frac{n!}{(k-1)!(n-k+1)!}+\frac{n!}{k!(n-k)!}\\
+&=\frac{n!k+n!(n-k+1)}{k!(n-k+1)!}\\
+&=\frac{(n+1)!}{k!(n+1-k)!}\\
+&=\binom{n+1}k.
+\end{align*}
+At the endpoints and outside the range, the zero convention gives the same
+identity without separate formulas.
+\end{proof}
+
+\begin{theorem}[Binomial theorem]\label{thm:appendix-binomial}
+For \(x,y\in\R\) and \(n\in\N_0\),
+\[
+\boxed{(x+y)^n=\sum_{k=0}^{n}\binom nk x^{n-k}y^k.}
+\]
+\end{theorem}
+\begin{proof}
+The formula is immediate for \(n=0\). Assume it at \(n\). Multiply by
+\(x+y\), split the two resulting sums, reindex, and use Pascal's identity:
+\begin{align*}
+(x+y)^{n+1}
+&=\sum_{k=0}^{n}\binom nk x^{n+1-k}y^k
+ +\sum_{k=0}^{n}\binom nk x^{n-k}y^{k+1}\\
+&=\sum_{k=0}^{n+1}\binom nk x^{n+1-k}y^k
+ +\sum_{k=0}^{n+1}\binom n{k-1}x^{n+1-k}y^k\\
+&=\sum_{k=0}^{n+1}\left(\binom nk+\binom n{k-1}\right)
+ x^{n+1-k}y^k\\
+&=\sum_{k=0}^{n+1}\binom{n+1}k x^{n+1-k}y^k.
+\end{align*}
+Thus the mechanism is
+\[
+\text{multiply}\to\text{split}\to\text{reindex}\to\text{combine by Pascal}.
+\]
+\end{proof}
+The proof uses only commutativity and distributivity, so the same identity
+holds in any commutative ring. Ring theory is not needed for its use here.
+
+\subsection*{Natural-number well-ordering}
+\begin{proposition}[Well-ordering principle for \(\N\)]
+\label{prop:natural-well-order}
+Every nonempty subset of \(\N\) has a least element. In elementary
+arithmetic this principle is equivalent to induction.
+\end{proposition}
+\begin{proof}
+Assume induction and suppose \(E\subseteq\N\) has no least element. Prove
+by induction that \(E\cap\{1,\ldots,n\}\) is empty. It is empty for \(n=1\);
+if it is empty at \(n\), membership of \(n+1\) in \(E\) would make \(n+1\)
+least. Thus \(E\) is empty, a contradiction.
+
+Conversely, suppose a property holds at \(1\) and passes from \(n\) to
+\(n+1\). If the failures formed a nonempty set, its least element \(m\)
+could not be \(1\). Its predecessor \(m-1\) would satisfy the property,
+forcing it at \(m\), a contradiction.
+\end{proof}
+This concerns the usual, already specified order on \(\N\), not the
+Choice-equivalent Well-Ordering Theorem for arbitrary sets. This completes
+the natural-number discussion; further arithmetic belongs to Chapter~2.
+
+\section{The Axiom of Choice}
+Finite or recursively specified constructions supply a rule for each next
+step. Choice addresses a different problem: simultaneous selections from an
+arbitrary family when no rule has been supplied.
+\begin{definition}[Axiom of Choice]\label{def:axiom-choice}
+For every indexed family \((X_i)_{i\in I}\) of nonempty sets, there is a
+function
+\[
+c:I\longrightarrow\bigcup_{i\in I}X_i
+\]
+with \(c(i)\in X_i\) for every \(i\in I\).
+\end{definition}
+The sets need not be disjoint. A choice function for a finite family can be
+constructed by induction, and an explicit rule needs no choice axiom.
+Countable choice and dependent choice are weaker principles sufficient for
+many familiar analytic selections.
+
+\section{Choice, Zorn's Lemma, and Well-Ordering}
+Recall from Chapter~\ref{ch:foundations} that a partially ordered set, or
+poset, is a set $X$ equipped with a partial order $\leq$. Fix such a poset
+$(X,\leq)$ throughout the following definitions. Two elements need not be
+comparable; this is exactly why ``maximal'' and ``greatest'' differ.
+
+\begin{definition}[Chains and upper bounds]
+A subset $S\subseteq X$ is a \textbf{chain} if the restricted order is
+total: for every $s,t\in S$, either $s\leq t$ or $t\leq s$. An element
+$M\in X$ is an \textbf{upper bound} of $S$ if $s\leq M$ for every
+$s\in S$. The upper bound need not belong to $S$.
+\end{definition}
+The empty set is a chain. If $X$ is nonempty, every element of $X$
+vacuously upper-bounds it. This convention makes Zorn's statement uniform.
+
+\begin{definition}[Maximal and greatest elements]
+An element $x\in X$ is \textbf{maximal} if
+\[
+x\leq y\Longrightarrow y=x.
+\]
+An element $g\in X$ is \textbf{greatest} if
+\[
+x\leq g\qquad\text{for every }x\in X.
+\]
+\end{definition}
+In the inclusion poset $X=\{\{1\},\{2\}\}$, both elements are maximal,
+but neither is greatest because they are incomparable. If a poset is totally
+ordered, however, a maximal element is greatest: comparability gives either
+$x\leq g$ or $g\leq x$, and maximality of $g$ turns the second possibility
+into equality. A maximal or greatest element need not exist.
+
+\begin{theorem}[Zorn's Lemma]\label{thm:zorn}
+If a nonempty partially ordered set has an upper bound for every chain, then
+it has a maximal element.
+\end{theorem}
+\begin{theorem}[Well-Ordering Theorem]
+\label{thm:well-ordering-theorem}
+Every set admits a total order in which every nonempty subset has a least
+element.
+\end{theorem}
+
+We need a small amount of transfinite language to prove equivalence rather
+than merely announce it. A \textbf{well-order} is a total order in which
+every nonempty subset has a least element. Two well-ordered sets have the
+same \textbf{order type} if there is an order-preserving bijection between
+them. An \textbf{ordinal} is the canonical order type of a well-ordered set;
+its elements are precisely the earlier stages. At a successor stage one
+uses the preceding value, while at a limit stage one uses the entire family
+of earlier values.
+
+\begin{theorem}[Transfinite recursion; stated without proof]
+\label{thm:transfinite-recursion}
+Let $\alpha$ be an ordinal. If a typed rule assigns an element of a set $Y$
+to every function whose domain is an initial segment $\beta<\alpha$, then
+there is a unique function $f:\alpha\to Y$ whose value at each $\beta$ is
+the value prescribed from $f|_\beta$.
+\end{theorem}
+The construction is the same ``define from earlier stages'' mechanism as
+ordinary recursion. Existence is proved by taking the union of all compatible
+partial solutions; uniqueness follows by considering the first stage at which
+two proposed solutions differ.
+
+\begin{lemma}[Hartogs]
+\label{lem:hartogs}
+For every set $X$ there is an ordinal $h(X)$ for which no injection
+$h(X)\to X$ exists.
+\end{lemma}
+\begin{proof}
+Code a well-order on $A\subseteq X$ by the pair $(A,R)$, where
+\[
+R\subseteq A\times A\subseteq X\times X,\qquad
+(A,R)\in\mathcal P(X)\times\mathcal P(X\times X).
+\]
+The pairs that code well-orders therefore form a set. Replace each by its ordinal
+order type and let $\gamma$ be an ordinal strictly larger than every type
+that occurs, for example the successor of their supremum. If $\gamma$
+injected into $X$, its image, transported with the ordinal order, would be a
+well-ordered subset of $X$ of type $\gamma$, contradicting the construction.
+Take $h(X)=\gamma$.
+\end{proof}
+
+\begin{theorem}[Equivalence of choice principles]
+\label{thm:choice-equivalence}
+Over the usual axioms of set theory without choice,
+\[
+\boxed{
+\mathrm{AC}\Longleftrightarrow\text{Well-Ordering Theorem}
+\Longleftrightarrow\text{Zorn's Lemma}.}
+\]
+\end{theorem}
+\begin{proof}
+\textbf{AC $\Rightarrow$ Well-Ordering.}
+Fix a set $X$. AC supplies a choice function
+\[
+c:\mathcal P(X)\setminus\{\varnothing\}\longrightarrow X,
+\qquad c(A)\in A.
+\]
+To make stopping a typed recursion, adjoin a symbol $\dagger\notin X$
+and use $Y=X\cup\{\dagger\}$ as target. Once $\dagger$ has appeared,
+all later values are $\dagger$; when no unused point remains, the next
+value is $\dagger$. Otherwise use the choice rule below. This defines a
+rule on every initial history (ignore any $\dagger$ when forming its range).
+Use transfinite recursion through the Hartogs ordinal $h(X)$: at stage $\alpha$, if
+$X\setminus\{x_\beta:\beta<\alpha\}$ is nonempty, choose
+\[
+x_\alpha=c\bigl(X\setminus\{x_\beta:\beta<\alpha\}\bigr).
+\]
+If the process never exhausted $X$, the distinct values $x_\alpha$ would
+define an injection $h(X)\to X$, contrary to \cref{lem:hartogs}. Thus it
+has a first $\dagger$ stage $\lambda<h(X)$, and $\alpha\mapsto x_\alpha$ is a bijection
+from $\lambda$ onto $X$. Transport the ordinal order to $X$; this well-orders
+$X$.
+
+\textbf{Well-Ordering $\Rightarrow$ Zorn.}
+Let $P$ satisfy Zorn's hypotheses, and well-order its underlying set. Build
+a chain by transfinite recursion through $h(P)$, using a stop symbol
+$\dagger\notin P$ and target $P\cup\{\dagger\}$ as above. For any history
+that is not a strictly increasing chain, prescribe $\dagger$ as well;
+thus the rule is typed on every history. After selecting the chain
+$C_\alpha=\{x_\beta:\beta<\alpha\}$, choose the least element of the fixed
+well-order that is strictly above every member of $C_\alpha$, if such an
+element exists; otherwise stop. The selected elements are distinct and form
+a chain, so continuing without a stop would inject $h(P)$ into $P$,
+contrary to Hartogs's lemma.
+At the stopping stage let $C$ be the resulting chain. By hypothesis it has
+an upper bound $u$. If $u\notin C$, then $u$ is strictly above every member
+of $C$: upper-bound status gives $x\leq u$, distinctness gives $x\ne u$,
+and antisymmetry rules out $u\leq x$. This contradicts the stopping rule;
+hence $u\in C$. If $u<y$, then
+$y$ is strictly above every member of $C$, another contradiction. Therefore
+$u$ is maximal.
+
+\textbf{Zorn $\Rightarrow$ AC.}
+Let $(X_i)_{i\in I}$ be a family of nonempty sets. A partial choice function
+is a function
+\[
+f:J\longrightarrow\bigcup_{i\in I}X_i,
+\qquad J\subseteq I,
+\qquad f(i)\in X_i.
+\]
+Order partial choice functions by extension. This poset is nonempty because
+it contains the empty function. If $\mathcal C$ is a chain, then
+$f=\bigcup_{g\in\mathcal C}g$ is a function: two members that assign a value
+at the same index are comparable by extension and hence agree. It is again a
+partial choice function and upper-bounds the chain. Zorn gives a maximal
+partial choice function $f:J\to\bigcup_iX_i$. If $J\ne I$, choose one
+$i_0\in I\setminus J$ and one $x_0\in X_{i_0}$. Then
+$f\cup\{(i_0,x_0)\}$ is a larger partial choice function, a contradiction.
+Thus $J=I$ and $f$ is a choice function. Selecting a single element from
+the one already-given nonempty set $X_{i_0}$ in this contradiction does not
+invoke the Axiom of Choice; the axiom concerns simultaneous choices from an
+arbitrary family.
+\end{proof}
+
+The well-ordering principle for the already ordered set $\N$, proved in
+\cref{prop:natural-well-order}, is equivalent to ordinary induction in this
+elementary setting. It is not the Well-Ordering Theorem for arbitrary sets,
+which the preceding theorem shows to be equivalent to AC.
+
+\section{A Basis in Every Vector Space}
+Recall that spans use finite linear combinations, even in infinite dimensions.
+\begin{theorem}[Basis existence from Zorn's Lemma]\label{thm:zorn-basis}
+Every vector space over a field has a basis.
+\end{theorem}
+\begin{proof}
+Order the linearly independent subsets of \(V\) by inclusion. The poset is
+nonempty because it contains \(\varnothing\). For a nonempty chain
+\(\mathcal C\), let \(U=\bigcup_{E\in\mathcal C}E\). Every finite collection
+of vectors of \(U\) lies in one member of the chain, so \(U\) is independent
+and bounds the chain; the empty chain is bounded by \(\varnothing\). Zorn's
+Lemma gives a maximal independent set \(B\). If
+\(v\notin\operatorname{span}B\), then \(B\cup\{v\}\) is independent,
+contradicting maximality. Hence \(B\) spans and is a basis.
+\end{proof}
+
+\Needspace{10\baselineskip}
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\begin{hexercise}{app-a-1}
+For $a\in\R$, use recursion to define \(a^n\) for \(n\in\N_0\) and induction to prove
+\(a^{m+n}=a^ma^n\). Identify which part is a definition and which is a proof.
+\end{hexercise}
+\begin{exercise}
+Prove by ordinary induction that
+\[
+1+3+5+\cdots+(2n-1)=n^2.
+\]
+Mark the base case, induction hypothesis, and induction step.
+\end{exercise}
+\begin{hexercise}{app-a-3}
+Use strong induction to prove that every integer \(n\geq2\) is either prime
+or divisible by a prime. Explain why all smaller integers are useful.
+\end{hexercise}
+\begin{exercise}
+Let \(u_0=0\), \(u_1=1\), and \(u_{n+2}=u_{n+1}+u_n\). Use two-step
+induction to prove \(u_n<2^n\) for every \(n\geq1\).
+\end{exercise}
+\begin{exercise}
+Use Pascal's identity and the zero-outside-range convention to derive
+\[
+\sum_{k=0}^n\binom nk=2^n.
+\]
+State whether you invoke the binomial theorem or reprove this special case.
+\end{exercise}
+\begin{exercise}
+In the poset of proper subsets of \(\{1,2,3\}\), identify all maximal
+elements and explain why none is a greatest element.
+\end{exercise}
+\begin{hexercise}{app-a-7}
+Modify the basis-existence argument to prove that any linearly independent
+subset extends to a basis. State exactly where Zorn's Lemma is used.
+\end{hexercise}

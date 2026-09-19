@@ -1,4 +1,5 @@
 \chapter*{Preface}
+\markboth{Preface}{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 These notes are for students who know the main ideas of single-variable
 calculus and want to understand why its central statements are true.  They
@@ -16,8 +17,8 @@ topology and linear algebra needed for multivariable differentiation and
 Riemann integration, and ends with differential forms and the general Stokes
 theorem. Measure theory, Lebesgue integration, complex and functional
 analysis, partial differential equations, and deeper differential geometry
-are deliberately outside the scope; the final chapter points toward them as
-natural continuations.
+are outside the developed theory; Chapter~9 previews the Lebesgue FTC,
+and the final chapter describes further directions.
 
 \paragraph{AI-assisted preparation.}
 OpenAI Codex was used extensively in drafting, revising, proofreading, and
@@ -27,6 +28,7 @@ content, and is responsible for approving and verifying the correctness of
 the published version.
 
 \chapter*{How to Read These Notes}
+\markboth{How to Read These Notes}{How to Read These Notes}
 \addcontentsline{toc}{chapter}{How to Read These Notes}
 These notes start from familiar calculus questions but use a different
 standard of explanation: every formal assertion has hypotheses, and every
@@ -37,9 +39,95 @@ but not proof of a general assertion. Occasionally, an explicitly identified
 informal preview uses familiar notation to motivate a later formal
 development; such previews are not used as formal justification.
 
+\paragraph{Practice and hints.}
+Part~I gives explicit proof strategies, ordinary calculations, and a few
+applications that require translating words into mathematical assumptions.
+The scaffolding becomes lighter in Part~II as the reader gains proof
+maturity; its structural development expects greater independence.
+An asterisk \textsuperscript{*} after an exercise number indicates that
+a hint is available in Appendix~\ref{app:hints}; the symbol links directly
+to that hint, and the hint's exercise number links back. The asterisk means
+\emph{hint available}, not ``difficult exercise.'' Some theoretical exercises
+are deliberately left without hints because finding the idea is part of
+their purpose.
+
+\paragraph{Notation and reminders.}
+General functions and nonlinear maps use lowercase Latin letters; charts
+use lowercase Greek letters, curves use $\gamma$, and surface
+parametrizations usually use $\sigma$. Linear maps use capitals such as
+$T,S,L$. The Euclidean derivative is $Df(a)$; the intrinsic differential
+and exterior derivative are $df_p$ and $d\omega$. For a smooth Euclidean
+scalar function, $df$ denotes the exact $1$-form and $(df)_p=Df(p)$
+its value at $p$. Conventional symbols
+with a distinct role, such as the force or flux vector field $F$ and an
+antiderivative $F$ paired with its integrand $f$, are retained where they
+clarify that role. Less familiar structural notions reused after a gap
+receive a cross-reference; when central to the argument, they also receive
+a local reminder. Such reminders are selective rather than attached to
+every use of ordinary continuity or differentiation.
+
 The chapters are designed to be read in order. Exercises are part of the
 course: they supply routine practice, short proofs, counterexamples, and
 connections among the main results. A reader should attempt them after the
 relevant section, consulting the stated hypotheses and earlier results rather
-than relying on calculus folklore. The bibliography distinguishes the one
-substantial imported topological result from further-reading references.
+than relying on calculus folklore. Results stated without proof are identified where they occur. The
+bibliography also distinguishes the imported topological result from
+further-reading references. In particular, Chapter~9 states without proof
+the Lipschitz/a.e. and Lebesgue versions of the Fundamental Theorem of
+Calculus and the existence of the Cantor function. These previews clarify
+the limits of the Riemann theory but are not prerequisites for later chapters.
+The optional analytic Lagrange inversion result in Chapter~11 and the
+Lebesgue change-of-variables preview in Chapter~12 are likewise stated
+without proof. Section~13.17 contains additional explicitly unproved preview theorems,
+none used as a prerequisite. The main route through these chapters is local differential
+structure, primitive substitution with finite Euclidean localization, and
+then locally finite manifold localization in Chapter~13.
+
+
+Read a substantial proof twice with different aims. On the first pass,
+identify the problem, the main construction, and the purpose of each estimate.
+On the second, reconstruct the quantifiers and check where every hypothesis
+enters. Understanding a proof's architecture and reproducing all its details
+are related but distinct skills.
+
+In Chapter~\ref{ch:reals}, the construction of $\R$ proves that the
+system we use exists. Difficulty reproducing
+every equivalence-class verification should not block further study.
+Retain its working consequences: ordered-field structure, the Archimedean
+property, rational density, completeness, Cauchy convergence, and the
+least-upper-bound property. Return to the implementation as these ideas
+become familiar. In Part~II, watch these same tools reappear as norm estimates,
+compactness arguments, linear approximation, and local-to-global integration.
+
+Chapter~10 assumes no previous topology or linear algebra course. Its
+distance examples lead to open sets and metric continuity before abstract
+topology; its coordinate calculations lead to bases, direct sums, linear
+maps, and matrices. Appendices~\ref{app:foundations} and~\ref{app:categories}
+collect foundational and structural language occasionally useful throughout
+the notes. Appendices~\ref{app:determinants}--\ref{app:cohomology} develop
+optional algebraic, topological, differential-geometric, and cohomological
+extensions. None is intended to be read before Chapter~1, and none is a
+prerequisite for the main analysis-to-Stokes route unless explicitly stated.
+The hierarchy is foundational language, then categorical language, then
+optional mathematical extensions; it is not a compulsory reading order.
+
+Appendix~\ref{app:foundations} distinguishes induction, recursion, and choice.
+Appendix~\ref{app:categories} organizes constructions through maps and their
+compatibility. Appendix~\ref{app:determinants} develops determinants over a
+field; Appendix~\ref{app:tensors} gives a structural alternative to
+Chapter~13's concrete exterior algebra. Appendix~\ref{app:quotients}
+constructs manifolds by gluing. Appendix~\ref{app:submanifolds} connects
+the rank theorems to manifold geometry, and Appendix~\ref{app:lie} uses
+that framework for Lie groups. Appendix~\ref{app:cohomology} starts from
+forms and Stokes, preserves concrete computations, and then introduces
+the exact-sequence language connecting smooth analysis with topology.
+These are branching continuations, not one total dependency chain.
+Section~13.17 provides navigation, including differential topology,
+geometric topology, and geometric analysis; the appendices develop selected
+parts of that outlook.
+
+At the first serious use of a proof method, look for the actual map,
+sequence, or estimate being constructed. Later uses refer back to that
+mechanism. In particular, existence of a map is a different task from
+proving equality of two maps, and choosing a finite index is a different
+task from subsequently taking a limit.

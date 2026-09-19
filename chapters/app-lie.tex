@@ -1,0 +1,406 @@
+\appendixchapter{Lie Groups and Lie Algebras}
+\label{app:lie}
+\chaptermark{Lie Groups and Lie Algebras}
+\section*{Introduction}
+A translation, a rotation, or an invertible change of coordinates can be
+composed with another transformation of the same kind. These transformations
+also vary smoothly. A Lie group brings these two observations together:
+\[
+\boxed{\text{a Lie group is simultaneously a smooth manifold and a group}.}
+\]
+The compatibility of these structures transports a tangent vector at the
+identity to every point. Commutators of the resulting vector fields then
+encode infinitesimal noncommutativity in a finite-dimensional Lie algebra.
+This is a bridge from calculus to symmetry, not a development of
+representation theory or the classification of Lie groups.
+
+We use Appendix~\ref{app:submanifolds} and only the vector-field theory
+constructed below. Compare Tu~\cite[\S\S14--16]{tu-manifolds} with
+Lee~\cite[Chapters 7--8,20]{lee-smooth}. The matrix examples use regular
+level sets; the exponential is proved from its convergent series, avoiding
+the flow-existence machinery needed for a general Lie-group exponential.
+All Lie groups here are finite-dimensional real smooth manifolds without boundary.
+
+\section{Smooth Groups and Concrete Examples}
+The additive space $\R^n$ has smooth operations $(x,y)\mapsto x+y$ and
+$x\mapsto-x$. The circle has complex multiplication
+$(x+iy)(u+iv)=(xu-yv)+i(xv+yu)$ and inverse $x-iy$ on $x^2+y^2=1$.
+These are restrictions of polynomial maps, and their images lie in the
+circle. Finally invertible matrices form the open set
+\[
+GL_n(\R)=\{A\in M_n(\R):\det A\ne0\},
+\]
+because the determinant is a continuous polynomial.
+
+\begin{definition}[Lie group]
+A group is a set with an associative multiplication, an identity $e$, and
+an inverse for each element. A \textbf{Lie group} is a smooth manifold $G$
+with a group structure for which both maps
+\[
+m:G\times G\to G,\quad m(g,h)=gh,\qquad
+\iota:G\to G,\quad\iota(g)=g^{-1}
+\]
+are smooth. A \textbf{Lie-group homomorphism} is a smooth map preserving
+multiplication (and therefore identity and inverses).
+\end{definition}
+Thus $(\R^n,+)$ and $S^1$ are Lie groups. For $GL_n(\R)$ multiplication
+has entries $\sum_k a_{ik}b_{kj}$, and inversion has entries given by
+cofactors divided by $\det A$. They are smooth on the open set in question.
+Products of Lie groups use componentwise multiplication; in particular
+$T^2=S^1\times S^1$ is a Lie group with its main-text product structure.
+
+\begin{proposition}[Special linear and orthogonal groups]\label{prop:matrix-lie-groups}
+The sets $SL_n(\R)=(\det)^{-1}(\{1\})$, $O(n)=\{A:A^TA=I\}$, and
+$SO(n)=\{A\in O(n):\det A=1\}$ are embedded submanifolds of matrix
+space and Lie groups under matrix multiplication. Their dimensions are
+$n^2-1$, $n(n-1)/2$, and $n(n-1)/2$, respectively, for $n\geq1$.
+\end{proposition}
+\begin{proof}
+We first verify the rank hypotheses and then restrict the operations.
+Multilinearity of the determinant gives
+\[
+\det(I+tH)=1+t\sum_i h_{ii}+O(t^2),\qquad
+D(\det)(I)H=\operatorname{tr}H,
+\]
+where $\operatorname{tr}H=\sum_i h_{ii}$. Indeed the linear terms choose
+one column from $tH$ and all other columns from $I$; only that column's
+diagonal entry survives. Factoring $A+tH=A(I+tA^{-1}H)$ gives, for
+invertible $A$,
+\[
+D(\det)(A)H=\det A\,\operatorname{tr}(A^{-1}H).
+\]
+At determinant $1$, choosing $H=A/n$ makes this derivative $1$.
+The regular-level theorem therefore gives the stated dimension of $SL_n$.
+The orthogonal computation, including its symmetric-matrix target and
+surjectivity, is already proved in \cref{ex:orthogonal-level}.
+For $A\in O(n)$, $(\det A)^2=1$, so $SO(n)$ is the open subset
+$\{\det A>0\}$ of $O(n)$ and has the same local dimension.
+
+The determinant product law and $(AB)^T(AB)=B^TA^TAB$ show that these
+sets are groups; inverses remain in the same sets. The smooth operations
+of $GL_n$ restrict smoothly to them by the submanifold map test in
+Appendix~\ref{app:submanifolds}. This also justifies smoothness with the
+induced manifold structures, rather than merely with the ambient coordinates.
+\end{proof}
+We have proved these examples individually. No general closed-subgroup
+theorem is being assumed.
+
+\begin{proposition}[Group operations to first order]
+\label{prop:lie-first-order}
+Let $m:G\times G\to G$ be multiplication and $\iota:G\to G$ inversion.
+Under $T_{(e,e)}(G\times G)\cong T_eG\oplus T_eG$,
+\[
+dm_{(e,e)}(v,w)=v+w,\qquad d\iota_e(v)=-v.
+\]
+\end{proposition}
+\begin{proof}
+Restricting $m$ to either axis gives the identity: $m(g,e)=g=m(e,g)$.
+Thus its differential sends $(v,0)$ to $v$ and $(0,w)$ to $w$;
+linearity gives their sum. Differentiate $m(g,\iota(g))=e$ at $e$ to obtain
+$v+d\iota_e(v)=0$.
+\end{proof}
+To first order, every Lie group looks like its tangent vector space with
+ordinary addition. This linearization cannot detect noncommutativity.
+Transporting vectors by left translation and then taking commutators of
+the resulting fields supplies that extra infinitesimal information:
+\[
+\begin{gathered}
+\text{multiplication}\longrightarrow\text{linearization}
+\longrightarrow\text{left-invariant fields}\\
+\longrightarrow\text{commutator}\longrightarrow\text{Lie algebra}.
+\end{gathered}
+\]
+
+\section{Translation Turns One Tangent Space into Vector Fields}
+\label{sec:left-invariant-fields}
+For $g\in G$, left translation is $L_g(h)=gh$. It is smooth, and
+$L_{g^{-1}}$ is its smooth inverse. Hence
+\[
+T_eG\xrightarrow{\ d(L_g)_e\ }T_gG
+\]
+is a linear isomorphism. One tangent space supplies directions everywhere.
+
+A smooth vector field $X$ assigns $X_p\in T_pM$ with smooth coordinate
+components. It acts on smooth scalar functions by
+$Xf(p)=df_p(X_p)$. In a chart this is
+$Xf=\sum_i X^i\partial_i f$, so $Xf$ is smooth and obeys the product rule.
+\begin{definition}
+A vector field $X$ on $G$ is \textbf{left invariant} if
+$d(L_g)_hX_h=X_{gh}$ for all $g,h\in G$. Set $\mathfrak g=T_eG$.
+\end{definition}
+\begin{proposition}[Fields determined at the identity]\label{prop:left-invariant-identification}
+Evaluation at $e$ is a linear bijection between smooth left-invariant
+vector fields and $\mathfrak g$. Its inverse sends $v$ to the field
+$X^v_g=d(L_g)_e v$.
+\end{proposition}
+\begin{proof}
+Left invariance forces the formula, so it proves uniqueness. To check
+existence including smoothness, choose a smooth curve $\gamma$ with
+$\gamma(0)=e$, $\gamma'(0)=v$, using a coordinate line in a chart.
+For a local target coordinate $x^j$ near $g_0$, the component of $X^v_g$
+is
+\[
+\left.\frac{\partial}{\partial t}\right|_{t=0}x^j(g\gamma(t)).
+\]
+For $g$ near $g_0$ and sufficiently small $t$ the expression is defined
+and smooth jointly in $(g,t)$, because multiplication is smooth. Its
+$t$-derivative is smooth in $g$. Thus the field is smooth. The chain rule
+and $L_g\circ L_h=L_{gh}$ give
+\[
+d(L_g)_hX^v_h=d(L_g)_h d(L_h)_e v=d(L_{gh})_e v=X^v_{gh}.
+\]
+Finally $X^v_e=v$, and linearity follows from that of each differential.
+\end{proof}
+For a matrix group the transported field is $X^A_g=gA$. For the additive
+group it is the constant field $X^v_x=v$. These formulas are concrete
+realizations of the same transport mechanism.
+
+\section{The Bracket and the Lie Algebra}
+Composition of vector fields acting on functions generally has second
+derivatives. Subtracting the reverse composition cancels them, leaving a
+first-order operation and hence another vector field.
+\begin{proposition}[Vector-field commutator]\label{prop:vector-field-bracket}
+For smooth vector fields $X,Y$, the rule
+\[
+[X,Y]f=X(Yf)-Y(Xf)
+\]
+defines a smooth vector field, with chart components
+\[
+[X,Y]^j=\sum_i\bigl(X^i\partial_iY^j-Y^i\partial_iX^j\bigr).
+\]
+The bracket is bilinear, antisymmetric, and satisfies the Jacobi identity
+$[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$.
+\end{proposition}
+\begin{proof}
+Expanding the first composition gives
+\[
+X(Yf)=\sum_{i,j}X^i(\partial_iY^j)\partial_jf
++\sum_{i,j}X^iY^j\partial_i\partial_jf.
+\]
+Interchange $X,Y$ in the second composition. Reindex $i,j$ and use equality
+of mixed partials to cancel the second-derivative terms. The remaining
+coefficient is the stated smooth vector field. This construction is
+intrinsic because its action on every local scalar function is intrinsic;
+coordinate functions determine each tangent vector. Bilinearity and
+antisymmetry follow from the subtraction. For Jacobi, the three expansions
+as operators are
+\[
+\begin{aligned}
+[X,[Y,Z]]&=XYZ-XZY-YZX+ZYX,\\
+[Y,[Z,X]]&=YZX-YXZ-ZXY+XZY,\\
+[Z,[X,Y]]&=ZXY-ZYX-XYZ+YXZ.
+\end{aligned}
+\]
+Every term cancels with its opposite; evaluation on local coordinates
+then gives the zero vector field.
+\end{proof}
+If $h:M\to N$ is a diffeomorphism, define
+$(h_*X)_{h(p)}=dh_pX_p$. The chain rule gives
+$((h_*X)f)\circ h=X(f\circ h)$. Applying this identity twice and
+subtracting proves
+\[
+h_*[X,Y]=[h_*X,h_*Y].
+\]
+In particular the bracket of left-invariant fields is left invariant:
+take $h=L_g$ and use the defining invariances.
+
+\begin{definition}[Lie algebra of a Lie group]
+A real \textbf{Lie algebra} is a real vector space with a bilinear
+antisymmetric bracket satisfying the Jacobi identity. On $\mathfrak g=T_eG$
+define
+\[
+[v,w]_{\mathfrak g}=[X^v,X^w]_e.
+\]
+\end{definition}
+By \cref{prop:left-invariant-identification}, the left-invariant extension
+of this bracket is $[X^v,X^w]$. Thus all three identities pass from vector
+fields to $\mathfrak g$, proving that this definition gives a Lie algebra.
+Its underlying vector space has dimension $\dim G$.
+
+\begin{proposition}[Matrix Lie algebras]\label{prop:matrix-lie-algebras}
+With tangent spaces identified in matrix space,
+\[
+\begin{aligned}
+\mathfrak{gl}_n&=M_n(\R),\\
+\mathfrak{sl}_n&=\{A:\operatorname{tr}A=0\},\\
+\mathfrak{so}(n)&=\{A:A^T=-A\}.
+\end{aligned}
+\]
+Both $O(n)$ and $SO(n)$ have the last tangent space at $I$.
+For these matrix groups the bracket is $[A,B]=AB-BA$.
+\end{proposition}
+\begin{proof}
+The first group is open. For $SL_n$, use the kernel of
+$D(\det)(I)H=\operatorname{tr}H$. For $O(n)$ use the kernel of
+$H\mapsto H+H^T$; the open subset $SO(n)$ has the same tangent space.
+For the bracket, the left-invariant fields are $X^A(g)=gA$ and
+$X^B(g)=gB$. The derivatives of these ambient linear expressions are
+$H\mapsto HA$ and $H\mapsto HB$. The coordinate bracket formula gives
+\[
+[X^A,X^B](g)=(gA)B-(gB)A=g(AB-BA).
+\]
+The calculation is also valid after restriction to an embedded matrix
+group: on every ambient matrix coordinate the restricted fields act by
+the same derivative, and these coordinates determine the included tangent
+vector. Evaluation at $I$ proves the claim. Closure can also be checked
+directly: $\operatorname{tr}(AB)=\operatorname{tr}(BA)$ by interchanging
+the two summation indices, and for skew $A,B$,
+$(AB-BA)^T=BA-AB$.
+\end{proof}
+
+\begin{example}[A nonzero bracket]\label{ex:nonzero-lie-bracket}
+In $\mathfrak{sl}_2$, take
+\[
+H=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+E=\begin{pmatrix}0&1\\0&0\end{pmatrix}.
+\]
+Then $HE=E$ and $EH=-E$, so the bracket from
+\cref{prop:matrix-lie-algebras} is $[H,E]=2E\ne0$.
+Equivalently the left-invariant fields satisfy
+$[X^H,X^E](g)=2gE$: their commutator, as defined in
+\cref{prop:vector-field-bracket}, need not vanish.
+\end{example}
+
+\begin{remark}[The principal examples together]
+The tangent descriptions above give the following comparison. The circle
+and torus use their usual angle coordinates at the identity.
+\[
+\begin{array}{c|c|c}
+G&T_eG&\text{bracket}\\\hline
+(\R^n,+)&\R^n&0\\
+S^1&\R&0\\
+T^n&\R^n&0\\
+GL_n(\R)&M_n(\R)&AB-BA\\
+SL_n(\R)&\{A:\operatorname{tr}A=0\}&AB-BA\\
+O(n)&\{A:A^T=-A\}&AB-BA\\
+SO(n)&\{A:A^T=-A\}&AB-BA
+\end{array}
+\]
+For the additive group the invariant fields are constant, so their bracket
+vanishes. Angle coordinates give the same local calculation for circles
+and tori. Equal Lie algebras need not mean equal global groups.
+\end{remark}
+
+\section{Matrix Exponentials and One-Parameter Subgroups}
+\label{sec:matrix-exponential}
+A tangent matrix describes initial velocity. Its exponential integrates
+that velocity into a family of transformations. We can prove this directly
+for matrices with the convergence tools already available.
+\begin{definition}
+For $A\in M_n(\R)$ set
+\[
+\exp(A)=\sum_{k=0}^{\infty}\frac{A^k}{k!},\qquad A^0=I.
+\]
+The notation $e^A$ is a standard alternative for this series-defined
+matrix exponential; it is not an application of real-power laws to matrices.
+A \textbf{one-parameter subgroup} of a Lie group $G$ is a smooth map
+$\gamma:\R\to G$ with $\gamma(t+s)=\gamma(t)\gamma(s)$.
+\end{definition}
+\begin{proposition}[The exponential laws needed here]
+The series converges, and $\gamma(t)=\exp(tA)$ is smooth with
+\[
+\begin{aligned}
+\gamma(0)&=I,& \gamma'(t)&=A\exp(tA)=\exp(tA)A,\\
+\exp(tA)\exp(sA)&=\exp((t+s)A),&
+\exp(tA)^{-1}&=\exp(-tA).
+\end{aligned}
+\]
+Every one-parameter subgroup of $GL_n(\R)$ has this form, with
+$A=\gamma'(0)$.
+\end{proposition}
+\begin{proof}
+Use an operator norm, so $\|A^k\|\leq\|A\|^k$. The scalar exponential
+series gives absolute convergence and uniform convergence for bounded $t$.
+For each derivative order the differentiated series is bounded on compact
+$t$-intervals by a constant times an exponential series. The termwise
+differentiation theorem therefore gives smoothness and the derivative
+formula. For the product, absolute convergence permits the Cauchy product:
+\[
+\begin{aligned}
+\exp(tA)\exp(sA)
+&=\sum_{m=0}^{\infty}\left(\sum_{k=0}^m
+\frac{t^ks^{m-k}}{k!(m-k)!}\right)A^m\\
+&=\sum_{m=0}^{\infty}\frac{(t+s)^mA^m}{m!}.
+\end{aligned}
+\]
+Taking $s=-t$ proves invertibility. Conversely differentiate
+$\gamma(t+s)=\gamma(t)\gamma(s)$ in $s$ at zero to get
+$\gamma'(t)=\gamma(t)A$. The product rule gives
+$(\gamma(t)\exp(-tA))'=0$, hence $\gamma(t)\exp(-tA)=I$ by its value at zero.
+This proves the converse without an ODE existence theorem.
+\end{proof}
+The same exponential law is not asserted for $\exp(A)\exp(B)$ with arbitrary
+noncommuting $A,B$.
+
+\begin{proposition}[Exponentiating the displayed Lie algebras]
+If $\operatorname{tr}A=0$, then $\exp(tA)\in SL_n(\R)$. If $A^T=-A$,
+then $\exp(tA)\in SO(n)$. Thus the exponential supplies one-parameter
+subgroups with every initial tangent vector for the matrix groups above.
+\end{proposition}
+\begin{proof}
+Set $u(t)=\det(\exp(tA))$. The determinant derivative and the preceding
+proposition give $u'(t)=u(t)\operatorname{tr}A$, $u(0)=1$.
+Differentiating $e^{-t\operatorname{tr}A}u(t)$ proves
+$u(t)=e^{t\operatorname{tr}A}$. For skew $A$, transposing the series gives
+$(\exp(tA))^T=\exp(-tA)$, so the matrix is orthogonal. Its determinant is $1$,
+either by the trace formula or by continuity from $t=0$ into $\{1,-1\}$.
+\end{proof}
+\begin{example}[The whole computation for $SO(2)$]
+Every skew $2$ by $2$ matrix is $A=\theta J$, where
+\[
+J=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad J^2=-I.
+\]
+Separate the even and odd powers in the absolutely convergent series:
+\[
+\exp(\theta J)=\cos\theta\,I+\sin\theta\,J
+=\begin{pmatrix}\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta\end{pmatrix}.
+\]
+The one-parameter subgroup $t\mapsto \exp(t\theta J)$ rotates at constant
+angular speed $\theta$. Acting on $(1,0)$ traces the unit circle;
+the initial velocity is $\theta J(1,0)=(0,\theta)$, its tangent vector
+at that point. More generally $J(\cos t,\sin t)=(-\sin t,\cos t)$
+is the counterclockwise unit tangent. Thus the matrix generator, circle
+tangent, and exponential describe the same motion. Here $\mathfrak{so}(2)=\R J$ has zero bracket,
+and exponentiation repeats after $2\pi J$. Infinitesimal data do not by
+themselves distinguish the additive line from the circle's periodic global
+geometry. For general Lie groups an exponential is constructed by integral
+curves of left-invariant fields; that existence theory is beyond this appendix.
+\end{example}
+
+\par\Needspace{12\baselineskip}
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\begin{hexercise}{app-g-1}
+Check the group and smoothness axioms for $S^1$ using real coordinates.
+Identify $T_{(1,0)}S^1$ and its left-invariant fields.
+\end{hexercise}
+\begin{hexercise}{app-g-2}
+Compute $T_ASL_n$ and $T_AO(n)$ at a general point and show they are
+obtained from their identity tangent spaces by $H\mapsto AH$.
+\end{hexercise}
+\begin{hexercise}{app-g-3}
+For $X=x\partial_y$ and $Y=y\partial_x$ on $\R^2$, compute $[X,Y]$.
+Verify its action directly on $x$, $y$, and $xy$.
+\end{hexercise}
+\begin{hexercise}{app-g-4}
+In $\mathfrak{sl}_2$, put $H=\operatorname{diag}(1,-1)$,
+$E=\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$, and
+$F=\left(\begin{smallmatrix}0&0\\1&0\end{smallmatrix}\right)$.
+Compute all pairwise brackets and verify one Jacobi identity directly.
+\end{hexercise}
+\begin{hexercise}{app-g-5}
+Compute $\exp(tA)$ for a diagonal matrix and for
+$A=\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$.
+Check the subgroup law and the initial velocity in each case.
+\end{hexercise}
+\begin{hexercise}{app-g-6}
+Show that a smooth homomorphism $\gamma:\R\to S^1$ has the form
+$\gamma(t)=(\cos at,\sin at)$ by embedding the circle as $SO(2)$ and
+using the one-parameter subgroup proposition.
+\end{hexercise}
+\begin{exercise}
+Show that $O(n)$ and $SO(n)$ have identical Lie algebras although they
+are different groups for $n\geq1$. Identify explicitly which global
+information their tangent spaces at the identity fail to record.
+\end{exercise}

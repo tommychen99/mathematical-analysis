@@ -1,0 +1,21 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\draw[->,gray] (-2.8,-1.7)--(3,-1.7) node[right] {$X$};
+\draw[->,gray] (-2.8,-1.7)--(-2.8,1.8) node[above] {$Y$};
+\filldraw[fill=blue!5,draw=blue!65!black,dashed]
+(-2,-.8) .. controls (-2.6,.6) and (-1.3,1.6) .. (-.3,1.3)
+.. controls (1,1.9) and (2.5,.8) .. (2.1,-.3)
+.. controls (1.7,-1.3) and (-.7,-1.4) .. cycle;
+\filldraw[fill=blue!18,draw=blue!80!black,dashed] (-.8,-.6) rectangle (.9,.7);
+\fill (0,0) circle (2pt) node[above right] {$(x,y)$};
+\node at (1.65,.8) {$G$};
+\node[below] at (.05,-.6) {$U\times V$};
+\draw[blue,thick] (-.8,-1.7)--(.9,-1.7) node[midway,below] {$U$};
+\draw[blue,thick] (-2.8,-.6)--(-2.8,.7) node[midway,left] {$V$};
+\end{tikzpicture}
+\caption{The local basis test: $(x,y)\in U\times V\subseteq G$.
+The planar drawing illustrates a product-open neighborhood; in general
+the factors need not be Euclidean spaces. Dashed edges are excluded.}
+\label{fig:product-basis}
+\end{figure}

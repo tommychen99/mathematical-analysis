@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\foreach \cx in {0,4.6}{\fill[gray!6] (\cx,0) circle(1);}
+\draw[blue!75!black,very thick] (0,0) circle(1);
+\foreach \a in {0,45,...,315}{\fill[blue!75!black] ({cos(\a)},{sin(\a)}) circle(.055);}
+\node[above,align=center] at (0,1.2) {$S^2$: collapse\\the entire boundary};
+\node[below,align=center] at (0,-1.2) {all marked points\\form one class};
+\draw[very thick] (4.6,0) circle(1);
+\foreach \a in {30,210}{\fill[blue!75!black] ({4.6+cos(\a)},{sin(\a)}) circle(.065);}
+\foreach \a in {110,290}{\draw[red!75!black,thick,fill=white] ({4.6+cos(\a)-.065},{sin(\a)-.065}) rectangle ++(.13,.13);}
+\draw[dotted,blue!75!black] ({4.6+cos(30)},{sin(30)})--({4.6-cos(30)},{-sin(30)});
+\draw[dotted,red!75!black] ({4.6+cos(110)},{sin(110)})--({4.6-cos(110)},{-sin(110)});
+\node[above,align=center] at (4.6,1.2) {$\mathbb{RP}^2$: pair only\\antipodal boundary points};
+\node[below,align=center] at (4.6,-1.2) {each marker shape\\is a separate pair};
+\end{tikzpicture}
+\caption{Two different disk quotients. For the sphere, all of $\partial D^2$
+collapses together. For the projective plane, $u\sim-u$ only on the
+boundary; interior points stay distinct. Dotted chords indicate pairings,
+not curves collapsed in the disk.}
+\label{fig:projective-disk}
+\end{figure}

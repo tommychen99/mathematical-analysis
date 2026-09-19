@@ -1,0 +1,28 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node at (1,1.5) {interval};
+\draw[thick] (0,0)--(2,0);
+\fill[purple!80!black] (0,0) circle(.065) node[below,text=black] {$0$};
+\fill[purple!80!black] (2,0) circle(.065) node[below,text=black] {$1$};
+\draw[->,thick] (2.5,0)--(3.2,0);
+\begin{scope}[shift={(4.4,0)}]
+\node at (0,1.5) {bend; join endpoints};
+\draw[thick] (30:.85) arc(30:330:.85);
+\foreach \a in {30,330}{\fill[purple!80!black] (\a:.85) circle(.065);}
+\draw[->,purple!80!black] (.85,.4)--(.85,.08);
+\draw[->,purple!80!black] (.85,-.4)--(.85,-.08);
+\end{scope}
+\draw[->,thick] (5.65,0)--(6.35,0);
+\begin{scope}[shift={(7.6,0)}]
+\node at (0,1.5) {circle};
+\draw[thick] (0,0) circle(.85);
+\fill[purple!80!black] (.85,0) circle(.065) node[right,text=black] {$[0]=[1]$};
+\end{scope}
+\end{tikzpicture}
+\caption{Joining the interval's two purple endpoints gives one circle
+point. A neighborhood of that point joins short intervals near both
+endpoints. This explains the seam without mistaking the whole closed
+interval for a single circle chart.}
+\label{fig:circle-gluing}
+\end{figure}

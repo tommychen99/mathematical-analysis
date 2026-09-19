@@ -1,0 +1,84 @@
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.7pt]
+\begin{scope}[shift={(0,9)}]
+\node at (1,2.5) {1. One pair reversed};
+\fill[gray!6] (0,0) rectangle(2,2);
+\draw[red!75!black,very thick,->] (0,0)--(0,2);
+\draw[red!75!black,very thick,->] (2,0)--(2,2);
+\draw[blue!75!black,very thick,->] (0,0)--(2,0);
+\draw[blue!75!black,very thick,->] (2,2)--(0,2);
+\node[below] at (1,0) {$x$};\node[left] at (0,1) {$y$};
+\end{scope}
+\draw[->,thick] (2.8,10)--(4,10) node[midway,above,align=center] {glue\\red};
+\begin{scope}[shift={(6,9)}]
+\node at (0,2.5) {2. Cylinder};
+\fill[gray!8] (-.85,0) rectangle(.85,2);
+\draw (-.85,0)--(-.85,2) (.85,0)--(.85,2);
+\foreach \h in {0,2}{\draw[blue!75!black,thick] (0,\h) ellipse(.85 and .3);}
+\draw[blue!75!black,very thick,->] plot[domain=190:340,samples=25] ({.85*cos(\x)},{.3*sin(\x)});
+\draw[blue!75!black,very thick,->] plot[domain=340:190,samples=25] ({.85*cos(\x)},{2+.3*sin(\x)});
+\draw[red!75!black,very thick,->] (0,.3)--(0,2.3);
+\node[right] at (1,0) {$y=0$};\node[right] at (1,2) {$y=1$};
+\end{scope}
+\draw[->,thick] (8.1,8.6)--(8.1,8)--(1,8)--(1,7.5);
+\node[fill=white] at (4.4,8) {bend the tube; leave the blue ends open};
+\node at (1,7.1) {3. Bent cylinder};
+\begin{scope}[shift={(1,5.65)},x={(.8cm,-.1cm)},y={(.28cm,.43cm)},z={(0cm,.8cm)}]
+\foreach \v in {0,60,...,300}{\draw[gray!55] plot[domain=35:325,samples=60] ({(1.45+.4*cos(\v))*cos(\x)},{(1.45+.4*cos(\v))*sin(\x)},{.4*sin(\v)});}
+\foreach \u in {35,70,...,315}{\draw[gray!40] plot[domain=0:360,samples=35] ({(1.45+.4*cos(\x))*cos(\u)},{(1.45+.4*cos(\x))*sin(\u)},{.4*sin(\x)});}
+\draw[red!75!black,very thick,->] plot[domain=35:325,samples=60] ({1.85*cos(\x)},{1.85*sin(\x)},0);
+\foreach \u/\endang in {35/345,325/-345}{
+\draw[blue!75!black,very thick,->] plot[domain=0:\endang,samples=50] ({(1.45+.4*cos(\x))*cos(\u)},{(1.45+.4*cos(\x))*sin(\u)},{.4*sin(\x)});}
+\end{scope}
+\node[below,align=center] at (1,4.7) {two boundary circles remain separate};
+\draw[->,thick] (3.05,5.65)--(4.25,5.65);
+\node[above,align=center] at (3.65,5.7) {move\\end};
+\begin{scope}[shift={(5.7,4.8)},scale=.65]
+\node at (.4,3.5) {4. Move the narrow end inward};
+\input{figures/klein-bottle-outline}
+% Open the lower silhouette and retain two separate end circles.
+\draw[white,line width=5pt] (-.6,-.32)--(.6,-.32);
+\draw[blue!75!black,very thick] (0,-.32) ellipse(.6 and .13);
+\draw[white,line width=4pt] (-.18,.15)--(.18,.15);
+\draw[blue!75!black,very thick] (0,.17) ellipse(.18 and .09);
+\draw[->,very thick] (.35,.15) .. controls (.8,-.1) .. (.45,-.3);
+\node[right,align=left] at (2.2,1.9) {pass through\\the drawn wall};
+\draw[->] (2.15,1.5)--(1,.95);
+\node[below,align=center] at (.4,-.55) {two blue ends still open};
+\end{scope}
+\draw[->,thick] (8.6,4)--(8.6,3.65)--(1,3.65)--(1,3.05);
+\node[fill=white] at (4.8,3.65) {widen and move the end toward its partner};
+\begin{scope}[shift={(1,0)},scale=.78]
+\node at (.55,3.6) {5. Pair the separate circles};
+\input{figures/klein-bottle-outline}
+\draw[white,line width=5pt] (-.6,-.32)--(.6,-.32);
+\draw[blue!75!black,very thick] (0,-.32) ellipse(.6 and .13);
+\draw[white,line width=5pt] (-.25,.12)--(.25,.12);
+\draw[blue!75!black,very thick] (0,.12) ellipse(.42 and .10);
+\draw[blue!75!black,->,thick] (-.42,.12) arc[start angle=180,end angle=0,x radius=.42,y radius=.10];
+\draw[blue!75!black,->,thick] (.6,-.32) arc[start angle=0,end angle=180,x radius=.6,y radius=.13];
+\draw[dashed,->] (-.42,.12)--(.6,-.32);
+\draw[dashed,->,preaction={draw=white,line width=2pt}] (.42,.12)--(-.6,-.32);
+\node[below,align=center] at (.3,-.65) {$x\longleftrightarrow1-x$\\dashes indicate pairing};
+\end{scope}
+\draw[->,thick] (3.45,1.1)--(4.4,1.1) node[midway,above] {glue};
+\begin{scope}[shift={(5.9,0)},scale=.78]
+\node at (.45,3.6) {6. Glued representation in $\R^3$};
+\input{figures/klein-bottle-outline}
+\draw[blue!75!black,very thick] (0,.12) ellipse(.2 and .1);
+\node[below,blue!75!black] at (0,-.5) {actual joined seam};
+\draw[orange!85!black,dotted,thick] (.86,.91) ellipse(.5 and .33);
+\draw[->] (1.15,.75)--(2.15,.25);
+\node[right,align=left] at (2.15,.25) {crossing only:\\distinct sheets};
+\end{scope}
+\end{tikzpicture}
+\caption{Klein-bottle gluing: $(0,y)\sim(1,y)$ and $(x,0)\sim(1-x,1)$.
+The bent cylinder keeps two boundary circles separate. Panels 4--5 move
+one end through the drawn wall, widen it, and display the reversed matching
+before identification in panel 6. The crossing in the $\R^3$ picture is
+not an additional identification. The abstract Klein bottle has ordinary
+disk neighborhoods and no self-intersection. Figure~\ref{fig:klein-corner}
+verifies the corner neighborhood.}
+\label{fig:klein-gluing}
+\end{figure}

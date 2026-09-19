@@ -1,14 +1,33 @@
 \chapter{Sequences of Real Numbers}
 \label{ch:sequences}
 
+Threshold indices will usually be written explicitly in this chapter. A
+direct proof must exhibit which choices work together; later applications
+can invoke a proved theorem that already contains this bookkeeping.
+Discovering a proof and writing it are different tasks:
+\[
+\boxed{\text{Discovery: reason backward from the desired error bound.}}
+\]
+\[
+\boxed{\text{Proof: choose the threshold and verify forward.}}
+\]
+For $\frac1n\to0$, the target $\frac1n<\eps$ suggests
+$n>\frac1\eps$.
+The proof starts instead by choosing a natural number $N>1/\eps$ and
+then checks $n\geq N\Rightarrow \frac1n\leq\frac1N<\eps$.
+For $|a_n-a|+|b_n-b|<\eps$, an \emph{error budget} allocates
+$\eps/2$ to each summand. Different allocations are possible; each
+must be chosen before verifying the final estimate.
+
 \section{Convergence}
 
-In this chapter the real numbers are the ordered field constructed in Chapter~\ref{ch:reals}. A sequence in $\R$ is a function $a:\N\to\R$; its value at $n$ is written $a_n$.
+We now study systematically the convergence used in Chapter~\ref{ch:reals},
+beginning by restating its precise error criterion.
+The error must eventually stay below each prescribed tolerance; merely
+returning close to a proposed limit infinitely often is not enough.
 
-Calculus repeatedly asks what happens after indefinitely many successive
-approximations.  Convergence turns that informal question into a test with a
-clear responsibility: after a requested accuracy is named, all sufficiently
-late terms must meet it.
+
+In this chapter the real numbers are the ordered field constructed in Chapter~\ref{ch:reals}. A sequence in $\R$ is a function $a:\N\to\R$; its value at $n$ is written $a_n$.
 
 \begin{definition}[Limit of a sequence]
 \label{def:sequence-limit}
@@ -21,20 +40,91 @@ or equivalently $a_n\to L$, if for every $\eps>0$ there exists $N\in\N$ such tha
 
 The number $N$ may depend on $\eps$, but it must work for every $n\geq N$. This order of quantifiers is essential.
 
-This definition also gives the eventual meaning of the decimal notation used
-informally in Chapter~\ref{ch:foundations}: once Chapter~\ref{ch:reals} has
-constructed $\R$, the notation
+\subsection*{Revisiting decimals through sequence limits}
+Section~\ref{sec:decimal-expansions} already interpreted decimals through
+finite truncations and shrinking intervals, including the terminating
+versus repeating-$9$ ambiguity. We now revisit those conclusions in the
+language of \cref{def:sequence-limit}. The same three questions become
+convergence of prescribed truncations, construction of digits for a given
+real number, and uniqueness apart from endpoint ambiguity. Finite tail
+estimates make the convergence explicit; no infinite-series theory is needed.
+\begin{example}[Constructing digits by successive intervals]
+For $x=1/7$, integer division successively gives
+$10=1\cdot7+3$, $30=4\cdot7+2$, $20=2\cdot7+6$,
+$60=8\cdot7+4$, $40=5\cdot7+5$, and $50=7\cdot7+1$.
+Thus the digits repeat $142857$. The first three truncations are
+$0.1,0.14,0.142$, and the $n$th truncation $d_n$ satisfies
+$d_n\leq1/7<d_n+10^{-n}$. The shrinking error, rather than the
+repeating pattern, gives $d_n\to1/7$ by the definition of convergence,
+recovering Chapter~\ref{ch:reals}'s interval interpretation.
+\end{example}
+\begin{proposition}[Decimal representations]
+\label{prop:decimal-representations}
+For digits $d_j\in\{0,\ldots,9\}$, the truncations
+$s_n=\sum_{j=1}^n d_j10^{-j}$ converge to a real number in $[0,1]$,
+denoted $0.d_1d_2\cdots$.
+Every $x\in[0,1)$ has such an expansion which is not eventually $9$.
+Two different digit strings represent the same number only when, at their
+first differing place, their digits differ by one and the smaller digit is
+followed entirely by $9$'s, the larger entirely by $0$'s.
+\end{proposition}
+\begin{proof}
+For $m>n$, a finite geometric sum gives
 \[
-d=0.d_1d_2\cdots
+0\leq s_m-s_n\leq\sum_{j=n+1}^m9\,10^{-j}
+=10^{-n}-10^{-m}<10^{-n}.
 \]
-is interpreted through its finite truncations
+Given $\eps>0$, choose $N$ with $10^{-N}<\eps$ (use $10^N\geq N+1$).
+For $m>n\geq N$,
+$|s_m-s_n|<10^{-n}\leq10^{-N}<\eps$; swapping $m,n$ covers the other
+order, and equal indices give zero. The truncations are Cauchy and converge by \cref{thm:real-cauchy-complete}.
+Their bounds $0\leq s_n\leq1$ also bound their limit: a limit outside that
+interval would have a positive distance from every truncation.
+
+To construct digits for $x<1$, set $r_0=x$ and recursively choose the
+integer $d_n$, using \cref{lem:integer-part}, with $d_n\leq10r_{n-1}<d_n+1$, putting
+$r_n=10r_{n-1}-d_n$. Then $0\leq r_n<1$, $d_n\in\{0,\ldots,9\}$,
+and $x=s_n+10^{-n}r_n$. For justification set $s_0=0$; the identity
+holds at $n=0$. Substituting $r_{n-1}=(d_n+r_n)/10$ into the
+identity at $n-1$ proves it at $n$. For $n\geq N$ as above,
+$|x-s_n|=10^{-n}r_n<10^{-n}\leq10^{-N}<\eps$, so $s_n\to x$. This expansion cannot have
+only $9$'s after position $n$: that tail would force $r_n=1$.
+
+For uniqueness, suppose two strings first differ at place $k$, with
+$a_k<b_k$. For every $m>k$, the maximum compensation from the next
+$m-k$ digits is $10^{-k}-10^{-m}$ by the finite identity above.
+The limiting compensation is therefore at most $10^{-k}$.
+Equality of the represented numbers
+therefore forces $b_k-a_k=1$ and the maximal compensating tails. If even
+one later digit fails to be maximal, the compensation loses a fixed positive
+amount. Thus the tails must be respectively all $9$'s and all $0$'s.
+\end{proof}
+
+The endpoint example from \cref{sec:decimal-expansions} now reads
 \[
-s_n=0.d_1d_2\cdots d_n.
+0.\underbrace{99\cdots9}_{n\text{ digits}}=1-10^{-n},
+\qquad 0.999\cdots=1.
 \]
-It denotes the real number $d$ when
-\[
-\lim_{n\to\infty}s_n=d.
-\]
+Likewise $0.24999\cdots=0.25$. A decimal expression represents a number;
+it is not the number itself. For a canonical representation use the one
+that is not eventually $9$ (and the usual integer part for numbers outside
+$[0,1)$).
+
+\begin{theorem}[Cantor's diagonal argument, now formal]
+\label{thm:cantor-formal}
+The interval $(0,1)$, and hence $\R$, is uncountable.
+\end{theorem}
+\begin{proof}
+If $(x_n)$ listed $(0,1)$, write each entry in its canonical decimal
+expansion. Choose the $n$th digit $c_n$ to be $2$ if the $n$th digit of
+$x_n$ is $1$, and $1$ otherwise. The proposition gives a real
+number $c=0.c_1c_2\cdots$ in $(0,1)$. Its digits are only $1$ and $2$,
+so no terminating/repeating-$9$ ambiguity can identify it with an $x_n$
+whose $n$th digit differs. This contradicts the claimed listing.
+\end{proof}
+This completes the informal diagonal-argument preview in
+Chapter~\ref{ch:foundations}, using the decimal interpretation established
+in Chapter~\ref{ch:reals} and made explicit through sequence limits here.
 
 \begin{lemma}
 \label{lem:positive-small}
@@ -84,7 +174,7 @@ $(a_n)$ converges in $\R$.
 
 \begin{example}[Examples and nonexamples]
 The sequence $n^2$ tends to $+\infty$: given $M\in\R$, choose
-$N>\sqrt{\max\{M,0\}}$.  The sequence $-n$ tends to $-\infty$.  By contrast,
+$N>\max\{M,1\}$.  The sequence $-n$ tends to $-\infty$.  By contrast,
 $(-1)^n n$ is unbounded in both directions but tends to neither infinity;
 for every proposed stage, later terms occur with each sign.  Thus
 ``unbounded'' is much weaker than ``eventually larger than every real
@@ -121,21 +211,35 @@ If $b\ne0$, then
 whenever $b_n\ne0$ for all sufficiently large $n$.
 \end{theorem}
 \begin{proof}
-For the sum, choose stages at which $\abs{a_n-a}<\eps/2$ and $\abs{b_n-b}<\eps/2$, then apply the triangle inequality. Scalar multiplication follows from $\abs{ca_n-ca}=\abs c\abs{a_n-a}$; for $c=0$ it is immediate, and otherwise use tolerance $\eps/\abs c$.
-
-Convergent sequences are eventually bounded: choosing $N$ with $\abs{a_n-a}<1$ gives $\abs{a_n}\leq\abs a+1$ for $n\geq N$, and the finitely many earlier terms can be included in a larger bound. Let $M$ bound both $\abs{a_n}$ and $\abs b$. Then
+Fix $\eps>0$. For sums choose $N_1,N_2$ so that
+$|a_n-a|<\eps/2$ for $n\geq N_1$ and $|b_n-b|<\eps/2$ for
+$n\geq N_2$. Put $N=\max\{N_1,N_2\}$. For every $n\geq N$,
 \[
-\abs{a_nb_n-ab}\leq\abs{a_n}\abs{b_n-b}+\abs b\abs{a_n-a}
-\leq M\bigl(\abs{b_n-b}+\abs{a_n-a}\bigr),
+|(a_n+b_n)-(a+b)|\leq|a_n-a|+|b_n-b|<\eps.
 \]
-which proves the product assertion.
+If $c=0$, scalar multiplication has zero error. Otherwise choose $N_c$
+with $|a_n-a|<\eps/|c|$ for $n\geq N_c$; then
+$|ca_n-ca|=|c||a_n-a|<\eps$ for every such $n$.
 
-For division, choose $N_0$ so that $\abs{b_n-b}<\abs b/2$ for $n\geq N_0$. Then $\abs{b_n}\geq\abs b/2$, so such $b_n$ are nonzero. Thus
+For products first choose $N_0$ with $|a_n-a|<1$ for $n\geq N_0$.
+Set $B=|a|+1$; thus $|a_n|<B$ on that tail. Choose $N_1$ for
+$|b_n-b|<\eps/(2B)$ and $N_2$ for $|a_n-a|<\eps/(2(|b|+1))$.
+For every $n\geq N=\max\{N_0,N_1,N_2\}$,
 \[
-\abs{\frac{a_n}{b_n}-\frac ab}
-\leq\frac{2}{\abs b}\abs{a_n-a}+\frac{2\abs a}{\abs b^2}\abs{b_n-b}.
+|a_nb_n-ab|\leq |a_n||b_n-b|+|b||a_n-a|<\eps.
 \]
-Choose stages making the two terms on the right sum to less than $\eps$.
+The bound $B$ was fixed before choosing the error thresholds.
+
+For quotients choose $N_0$ with $|b_n-b|<|b|/2$ for $n\geq N_0$.
+Then $|b_n|\geq|b|-|b_n-b|>|b|/2>0$, so the quotient is defined.
+Choose $N_1$ for $|a_n-a|<\eps|b|/4$ and $N_2$ for
+$|b_n-b|<\eps|b|^2/(4(|a|+1))$. For every
+$n\geq N=\max\{N_0,N_1,N_2\}$,
+\[
+\left|\frac{a_n}{b_n}-\frac ab\right|
+\leq\frac2{|b|}|a_n-a|+\frac{2|a|}{|b|^2}|b_n-b|<\eps.
+\]
+Thus the denominator hypothesis on the tail follows from $b\ne0$ itself.
 \end{proof}
 
 \begin{theorem}[Order preservation]
@@ -143,13 +247,91 @@ Choose stages making the two terms on the right sum to less than $\eps$.
 Let $a_n\to a$ and $b_n\to b$. If $a_n\leq b_n$ for every sufficiently large $n$, then $a\leq b$.
 \end{theorem}
 \begin{proof}
-If $a>b$, let $\eps=(a-b)/3>0$. For all sufficiently large $n$, $\abs{a_n-a}<\eps$ and $\abs{b_n-b}<\eps$. Hence $a_n>a-\eps=b+2\eps>b_n$, a contradiction.
+Let $N_0$ be a stage from which $a_n\leq b_n$. If $a>b$, put
+$\eps=(a-b)/3$. Choose $N_1,N_2$ for the respective errors
+$|a_n-a|<\eps$ and $|b_n-b|<\eps$. For every
+$n\geq\max\{N_0,N_1,N_2\}$,
+$a_n>a-\eps=b+2\eps>b_n$, a contradiction.
 \end{proof}
 
 \begin{corollary}[Squeeze theorem]
 \label{cor:squeeze}
 If $a_n\leq b_n\leq c_n$ eventually and $a_n\to L$, $c_n\to L$, then $b_n\to L$.
 \end{corollary}
+\begin{proof}
+Let $N_0$ be a stage from which the ordering holds. Given $\eps>0$,
+choose $N_1,N_2$ for $|a_n-L|<\eps$ and $|c_n-L|<\eps$,
+respectively. Put $N=\max\{N_0,N_1,N_2\}$. For every $n\geq N$,
+$L-\eps<a_n\leq b_n\leq c_n<L+\eps$, so $|b_n-L|<\eps$.
+\end{proof}
+
+
+\begin{example}[Integer powers and geometric sequences]
+A geometric sequence with initial term $a$ and common ratio $r$ is
+$a,ar,ar^2,\ldots$. We first study powers of the ratio.
+For fixed $n\in\N$, the estimate $0<\frac1{k^n}\leq\frac1k$ holds
+for $k\geq1$. Given $\eps>0$, choose $N>\max\{1,1/\eps\}$; every
+$k\geq N$ then has $\frac1{k^n}<\eps$. Here $n$ is fixed and $k$ varies.
+For $r>1$, Bernoulli's inequality supplies the growing lower bound
+\[
+r^n=(1+(r-1))^n\geq1+n(r-1).
+\]
+Given $M\in\R$, choose $N>\max\{1,(M-1)/(r-1)\}$. Then $n\geq N$
+implies $r^n>M$, proving divergence to $+\infty$.
+If $0<|r|<1$, set $h=\frac1{|r|}-1>0$. The same inequality gives
+\[
+|r^n|\leq\frac1{1+nh}.
+\]
+Choosing $N>\max\{1,1/(h\eps)\}$ now makes $|r^n|<\eps$ for every
+$n\geq N$. For $r=0$, all positive powers are zero.
+\end{example}
+
+\begin{proposition}[Dominant powers in polynomial substitutions]
+\label{prop:polynomial-sequence}
+Let $f(x)=a_nx^n+\cdots+a_0$ and $g(x)=b_mx^m+\cdots+b_0$
+be nonzero polynomial expressions, with $a_n\ne0$, $b_m\ne0$,
+$\deg f=n$ and $\deg g=m$ (degrees may be zero).
+Here $x$ is an indeterminate; substituting natural numbers gives the
+sequence $f(k)/g(k)$ wherever its denominator is nonzero.
+From some stage onward this denominator is nonzero, and
+\[
+\frac{f(k)}{g(k)}\longrightarrow
+\begin{cases}
+0,&n<m,\\
+\dfrac{a_n}{b_m},&n=m,\\
++\infty,&n>m,\ \dfrac{a_n}{b_m}>0,\\
+-\infty,&n>m,\ \dfrac{a_n}{b_m}<0.
+\end{cases}
+\]
+\end{proposition}
+\begin{proof}
+Divide by the leading powers, not by a guessed limit:
+\[
+F_k=\frac{f(k)}{k^n}=a_n+\frac{a_{n-1}}k+\cdots+\frac{a_0}{k^n}\to a_n,
+\qquad G_k=\frac{g(k)}{k^m}\to b_m.
+\]
+For degree zero the corresponding expression is just its constant term.
+These limits follow from the integer-power example and limit arithmetic.
+Choose $N_0$ such that $|G_k-b_m|<|b_m|/2$ for every $k\geq N_0$.
+Then $|G_k|>|b_m|/2$, so $g(k)\ne0$ there, and
+$H_k=F_k/G_k\to c=a_n/b_m$ by the quotient theorem.
+Now $f(k)/g(k)=k^{n-m}H_k$. For $n<m$, write this as
+$H_k/k^{m-n}$ and use limit arithmetic; for $n=m$ it is $H_k$.
+For $n>m$ and $c>0$, choose $N_1$ such that $|H_k-c|<c/2$ for
+$k\geq N_1$. Given $M\in\R$, choose a natural number
+\[
+N\geq\max\{N_0,N_1\},
+\qquad
+N>\max\left\{1,\frac{2\max\{M,0\}}c\right\}.
+\]
+Every $k\geq N$ satisfies $k^{n-m}H_k>(c/2)k>M$.
+For $c<0$, apply this positive argument to $-f(k)/g(k)$, using
+target $-M$ to obtain $f(k)/g(k)<M$.
+\end{proof}
+For example, $(2k+1)/(k^2+1)\to0$,
+$(3k^2-k)/(2k^2+5)\to3/2$, and
+$(-k^3+2)/(k+1)\to-\infty$. The leading coefficients decide the
+sign in the last case; the lower terms cannot reverse it on the controlled tail.
 
 \begin{example}[Algebraic simplification and rationalization]
 The candidate limit in
@@ -164,7 +346,14 @@ b_n=\sqrt{n^2+n}-n,
 direct substitution hides the answer.  Multiplying by the conjugate gives
 \[
 b_n=\frac{n}{\sqrt{n^2+n}+n}
-=\frac{1}{\sqrt{1+1/n}+1}\longrightarrow\frac12.
+=\frac{1}{\sqrt{1+\frac1n}+1}\longrightarrow\frac12.
+\]
+Here square roots exist by \cref{prop:positive-square-roots}; their needed
+limit follows directly from
+\[
+0\leq\sqrt{1+\frac1n}-1
+=\frac{\frac1n}{\sqrt{1+\frac1n}+1}
+\leq\frac1n.
 \]
 The algebra does not itself prove a limit; it rewrites the expression into
 terms to which already proved limit laws apply.
@@ -179,9 +368,42 @@ subsequences, failure of the Cauchy condition, or divergence to
 $\pm\infty$.  A failed attempt to find a limit is not a proof of
 nonexistence.
 \end{remark}
-\begin{proof}
-For large $n$, $0\leq b_n-a_n\leq c_n-a_n$. The limit algebra gives $c_n-a_n\to0$. Given $\eps>0$, eventually $c_n-a_n<\eps$, and then $\abs{b_n-L}\leq\abs{b_n-a_n}+\abs{a_n-L}<\eps/2+\eps/2$ after increasing the stage if necessary.
-\end{proof}
+
+
+\begin{example}[Translating repeated decay]
+A process removes half the remaining material at each step, starting
+with $8$ grams. The varying quantity is the amount $a_n$ after $n$
+steps; the assumption is that the same fraction is removed each time
+and none is added. Thus
+\[
+a_0=8,
+\qquad
+a_{n+1}=\frac{a_n}{2}.
+\]
+Induction gives the model
+\[
+a_n=8\left(\frac12\right)^n.
+\]
+The geometric-sequence
+result proves $a_n\to0$: any positive tolerance in grams is met
+and retained after some step. For error below $1/10$ gram, $N=7$
+works, since $8/2^7=1/16<1/10$ and the amounts decrease.
+Convergence does not mean the amount becomes exactly zero at a finite step.
+\end{example}
+
+\paragraph{Disproving a proposed limit.}
+Negating $a_n\to L$ gives precisely
+\[
+\exists\eps_0>0\ \forall N\in\N\ \exists n\geq N:
+\quad |a_n-L|\geq\eps_0.
+\]
+For $a_n=1+1/n$, the candidate $L=0$ fails: take $\eps_0=1$ and
+$n=N$. This does not prove divergence; in fact $a_n\to1$.
+To prove divergence one must exclude \emph{every} real $L$.
+For $(-1)^n$, given $L\geq0$ choose any odd $n\geq N$;
+given $L<0$ choose any even $n\geq N$. In either case
+$|(-1)^n-L|\geq1$. The next subsection packages this obstruction
+into the particularly useful two-subsequence test.
 
 \section{Subsequences and Elementary Divergence}
 
@@ -228,15 +450,118 @@ A sequence $(a_n)$ is \textbf{increasing} if $a_n\leq a_{n+1}$ for all $n$, \tex
 An increasing sequence converges if and only if it is bounded above; in that event, its limit is $\sup\set{a_n:n\in\N}$. A decreasing sequence converges if and only if it is bounded below, and its limit is the infimum of its range.
 \end{theorem}
 \begin{proof}
-If $a_n\to L$, then $a_n\leq L+1$ eventually, and the finitely many earlier terms have a common upper bound. Conversely, let $s=\sup\set{a_n:n\in\N}$. Given $\eps>0$, $s-\eps$ is not an upper bound, so $a_N>s-\eps$ for some $N$. For $n\geq N$, $s-\eps<a_N\leq a_n\leq s$, and hence $\abs{a_n-s}<\eps$. The decreasing statement follows on applying the increasing statement to $(-a_n)$.
+If $a_n\to L$, choose $N_0$ so that $|a_n-L|<1$ for $n\geq N_0$.
+Then $B=\max\{|L|+1,|a_1|,\ldots,|a_{N_0}|\}$ bounds every $|a_n|$. Conversely, let $s=\sup\set{a_n:n\in\N}$. Given $\eps>0$, $s-\eps$ is not an upper bound, so $a_N>s-\eps$ for some $N$. For $n\geq N$, $s-\eps<a_N\leq a_n\leq s$, and hence $\abs{a_n-s}<\eps$. The decreasing statement follows on applying the increasing statement to $(-a_n)$.
 \end{proof}
+
+The theorem immediately constructs one of the central constants of analysis.
+In elementary algebra the expression \((1+1/n)^n\) appears in repeated
+growth and compound-interest calculations. Here it will do more: bounded
+monotone approximation will produce a real number before any exponential
+function has been defined.
+
+\begin{theorem}[The sequential construction of \(e\)]
+\label{thm:e-sequence}
+The sequence
+\[
+a_n=\left(1+\frac1n\right)^n
+\qquad(n\in\N)
+\]
+is strictly increasing and bounded above. Consequently it converges.
+\end{theorem}
+\begin{proof}
+\textbf{Mechanism.} Expand each finite power. For every fixed binomial
+term, increasing \(n\) increases each factor, while the next expansion also
+contains a new positive term.
+
+The finite binomial identity (which follows by elementary induction) gives
+\[
+\begin{aligned}
+a_n
+&=\sum_{k=0}^{n}\binom nk\frac1{n^k}\\
+&=\sum_{k=0}^{n}\frac1{k!}
+  \prod_{j=0}^{k-1}\left(1-\frac jn\right),
+\end{aligned}
+\]
+where the product for \(k=0\) is \(1\). For \(0\leq k\leq n\), every
+factor in the \(k\)th term is nonnegative and is no smaller when \(n\) is
+replaced by \(n+1\). The \(k=2\) term increases strictly, and the expansion
+of \(a_{n+1}\) has one additional positive term. Hence \(a_{n+1}>a_n\).
+
+Every factor in the product is at most \(1\), so
+\[
+a_n\leq\sum_{k=0}^{n}\frac1{k!}.
+\]
+For \(k\geq2\), one has \(k!\geq2\cdot3^{k-2}\). Therefore the finite
+geometric sum gives
+\[
+a_n\leq2+\frac12\sum_{j=0}^{n-2}\frac1{3^j}<\frac{11}{4}<3.
+\]
+Thus \((a_n)\) is increasing and bounded above, so it converges by
+\cref{thm:monotone-convergence}.
+\end{proof}
+
+\begin{definition}[The number \(e\)]
+\label{def:e-sequential}
+Define
+\[
+\boxed{
+e:=\lim_{n\to\infty}\left(1+\frac1n\right)^n.
+}
+\]
+In particular, \(2<e<3\). This definition uses only finite powers and
+sequence completeness. Chapter~\ref{ch:differentiation} will construct the
+exponential function independently and prove that its value at \(1\) is
+this same number.
+\end{definition}
+
+\begin{example}[Recognizing the defining sequence for \(e\)]
+Write $a_n=(1+1/n)^n$, so $a_n\to e$. Three altered expressions reduce
+to this sequence by operations already available:
+\[
+\begin{aligned}
+\left(1+\frac1{2n}\right)^{2n}&=a_{2n}\longrightarrow e,\\
+\left(1+\frac1{n+1}\right)^n
+ &=\frac{a_{n+1}}{1+\frac1{n+1}}\longrightarrow e,\\
+\left(1-\frac1n\right)^{-n}
+ &=a_{n-1}\left(1+\frac1{n-1}\right)\longrightarrow e\qquad(n\geq2).
+\end{aligned}
+\]
+The first is a subsequence; the second removes one factor after an index
+shift; the third rewrites a reciprocal and adds one factor. Thus recognition,
+index shifts, and limit algebra do the work, with only integer powers.
+Chapter~\ref{ch:differentiation} will define real powers and use logarithms
+to prove the broader principle $(1+x/n)^n\to e^x$
+(\cref{prop:exp-binomial-limit}). That formula is a forward pointer, not a
+tool used here.
+\end{example}
 
 \begin{theorem}[Cauchy criterion]
 \label{thm:cauchy-criterion}
 A real sequence converges if and only if it is Cauchy.
 \end{theorem}
 \begin{proof}
-If $a_n\to L$, choose $N$ with $\abs{a_n-L}<\eps/2$ for $n\geq N$ and use the triangle inequality. Conversely, the rational-Cauchy construction of $\R$ proves exactly this assertion in \cref{thm:real-cauchy-complete}.
+If $a_n\to L$, choose $N$ with $\abs{a_n-L}<\eps/2$ for $n\geq N$ and, for all $m,n\geq N$, write
+$|a_m-a_n|\leq|a_m-L|+|a_n-L|<\eps$. Conversely, the rational-Cauchy construction of $\R$ proves exactly this assertion in \cref{thm:real-cauchy-complete}.
+\end{proof}
+
+\begin{definition}[Peak index]
+An index $n\in\N$ is a \textbf{peak index} of $(a_n)$ if
+$a_n\geq a_m$ for every $m>n$.
+\end{definition}
+\begin{theorem}[Monotone subsequence]\label{thm:monotone-subsequence}
+Every real sequence has a monotone subsequence.
+\end{theorem}
+\begin{proof}
+\textbf{Strategy.} Either infinitely many terms are never exceeded later,
+or eventually every term is exceeded by a later term.
+If there are infinitely many peak indices, list them as
+$n_1<n_2<\cdots$. Then $a_{n_k}\geq a_{n_{k+1}}$, so this subsequence
+is nonincreasing. If there are only finitely many, choose $N$ larger
+than all of them; if there are none, take $N=1$. Put $n_1=N$ and choose
+$n_{k+1}$ to be the least $m>n_k$ with $a_m>a_{n_k}$. Such an index exists
+because $n_k$ is not a peak. The resulting subsequence is strictly increasing.
+This argument uses only order and works in any ordered field, without completeness.
 \end{proof}
 
 \begin{theorem}[Bolzano--Weierstrass]
@@ -244,8 +569,18 @@ If $a_n\to L$, choose $N$ with $\abs{a_n-L}<\eps/2$ for $n\geq N$ and use the tr
 Every bounded real sequence has a convergent subsequence.
 \end{theorem}
 \begin{proof}
-Let all terms lie in $[a,b]$. Bisect this interval and retain a closed half containing infinitely many terms; repeat indefinitely, obtaining nested closed intervals $I_n=[a_n,b_n]$ of length $(b-a)2^{-n}$, each containing infinitely many sequence terms. Choose indices $k_1<k_2<\cdots$ with $a_{k_n}\in I_n$; this is possible because each $I_n$ contains infinitely many terms. The left endpoints are increasing and bounded above, so by \cref{thm:monotone-convergence} they converge to some $x$. Since $0\leq b_n-a_n\to0$, also $b_n\to x$. For $m\geq n$, $a_{k_m}\in I_n$, so $\abs{a_{k_m}-x}\leq b_n-a_n$. This tends to zero, proving $a_{k_m}\to x$.
+By \cref{thm:monotone-subsequence}, the sequence has a monotone
+subsequence. That subsequence is still bounded, so it converges by the
+Monotone Convergence Theorem (\cref{thm:monotone-convergence}).
+This is the useful habit of reusing a proved theorem rather than repeating
+its supremum argument.
 \end{proof}
+
+A bounded sequence need not settle at one value. We can still ask for
+upper and lower bounds on its eventual behavior by discarding an initial
+segment and bounding the whole remaining tail. These bounds change
+monotonically as the tail shrinks, so their limits exist even when the
+original sequence diverges.
 
 \begin{definition}[Limsup and liminf]
 Let $(a_n)$ be bounded. For $n\in\N$, put
@@ -269,14 +604,38 @@ For every bounded sequence, limsup and liminf exist and
 Moreover, $a_n\to L$ if and only if the two displayed limits both equal $L$.
 \end{theorem}
 \begin{proof}
-The sequence $(s_n)$ is decreasing and bounded below, while $(i_n)$ is increasing and bounded above. Their limits therefore exist by \cref{thm:monotone-convergence}; since $i_n\leq s_n$, their limits have the stated order by \cref{thm:limit-order}. If $a_n\to L$, then for every $\eps>0$, all sufficiently late terms lie in
-\[
-\left(L-\frac{\eps}{2},L+\frac{\eps}{2}\right).
-\]
-For every tail beginning after that stage, its infimum is at least $L-\eps/2$ and its supremum is at most $L+\eps/2$. Their limits therefore equal $L$. Conversely, if both limits equal $L$, then for a given $\eps>0$, eventually $i_n>L-\eps$ and $s_n<L+\eps$. Since $i_n\leq a_n\leq s_n$, the squeeze theorem gives $a_n\to L$.
+The decreasing sequence $(s_n)$ and increasing sequence $(i_n)$ are
+bounded by the same bounds as $(a_n)$, hence converge by monotone
+convergence. Since $i_n\leq s_n$, order preservation orders their limits.
+If $a_n\to L$, given $\eps>0$ choose $N$ with
+$|a_k-L|<\eps/2$ for $k\geq N$. For every $n\geq N$, all terms in
+the $n$th tail lie between $L-\eps/2$ and $L+\eps/2$. Thus
+$|i_n-L|\leq\eps/2<\eps$ and $|s_n-L|\leq\eps/2<\eps$.
+Conversely, if $i_n,s_n\to L$, choose $N_1,N_2$ for their errors
+less than $\eps$. For $n\geq\max\{N_1,N_2\}$,
+$L-\eps<i_n\leq a_n\leq s_n<L+\eps$.
 \end{proof}
 
 \paragraph{Why boundedness remains in this definition.}
+\begin{example}[Tail ceilings and floors]
+For $a_n=(-1)^n+1/n$, the even subsequence tends to $1$ and the odd
+subsequence to $-1$. Removing finitely many terms cannot remove either
+recurring behavior. The tail suprema decrease to $1$, while the tail
+infima increase to $-1$. Thus $\limsup a_n=1$ and $\liminf a_n=-1$.
+For $b_n=2+(-1)^n/n$, both tail barriers tend to $2$, so the sequence
+converges despite oscillating. The limsup is the eventual ceiling,
+not the largest early spike in the whole sequence.
+\end{example}
+For a bounded sequence, every subsequential limit lies between liminf and
+limsup: its late terms lie between every fixed pair of tail bounds.
+Each barrier itself is a subsequential limit. To reach the upper one $s$,
+make two choices at stage $j$. First choose a tail index $N_j>k_{j-1}$
+so late that $|s_{N_j}-s|<1/j$, where $k_0=0$. Then the definition of
+supremum supplies $k_j\geq N_j$ with
+$s_{N_j}-1/j<a_{k_j}\leq s_{N_j}$. Thus $k_j>k_{j-1}$ and
+$|a_{k_j}-s|<2/j$, proving convergence. For the lower barrier $i$, first
+choose $N_j>k_{j-1}$ with $|i_{N_j}-i|<1/j$, then choose $k_j\geq N_j$
+with $i_{N_j}\leq a_{k_j}<i_{N_j}+1/j$. Again the error is less than $2/j$.
 One can develop conventions for limsup and liminf of unbounded sequences,
 but they are unnecessary here.  We retain real-valued suprema and infima
 and use \cref{def:sequence-infinite-limit} when a sequence eventually
@@ -289,9 +648,22 @@ completeness.  The equivalences below explain why several apparently
 different principles may all serve as the decisive feature distinguishing
 the real numbers from the rationals.
 
+\begin{lemma}[A Cauchy sequence with a convergent subsequence]
+\label{lem:cauchy-convergent-subsequence}
+If a Cauchy sequence has a subsequence converging to $L$, the entire
+sequence converges to $L$. This holds in every ordered field.
+\end{lemma}
+\begin{proof}
+Given $\eps>0$, choose $N$ so that $|a_m-a_n|<\eps/2$ for $m,n\geq N$.
+Choose $K$ so that $|a_{n_k}-L|<\eps/2$ for $k\geq K$.
+Fix $k=\max\{K,N\}$; then $n_k\geq k\geq N$.
+For all $n\geq N$, the triangle inequality gives
+$|a_n-L|\leq|a_n-a_{n_k}|+|a_{n_k}-L|<\eps$.
+\end{proof}
+
 \begin{theorem}[Equivalence of standard completeness principles]
 \label{thm:completeness-equivalences}
-Let $F$ be an Archimedean ordered field. The following assertions are equivalent.
+Let $F$ be an Archimedean field. The following assertions are equivalent.
 \begin{enumerate}
 \item Every nonempty subset of $F$ having an upper bound has a least upper bound.
 \item Every Cauchy sequence in $F$ converges.
@@ -307,85 +679,107 @@ and
 \]
 the intervals have a common point.
 \end{enumerate}
-Consequently, each assertion may be used as a completeness axiom for an Archimedean ordered field.
+Consequently, each assertion may be used as a completeness axiom for an Archimedean field.
 \end{theorem}
 \begin{proof}
-All definitions of convergence, Cauchyness, boundedness, and intervals, as well as the elementary order-limit lemmas used below, are obtained verbatim by replacing $\R$ with $F$; their proofs use only the ordered-field laws.
+\textbf{Strategy.} Prove the single cycle
+$(a)\Rightarrow(d)\Rightarrow(c)\Rightarrow(b)\Rightarrow(e)\Rightarrow(a)$.
+The order-limit laws and the preceding lemma use only ordered-field laws,
+so they apply in $F$ without assuming real completeness.
 
-We prove a cycle of implications. Suppose first that (1) holds. The proof of \cref{thm:monotone-convergence} uses only (1), so (4) follows. A Cauchy sequence is bounded: choose $N$ so that
-\[
-m,n\geq N\quad\Longrightarrow\quad\abs{x_m-x_n}<1,
-\]
-and bound the tail by $\abs{x_N}+1$ and the finitely many earlier terms separately. For the tail sets
-\[
-T_n=\set{x_k:k\geq n},
-\]
-put
-\[
-s_n=\sup T_n,\qquad i_n=\inf T_n.
-\]
-The sequences $(s_n)$ and $(i_n)$ are respectively decreasing and increasing, so (4) gives limits $s$ and $i$. Given $\eps>0$, Cauchyness gives $N$ such that every two terms of $T_N$ differ in absolute value by less than $\eps$. Hence
-\[
-s_N-i_N\leq2\eps.
-\]
-Passing to the limit in this inequality gives
-\[
-0\leq s-i\leq2\eps.
-\]
-Since this holds for every $\eps>0$, the small-positive-number argument shows $s=i$. Since $i_n\leq x_n\leq s_n$, the squeeze theorem gives $x_n\to s$. Thus (1) implies (2).
+\emph{$(a)\Rightarrow(d)$.} For a bounded increasing sequence take the
+supremum $s$ of its range. For $\eps>0$ some $a_N>s-\eps$, and
+$s-\eps<a_N\leq a_n\leq s$ for $n\geq N$.
 
-Assume (2), and let $S$ be nonempty and bounded above. Choose $s_0\in S$ and an upper bound $u_0$. If $s_0$ is already an upper bound, it is the maximum and hence the least upper bound. Otherwise, bisect the interval $[s_0,u_0]$ repeatedly: retain its lower half when its midpoint is an upper bound of $S$, and retain its upper half otherwise. This produces numbers $s_n,u_n$ such that
-\[
-s_n\text{ is not an upper bound},\qquad u_n\text{ is an upper bound},
-\]
-and
-\[
-u_n-s_n=2^{-n}(u_0-s_0).
-\]
-The Archimedean property implies that $2^{-n}\to0$: choose an integer larger than any prescribed positive reciprocal, and use $2^n\geq n+1$. Thus $(s_n)$ is Cauchy, since
-\[
-0\leq s_m-s_n\leq u_n-s_n
-\qquad(m\geq n).
-\]
-Let $s_n\to c$ by (2). The same estimate gives $u_n\to c$. If $t\in S$ were greater than $c$, then for sufficiently large $n$ one would have
-\[
-u_n-s_n<t-c,
-\]
-and the order-limit argument gives
-\[
-s_n\leq c\leq u_n.
-\]
-These inequalities force $t>u_n$, a contradiction. Hence $c$ is an upper bound. If $v<c$, then the same inequality with $c-v$ in place of $t-c$, together with $s_n\leq c\leq u_n$, gives $v<s_n$ for a sufficiently large $n$; since $s_n$ is not an upper bound, neither is $v$. Therefore $c=\sup S$, proving (1).
+\emph{$(d)\Rightarrow(c)$.} The peak-index proof extracts a monotone
+subsequence in $F$. It remains bounded, so (d), applied to its negative
+if it is decreasing, gives convergence.
 
-Still under (1), the nested-interval argument in \cref{thm:nested-interval} proves (5): the supremum of the left endpoints belongs to every interval. The bisection argument used for \cref{thm:bolzano-weierstrass}, together with this nested-interval conclusion, proves (3). More explicitly, repeatedly retain a half of a bounded interval containing infinitely many terms, choose a strictly increasing sequence of indices from the retained intervals, and use the common point of the nested intervals as the limit of that subsequence.
+\emph{$(c)\Rightarrow(b)$.} Choose $N_0$ with $|a_m-a_n|<1$ for $m,n\geq N_0$.
+For $n\geq N_0$, $|a_n|<|a_{N_0}|+1$, so
+$\max\{|a_1|,\ldots,|a_{N_0}|+1\}$ bounds the whole sequence.
+By (c) it has a convergent subsequence. Apply
+\cref{lem:cauchy-convergent-subsequence}.
 
-Assume now (3), and let $(a_n)$ be increasing and bounded above. A subsequence $(a_{n_k})$ converges, say to $L$. For a fixed $n$, all sufficiently late members of this subsequence are at least $a_n$; \cref{thm:limit-order} gives $a_n\leq L$. Given $\eps>0$, choose $k$ with
-\[
-\abs{a_{n_k}-L}<\eps.
-\]
-Then, for every $n\geq n_k$,
-\[
-L-\eps<a_{n_k}\leq a_n\leq L,
-\]
-so $a_n\to L$. This proves (4).
+\emph{$(b)\Rightarrow(e)$.} For nested intervals with widths tending to
+zero, given $\eps>0$ choose $N$ with $b_N-a_N<\eps$.
+For all $m,n\geq N$, both left endpoints lie in $[a_N,b_N]$, so
+$|a_m-a_n|\leq b_N-a_N<\eps$. Thus $(a_n)$ is
+Cauchy; let $a_n\to x$. For each fixed $N$, the late left endpoints
+belong to $[a_N,b_N]$. Order-limit preservation gives $a_N\leq x\leq b_N$.
 
-Assume (4). The bisection construction in the second paragraph gives an increasing, bounded-above sequence $(s_n)$, hence a limit $c$. The same shrinking-width argument proves that $c$ is the least upper bound of $S$. Thus (4) implies (1).
-
-Finally, assume (5). Apply the same bisection construction to a nonempty bounded-above set $S$. Its intervals are nested and their lengths tend to zero, so they have a common point $c$. The two final paragraphs of the bisection argument show that $c$ is the least upper bound of $S$. Thus (5) implies (1), completing the proof.
+\emph{$(e)\Rightarrow(a)$.} Let $S\ne\varnothing$ be bounded above,
+choose $s_0\in S$, and choose an upper bound $u_0$. If $s_0$ is an upper
+bound it is the maximum. Otherwise bisect $[s_0,u_0]$, retaining the lower
+half when its midpoint is an upper bound of $S$, and the upper half otherwise.
+The resulting nested intervals $[s_n,u_n]$ have $s_n$ not an upper bound,
+$u_n$ an upper bound, and width $2^{-n}(u_0-s_0)$. The Archimedean property
+and $2^n\geq n+1$ imply that these widths tend to zero in $F$.
+By (e) choose a common point $c$. If $t\in S$ and $t>c$, choose $N_1$ with $u_{N_1}-s_{N_1}<t-c$; then
+$u_{N_1}\leq c+(u_{N_1}-s_{N_1})<t$, a contradiction.
+If $v<c$, choose $N_2$ with $u_{N_2}-s_{N_2}<c-v$;
+then $s_{N_2}\geq c-(u_{N_2}-s_{N_2})>v$, and since
+$s_{N_2}$ is not an upper bound, neither is $v$. Thus $c=\sup S$.
 \end{proof}
 
 
 
+\begin{center}
+\begin{tikzpicture}[node distance=6mm]
+\node (a) {least-upper-bound property};
+\node (b) [below=of a] {monotone convergence};
+\node (c) [below=of b] {Bolzano--Weierstrass};
+\node (d) [below=of c] {Cauchy completeness};
+\node (e) [below=of d] {nested intervals};
+\draw[->] (a)--(b);\draw[->] (b)--(c);\draw[->] (c)--(d);\draw[->] (d)--(e);
+\draw[->] (e.east)--++(1.5,0)|-(a.east);
+\end{tikzpicture}
+\end{center}
+Each arrow has one mechanism: a supremum, peak indices, the Cauchy
+estimate, shrinking widths, and finally bisection.
+
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
 
+\begin{hexercise}{seq-direct}
+Prove directly that $3/(n+2)\to0$ and $(2n+1)/(n+1)\to2$. For each, show the backward discovery of $N$ separately from the forward proof.
+\end{hexercise}
+
+\begin{hexercise}{seq-laws}
+Evaluate $((4k^2+1)/(2k^2-k))$, $((k+1)/(k^3+2))$, and $((-2k^4+k)/(k^2+1))$ as $k\to\infty$. Identify the degrees and leading coefficients and justify that denominators are nonzero on a tail.
+\end{hexercise}
+
+\begin{hexercise}{seq-geometric}
+Give explicit thresholds proving $(3/4)^n\to0$ and $(3/2)^n\to+\infty$. Determine whether $(-3/2)^n$ has either infinite limit.
+\end{hexercise}
+
+\begin{hexercise}{seq-radical}
+For $c>0$, find the limits of $\sqrt{k^2+ck}-k$ and $\sqrt{k^2+c}-k$. Explain which part of rationalization determines the different answers.
+\end{hexercise}
+
+\begin{hexercise}{seq-model}
+An approximation begins with error at most $6$ units. Each correction reduces the error magnitude to at most one third of its preceding magnitude. Formulate a sequence inequality, prove convergence of the errors to zero, and find a number of corrections guaranteeing error below $1/100$ unit.
+\end{hexercise}
+
+\begin{hexercise}{seq-disprove}
+Disprove the proposed limit $1$ for $a_n=2+1/n$ using the negated definition. Then prove that $2+(-1)^n$ has no limit. Explain why these are different tasks.
+\end{hexercise}
+
 \begin{exercise}
+Find the limsup and liminf of $(-1)^n+2/n$ and exhibit subsequences attaining them. Prove from the tail bounds that no other subsequential limit is possible.
+\end{exercise}
+
+\begin{exercise}
+Let $a_1=0$ and $a_{n+1}=(a_n+2)/3$. Prove monotonicity and boundedness, deduce convergence, and determine the limit. Which step uses completeness?
+\end{exercise}
+
+\begin{hexercise}{supremum-proof}
 Let $(a_n)$ be increasing and bounded above, and let $s$ be the supremum of its range. Adapt the proof of \cref{thm:monotone-convergence} to show directly that
 \[
 \lim_{n\to\infty}a_n=s.
 \]
 Identify the exact use of the least-upper-bound property.
-\end{exercise}
+\end{hexercise}
 
 \begin{exercise}
 Give an example of an unbounded sequence for which
@@ -395,6 +789,11 @@ Give an example of an unbounded sequence for which
 cannot be interpreted as a real number. Explain the purpose of the postponed extended convention.
 \end{exercise}
 
-\begin{exercise}
+\begin{hexercise}{decreasing-completeness}
 Assuming the least-upper-bound property, prove that every decreasing sequence that is bounded below converges, without appealing to the increasing case as a black box.
+\end{hexercise}
+
+\begin{exercise}
+Explain why changing the diagonal digits to only $0$ and $9$ would require
+an extra ambiguity check. Prove $0.12999\cdots=0.13$ from truncations.
 \end{exercise}

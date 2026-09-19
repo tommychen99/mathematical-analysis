@@ -1,0 +1,29 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\draw[->,very thick,blue] (0,0)--(1.7,.6) node[above] {$v$};
+\node at (.8,1.8) {one direction};\node at (.8,-1) {$\alpha(v)$};
+\filldraw[fill=blue!8,draw=blue] (3,0)--(4.8,0)--(5.4,1)--(3.6,1)--cycle;
+\draw[->,thick] (3,0)--(4.8,0) node[below] {$v$};
+\draw[->,thick] (3,0)--(3.6,1) node[left] {$w$};
+\node at (4.2,1.8) {oriented area};
+\node[align=center] at (4.2,-1) {$\beta(w,v)=-\beta(v,w)$\\$\beta(v,cv)=0$};
+\draw[->,red!70!black] (3,-2)--(5,-2) node[right] {$v$};
+\draw[->,blue,thick] (3,-2.12)--(4,-2.12) node[below] {$cv$};
+\node at (4.2,-2.75) {dependent: collapsed area};
+\filldraw[fill=blue!8,draw=blue] (7,0)--(8.7,0)--(9.3,.65)--(7.6,.65)--cycle;
+\draw[blue] (7,0)--(7,1.05)--(8.7,1.05)--(9.3,1.7)--(9.3,.65)
+ (8.7,0)--(8.7,1.05) (7,1.05)--(7.6,1.7)--(9.3,1.7);
+\draw[blue,dashed] (7.6,.65)--(7.6,1.7);
+\draw[->,thick] (7,0)--(8.7,0) node[midway,below] {$v$};
+\draw[->,thick] (7,0)--(7.6,.65);
+\node at (7.85,.35) {$w$};
+\draw[->,thick] (7,0)--(7,1.05) node[midway,left] {$z$};
+\node at (8.2,2.15) {oriented volume};
+\node at (8.2,-1) {$\eta(v,w,z)$};
+
+\end{tikzpicture}
+\caption{Alternating measurements progress from a vector to an ordered parallelogram to an ordered parallelepiped. Reordering two inputs reverses the sign; dependent inputs give zero.}
+\label{fig:measurement-degrees}
+\end{figure}

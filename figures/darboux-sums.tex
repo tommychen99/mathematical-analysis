@@ -1,0 +1,32 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,x=1.15cm,y=1.15cm]
+\foreach \shift/\title/\upper in {0/Lower sums/0,6/Upper sums/1}{
+\begin{scope}[xshift=\shift cm]
+\node at (2,2.7) {\title};
+\foreach \i in {0,...,4}{
+\pgfmathsetmacro{\a}{.8*\i}
+\pgfmathsetmacro{\b}{.8*(\i+1)}
+\pgfmathsetmacro{\h}{.35+.1*(\a+.8*\upper)^2}
+\filldraw[fill=blue!14,draw=blue!65!black] (\a,0) rectangle (\b,\h);
+}
+\draw[->] (-.1,0)--(4.35,0) node[right] {$x$};
+\draw[->] (0,0)--(0,2.4);
+\draw[thick] plot[domain=0:4,samples=60] (\x,{.35+.1*\x*\x});
+\node[above left] at (3.9,1.95) {$f$};
+\node[below] at (0,0) {$a$};\node[below] at (4,0) {$b$};
+\end{scope}}
+\begin{scope}[xshift=6cm]
+\draw[orange!85!black,thick,<->] (4.25,1.374)--(4.25,1.95)
+ node[midway,right,font=\footnotesize] {$M_i-m_i$};
+\draw[dashed] (3.2,1.374)--(4.25,1.374);
+\draw[dashed] (4,1.95)--(4.25,1.95);
+\draw[<->] (3.2,-.55)--(4,-.55) node[midway,below] {$\Delta x_i$};
+\end{scope}
+\end{tikzpicture}
+\caption{The same increasing function and partition give lower rectangles
+on the left and upper rectangles on the right. On the marked cell, the
+extra area is $(M_i-m_i)\Delta x_i$. Summing these cellwise gaps gives
+$U(f,P)-L(f,P)$; small oscillation makes the total gap small.}
+\label{fig:darboux-sums}
+\end{figure}

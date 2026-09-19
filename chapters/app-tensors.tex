@@ -1,0 +1,1997 @@
+\appendixchapter{Tensor Products and Exterior Powers}
+\label{app:tensors}
+\chaptermark{Tensor Products and Exterior Powers}
+\section*{Introduction}
+Multilinear rules become easier to organize when they are represented by
+linear maps on a single vector space. This appendix develops that advantage
+over a field $F$, following Chapter~8 of the author's algebra notes.
+The route is construction,
+associativity, symmetry, direct sums, finite multilinear products, induced
+maps and calculations, Tensor--Hom, exterior powers, and finally the
+exterior algebra and alternating forms. A quotient-space preparation makes
+the constructions self-contained. No topology or ordering of $F$ is needed;
+$F=\R$ connects the final constructions to differential forms.
+
+There are finitely many tensor factors and direct summands. Quotient and
+tensor constructions can use arbitrary vector spaces; the formal-symbol
+spaces in their proofs are usually infinite dimensional. Dimension formulas
+and duality identifications carry their finite-dimensional hypotheses explicitly.
+The exterior algebra below is formed for a finite-dimensional space, so
+only finitely many of its homogeneous components are nonzero.
+
+The recurring task is to construct a map without choosing a representation
+of its input. First define a map on independent vectors, verify its slot
+identities, and factor it through the relevant universal property. Construct
+an inverse by the same method when an isomorphism is claimed. Once both maps
+exist, agreement on spanning elementary elements can prove the
+inverse identities; the uniqueness clause often proves the same equality
+more directly. Chapter~13 remains independent of tensor quotients, while
+the final duality and shuffle comparison explain why the two constructions
+agree. This order of proof will remain visible at each layer.
+
+For a selective comparison of proof architecture, see
+Dummit--Foote~\cite{dummit-foote}, Sections 10.4 and 11.4--11.5.
+The displayed expansions and explicit factorization checks here retain
+a slower pace and specialize throughout to vector spaces over fields.
+
+\section{Quotient Vector Spaces and Universal Factorization}
+\label{sec:quotient-vector-spaces}
+In $E=F^2$, suppose horizontal displacements are to be ignored. Then
+$(x,y)$ and $(x+t,y)$ should describe the same object, a horizontal line.
+The second coordinate survives, whereas the first does not. This resembles
+the equivalence-class constructions of integers and rationals in Chapter~2 (\cref{prop:integer-arithmetic,prop:rational-arithmetic}):
+different representatives describe a single element. Here the differences
+we ignore form a vector subspace.
+\begin{definition}[Cosets]
+For a subspace $R\subseteq E$, declare
+\[
+x\sim y\quad\text{ if }\quad x-y\in R.
+\]
+The class of $x$ is the coset $x+R=\{x+r:r\in R\}$. Write $E/R$ for
+the set of these classes.
+\end{definition}
+The subspace laws give reflexivity, symmetry, and transitivity: differences
+are zero, negated, or added. Moreover $x+R=y+R$ if and only if $x-y\in R$,
+since adding a vector of $R$ leaves its coset unchanged.
+\begin{theorem}[The quotient vector space]\label{thm:quotient-space}
+The operations
+\[
+(x+R)+(y+R)=(x+y)+R,\qquad a(x+R)=ax+R
+\]
+make $E/R$ a vector space. The quotient map $\pi:E\to E/R$, $\pi(x)=x+R$,
+is linear and surjective, with kernel $R$.
+\end{theorem}
+\begin{proof}
+Changing representatives to $x+r,y+s$ changes their sum by $r+s\in R$
+and a scalar multiple by $ar\in R$. Thus the operations are well defined.
+The vector-space identities descend from $E$; zero is $R$ and the inverse
+of $x+R$ is $-x+R$. The displayed operations make $\pi$ linear. Every class
+has a representative, and $\pi(x)=R$ exactly when $x\in R$.
+\end{proof}
+
+\begin{example}[A legal rule and an illegal rule]
+For $R=\{(t,0):t\in F\}\subseteq F^2$, the rule
+$\mu((x,y)+R)=y$ is independent of representative. Its reverse is
+$\eta(y)=(0,y)+R$. Both are linear by the quotient operations;
+$\mu\eta(y)=y$, and $\eta\mu((x,y)+R)=(0,y)+R=(x,y)+R$ because their
+difference is horizontal. Thus $F^2/R\cong F$ by these specific maps.
+The rule $(x,y)+R\mapsto x$ is not a function on classes: $(0,0)$ and
+$(1,0)$ represent the same class but would give different outputs.
+\end{example}
+
+\begin{theorem}[Quotient universal factorization]\label{thm:quotient-factorization}
+For a linear $L:E\to U$, a linear map $\widetilde L:E/R\to U$ satisfying
+$L=\widetilde L\circ \pi$ exists if and only if $R\subseteq\ker L$.
+When it exists it is unique and is given by
+\[
+\widetilde L(x+R)=L(x).
+\]
+\end{theorem}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+E\arrow[r,"\pi"]\arrow[dr,"L"']&E/R\arrow[d,dashed,"\widetilde L"]\\
+&U
+\end{tikzcd}
+\]
+The diagram says both routes starting at $x\in E$ give $L(x)\in U$.
+All three arrows here are linear; the dashed one is the map to be constructed.
+\begin{proof}
+If $L=\widetilde L\pi$ and $r\in R$, then $\pi(r)=0$ and
+$L(r)=\widetilde L(0)=0$, proving necessity.
+For sufficiency suppose $R\subseteq\ker L$. If $x+R=y+R$, then
+$x-y\in R$, so $L(x)-L(y)=L(x-y)=0$. The displayed rule is therefore
+independent of representative and defines $\widetilde L$.
+For classes $x+R,y+R$ and scalars $a,b$,
+\[
+\widetilde L\bigl(a(x+R)+b(y+R)\bigr)=L(ax+by)
+=a\widetilde L(x+R)+b\widetilde L(y+R).
+\]
+Thus it has the required type, a linear map on the quotient, and
+$\widetilde L(\pi(x))=L(x)$. For uniqueness, any map $H$ with $H\pi=L$ has
+$H(x+R)=H(\pi(x))=L(x)$ on every class, since $\pi$ is surjective. Hence
+$H=\widetilde L$.
+\end{proof}
+The phrase ``$L$ descends to the quotient'' abbreviates this construction
+under the relation-killing hypothesis.
+
+\begin{example}[First isomorphism theorem]\label{thm:first-isomorphism}
+For linear $T:V\to W$, quotient factorization gives
+\[
+V/\ker T\longrightarrow\operatorname{im}T,\qquad v+\ker T\longmapsto Tv.
+\]
+Its kernel is zero and it is onto its stated target, so it is an isomorphism.
+Its inverse sends $Tv$ to $v+\ker T$: any two preimages differ by a kernel
+vector. For $T(x,y,z)=(x-y,y-z)$ the kernel consists of $(t,t,t)$;
+the class of $(a,0,-b)$ corresponds to $(a,b)$.
+\end{example}
+
+\begin{proposition}[Quotient bases and chosen complements]\label{prop:quotient-basis}
+Let $E$ be finite dimensional and $R\subseteq E$ a subspace. Extend a
+basis $r_1,\ldots,r_d$ of $R$ to $r_1,\ldots,r_d,s_1,\ldots,s_m$ of $E$.
+Then $s_1+R,\ldots,s_m+R$ form a basis of $E/R$, and
+\[
+\dim(E/R)=\dim E-\dim R.
+\]
+For any chosen complement $E=R\oplus S$, restriction gives an isomorphism
+$\pi|_S:S\to E/R$.
+\end{proposition}
+\begin{proof}
+Expand $x\in E$ in the extended basis. Its $r$-part disappears in the
+quotient, proving spanning of the surviving cosets. If
+$\sum_j a_j(s_j+R)=0$, then $\sum_j a_js_j\in R$. Expanding that vector
+in the $r_i$ and using independence of the full basis gives every $a_j=0$.
+This proves independence and the dimension formula separately.
+For a complement, $\pi|_S$ is linear, has kernel $S\cap R=0$, and is onto
+since $\pi(r+s)=\pi(s)$. Its reverse sends $x+R$ to the $S$-component of $x$:
+adding an element of $R$ does not change that component. Componentwise
+linearity makes the reverse linear; the composites return $s$ and $x+R$.
+\end{proof}
+The quotient is not literally its chosen complement. Different complements
+give different representative choices; the quotient map chooses none canonically.
+
+\section{Bilinear Maps and Binary Tensor Products}
+A bilinear rule accepts two independent vectors. Scalar multiplication
+$(a,v)\mapsto av$, evaluation $(\lambda,v)\mapsto\lambda(v)$, and the
+coordinate table $(x,y)\mapsto(x_iy_j)_{ij}$ are examples. The word
+``independent'' describes how the arguments may be varied, not linear
+independence of the vectors. Fixing either argument leaves a linear map
+in the other; varying both together need not do so.
+For example $b:F\times F\to F$, $b(x,y)=xy$, has
+$b((1,0)+(0,1))=1$ and $b(1,0)+b(0,1)=0$. Thus the Cartesian product,
+with its usual vector addition, is not the source that linearizes this rule.
+We seek a vector space representing \emph{all} bilinear rules on the pair.
+\begin{definition}[Bilinearity]
+A map $b:V\times W\to U$ is bilinear if, for all vectors and scalars,
+\begin{align*}
+b(v+v',w)&=b(v,w)+b(v',w),\\
+b(av,w)&=ab(v,w),\\
+b(v,w+w')&=b(v,w)+b(v,w'),\\
+b(v,aw)&=ab(v,w).
+\end{align*}
+These are two independent linearity requirements, one per slot.
+\end{definition}
+A tensor product retains the common slot identities of these examples,
+without imposing special identities of one particular rule such as a dot product.
+\begin{definition}[Tensor product]\label{def:tensor-universal}
+A tensor product of $V,W$ consists of a vector space $T$ and a bilinear map
+$\tau:V\times W\to T$ with the following property:
+\begin{enumerate}
+\item For every vector space $U$ over $F$,
+\item and every bilinear map $b:V\times W\to U$,
+\item there exists a unique linear map $\widetilde b:T\to U$ such that
+$\widetilde b\circ\tau=b$.
+\end{enumerate}
+Write $T=V\otimes_F W$ and $v\otimes w=\tau(v,w)$; the latter is an
+elementary tensor. We omit the subscript $F$ when the field is understood.
+\end{definition}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+V\times W\arrow[r,"\tau"]\arrow[dr,"b"']&V\otimes W\arrow[d,dashed,"\widetilde b"]\\
+&U
+\end{tikzcd}
+\]
+``Every'' lets us choose $U$ and $b$ for the problem at hand. ``Exists''
+gives an actual linear map on tensors, not just a formula on a pair.
+``Unique'' says two linear maps with this same composite with $\tau$ must
+agree. The horizontal and diagonal arrows are bilinear; the vertical one is
+linear. The equation means both routes send $(v,w)$ to $b(v,w)$.
+
+\subsection{Construction from formal symbols}
+
+Let $E$ consist of finitely supported coefficient families indexed by pairs
+$(v,w)\in V\times W$. Write such a family as $\sum c_{v,w}[v,w]$.
+Here finite support means the set $\{(v,w):c_{v,w}\ne0\}$ is finite;
+no closure or topology is involved. The pair $(v,w)$ is a label,
+$[v,w]$ its basis vector, $c_{v,w}$ a scalar, and the full sum an element of $E$.
+The symbol $[v,w]$ has coefficient $1$ at that pair and zero elsewhere.
+These symbols form a basis by the definition of coefficient families;
+addition and scaling act on their coefficients. In particular $[v+v',w]$
+is initially a single symbol, not the sum $[v,w]+[v',w]$. Even $[0,w]$
+is a nonzero basis symbol at this stage.
+
+Let $R$ be the subspace spanned by all vectors of the following four types:
+\begin{align*}
+&[v+v',w]-[v,w]-[v',w],\\
+&[av,w]-a[v,w],\\
+&[v,w+w']-[v,w]-[v,w'],\\
+&[v,aw]-a[v,w].
+\end{align*}
+Define $T=E/R$ and $\tau(v,w)=[v,w]+R$. Each displayed difference becomes
+zero in the quotient, so $\tau$ satisfies the four bilinear identities.
+No other types of relations have been imposed.
+\begin{theorem}[Existence of the tensor product]\label{thm:tensor-existence}
+The pair $(E/R,\tau)$ satisfies the tensor universal property.
+\end{theorem}
+\begin{proof}
+Fix an arbitrary target $U$ and bilinear $b:V\times W\to U$.
+\emph{First extend from the formal basis.} Define
+\[
+\widehat b:E\to U,\qquad
+\widehat b\left(\sum c_{v,w}[v,w]\right)=\sum c_{v,w}b(v,w).
+\]
+Each sum is finite, and its coefficients are uniquely specified in $E$.
+The formula is linear by distributing coefficients. At this stage
+bilinearity of $b$ has not been used: any assignment of values to formal
+basis symbols extends linearly in this way.
+
+\emph{Then check the relations.} Bilinearity now gives all four checks:
+\begin{align*}
+\widehat b([v+v',w]-[v,w]-[v',w])&=b(v+v',w)-b(v,w)-b(v',w)=0,\\
+\widehat b([av,w]-a[v,w])&=b(av,w)-ab(v,w)=0,\\
+\widehat b([v,w+w']-[v,w]-[v,w'])&=b(v,w+w')-b(v,w)-b(v,w')=0,\\
+\widehat b([v,aw]-a[v,w])&=b(v,aw)-ab(v,w)=0.
+\end{align*}
+Linearity makes $\widehat b$ vanish on their whole span:
+$R\subseteq\ker\widehat b$. The quotient factorization theorem
+\cref{thm:quotient-factorization} therefore gives the linear map
+$\widetilde b:E/R\to U$, with
+\[
+\widetilde b(e+R)=\widehat b(e),\qquad
+\widetilde b(v\otimes w)=b(v,w).
+\]
+Thus $\widetilde b\tau=b$. Any other linear $H$ with this property has
+$H\pi([v,w])=b(v,w)=\widehat b([v,w])$ on the formal basis, hence
+$H\pi=\widehat b$. Quotient uniqueness gives $H=\widetilde b$.
+\end{proof}
+The two stages solve different problems: basis extension gives a map before
+identifications; killing the relations allows it to survive identifications.
+\[
+\begin{tikzcd}[column sep=large]
+E\arrow[r,"\pi"]\arrow[dr,"\widehat b"']&E/R\arrow[d,dashed,"\widetilde b"]\\
+&U
+\end{tikzcd}
+\]
+
+\begin{center}
+\fbox{\parbox{.88\linewidth}{\textbf{Working rule.}
+To construct a map from a tensor product: define a concrete map on the
+independent variables, verify bilinearity, invoke the universal property,
+and obtain the induced linear map.
+
+To prove two existing linear maps equal: first establish both maps, compare
+their composites with the bilinear input map, then use uniqueness (or,
+equivalently here, agreement on the spanning elementary tensors). A formula on
+elementary tensors alone is not a definition of a linear map.}}
+\end{center}
+\begin{example}[Construct before evaluating]
+On $F^2\times F^2$ let $b(v,w)=v_1w_1+2v_1w_2-v_2w_1$.
+For fixed $w$ it is $(w_1+2w_2)v_1-w_1v_2$, linear in $v$; for fixed
+$v$ it is $(v_1-v_2)w_1+2v_1w_2$, linear in $w$. Thus a unique linear
+$L:F^2\otimes F^2\to F$ exists with these input values. It sends
+$3e_1\otimes e_2+e_2\otimes e_1$ to $6-1=5$, interpreted in $F$.
+By contrast the proposed rule $v\otimes w\mapsto v$ fails: $v\otimes0=0$
+for every $v$, whereas the proposed outputs vary. Its independent-variable
+map is not linear in $w$, so the working rule detects the problem in advance.
+\end{example}
+
+\begin{theorem}[Uniqueness up to canonical isomorphism]\label{thm:tensor-uniqueness}
+If $(T,\tau)$ and $(T',\tau')$ are tensor products of $V,W$, there is a
+unique linear isomorphism $A:T\to T'$ satisfying $A\tau=\tau'$.
+\end{theorem}
+\begin{proof}
+\emph{Construct $A$.} Use the universal property of $T$ with target
+$U=T'$ and input bilinear map $b=\tau'$. It gives a unique linear
+$A:T\to T'$ such that $A\tau=\tau'$. Temporarily distinguishing the
+spaces, this reads $A(v\otimes_T w)=v\otimes_{T'}w$.
+
+\emph{Construct the reverse.} Use the universal property of $T'$ with
+target $T$ and bilinear map $\tau$. This gives a linear $C:T'\to T$
+with $C\tau'=\tau$, or $C(v\otimes_{T'}w)=v\otimes_Tw$.
+
+\emph{First composite.} Both $CA$ and $\operatorname{id}_T$ are existing
+linear maps $T\to T$. Compute
+\[
+(CA)\tau=C(A\tau)=C\tau'=\tau=\operatorname{id}_T\tau.
+\]
+The uniqueness clause for $T$, with target $T$ and input map $\tau$, says
+only one linear map has this composite. Therefore $CA=\operatorname{id}_T$.
+
+\emph{Second composite.} Both $AC$ and $\operatorname{id}_{T'}$ are linear
+maps $T'\to T'$, and
+\[
+(AC)\tau'=A(C\tau')=A\tau=\tau'=\operatorname{id}_{T'}\tau'.
+\]
+Uniqueness for $T'$, now with target $T'$ and input map $\tau'$, gives
+$AC=\operatorname{id}_{T'}$. Hence $A,C$ are mutual inverses. The same
+uniqueness used to construct $A$ proves that no other isomorphism satisfying
+the stated input condition exists.
+\end{proof}
+\Needspace{9\baselineskip}
+The map $A$ is canonical: its behavior on every pair uniquely determines it,
+without any basis choice. Two constructions need not be literally equal
+as sets to be identified by this particular isomorphism.
+\[
+\begin{tikzcd}[column sep=large]
+T\arrow[rr,shift left=1ex,"A"]&&T'\arrow[ll,shift left=1ex,"C"]\\
+&V\times W\arrow[ul,"\tau"]\arrow[ur,"\tau'"']&
+\end{tikzcd}
+\]
+
+
+\paragraph{Working facts: elementary tensor arithmetic.}
+Bilinearity gives
+\[
+0\otimes w=v\otimes0=0,\qquad
+(av)\otimes w=a(v\otimes w)=v\otimes(aw).
+\]
+Expanding $(0+0)\otimes w$ and subtracting $0\otimes w$ gives zero;
+the other slot is identical. The scalar equalities are the two scalar
+bilinearity identities.
+
+\subsection{Spanning is not surjectivity of the input map}
+Every quotient class of a finite sum of symbols is a finite sum of
+elementary tensors. Therefore elementary tensors span. The universal map
+$\tau:V\times W\to V\otimes W$ need not be surjective: being a finite
+sum of elementary tensors is weaker than being one elementary tensor.
+\begin{proposition}[Universality itself forces spanning]
+For any tensor product $(T,\tau)$, $\operatorname{span}\tau(V\times W)=T$.
+\end{proposition}
+\begin{proof}
+Let $S$ be that span. The quotient map $\pi:T\to T/S$ has $\pi\tau=0$.
+The zero linear map $Z:T\to T/S$ also has $Z\tau=0$. Tensor uniqueness
+with target $T/S$ and zero bilinear input forces $\pi=Z$. But $\pi$ is
+surjective, so $T/S$ is the zero space. Hence every $t\in T$ belongs
+to $S$, as claimed.
+\end{proof}
+Representations as sums need not be unique. For instance
+\[
+(v+v')\otimes w=v\otimes w+v'\otimes w,\qquad
+(av)\otimes w=v\otimes(aw).
+\]
+The elementary factors and even the number of summands can change. A rule
+on a chosen representation therefore requires justification.
+
+
+\section{Finite Associativity}
+\label{sec:tensor-associativity}
+Both parenthesizations solve the same problem: linearize a trilinear
+map on $U\times V\times W$. This is the reason for associativity.
+\begin{theorem}[Associativity]
+There is a canonical isomorphism
+\[
+A:(U\otimes V)\otimes W\longrightarrow U\otimes(V\otimes W),\qquad
+A((u\otimes v)\otimes w)=u\otimes(v\otimes w).
+\]
+\end{theorem}
+\begin{proof}
+We first verify the common universal problem. Given trilinear
+$b:U\times V\times W\to Z$, fixing $w$ gives a bilinear map and hence
+a unique linear $L_w:U\otimes V\to Z$ with $L_w(u\otimes v)=b(u,v,w)$.
+Uniqueness in binary universality implies
+$L_{aw+cw'}=aL_w+cL_{w'}$: both sides factor the same bilinear input map.
+Consequently $(t,w)\mapsto L_w(t)$ is bilinear on $(U\otimes V)\times W$
+and factors uniquely through $(U\otimes V)\otimes W$.
+Fixing $u$ instead proves the identical trilinear universal property for
+$U\otimes(V\otimes W)$.
+
+Apply the first property to the trilinear input
+$(u,v,w)\mapsto u\otimes(v\otimes w)$ to construct $A$; apply the second
+to $(u,v,w)\mapsto(u\otimes v)\otimes w$ to construct its reverse $C$.
+The composites $CA$ and $AC$ factor their respective original tuple maps,
+as do the identity maps. Uniqueness in the two trilinear properties gives
+$CA=\operatorname{id}$ and $AC=\operatorname{id}$.
+\end{proof}
+The finite version below uses the same argument inductively; no basis or
+dimension calculation is involved.
+
+\section{Symmetry over a Field}
+
+The two inputs have occupied ordered slots, but we may wish to exchange
+their roles. Exchanging slots changes the target tensor product; it does
+not assert equality of tensors within the original space. The universal
+property turns this exchange into an isomorphism.
+
+\begin{proposition}[Symmetry]
+The rule $v\otimes w\mapsto w\otimes v$ determines a canonical isomorphism
+$S:V\otimes W\to W\otimes V$.
+\end{proposition}
+\begin{proof}
+The concrete map $(v,w)\mapsto w\otimes v$ is bilinear by the two
+tensor-slot identities. The working rule constructs $S$; interchanging
+the slots again constructs $R:W\otimes V\to V\otimes W$.
+Now $RS(v\otimes w)=v\otimes w$ and $SR(w\otimes v)=w\otimes v$.
+Each composite and the relevant identity factor the same bilinear input
+map; uniqueness proves both inverse identities. No choice of representation has been made.
+\end{proof}
+
+In a space with basis $e_1,e_2$, symmetry interchanges $e_1\otimes e_2$ and $e_2\otimes e_1$.
+The tensor-basis theorem below will prove that these are distinct.
+The field scalars may be moved from either tensor slot to the other.
+Swapping the inputs therefore still gives a bilinear map over the same
+field. Symmetry changes their order; associativity only changes grouping.
+
+\section{Tensor Products and Finite Direct Sums}
+\label{sec:tensor-direct-sums}
+For a finite family $(V_i)_{i\in I}$, the direct sum
+$\bigoplus_{i\in I}V_i$ is the vector space of tuples $(v_i)$, with
+componentwise addition and scalar multiplication. The injection
+$\iota_i:V_i\to\bigoplus_i V_i$ places a vector in its $i$th component.
+Every tuple is $\sum_i\iota_i(v_i)$. Given linear maps $L_i:V_i\to X$,
+Chapter~10's direct-sum construction gives the unique linear map
+$L:\bigoplus_iV_i\to X$ with $L\iota_i=L_i$:
+\[
+L((v_i))=\sum_i L_i(v_i).
+\]
+All index sets in the direct-sum formulas below are finite.
+
+\begin{theorem}[Finite direct sums]\label{thm:tensor-finite-sums}
+For finite index sets $I,J$ there are canonical isomorphisms
+\begin{align*}
+\Phi:(\bigoplus_{i\in I}V_i)\otimes W&\longrightarrow
+\bigoplus_{i\in I}(V_i\otimes W),\\
+\Theta:V\otimes(\bigoplus_{j\in J}W_j)&\longrightarrow
+\bigoplus_{j\in J}(V\otimes W_j).
+\end{align*}
+Their elementary values are
+$\Phi((v_i)\otimes w)=(v_i\otimes w)_i$ and
+$\Theta(v\otimes(w_j))=(v\otimes w_j)_j$.
+\end{theorem}
+\begin{proof}
+\emph{Construct the first forward map.} The proposed independent-variable
+map is $b((v_i),w)=(v_i\otimes w)_i$. Its output is a tuple in the stated finite direct sum. Tensor
+linearity in each component gives
+\[
+b(a\mathbf v+c\mathbf v',w)=ab(\mathbf v,w)+cb(\mathbf v',w),\qquad
+b(\mathbf v,aw+cw')=ab(\mathbf v,w)+cb(\mathbf v,w').
+\]
+It is bilinear and hence induces $\Phi$.
+
+\emph{Construct its reverse.} For each $i$, the map
+$(v,w)\mapsto\iota_i(v)\otimes w$ is bilinear, because $\iota_i$ is
+linear and the tensor map is bilinear. It induces
+$j_i:V_i\otimes W\to(\bigoplus_iV_i)\otimes W$.
+The direct-sum construction just proved gives the linear map
+\[
+\Psi:\bigoplus_i(V_i\otimes W)\longrightarrow(\bigoplus_iV_i)\otimes W,
+\qquad \Psi((t_i))=\sum_i j_i(t_i).
+\]
+For an elementary tensor in the source of $\Phi$,
+\[
+\Psi\Phi((v_i)\otimes w)=\sum_i\iota_i(v_i)\otimes w
+=\left(\sum_i\iota_i(v_i)\right)\otimes w=(v_i)\otimes w.
+\]
+For an elementary tensor injected into summand $i$ of the other space,
+$\Phi\Psi$ returns that same injected tensor. Such vectors span the
+direct sum, and elementary tensors span the first space. Both composites
+are therefore identities.
+
+\emph{Use symmetry for the other factor.} Compose the symmetry
+$V\otimes(\bigoplus_jW_j)\cong(\bigoplus_jW_j)\otimes V$,
+the proved first-factor distributivity, and symmetry in every resulting
+summand. The composite sends $v\otimes(w_j)$ to $(v\otimes w_j)_j$,
+which is exactly $\Theta$. Its inverse is the reverse composite.
+\end{proof}
+
+\begin{corollary}[Binary distributivity]\label{thm:tensor-distributivity}
+In particular,
+\begin{align*}
+(U\oplus V)\otimes W&\cong(U\otimes W)\oplus(V\otimes W),\\
+W\otimes(U\oplus V)&\cong(W\otimes U)\oplus(W\otimes V).
+\end{align*}
+\end{corollary}
+\begin{proof}
+Take a two-element index set in the two constructions above.
+Their inverses add the maps induced by the two component injections.
+\end{proof}
+\begin{corollary}[Distributivity in both factors]\label{cor:finite-tensor-distributivity}
+For finite index sets $I,J$,
+\[
+(\bigoplus_iV_i)\otimes(\bigoplus_jW_j)
+\cong\bigoplus_{(i,j)\in I\times J}(V_i\otimes W_j).
+\]
+\end{corollary}
+\begin{proof}
+Apply the first-factor theorem with $W=\bigoplus_jW_j$, then apply
+the second-factor theorem inside each summand. Reindex the finite tuple
+of tuples by $(i,j)$. The composite sends $(v_i)\otimes(w_j)$ to
+$(v_i\otimes w_j)_{i,j}$; all constituent maps are already isomorphisms.
+\end{proof}
+\section{Finite Multilinear Tensor Products}
+\label{sec:finite-tensors}
+Three different input spaces arise when a trilinear rule accepts three
+different kinds of data. Repeated copies of one space are a special case.
+We first state the input problem, then solve it by recursively using
+the binary construction. A direct tuple-symbol quotient is an alternative realization, not a
+second theory to develop.
+\begin{definition}[Multilinearity]
+For $n\geq1$, a map $b:V_1\times\cdots\times V_n\to U$ is multilinear
+if it is linear in each slot with every other input fixed. In slot $i$,
+\[
+\begin{split}
+b(v_1,\ldots,av_i+cv_i',\ldots,v_n)
+={}&a b(v_1,\ldots,v_i,\ldots,v_n)\\
+&+c b(v_1,\ldots,v_i',\ldots,v_n).
+\end{split}
+\]
+Here $n$ is the number of factors and $i$ specifies the varying slot.
+\end{definition}
+\begin{definition}[Finite tensor-product universal property]
+A tensor product of $V_1,\ldots,V_n$ consists of a vector space $T$
+and a multilinear map $\tau:V_1\times\cdots\times V_n\to T$ such that
+every multilinear map $b:V_1\times\cdots\times V_n\to U$ factors
+uniquely as $b=\widetilde b\circ\tau$ with $\widetilde b:T\to U$ linear.
+The value $\tau(v_1,\ldots,v_n)$ is an elementary tensor.
+\end{definition}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+V_1\times\cdots\times V_n\arrow[r,"\tau"]\arrow[dr,"b"']&
+T\arrow[d,dashed,"\widetilde b"]\\&U
+\end{tikzcd}
+\]
+The horizontal and slant arrows are multilinear; the vertical arrow is
+linear. We will build the upper-right space so that this factorization
+always exists and is unique.
+
+\Needspace{12\baselineskip}
+\subsection{Recursive existence from the binary product}
+Set
+\[
+P_1=V_1,\qquad P_n=P_{n-1}\otimes V_n\quad(n\geq2),
+\]
+and define the nested tuple maps by
+\[
+\tau_1(v_1)=v_1,\qquad
+\tau_n(v_1,\ldots,v_n)=\tau_{n-1}(v_1,\ldots,v_{n-1})\otimes v_n.
+\]
+Tensor-slot linearity and induction make $\tau_n$ multilinear.
+Its elementary values span $P_n$: elementary $t\otimes v_n$ span
+the binary product, and expanding $t$ in nested elementary tensors
+from $P_{n-1}$ expands each such tensor into values of $\tau_n$.
+This argument uses no bases or dimension formula.
+
+\begin{theorem}[Recursive construction and universality]\label{thm:finite-tensors}
+For every finite $n\geq1$, $(P_n,\tau_n)$ represents $n$-linear maps.
+\end{theorem}
+\begin{proof}
+Use $(n-1)$-linear universality, prove linear dependence
+on the last variable, then apply binary universality.
+For $n=1$, the given linear map itself is the unique factor through
+$\tau_1=\operatorname{id}_{V_1}$. Assume the result at $n-1$ and take
+an arbitrary target vector space $U$ and multilinear
+$b:V_1\times\cdots\times V_n\to U$.
+
+\emph{Fix the last input.} For $v_n\in V_n$, define
+$b_{v_n}(v_1,\ldots,v_{n-1})=b(v_1,\ldots,v_n)$.
+It is $(n-1)$-linear. The induction hypothesis constructs a linear map
+\[
+L_{v_n}:P_{n-1}\longrightarrow U,\qquad
+L_{v_n}(\tau_{n-1}(v_1,\ldots,v_{n-1}))=b(v_1,\ldots,v_n).
+\]
+\emph{Let that input vary.} For $v,w\in V_n$ and $a,c\in F$, compare
+the already existing linear maps $L_{av+cw}$ and $aL_v+cL_w$.
+On each spanning elementary value $t=\tau_{n-1}(v_1,\ldots,v_{n-1})$,
+linearity of the last slot of $b$ gives
+\[
+L_{av+cw}(t)=aL_v(t)+cL_w(t).
+\]
+Spanning proves equality on all of $P_{n-1}$. Thus
+$v\mapsto L_v$ is a linear map $V_n\to\mathcal L(P_{n-1},U)$.
+
+\emph{Apply binary universality.} Now define
+\[
+\beta:P_{n-1}\times V_n\longrightarrow U,\qquad \beta(t,v)=L_v(t).
+\]
+For fixed $v$, it is linear in $t$ by construction of $L_v$. For
+fixed $t$, it is linear in $v$ by the map equality just proved.
+Hence $\beta$ is bilinear and induces $\widetilde b:P_n\to U$.
+Its value on $\tau_n(v_1,\ldots,v_n)$ is $b(v_1,\ldots,v_n)$.
+Any two such factors agree on the spanning values of $\tau_n$, so
+are equal. This proves existence and uniqueness at $n$.
+\end{proof}
+
+\begin{remark}[An alternative realization]\label{prop:finite-tensor-comparison}
+One may alternatively start from tuple symbols modulo the slot-linearity
+relations. The same relation check as in the binary construction gives
+the finite multilinear universal property. Thus this realization is
+canonically isomorphic to $P_n$: factor each object's tuple map through
+the other and use uniqueness to identify both composites with identities.
+There is no need to repeat the formal-symbol construction.
+\end{remark}
+
+\begin{corollary}[Every finite parenthesization]\label{thm:all-parenthesizations}
+Every recursively binary parenthesization of the ordered factors
+$V_1,\ldots,V_n$ represents the same multilinear problem as $P_n$.
+Every canonical comparison preserves the elementary tuple values, and
+any two canonical reassociation routes with the same endpoints agree.
+\end{corollary}
+\begin{proof}
+Induct on the number of factors. At the outermost binary split, fix the
+inputs on the right, factor the multilinear inputs on the left, and then
+factor on the right. The uniqueness clause on the left ensures that the
+first factor depends multilinearly on the right inputs, just as in the
+proof of \cref{thm:finite-tensors}. This gives a bilinear map on the two
+parenthesized blocks, and binary universality gives the required linear
+factor on their tensor product. The same successive uniqueness clauses
+prove its uniqueness. Hence every parenthesization represents the same
+problem. Factoring their tuple maps constructs comparisons in both
+directions. Uniqueness proves they are inverse and that all reassociation
+routes with the same endpoints agree.
+\end{proof}
+For $n=3$, the left-associated tuple map sends $(u,v,w)$ to
+$(u\otimes v)\otimes w$; the associativity map sends this to
+$u\otimes(v\otimes w)$. Both represent the same trilinear input rule.
+We may consequently write $V_1\otimes\cdots\otimes V_n$ without
+parentheses, using these particular comparisons.
+
+\begin{remark}[Finite-factor scope]
+All tensor products in this appendix have finitely many factors, although
+the individual vector spaces need not be finite dimensional. The finite
+induction justifies finite regrouping. Infinitely many tensor factors
+require a separate construction; the argument above neither defines
+such a product nor justifies infinite regrouping. That specialized subject
+is outside this appendix.
+\end{remark}
+\begin{definition}[Tensor powers]
+Write $V^{\otimes n}$ for $n$ repeated factors. Set $V^{\otimes0}=F$
+and identify the one-factor product with $V$ using $P_1=V$. For exterior powers below, $k$ will
+denote the degree, and $V^{\otimes k}$ has $k$ factors.
+\end{definition}
+
+\section{Tensoring Linear Maps and Concrete Calculations}
+
+If each input vector is transformed by a linear map, the combined tensor
+data should transform as well. We must construct that transformation on
+the whole tensor product, so its value does not depend on a decomposition
+into elementary tensors.
+
+\begin{proposition}[Induced binary tensor homomorphisms]\label{prop:binary-tensor-maps}
+Linear maps $T:V\to V'$ and $S:W\to W'$ induce a unique linear map
+\[
+T\otimes S:V\otimes W\longrightarrow V'\otimes W',\qquad
+(T\otimes S)(v\otimes w)=T(v)\otimes S(w).
+\]
+This construction preserves identities and composition, and takes pairs
+of isomorphisms to isomorphisms.
+\end{proposition}
+\begin{proof}
+The concrete map $(v,w)\mapsto T(v)\otimes S(w)$ is bilinear: linearity
+of $T$ or $S$ followed by the corresponding tensor-slot identity verifies
+each slot. The working rule constructs $T\otimes S$ with the stated type.
+For further linear $T':V'\to V''$, $S':W'\to W''$, both composites
+$(T'\otimes S')(T\otimes S)$ and $(T'T)\otimes(S'S)$ send $v\otimes w$
+to $T'T(v)\otimes S'S(w)$, hence factor the same bilinear map and agree
+by uniqueness. Identities act as
+identities. If $T,S$ are invertible, the already justified construction
+of $T^{-1}\otimes S^{-1}$ and the composition rule give both inverse identities.
+\end{proof}
+
+\subsection{Induced maps in all the factors}
+For linear maps $T_i:V_i\to W_i$, consider directly
+\[
+b:V_1\times\cdots\times V_n\longrightarrow\bigotimes_iW_i,
+\qquad b(v_1,\ldots,v_n)=T_1v_1\otimes\cdots\otimes T_nv_n.
+\]
+Linearity of $T_i$ and of the $i$th tensor slot proves multilinearity.
+The finite universal property therefore constructs the unique linear map
+\[
+\bigotimes_iT_i:\bigotimes_iV_i\longrightarrow\bigotimes_iW_i
+\]
+with these values. For $S_i:W_i\to X_i$, the two maps below factor the
+same multilinear rule $(v_i)\mapsto\bigotimes_i S_iT_iv_i$; uniqueness gives
+\[
+\bigotimes_i(S_iT_i)=(\bigotimes_iS_i)(\bigotimes_iT_i).
+\]
+The identity map factors the original tuple map, so tensoring identities
+gives the identity. For invertible $T_i$, tensoring their inverses and
+using composition gives both inverse laws. The recursive binary construction
+has the same tuple values and is therefore compatible with this direct
+construction. For repeated $T$ write $T^{\otimes n}$, and set
+$T^{\otimes0}=\operatorname{id}_F$.
+
+\subsection{The scalar unit}
+
+The bilinear operation $(a,v)\mapsto av$ already has its values in $V$.
+Linearizing it should recover $V$, with the scalar $1$ providing the
+reverse map. This identifies a specific isomorphism, rather than merely
+comparing dimensions.
+
+\begin{proposition}[Scalar multiplication linearized]\label{prop:tensor-unit}
+There is a canonical isomorphism
+\[
+\mu:F\otimes V\longrightarrow V,\qquad \mu(a\otimes v)=av.
+\]
+\end{proposition}
+\begin{proof}
+The vector-space axioms make $b:F\times V\to V$, $b(a,v)=av$,
+bilinear. For example $b(a,cv+dw)=c\,b(a,v)+d\,b(a,w)$.
+This bilinear map induces the linear $\mu$. Define the reverse directly:
+\[
+\eta:V\longrightarrow F\otimes V,\qquad \eta(v)=1\otimes v.
+\]
+The second tensor slot
+is linear, so $\eta$ is linear. For every $v$, $\mu\eta(v)=1v=v$.
+For an elementary tensor,
+\[
+\eta\mu(a\otimes v)=1\otimes(av)=a(1\otimes v)=a\otimes v.
+\]
+The two existing linear maps $\eta\mu$ and the identity agree on a
+spanning set, hence agree everywhere. Thus both composites are identities.
+\end{proof}
+In particular $F\otimes_F F$ is one-dimensional although the formal
+space has one independent symbol for every pair of field elements.
+
+Composing the already constructed symmetry $V\otimes F\to F\otimes V$
+with $\mu$ gives the right unit $v\otimes a\mapsto av$.
+Its inverse is $v\mapsto v\otimes1$: composing in either order fixes
+vectors or elementary tensors, respectively.
+
+\subsection{Tensor bases and coordinates}
+
+The construction has used no basis. With bases chosen, it should produce
+a finite table of coefficients indexed by pairs of basis vectors. Expansion
+shows that these pairs span; independent coordinate detectors must still
+show that none of those coefficients is redundant.
+
+\begin{theorem}[Tensor basis]\label{thm:tensor-basis}
+If $(e_i)_{i=1}^m$ and $(f_j)_{j=1}^n$ are bases of $V,W$, the tensors
+$e_i\otimes f_j$ form a basis of $V\otimes W$. Its dimension is $mn$.
+\end{theorem}
+\begin{proof}
+\emph{Spanning.} Write $v=\sum_i x_ie_i$ and $w=\sum_j y_jf_j$.
+Bilinearity expands $v\otimes w=\sum_{i,j}x_iy_j(e_i\otimes f_j)$.
+Since elementary tensors span, so does the displayed finite list.
+
+\emph{Independence.} The coordinate maps $e^r:V\to F$ and $f^s:W\to F$
+are already linear by uniqueness of coordinates in the two given bases.
+Define the scalar-valued input map $b_{rs}(v,w)=e^r(v)f^s(w)$.
+For example
+\[
+b_{rs}(av+bv',w)=(ae^r(v)+be^r(v'))f^s(w)
+=ab_{rs}(v,w)+bb_{rs}(v',w),
+\]
+and $b_{rs}(v,aw+bw')=ab_{rs}(v,w)+bb_{rs}(v,w')$ follows by expanding
+the second coordinate functional. Thus it is bilinear. Universality gives
+a linear $\ell_{rs}:V\otimes W\to F$, for which
+\[
+\ell_{rs}(e_i\otimes f_j)=\delta_{ri}\delta_{sj}.
+\]
+Applying this existing map to $\sum c_{ij}e_i\otimes f_j=0$ gives
+$c_{rs}=0$. All coefficients vanish, proving independence.
+\end{proof}
+We did not define $\ell_{rs}$ as ``the coefficient extractor'': uniqueness
+of tensor coefficients was precisely what the proof had to establish.
+The bilinear detector constructed it without assuming the conclusion.
+\begin{proposition}[Nonzero elementary tensors]
+For finite-dimensional $V,W$, $v\otimes w=0$ if and only if $v=0$ or $w=0$.
+\end{proposition}
+\begin{proof}
+A zero factor gives zero by elementary arithmetic. Otherwise extend $v$
+and $w$ separately to bases. Their tensor is one of the tensor-basis
+vectors, so is nonzero.
+\end{proof}
+\begin{example}[A table, and a tensor that is not elementary]
+Choosing bases identifies tensors with rectangular coefficient tables.
+A rectangular coefficient table alone determines no canonical map
+$V\to W$; later, evaluation of a covector factor in $V^*\otimes W$
+will define such a map.
+The maps sending $\sum c_{ij}e_i\otimes f_j$ to $(c_{ij})$ and sending
+$(c_{ij})$ back to that sum are linear and inverse: each composite restores
+every coefficient. An elementary tensor has table $(x_iy_j)$. For example
+$(e_1+2e_2)\otimes(f_1-f_2)$ in $F^2\otimes F^2$ has table
+$\left(\begin{matrix}1&-1\\2&-2\end{matrix}\right)$.
+The tensor $e_1\otimes f_1+e_2\otimes f_2$ is not elementary: an
+elementary representation would require $x_1y_1=x_2y_2=1$ and
+$x_1y_2=x_2y_1=0$. The first two equations make all four factors nonzero,
+contradicting the last two. This proves that $\tau$ need not be surjective.
+\end{example}
+
+\begin{example}[Six coordinates]
+In $F^2\otimes F^3$, order the basis by
+$(e_1\otimes f_1,e_1\otimes f_2,e_1\otimes f_3,
+e_2\otimes f_1,e_2\otimes f_2,e_2\otimes f_3)$.
+Then $(e_1+2e_2)\otimes(f_1-f_2+3f_3)$ has coordinates
+$(1,-1,3,2,-2,6)$. Integers are interpreted in $F$.
+The vector-space dimension is six, although a single elementary tensor's
+coordinates are constrained to be the products $x_i y_j$.
+\end{example}
+
+\begin{corollary}[Finite tensor basis]\label{cor:finite-tensor-basis}
+Let $n\geq1$ and let
+$\mathcal B_i=(e_1^{(i)},\ldots,e_{d_i}^{(i)})$ be a basis of $V_i$,
+where $d_i=\dim V_i$. Then
+\[
+e_{j_1}^{(1)}\otimes\cdots\otimes e_{j_n}^{(n)},\qquad
+1\leq j_i\leq d_i,
+\]
+form a basis of the finite tensor product, and its dimension is
+$\prod_{i=1}^n d_i$.
+\end{corollary}
+\begin{proof}
+For $P_1=V_1$, this is the given basis. If the nested basis is known
+for $P_{n-1}$, apply the binary tensor-basis theorem
+(\cref{thm:tensor-basis}) to $P_{n-1}\otimes V_n$.
+It appends $e_{j_n}^{(n)}$ to each previous basis tensor and proves
+both spanning and independence. Transport this basis through the canonical associativity maps of
+\cref{thm:all-parenthesizations}. It becomes exactly the displayed list
+in any parenthesized realization. Counting gives the product dimension.
+If a factor is zero dimensional, the binary theorem gives the zero
+space at that stage and thereafter, in agreement with the empty list.
+\end{proof}
+There is only one independent tensor-basis proof here, the binary one.
+The recursive comparison was established without this corollary and
+therefore legitimately transports the basis to any finite realization.
+
+\begin{example}[A three-factor rule becomes a functional]\label{ex:three-factor-functional}
+Consider three factor spaces with dimensions $2,2,3$:
+\[
+b:F^2\times F^2\times F^3\to F,\qquad
+b(x,y,z)=x_1y_1z_1+x_2y_1z_2+x_1y_2z_3.
+\]
+Hold two inputs fixed. As a function of each remaining input the rule is
+\begin{align*}
+x&\longmapsto (y_1z_1+y_2z_3)x_1+(y_1z_2)x_2,\\
+y&\longmapsto (x_1z_1+x_2z_2)y_1+(x_1z_3)y_2,\\
+z&\longmapsto (x_1y_1)z_1+(x_2y_1)z_2+(x_1y_2)z_3.
+\end{align*}
+Each is a fixed linear combination of coordinate functions; substituting
+$au+cv$ in its variable distributes into $a$ times the value at $u$ and
+$c$ times the value at $v$. Thus all three linearity requirements hold.
+With target $F$ and this input $b$, \cref{thm:finite-tensors} constructs
+the unique linear functional
+\[
+\widetilde b:F^2\otimes F^2\otimes F^3\to F,
+\qquad \widetilde b(x\otimes y\otimes z)=b(x,y,z).
+\]
+Write $e_i,f_j,g_k$ for the three standard bases. Its twelve basis values are
+\[
+\widetilde b(e_i\otimes f_j\otimes g_k)
+=\delta_{i1}\delta_{j1}\delta_{k1}
++\delta_{i2}\delta_{j1}\delta_{k2}
++\delta_{i1}\delta_{j2}\delta_{k3}.
+\]
+Exactly the tensors indexed by $(1,1,1),(2,1,2),(1,2,3)$ have value $1$;
+the other nine have value zero. For the finite sum
+\[
+t=e_1\otimes f_1\otimes g_1+e_2\otimes f_2\otimes g_2,
+\qquad \widetilde b(t)=1+0=1.
+\]
+This $t$ is not elementary. In an elementary tensor the coefficients
+$c_{ijk}=x_iy_jz_k$ satisfy $c_{111}c_{222}=c_{122}c_{211}$.
+For $t$ the left side is $1$ and the right side is zero. Thus the new
+functional evaluates an input that cannot be supplied as one triple to $b$;
+its value on a sum is independent of the chosen representation.
+\end{example}
+
+\begin{example}[Four components of a tensor]\label{ex:four-tensor-components}
+Take $A=F^2\oplus F$ and $B=F\oplus F^2$, with injections
+$i:F^2\to A$, $j:F\to A$, $r:F\to B$, and $s:F^2\to B$.
+Name the forward isomorphism in \cref{cor:finite-tensor-distributivity}
+$D$ and its constructed inverse $E$. Thus $D$ has target
+\[
+(F^2\otimes F)\oplus(F^2\otimes F^2)
+\oplus(F\otimes F)\oplus(F\otimes F^2),
+\]
+in that order. Let $e_1,e_2$ be the basis of the first $F^2$ and $f_1,f_2$
+that of the second. On one elementary tensor it gives
+\[
+D((e_1+e_2,1)\otimes(1,f_1))
+=((e_1+e_2)\otimes1,\ (e_1+e_2)\otimes f_1,\ 1\otimes1,\ 1\otimes f_1).
+\]
+The inverse $E$ is the already constructed sum of maps induced by the
+four pairs of injections. For the component tuple
+\[
+z=(e_1\otimes1,\ e_2\otimes f_1+e_1\otimes f_2,\ 1\otimes1,\ 1\otimes f_2)
+\]
+its value is the nontrivial sum
+\begin{align*}
+E(z)={}&i(e_1)\otimes r(1)+i(e_2)\otimes s(f_1)
++i(e_1)\otimes s(f_2)\\
+&+j(1)\otimes r(1)+j(1)\otimes s(f_2).
+\end{align*}
+Applying $D$ to the five terms gives, respectively,
+\[
+(e_1\otimes1,0,0,0),\ (0,e_2\otimes f_1,0,0),\ (0,e_1\otimes f_2,0,0),
+\]
+\[
+(0,0,1\otimes1,0),\ (0,0,0,1\otimes f_2).
+\]
+Their sum is $z$, checking $DE$ on this input. For the first displayed
+elementary tensor, $ED$ expands its four terms and recombines them as
+$(i(e_1+e_2)+j(1))\otimes(r(1)+s(f_1))$, the original tensor.
+Dimension counting then gives
+$3\cdot3=2+4+1+2$. The count checks the construction but does not specify it.
+\end{example}
+
+\section{Tensor--Hom Correspondences}
+\subsection{A map whose values are maps}
+Recall from \cref{def:linear-map-space,prop:linear-map-space-structure} that
+$\mathcal L(V,W)$ is the vector space of linear maps with pointwise addition
+and scalar multiplication. A map into this space
+returns a whole function, which can then be evaluated at a vector.
+\begin{proposition}[Currying]\label{prop:tensor-hom}
+There are inverse linear maps
+\[
+C:\mathcal L(V\otimes W,U)\to\mathcal L(V,\mathcal L(W,U)),\qquad
+D:\mathcal L(V,\mathcal L(W,U))\to\mathcal L(V\otimes W,U).
+\]
+The forward rule is $C(L)(v)(w)=L(v\otimes w)$.
+\end{proposition}
+\begin{proof}
+First check the types in the forward rule:
+\[
+\begin{aligned}
+C(L)&\in\mathcal L(V,\mathcal L(W,U)),\\
+C(L)(v)&\in\mathcal L(W,U),\\
+C(L)(v)(w)&\in U.
+\end{aligned}
+\]
+For fixed $v$, $w\mapsto L(v\otimes w)$ is linear by second-slot
+linearity and linearity of $L$. Thus $C(L)(v)$ has the stated inner type.
+For all $w$, first-slot linearity gives
+$C(L)(av+bv')(w)=aC(L)(v)(w)+bC(L)(v')(w)$. Equality at every $w$
+proves equality of maps, so $v\mapsto C(L)(v)$ is linear. Finally
+$C(aL+bL')(v)(w)=aC(L)(v)(w)+bC(L')(v)(w)$; hence $C$ itself is linear.
+
+For the inverse, take a linear $A:V\to\mathcal L(W,U)$ and define
+$b_A(v,w)=A(v)(w)$. Since $A$ is linear,
+$b_A(av+bv',w)=aA(v)(w)+bA(v')(w)$. Since $A(v)$ is a linear map,
+$b_A(v,aw+bw')=aA(v)(w)+bA(v)(w')$. Thus $b_A$ is bilinear and induces
+the linear $D(A):V\otimes W\to U$. Comparing existing maps on elementary
+tensors shows $D(aA+bA')=aD(A)+bD(A')$, so $D$ is linear as well.
+
+For every $v,w$,
+$C(D(A))(v)(w)=D(A)(v\otimes w)=A(v)(w)$, proving $CD(A)=A$.
+For every elementary tensor,
+$D(C(L))(v\otimes w)=C(L)(v)(w)=L(v\otimes w)$.
+Spanning proves $DC(L)=L$. These are both inverse identities.
+\end{proof}
+
+\subsection{A covector and a vector make a linear map}
+
+A covector can measure an input and use the resulting scalar to rescale
+a fixed output vector. Thus $v\mapsto\lambda(v)w$ is a linear map
+with image in the line spanned by $w$. In finite dimension, basis
+coordinates let every linear map be assembled from finitely many such pieces.
+
+\begin{proposition}[Finite-dimensional tensor--map identification]
+If $V$ is finite dimensional, there is a canonical isomorphism
+\[
+J:V^*\otimes W\longrightarrow\mathcal L(V,W),\qquad
+J(\lambda\otimes w)(v)=\lambda(v)w.
+\]
+\end{proposition}
+\begin{proof}
+Begin with $B(\lambda,w)$ equal to the map $v\mapsto\lambda(v)w$.
+This is a linear map $V\to W$ because $\lambda$ is linear. Evaluation at
+each $v$ shows
+$B(a\lambda+b\mu,w)=aB(\lambda,w)+bB(\mu,w)$ and
+$B(\lambda,aw+bw')=aB(\lambda,w)+bB(\lambda,w')$ as equalities of maps.
+So $B$ is bilinear with target $\mathcal L(V,W)$ and induces $J$.
+
+Choose a basis $(e_i)$ of $V$ and its dual basis $(e^i)$ as in
+\cref{def:dual-basis} (the same coordinate argument works over $F$).
+Define the reverse
+by the finite sum
+\[
+K(T)=\sum_i e^i\otimes T(e_i).
+\]
+Pointwise linearity in $T$ and tensor linearity show that $K$ is linear.
+For $v=\sum_i e^i(v)e_i$,
+\[
+J(K(T))(v)=\sum_i e^i(v)T(e_i)=T(v),
+\]
+so $JK=\operatorname{id}$. On an elementary tensor the other composite is
+\[
+K(J(\lambda\otimes w))=\sum_i e^i\otimes\lambda(e_i)w
+=\left(\sum_i\lambda(e_i)e^i\right)\otimes w=\lambda\otimes w.
+\]
+The last covector equality follows by evaluation on every $e_j$.
+Spanning now proves $KJ=\operatorname{id}$. Although a basis was used to
+write $K$, it is the unique inverse of the basis-free map $J$. Any other
+basis therefore writes the same inverse, not another isomorphism.
+\end{proof}
+Finite dimension is used in the finite expansion of the identity on $V$.
+With a target basis $(f_i)$, $J(e^j\otimes f_i)$ sends $e_j$ to $f_i$
+and the other basis vectors to zero: its matrix unit is in row $i$, column $j$.
+For example $e^1\otimes w_1+e^2\otimes w_2$ represents the map
+$x_1e_1+x_2e_2\mapsto x_1w_1+x_2w_2$, the basis-image rule of Chapter~10.
+
+
+\paragraph{Naturality of currying.}
+For linear $R:V'\to V$, $S:W'\to W$, $T:U\to U'$ and
+$L:V\otimes W\to U$, the already constructed maps satisfy
+\[
+C\bigl(T\circ L\circ(R\otimes S)\bigr)(v')(w')
+=T\bigl(C(L)(R(v'))(S(w'))\bigr).
+\]
+Both sides equal $T(L(R(v')\otimes S(w')))$. This checks compatibility
+with composition by evaluating at the two independent inputs; it also
+shows why the displayed correspondence requires no bases.
+
+\section{Exterior Powers}
+\label{sec:exterior-quotients}
+\subsection{Begin with two inputs}
+Signed area is bilinear in its two edge vectors and vanishes when they
+agree. Ordinary tensors retain $v\otimes v$; to model area-like rules
+we must impose a further relation. The problem is to find a vector space
+with an alternating bilinear input map such that every alternating
+bilinear rule $V\times V\to U$ factors uniquely to a linear map from it.
+The quotient will solve this problem. Define the subspace:
+\[
+R_2=\operatorname{span}\{v\otimes v:v\in V\}\subseteq V\otimes V.
+\]
+Then set $\Lambda^2V=(V\otimes V)/R_2$ and let $u\wedge v$ denote the
+class of $u\otimes v$. The two-input wedge map is bilinear, as a composite
+of a bilinear tensor map and a linear quotient map, and $v\wedge v=0$.
+Expanding the repeated input $u+v$ gives
+\[
+0=(u+v)\wedge(u+v)=u\wedge v+v\wedge u,
+\]
+so $u\wedge v=-v\wedge u$. In characteristic two the minus sign is a
+plus sign, but the repeated-input-zero relation still must be imposed.
+
+\[
+\boxed{(ae_1+be_2)\wedge(ce_1+de_2)=(ad-bc)e_1\wedge e_2.}
+\]
+For example $(e_1+2e_2)\wedge(3e_1+e_2)=-5e_1\wedge e_2$.
+Over $\R$ the coefficient records signed area. This is the two-dimensional
+calculation to keep in mind when we reach the determinant line.
+
+The relation must use all vectors, not only basis vectors. In $F^2$,
+killing just $e_1\otimes e_1,e_2\otimes e_2$ leaves the nonzero class
+of $(e_1+e_2)\otimes(e_1+e_2)$, since its two off-diagonal coordinates
+are $1$. The correct $R_2$ has basis
+\[
+e_1\otimes e_1,\quad e_2\otimes e_2,\quad
+e_1\otimes e_2+e_2\otimes e_1.
+\]
+The third vector is obtained by subtracting the first two from the repeated
+tensor of $e_1+e_2$. Conversely every repeated tensor has coordinates
+$a^2,b^2,ab$ in this list. The list is independent by its tensor
+coordinates. Thus $\dim R_2=3$ and its quotient has dimension $4-3=1$, even
+in characteristic two.
+
+The determinant is already alternating bilinear, so its linear tensor
+factor kills $R_2$ and factors once more to a linear map $\Lambda^2F^2\to F$.
+That map sends $e_1\wedge e_2$ to $1$, proving this wedge is nonzero.
+The general version of this two-stage argument follows next.
+
+\begin{definition}[Alternating multilinear map]
+A multilinear $A:V^k\to U$ is alternating if
+\[
+v_i=v_j\text{ for some }i\ne j\quad\Longrightarrow\quad A(v_1,\ldots,v_k)=0.
+\]
+For $k=1$ the extra condition is empty. For $k\geq2$, expansion with
+$u+v$ in two equal slots proves the interchange sign rule, just as above.
+\end{definition}
+For general $k\geq1$, we seek an alternating multilinear map from $V^k$
+whose linear factors represent every alternating rule into every vector
+space. The following quotient is the solution, verified immediately below.
+\begin{definition}[Exterior power]
+For $k\geq1$, let $R_k\subseteq V^{\otimes k}$ be the span of elementary
+tensors having equal vectors in two distinct positions (so $R_1=\{0\}$).
+The space $R_k$ is the smallest linear subspace containing all elementary
+tensors with repeated inputs. Every alternating multilinear rule must kill
+these tensors, so quotienting by $R_k$ imposes exactly the relations forced
+by alternation. Define
+\[
+\Lambda^kV=V^{\otimes k}/R_k,\qquad
+\iota_k(v_1,\ldots,v_k)=\pi(v_1\otimes\cdots\otimes v_k).
+\]
+Write this value $v_1\wedge\cdots\wedge v_k$, an elementary wedge.
+We identify $\Lambda^1V$ with $V$, and set $\Lambda^0V=F$.
+\end{definition}
+Notice that $R_k$ is a span. A relation is not required to be one repeated
+elementary tensor; it may be any finite linear combination of such tensors.
+
+\begin{theorem}[Exterior universal property]\label{thm:exterior-universal}
+The map $\iota_k$ is alternating multilinear. For every vector space $U$
+and every alternating multilinear $A:V^k\to U$, there exists a unique
+linear $\widetilde A:\Lambda^kV\to U$ with $\widetilde A\iota_k=A$.
+\end{theorem}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+V^k\arrow[r,"\tau_k"]\arrow[dr,"A"']&V^{\otimes k}\arrow[r,"\pi"]\arrow[d,"L"]
+&\Lambda^kV\arrow[dl,dashed,"\widetilde A"]\\
+&U&
+\end{tikzcd}
+\]
+\begin{proof}
+The composite $\pi\tau_k$ is multilinear because $\tau_k$ is and $\pi$ is
+linear. A repeated input puts $\tau_k(v_1,\ldots,v_k)$ in $R_k$, so its
+quotient class is zero. Thus $\iota_k$ has the claimed type.
+
+\emph{Tensor stage.} Given $A$, use its multilinearity and
+\cref{thm:finite-tensors} to construct a unique linear
+$L:V^{\otimes k}\to U$ with $L\tau_k=A$.
+
+\emph{Relation check.} On a generator $v_1\otimes\cdots\otimes v_k$
+of $R_k$, two inputs agree. Therefore
+$L(v_1\otimes\cdots\otimes v_k)=A(v_1,\ldots,v_k)=0$ by alternation.
+Linearity makes $L$ vanish on every finite combination of these generators,
+so $R_k\subseteq\ker L$.
+
+\emph{Quotient stage.} Apply \cref{thm:quotient-factorization} to obtain
+$\widetilde A:\Lambda^kV\to U$, given by $\widetilde A(t+R_k)=L(t)$.
+The relation check is precisely its representative-independence proof.
+Now $\widetilde A\iota_k=\widetilde A \pi\tau_k=L\tau_k=A$.
+
+\emph{Two uniqueness clauses.} If $H:\Lambda^kV\to U$ is linear with
+$H\iota_k=A$, then $H\pi$ and $L$ are linear maps on $V^{\otimes k}$ with
+the same composite $A$ with $\tau_k$. Tensor uniqueness gives $H\pi=L$.
+Quotient uniqueness then gives $H=\widetilde A$. Existence used first
+multilinearity and then alternation; uniqueness uses the two stages in the
+same order.
+\end{proof}
+Elementary wedges span because tensor elements are finite sums of elementary
+tensors and $\pi$ is surjective. If another space with an alternating input
+map has the same universal property, construct $A$ from its input map and
+$C$ from the original one, as in \cref{thm:tensor-uniqueness}. Both
+$CA\iota_k=\iota_k$ and $AC\iota_k'=\iota_k'$ hold, and the corresponding
+uniqueness clauses force both composites to be identities. Thus exterior
+powers too are determined up to the unique input-preserving isomorphism.
+
+\begin{center}
+\fbox{\parbox{.88\linewidth}{\textbf{Working rule for exterior powers.}
+Start with a concrete map on $V^k$, check multilinearity and repeated-input
+vanishing, then invoke the exterior universal property. Elementary wedges
+suggest a formula; this construction makes it well defined. Once maps
+exist, equality on elementary wedges suffices, because they span.}}
+\end{center}
+
+\begin{proposition}[Elementary wedge calculus]
+The elementary wedge is linear in each vector slot, is zero on repeated
+inputs, changes sign on an interchange, and satisfies
+\[
+v_{\sigma(1)}\wedge\cdots\wedge v_{\sigma(k)}
+=\operatorname{sgn}(\sigma)\,v_1\wedge\cdots\wedge v_k.
+\]
+\end{proposition}
+\begin{proof}
+Write $W(v_1,\ldots,v_k)=\iota_k(v_1,\ldots,v_k)$. Multilinearity gives,
+with every unshown slot fixed,
+\[
+W(\ldots,au+bv,\ldots)=aW(\ldots,u,\ldots)+bW(\ldots,v,\ldots).
+\]
+Taking $a=b=0$ proves zero-slot vanishing. Alternation gives zero whenever
+two inputs agree. In any two chosen slots it consequently gives
+\[
+\begin{aligned}
+0&=W(\ldots,u+v,\ldots,u+v,\ldots)\\
+ &=W(\ldots,u,\ldots,v,\ldots)+W(\ldots,v,\ldots,u,\ldots),
+\end{aligned}
+\]
+because the equal-$u$ and equal-$v$ terms vanish. Moving one term to the
+other side proves the interchange rule, with no division by $2$.
+Decompose $\sigma$ into transpositions; each contributes a minus sign.
+The parity theorem in Appendix~\ref{app:determinants} identifies their
+product with $\operatorname{sgn}(\sigma)$, independently of the decomposition.
+\end{proof}
+
+\subsection{Expand, remove repeats, sort, and collect}
+For $n=3,k=2$, the full expansion is
+\begin{align*}
+&(a_1e_1+a_2e_2+a_3e_3)\wedge(b_1e_1+b_2e_2+b_3e_3)\\
+&=a_1b_1e_1\wedge e_1+a_1b_2e_1\wedge e_2+a_1b_3e_1\wedge e_3\\
+&\quad+a_2b_1e_2\wedge e_1+a_2b_2e_2\wedge e_2+a_2b_3e_2\wedge e_3\\
+&\quad+a_3b_1e_3\wedge e_1+a_3b_2e_3\wedge e_2+a_3b_3e_3\wedge e_3\\
+&=(a_1b_2-a_2b_1)e_1\wedge e_2
++(a_1b_3-a_3b_1)e_1\wedge e_3
++(a_2b_3-a_3b_2)e_2\wedge e_3.
+\end{align*}
+The three diagonal terms vanish. Sorting $e_2\wedge e_1$,
+$e_3\wedge e_1$, and $e_3\wedge e_2$ changes each sign. Collecting the
+remaining pairs gives the three displayed coefficients. This proves
+spanning by the three increasing wedges; independence is a separate task.
+\begin{theorem}[Exterior basis]\label{thm:appendix-exterior-basis}
+For a basis $(e_1,\ldots,e_n)$, the wedges
+$e_I=e_{i_1}\wedge\cdots\wedge e_{i_k}$ with $i_1<\cdots<i_k$ form
+a basis of $\Lambda^kV$. Thus $\dim\Lambda^kV=\binom nk$, and the space
+is zero for $k>n$.
+\end{theorem}
+\begin{proof}
+\emph{Spanning.} By \cref{cor:finite-tensor-basis}, the tensors
+$e_{i_1}\otimes\cdots\otimes e_{i_k}$ span $V^{\otimes k}$.
+The surjective quotient map $\pi:V^{\otimes k}\to\Lambda^kV$ sends them
+to $e_{i_1}\wedge\cdots\wedge e_{i_k}$, so these wedges span the quotient.
+Repeated indices vanish. For distinct indices, sort them into
+$j_1<\cdots<j_k$, writing $i_s=j_{\sigma(s)}$; the interchange law gives
+$e_{i_1}\wedge\cdots\wedge e_{i_k}
+=\operatorname{sgn}(\sigma)e_{j_1}\wedge\cdots\wedge e_{j_k}$.
+Thus only increasing wedges are needed. The preceding three-dimensional
+expansion illustrates this general quotient-and-sorting mechanism.
+
+\emph{Independence.} For an increasing tuple $I=(i_1,\ldots,i_k)$ define
+the concrete map
+\[
+A_I(v_1,\ldots,v_k)=\det(e^{i_r}(v_s))_{r,s=1}^k.
+\]
+Changing $v_s$ linearly changes column $s$ linearly, so determinant
+multilinearity gives linearity in that slot. Equal inputs give equal
+columns and determinant zero. The determinant theory of Chapter~10 and
+Appendix~\ref{app:determinants} therefore proves alternating multilinearity over $F$.
+The exterior universal property gives a unique linear map
+$\widetilde A_I:\Lambda^kV\to F$. For $J=(j_1<\cdots<j_k)$, its value is
+\[
+\widetilde A_I(e_J)=A_I(e_{j_1},\ldots,e_{j_k})
+=\det(\delta_{i_rj_s})_{r,s=1}^k.
+\]
+If $I=J$ the matrix
+is the identity, so $\widetilde A_I(e_I)=1$. If $I\ne J$, choose $j_s\in J\setminus I$, which exists since the two
+different sets have the same size. The dual-basis rule
+(\cref{def:dual-basis}) gives
+\[
+e^{i_r}(e_{j_s})=\delta_{i_rj_s}=0\quad(1\leq r\leq k).
+\]
+Thus column $s$ of the determinant is zero and $\widetilde A_I(e_J)=0$.
+We have therefore proved $\widetilde A_I(e_J)=\delta_{IJ}$.
+For a relation $\sum_Jc_Je_J=0$, fix $I$ and apply this constructed map:
+
+\[
+0=\widetilde A_I\Bigl(\sum_Jc_Je_J\Bigr)=\sum_Jc_J\widetilde A_I(e_J)=c_I.
+\]
+All coefficients vanish. There are $\binom nk$ increasing index sets;
+for $k>n$ none remain and the spanning space is zero. In degree zero the
+empty wedge is $1\in F$, giving dimension one.
+\end{proof}
+For instance $A_{13}(u,v)=u_1v_3-u_3v_1$ induces values $0,1,0$ on
+$e_1\wedge e_2,e_1\wedge e_3,e_2\wedge e_3$. The induced linear map extracts a coefficient; its construction above
+ensures that it respects every presentation of an exterior element.
+
+\paragraph{Coordinates are minors.}
+Write $v_j=\sum_{i=1}^n a_{ij}e_i$ for $1\leq j\leq k$. The linear maps just constructed give the full coordinate expansion
+\[
+v_1\wedge\cdots\wedge v_k
+=\sum_{i_1<\cdots<i_k}\det(a_{i_rj})_{r,j=1}^k
+\,e_{i_1}\wedge\cdots\wedge e_{i_k}.
+\]
+Indeed applying $\widetilde A_I$ to the left yields its displayed coefficient;
+the exterior basis makes these coefficients unique. For two inputs these
+are exactly the $2$ by $2$ minors obtained by expanding and collecting above.
+
+\begin{proposition}[Nonvanishing of an elementary wedge]\label{prop:wedge-nonvanishing}
+For finite-dimensional $V$, the wedge $v_1\wedge\cdots\wedge v_k$ is
+nonzero exactly when its inputs are linearly independent.
+\end{proposition}
+\begin{proof}
+For a dependent nonempty list, choose a relation with nonzero coefficient
+at position $j$ and solve it as $v_j=\sum_{i\ne j}c_iv_i$. Then
+\[
+v_1\wedge\cdots\wedge v_k
+=\sum_{i\ne j}c_i\,
+v_1\wedge\cdots\wedge\underset{\text{slot }j}{v_i}\wedge\cdots\wedge v_k=0.
+\]
+Each summand repeats $v_i$ in slots $i,j$; for a one-vector dependent
+list the vector is zero and linearity gives the same conclusion. For an independent list, extend it to a basis;
+the wedge is an exterior-basis vector, hence nonzero. For $k=0$ the empty
+list is independent and its wedge is $1$; for $k>\dim V$ no independent
+list exists.
+\end{proof}
+Unlike $v\otimes v$ for $v\ne0$, $v\wedge v$ vanishes. The criterion
+concerns elementary wedges, not arbitrary sums of them.
+
+\subsection{Representations need not be unique}
+Even an elementary wedge has many presentations:
+$u\wedge(v+cu)=u\wedge v$, and for $c\ne0$,
+$(cu)\wedge(c^{-1}v)=u\wedge v$. A general sum of elementary wedges
+need not reduce to one. In $F^4$ put $\omega=e_1\wedge e_2+e_3\wedge e_4$.
+For an elementary $u\wedge v$ its coefficients $p_{ij}=u_iv_j-u_jv_i$
+satisfy $p_{12}p_{34}-p_{13}p_{24}+p_{14}p_{23}=0$. To verify this without
+assuming any extra algebra, expand:
+\begin{align*}
+p_{12}p_{34}&=u_1u_3v_2v_4-u_1u_4v_2v_3-u_2u_3v_1v_4+u_2u_4v_1v_3,\\
+-p_{13}p_{24}&=-u_1u_2v_3v_4+u_1u_4v_3v_2+u_3u_2v_1v_4-u_3u_4v_1v_2,\\
+p_{14}p_{23}&=u_1u_2v_4v_3-u_1u_3v_4v_2-u_4u_2v_1v_3+u_4u_3v_1v_2.
+\end{align*}
+Commutativity pairs each term with its negative. For $\omega$, the only
+nonzero increasing coefficients are $p_{12}=p_{34}=1$, making that
+expression $1$. Thus $\omega$ is not elementary, in any characteristic.
+Coordinates in a fixed wedge basis are unique; arbitrary elementary
+decompositions are not. The product construction below must therefore
+respect relations among different decompositions.
+
+\subsection{Exterior maps, minors, and determinants}
+
+A linear transformation sends a list of edge vectors to another list.
+We want its action on their oriented area or volume data, including sums
+of wedges with nonunique presentations. The exterior universal property turns an alternating rule on vector
+tuples directly into a well-defined linear map on exterior elements.
+
+\begin{proposition}[Induced exterior homomorphisms]\label{prop:exterior-maps}
+Let $T:V\to W$ be linear. For $k\geq1$ there is a unique linear map
+\[
+\Lambda^kT:\Lambda^kV\longrightarrow\Lambda^kW,
+\]
+characterized by
+\[
+\Lambda^kT(v_1\wedge\cdots\wedge v_k)=Tv_1\wedge\cdots\wedge Tv_k.
+\]
+Set $\Lambda^0T=\operatorname{id}_F$. These induced maps commute with the
+tensor quotient maps and preserve identities:
+\[
+\Lambda^k(\operatorname{id}_V)=\operatorname{id}_{\Lambda^kV}.
+\]
+For linear $S:W\to X$, they preserve composition:
+\[
+\Lambda^k(S\circ T)=(\Lambda^kS)\circ(\Lambda^kT).
+\]
+If $T$ is invertible, its induced map is invertible, with
+\[
+(\Lambda^kT)^{-1}=\Lambda^k(T^{-1}).
+\]
+\end{proposition}
+\begin{proof}
+We first construct a map on the direct product $V^k$, then use the
+exterior universal property; no tensor representative needs to be chosen.
+For $k\geq1$ put
+\[
+A_T:V^k\to\Lambda^kW,\qquad
+A_T(v_1,\ldots,v_k)=Tv_1\wedge\cdots\wedge Tv_k.
+\]
+For a representative slot $j$, linearity of $T$ and that wedge slot gives
+\[
+\begin{aligned}
+&A_T(v_1,\ldots,av_j+bv'_j,\ldots,v_k)\\
+&=Tv_1\wedge\cdots\wedge T(av_j+bv'_j)\wedge\cdots\wedge Tv_k\\
+&=Tv_1\wedge\cdots\wedge(aTv_j+bTv'_j)\wedge\cdots\wedge Tv_k\\
+&=aA_T(v_1,\ldots,v_j,\ldots,v_k)
++bA_T(v_1,\ldots,v'_j,\ldots,v_k).
+\end{aligned}
+\]
+If $v_i=v_j$, then $Tv_i=Tv_j$, so the output wedge is zero.
+Thus $A_T$ is alternating multilinear. By \cref{thm:exterior-universal}
+there is a unique linear $\Lambda^kT:\Lambda^kV\to\Lambda^kW$ with
+\[
+\Lambda^kT(v_1\wedge\cdots\wedge v_k)=A_T(v_1,\ldots,v_k).
+\]
+The construction establishes the map before we compare its values.
+For $\xi=v_1\wedge\cdots\wedge v_k$,
+\[
+\Lambda^k(\operatorname{id}_V)(\xi)=v_1\wedge\cdots\wedge v_k=\xi,
+\]
+and
+\[
+\begin{aligned}
+\Lambda^k(S\circ T)(\xi)
+&=STv_1\wedge\cdots\wedge STv_k\\
+&=(\Lambda^kS)(Tv_1\wedge\cdots\wedge Tv_k)\\
+&=((\Lambda^kS)\circ(\Lambda^kT))(\xi).
+\end{aligned}
+\]
+Each pair consists of linear maps factoring the same alternating input
+map on $V^k$. Uniqueness in the exterior universal property therefore
+proves both laws. If $T$ is invertible,
+\[
+(\Lambda^k(T^{-1}))(\Lambda^kT)=\Lambda^k(T^{-1}T)=\operatorname{id},
+\]
+and reversing the factors gives the identity on $\Lambda^kW$.
+Hence $\Lambda^k(T^{-1})$ is the inverse. In degree zero all maps are
+$\operatorname{id}_F$, so these statements hold directly.
+\end{proof}
+
+\paragraph{Compatibility with the quotient realization.}
+We now compare the constructed map with tensors, rather than construct it
+a second time. The tensor map $T^{\otimes k}$ sends a repeated-input
+generator to a repeated-input tensor, since $v_i=v_j$ implies $Tv_i=Tv_j$.
+For a finite linear combination of such generators $r_\ell$,
+\[
+T^{\otimes k}\Bigl(\sum_\ell c_\ell r_\ell\Bigr)
+=\sum_\ell c_\ell T^{\otimes k}(r_\ell)\in R_k(W).
+\]
+Thus $T^{\otimes k}(R_k(V))\subseteq R_k(W)$. More explicitly, on every
+elementary tensor $t=v_1\otimes\cdots\otimes v_k$ both routes give
+\[
+(\Lambda^kT)\pi_V(t)=Tv_1\wedge\cdots\wedge Tv_k
+=\pi_WT^{\otimes k}(t).
+\]
+Both routes are linear and elementary tensors span, so the equality holds
+on all tensors. This proves the compatibility asserted in the proposition:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+V^{\otimes k}\arrow[r,"T^{\otimes k}"]\arrow[d,"\pi_V"']&
+W^{\otimes k}\arrow[d,"\pi_W"]\\
+\Lambda^kV\arrow[r,"\Lambda^kT"']&\Lambda^kW.
+\end{tikzcd}
+\]
+The square says that the direct universal-property construction agrees
+with the concrete quotient realization.
+
+\begin{proposition}[Minors of an exterior homomorphism]\label{prop:exterior-minors}
+Let $V,W$ have bases $(e_j)_{j=1}^n,(f_i)_{i=1}^m$, and let the
+possibly rectangular $m$-by-$n$ matrix $A$ represent $T:V\to W$.
+For increasing $k$-tuples $J$ in the source and $I$ in the target,
+\[
+\Lambda^kT(e_J)=\sum_I\det(A_{I,J})f_I.
+\]
+\end{proposition}
+\begin{proof}
+We extract each coefficient by the linear map $\widetilde A_I$ constructed in
+the exterior basis proof, now using the target dual basis $(f^i)$.
+The column convention for $A$ says
+\[
+Te_{j_s}=\sum_r a_{rj_s}f_r,\qquad
+f^{i_r}(Te_{j_s})=a_{i_rj_s}.
+\]
+Consequently the evaluation matrix is exactly the indicated minor:
+\[
+\bigl(f^{i_r}(Te_{j_s})\bigr)_{r,s}
+=(a_{i_rj_s})_{r,s}=A_{I,J}.
+\]
+Writing $\Lambda^kT(e_J)=\sum_I c_I f_I$, we obtain
+\[
+c_I=\widetilde A_I(\Lambda^kT(e_J))
+=\det\bigl(f^{i_r}(Te_{j_s})\bigr)_{r,s}=\det A_{I,J}.
+\]
+Substituting these coefficients proves the formula. For $k=0$ the empty
+minor is $1$; above either dimension the relevant source or target is zero.
+\end{proof}
+For $k=1$ this is the usual basis-image formula $T(e_j)=\sum_i a_{ij}f_i$.
+For example the columns $(1,0,1)$ and $(0,1,1)$ define $T:F^2\to F^3$.
+Its three two-row minors are $1,1,-1$, so
+$\Lambda^2T(e_1\wedge e_2)=f_1\wedge f_2+f_1\wedge f_3-f_2\wedge f_3$.
+
+\begin{example}[Basis images still produce the matrix]
+For $T(e_1)=e_1+e_2$, $T(e_2)=e_2$, $T(e_3)=2e_3$, the images of
+$e_1\wedge e_2,e_1\wedge e_3,e_2\wedge e_3$ are respectively
+$e_1\wedge e_2$, $2e_1\wedge e_3+2e_2\wedge e_3$, and
+$2e_2\wedge e_3$. The matrix is
+\[
+[\Lambda^2T]=\begin{pmatrix}1&0&0\\0&2&0\\0&2&2\end{pmatrix}.
+\]
+This is the Chapter~10 basis-image procedure applied to an exterior basis.
+\end{example}
+
+The coefficient $ad-bc$ from our first two-input calculation now has an
+intrinsic interpretation: the top exterior power is a line, and an
+endomorphism acts on that line by one scalar.
+
+\begin{theorem}[Fourth characterization of the determinant]
+\label{thm:top-exterior-determinant}
+\emph{Top exterior-power action.} If $\dim V=n$ and $T:V\to V$ is linear, then $\Lambda^nV$ is
+one-dimensional and
+\[
+\Lambda^nT=(\det T)\operatorname{id}_{\Lambda^nV}.
+\]
+Equivalently, for every $v_1,\ldots,v_n\in V$,
+\[
+Tv_1\wedge\cdots\wedge Tv_n=(\det T)(v_1\wedge\cdots\wedge v_n).
+\]
+\end{theorem}
+\begin{proof}
+The top exterior power is a line. We identify its scalar action by applying
+the normalized determinant form, whose value on the chosen generator is one.
+Let $\mathcal B=(e_1,\ldots,e_n)$ and let
+$\det_{\mathcal B}:V^n\to F$ be the already established alternating
+$n$-linear map with $\det_{\mathcal B}(e_1,\ldots,e_n)=1$.
+For $n\geq1$, the exterior universal property gives the unique linear map
+\[
+\widetilde{\det}_{\mathcal B}:\Lambda^nV\to F,\qquad
+\widetilde{\det}_{\mathcal B}(v_1\wedge\cdots\wedge v_n)
+=\det_{\mathcal B}(v_1,\ldots,v_n).
+\]
+By \cref{thm:appendix-exterior-basis}, $g=e_1\wedge\cdots\wedge e_n$
+is nonzero and $\Lambda^nV=Fg$. Hence the endomorphism $\Lambda^nT$
+satisfies $\Lambda^nT(g)=\lambda g$ for a unique $\lambda\in F$.
+Now every step of the scalar identification is visible:
+\[
+\begin{aligned}
+\lambda
+&=\lambda\,\widetilde{\det}_{\mathcal B}(g)\\
+&=\widetilde{\det}_{\mathcal B}(\lambda g)\\
+&=\widetilde{\det}_{\mathcal B}(\Lambda^nT(g))\\
+&=\widetilde{\det}_{\mathcal B}(Te_1\wedge\cdots\wedge Te_n)\\
+&=\det_{\mathcal B}(Te_1,\ldots,Te_n)\\
+&=\det[T]_{\mathcal B}=\det T.
+\end{aligned}
+\]
+The first equality uses normalization, the second linearity, the next two
+the defining action, and the fifth the factorization property. The last
+line is the matrix expression and basis independence of the determinant
+already established earlier. Both linear maps $\Lambda^nT$ and
+$(\det T)\operatorname{id}$ agree on the basis element $g$ of this
+one-dimensional space, so they agree on every $cg$. Only now apply this
+map identity to arbitrary vectors:
+\[
+\begin{aligned}
+Tv_1\wedge\cdots\wedge Tv_n
+&=\Lambda^nT(v_1\wedge\cdots\wedge v_n)\\
+&=(\det T)(v_1\wedge\cdots\wedge v_n).
+\end{aligned}
+\]
+Replacing the generator by $g'=cg$, $c\ne0$, does not change the scalar:
+\[
+\Lambda^nT(g')=c\Lambda^nT(g)=c(\det T)g=(\det T)g'.
+\]
+Any generator from another ordered basis differs in this way, because
+both are nonzero vectors in the same line. As a geometric consistency
+check, if $T$ is singular its basis images are dependent, and
+\[
+Te_1\wedge\cdots\wedge Te_n=0
+\]
+by \cref{prop:wedge-nonvanishing}, matching $\det T=0$.
+For $n=0$, $\Lambda^0V=F$, $\Lambda^0T=\operatorname{id}_F$, and
+$\det T=1$, so the statement remains valid.
+\end{proof}
+For a coordinate confirmation, the minors formula has only one increasing
+$n$-tuple in top degree. The matrix of $\Lambda^nT$ is therefore the
+$1$-by-$1$ matrix $(\det[T]_{\mathcal B})$.
+
+There are now four equivalent descriptions of the determinant:
+normalized alternating multilinearity determines it; the Leibniz formula
+constructs it; recursive Laplace expansion, starting with the empty
+determinant $1$, computes that formula; and top exterior action records
+the same scalar. These are established equivalences, not new axioms for
+arbitrary computational algorithms. The exterior basis proof already uses
+determinants, so this is a retrospective characterization.
+In particular, the earlier multiplicativity theorem can now be understood
+retrospectively through composition:
+\[
+\begin{aligned}
+\Lambda^n(S\circ T)&=\det(S\circ T)\operatorname{id},\\
+(\Lambda^nS)(\Lambda^nT)
+&=(\det S)\operatorname{id}\circ(\det T)\operatorname{id}\\
+&=(\det S)(\det T)\operatorname{id}.
+\end{aligned}
+\]
+Functoriality gives equality of these two maps. Evaluating at the nonzero
+generator $g$ forces equality of their scalar coefficients, hence
+$\det(S\circ T)=\det S\det T$. This explains the earlier result; it
+cannot serve as its foundational proof because the exterior basis argument
+already used determinant theory.
+For $T:V\to W$ between distinct $n$-dimensional spaces, the top map has
+different source and target lines; there is no scalar without separate
+basis or volume normalizations.
+
+\subsection{Wedge products between exterior powers}
+\label{sec:exterior-multiplication}
+The intended elementary rule is
+\[
+(v_1\wedge\cdots\wedge v_p)\wedge(w_1\wedge\cdots\wedge w_q)
+=v_1\wedge\cdots\wedge v_p\wedge w_1\wedge\cdots\wedge w_q.
+\]
+This is not yet an operation on general exterior elements: their expressions
+as sums of elementary wedges are nonunique.
+
+We want to concatenate two wedge lists, even when neither element is
+given by a unique list. For $p,q\geq1$ the intended output lies in
+$X=\Lambda^{p+q}V$. We will first construct a map from one exterior
+power, then a map with values in a space of linear maps, and only then
+evaluate to obtain a bilinear product.
+\begin{lemma}[Equality on spanning tuples]\label{lem:multilinear-spanning}
+If two existing multilinear maps $A,B:V_1\times\cdots\times V_r\to U$
+agree on tuples from spanning sets $S_1,\ldots,S_r$, they agree everywhere.
+\end{lemma}
+\begin{proof}
+Write $v_i=\sum_j a_{ij}s_{ij}$ with $s_{ij}\in S_i$. Expanding each
+slot gives for either map the finite sum over index tuples with coefficient
+$\prod_i a_{ij_i}$ and value at $(s_{1j_1},\ldots,s_{rj_r})$.
+Those values agree by hypothesis, so the sums agree. The lemma compares
+maps that already exist; it cannot prove that a proposed rule is a map.
+\end{proof}
+\begin{theorem}[Well-defined exterior product]
+There is a unique bilinear map
+$m_{p,q}:\Lambda^pV\times\Lambda^qV\to\Lambda^{p+q}V$ whose value on
+two elementary wedges is their concatenated wedge.
+\end{theorem}
+\begin{proof}
+\emph{First factor the $u$-variables.} Fix the tuple
+$\mathbf v=(v_1,\ldots,v_q)$ and define
+\[
+b_{\mathbf v}(u_1,\ldots,u_p)
+=u_1\wedge\cdots\wedge u_p\wedge v_1\wedge\cdots\wedge v_q\in X.
+\]
+The universal $(p+q)$-wedge map is linear in each $u$ slot, and equal
+$u$ entries make its value zero. Thus $b_{\mathbf v}$ is alternating
+$p$-linear. The exterior universal property constructs a linear
+$L_{\mathbf v}:\Lambda^pV\to X$ with this value on elementary wedges.
+
+The map
+\[
+B:V^q\to\mathcal L(\Lambda^pV,X),\qquad B(\mathbf v)=L_{\mathbf v},
+\]
+is alternating multilinear. Each value has the stated type by the preceding construction. Replace one
+slot $v_j$ by $av_j+bv_j'$. There are now two existing linear maps
+$L_{(\ldots,av_j+bv_j',\ldots)}$ and
+$aL_{(\ldots,v_j,\ldots)}+bL_{(\ldots,v_j',\ldots)}$.
+On an elementary $u_1\wedge\cdots\wedge u_p$, they agree by the
+linearity of slot $p+j$ in the long wedge. Since elementary $p$-wedges
+span, the two maps agree on every $\alpha\in\Lambda^pV$. This proves
+linearity in slot $j$ of $B$, not just linearity of an isolated scalar value.
+If two $v$ entries agree, $L_{\mathbf v}$ sends every elementary $p$-wedge
+to zero by alternation of the long wedge. It is then the zero linear map
+by spanning. Thus $B$ is alternating multilinear with values in
+$\mathcal L(\Lambda^pV,X)$.
+
+\emph{Factor the $v$-variables.} Apply the exterior universal property
+again to obtain a linear map
+\[
+H:\Lambda^qV\to\mathcal L(\Lambda^pV,X),\qquad
+H(v_1\wedge\cdots\wedge v_q)=L_{\mathbf v}.
+\]
+Define $m_{p,q}(\alpha,\beta)=H(\beta)(\alpha)$.
+For fixed $\beta$, $H(\beta)$ is linear, giving linearity in $\alpha$.
+For fixed $\alpha$, linearity of $H$ gives
+\[
+H(a\beta+b\beta')(\alpha)
+=(aH(\beta)+bH(\beta'))(\alpha)
+=aH(\beta)(\alpha)+bH(\beta')(\alpha).
+\]
+Thus $m_{p,q}$ is bilinear and has the prescribed concatenation values.
+The construction does not require a unique elementary decomposition of a
+general wedge.
+For uniqueness, any other bilinear product with those values agrees on
+pairs from the spanning elementary wedges; \cref{lem:multilinear-spanning}
+gives equality everywhere.
+\end{proof}
+Write
+$\alpha\wedge\beta=m_{p,q}(\alpha,\beta)$. When a degree is zero,
+define the product by scalar multiplication in $F=\Lambda^0V$.
+The construction can be tracked by the types
+\[
+V^q\longrightarrow\mathcal L(\Lambda^pV,\Lambda^{p+q}V)
+\longleftarrow\Lambda^qV,
+\]
+where the left arrow is alternating multilinear and the right arrow is
+the linear factor $H$, evaluated at $\alpha$ only at the final stage.
+
+\begin{proposition}[Associativity and graded commutativity]
+For homogeneous elements of degrees $p,q,r$,
+\[
+(\alpha\wedge\beta)\wedge\gamma=\alpha\wedge(\beta\wedge\gamma),
+\qquad \alpha\wedge\beta=(-1)^{pq}\beta\wedge\alpha.
+\]
+\end{proposition}
+\begin{proof}
+Both expressions in associativity are existing trilinear maps of
+$\alpha,\beta,\gamma$, since the products just constructed are bilinear.
+On elementary wedges both give the same concatenation of the three lists.
+The spanning-tuple lemma proves equality everywhere. For commutativity,
+moving a block of $p$ vectors past a block of $q$ requires $pq$
+interchanges, giving sign $(-1)^{pq}$ on elementary pairs. Both sides are
+bilinear, so the same lemma extends this identity to arbitrary homogeneous
+elements. A zero degree is governed by scalar multiplication, for which
+associativity and the sign $1$ hold directly.
+\end{proof}
+
+\section{The Exterior Algebra and Alternating Forms}
+
+Exterior multiplication has been constructed between separate degrees.
+For a finite-dimensional space, only finitely many degrees are nonzero,
+so we can collect them in one finite direct sum and multiply by distribution.
+Afterward we relate these vector wedges to alternating scalar measurements.
+\label{sec:appendix-exterior-algebra}
+\begin{definition}[Exterior algebra]\label{def:appendix-exterior-algebra}
+For a finite-dimensional vector space $V$ with $\dim V=n$, its
+\textbf{exterior algebra} is the finite direct sum
+\[
+\Lambda V=\bigoplus_{k=0}^n\Lambda^kV,
+\]
+with multiplication obtained by distributing the constructed wedge products
+between homogeneous components. The scalar $1\in\Lambda^0V=F$ is its unit.
+\end{definition}
+The exterior basis theorem makes degrees above $n$ zero, so this finite
+sum contains every nonzero homogeneous component.
+An element $\omega=\omega_0+\cdots+\omega_n$ has a unique component in
+each degree, by the direct-sum construction. It is homogeneous of degree
+$k$ if only that component can be nonzero. Extend the products above by
+\[
+\left(\sum_p\alpha_p\right)\wedge\left(\sum_q\beta_q\right)
+=\sum_{p,q}\alpha_p\wedge\beta_q;
+\]
+degrees above $n$ are zero. The degree-$k$ component of the product is
+$\sum_{p+q=k}\alpha_p\wedge\beta_q$. This finite sum is well defined
+because the homogeneous components are unique. Associativity on homogeneous
+elements and finite distribution prove associativity for arbitrary elements.
+The scalar $1$ is an identity. ``Algebra'' here means a vector space with
+this bilinear associative multiplication; no additional algebra course is
+needed to use the construction.
+\begin{example}[The complete exterior algebra of $F^3$]
+For the standard basis, the degree table is
+\[
+\begin{array}{c|l|c}
+\text{degree}&\text{basis}&\text{dimension}\\\hline
+0&1&1\\
+1&e_1,e_2,e_3&3\\
+2&e_1\wedge e_2,e_1\wedge e_3,e_2\wedge e_3&3\\
+3&e_1\wedge e_2\wedge e_3&1
+\end{array}
+\]
+Thus the total dimension is $8$. Products are calculated by distribution:
+\begin{align*}
+(1+e_1)\wedge(1+e_2)&=1+e_1+e_2+e_1\wedge e_2,\\
+(e_1\wedge e_2)\wedge e_3&=e_1\wedge e_2\wedge e_3,\\
+e_2\wedge(e_1\wedge e_3)&=-e_1\wedge e_2\wedge e_3,\\
+(e_1\wedge e_2)\wedge(e_2\wedge e_3)&=0.
+\end{align*}
+The first result has mixed degrees; the next two are homogeneous of degree
+$3$. Graded commutativity applies directly to homogeneous factors.
+Zero belongs to every homogeneous subspace and has no unique degree.
+\end{example}
+
+\begin{example}[Mixed degrees in dimension two]
+For scalars $a,b$, vectors $u,v$, and degree-two elements $\omega_2,\eta_2$,
+\[
+(a+u+\omega_2)\wedge(b+v+\eta_2)
+=ab+(av+bu)+(a\eta_2+b\omega_2+u\wedge v).
+\]
+The three groups have degrees $0,1,2$. Every omitted product has degree
+above $2$ and vanishes. A mixed sum has no single homogeneous degree to
+insert into the graded commutativity sign.
+\end{example}
+\begin{proposition}[The assembled exterior homomorphism]
+Let $T:V\to W$ be linear, with $V,W$ finite dimensional. The direct sum of the maps $\Lambda^kT$
+defines $\Lambda T:\Lambda V\to\Lambda W$, preserving degrees, the unit,
+and wedge multiplication.
+\end{proposition}
+\begin{proof}
+Each component map is linear and above the target dimension is zero;
+thus the finite component rule defines a linear map. Degree zero fixes $1$.
+For elementary wedges, applying $T$ before or after concatenation gives
+the same list of images. The two existing bilinear maps agree on spanning
+pairs, so agree on all homogeneous pairs. Finite distribution proves the
+identity on mixed sums. This assembled product-preserving map is a graded
+algebra homomorphism; each fixed-degree exterior homomorphism is a linear map.
+\end{proof}
+
+\begin{example}[Compute with basis wedges]
+Write $e_I$ with its indices increasing. If $I,J$ overlap, $e_I\wedge e_J=0$;
+otherwise sort their concatenation and attach its sign. Thus
+\begin{align*}
+&(2e_1+e_3)\wedge(e_1\wedge e_2+3e_2\wedge e_4)\\
+&=6e_1\wedge e_2\wedge e_4+e_3\wedge e_1\wedge e_2
++3e_3\wedge e_2\wedge e_4\\
+&=e_1\wedge e_2\wedge e_3+6e_1\wedge e_2\wedge e_4
+-3e_2\wedge e_3\wedge e_4.
+\end{align*}
+The middle term needs two swaps, the last one swap. Over $\R$, the
+bivector $\omega=e_1\wedge e_2+e_3\wedge e_4$ has
+$\omega\wedge\omega=2e_1\wedge e_2\wedge e_3\wedge e_4\ne0$:
+the two cross terms add because $(-1)^{2\cdot2}=1$.
+In characteristic two this square is zero; the earlier coefficient
+obstruction, not this square test, proves non-elementarity over every field.
+\end{example}
+\Needspace{10\baselineskip}
+\paragraph{From alternating rules to linear maps into the field.}
+\subsection{First identification: factor an alternating map}
+Write $\operatorname{Alt}^k(V;F)$ for the vector space of alternating
+$k$-linear scalar-valued maps, with pointwise operations; set $\operatorname{Alt}^0(V;F)=F$.
+\begin{proposition}
+There is a canonical isomorphism
+$\operatorname{Alt}^k(V;F)\cong(\Lambda^kV)^*$.
+\end{proposition}
+\begin{proof}
+For $A\in\operatorname{Alt}^k(V;F)$ use \cref{thm:exterior-universal} to
+construct its unique linear factor $F(A)=\widetilde A:\Lambda^kV\to F$.
+For the reverse define $G(\ell)(v_1,\ldots,v_k)=\ell(v_1\wedge\cdots\wedge v_k)$.
+Linearity of $\ell$ preserves each slot's linearity and the zero value on
+repeated inputs, so $G(\ell)$ is indeed in $\operatorname{Alt}^k(V;F)$.
+Pointwise evaluation shows $G$ is linear. To check $F$, let
+$\xi=v_1\wedge\cdots\wedge v_k$. Then
+\[
+F(aA+bB)(\xi)=(aA+bB)(v_1,\ldots,v_k)
+=aF(A)(\xi)+bF(B)(\xi).
+\]
+The two sides are existing linear maps of $\xi$ agreeing on elementary
+wedges; expansion of a finite sum of those wedges proves equality everywhere.
+This proves linearity of $F$.
+For each tuple, $G(F(A))(v_1,\ldots,v_k)=A(v_1,\ldots,v_k)$, so $GF$ is
+the identity. On each elementary wedge,
+$F(G(\ell))(v_1\wedge\cdots\wedge v_k)=\ell(v_1\wedge\cdots\wedge v_k)$.
+Both are linear maps into $F$; spanning proves $FG$ is the identity.
+In degree zero both spaces are $F$, with the identity identification.
+\end{proof}
+
+\subsection{Second identification: pair covector wedges with vector wedges}
+
+The previous identification used a linear map from vector wedges to $F$.
+Chapter~13 instead writes alternating forms as wedges of covectors.
+To connect these two objects, evaluate a list of covectors on a list of
+vectors and take the determinant. We must factor in each list separately;
+finite-dimensional dual bases will then give the inverse.
+
+\begin{theorem}[Exterior duality]\label{thm:exterior-duality}
+For finite-dimensional $V$, there is a canonical isomorphism
+$P:\Lambda^k(V^*)\to(\Lambda^kV)^*$ characterized by
+\[
+P(\lambda_1\wedge\cdots\wedge\lambda_k)
+(v_1\wedge\cdots\wedge v_k)=\det(\lambda_i(v_j)).
+\]
+\end{theorem}
+\begin{proof}
+\emph{First factor in the vector variables.} Fix the covector list
+$\boldsymbol\lambda=(\lambda_1,\ldots,\lambda_k)$. The map
+$(v_1,\ldots,v_k)\mapsto\det(\lambda_i(v_j))$ is multilinear by the
+column laws of the determinant and vanishes when two vector entries agree.
+It therefore induces $L_{\boldsymbol\lambda}\in(\Lambda^kV)^*$.
+
+\emph{Then factor in the covector variables.} Regard
+$\boldsymbol\lambda\mapsto L_{\boldsymbol\lambda}$ as a map
+$(V^*)^k\to(\Lambda^kV)^*$. For $\xi=v_1\wedge\cdots\wedge v_k$, the determinant row laws give
+\[
+\begin{aligned}
+L_{(\ldots,a\lambda_j+b\mu_j,\ldots)}(\xi)
+&=aL_{(\ldots,\lambda_j,\ldots)}(\xi)
++bL_{(\ldots,\mu_j,\ldots)}(\xi).
+\end{aligned}
+\]
+Equal covector entries give equal rows, hence zero on every such $\xi$.
+The resulting linear maps already exist. Their equality on those spanning
+wedges proves these identities as equalities of linear maps. Thus this
+map is alternating multilinear, and the exterior universal property gives
+the linear $P$ with the asserted value.
+
+\emph{Construct the inverse.} Choose a basis $(e_i)$ of $V$, with dual
+$(e^i)$. Let $e_I=e_{i_1}\wedge\cdots\wedge e_{i_k}$ and
+$e^I=e^{i_1}\wedge\cdots\wedge e^{i_k}$ for increasing $I$.
+The determinant pairing gives $P(e^I)(e_J)=\delta_{IJ}$: matching lists
+give the identity matrix; for distinct lists choose $j_s\in J\setminus I$,
+so $e^{i_r}(e_{j_s})=0$ for every $r$ and column $s$ is zero, exactly
+as in \cref{thm:appendix-exterior-basis}.
+Define
+\[
+Q:(\Lambda^kV)^*\to\Lambda^k(V^*),\qquad Q(\ell)=\sum_I\ell(e_I)e^I.
+\]
+This finite sum is linear in $\ell$. For every basis wedge $e_J$,
+\[
+P(Q(\ell))(e_J)=\sum_I\ell(e_I)\delta_{IJ}=\ell(e_J).
+\]
+Thus $PQ(\ell)=\ell$ by equality of linear maps on a basis.
+In the reverse direction
+\[
+Q(P(e^I))=\sum_JP(e^I)(e_J)e^J=e^I.
+\]
+Both sides are linear in the covector wedge, and the $e^I$ form a basis,
+so $QP=\operatorname{id}$. The basis writes the inverse explicitly, but
+the inverse is independent of the basis because it is the unique inverse
+of the canonical $P$. In degree zero the pairing is multiplication of
+scalars; if $k>n$ both spaces are zero and the empty sums give their unique maps.
+\end{proof}
+Combining the two identifications recovers the alternating covectors called
+$\Lambda^k(V^*)$ in Chapter~13. A vector wedge is made from vectors; a
+covector wedge evaluates on them and returns a scalar. For example
+$(\dd x\wedge\dd z)((1,2,3),(0,1,4))=4$. The determinant pairing
+relates these roles without confusing them or dividing by a factorial.
+
+\begin{proposition}[Duality commutes with maps]
+For linear $T:V\to W$ between finite-dimensional spaces, the determinant
+pairings satisfy
+\[
+P_V\circ\Lambda^k(T^*)=(\Lambda^kT)^*\circ P_W.
+\]
+\end{proposition}
+\begin{proof}
+All four maps have been constructed. For an elementary covector wedge
+$\lambda_1\wedge\cdots\wedge\lambda_k$ and an elementary vector wedge
+$v_1\wedge\cdots\wedge v_k$, both sides evaluate to
+$\det(\lambda_i(Tv_j))$. Spanning first in vectors, then in covectors
+proves equality of the linear maps. In degree zero both sides are the identity.
+\end{proof}
+In words: pull covectors back before pairing, or push vectors forward before
+pairing; the scalar result is the same.
+Over $\R$ with $n>0$, a nonzero top covector $\omega$ is a volume form.
+It selects the orientation of bases on which its value is positive.
+Replacing it by a positive multiple preserves that orientation, whereas
+changing its magnitude changes the normalization of volume. Evaluation
+on a basis, now for an endomorphism $T:V\to V$, and the preceding determinant computation give
+$T^*\omega=(\det T)\omega$. This joins the constructions: a linear map
+acts on vectors, its top exterior map records the signed scaling, and a
+top covector evaluates that scaling. The scalar identity works over every
+field; the language of positive orientation uses real order.
+
+\begin{proposition}[Compatibility with the shuffle product]\label{prop:abstract-shuffle-compatibility}
+Let $V$ be finite dimensional over $\R$. Denote by
+\[
+J_k:\Lambda^k(V^*)_{\mathrm{abstract}}\to\operatorname{Alt}^k(V;\R)
+\]
+the determinant-pairing identification obtained above. For degrees $p,q$,
+\[
+J_{p+q}(\alpha\wedge\beta)
+=J_p(\alpha)\wedge_{\mathrm{shuffle}}J_q(\beta).
+\]
+\end{proposition}
+\begin{proof}
+Both sides are existing bilinear maps in $\alpha,\beta$: the abstract
+product was constructed in ``\nameref{sec:exterior-multiplication},'' the maps
+$J_k$ by duality, and the shuffle product in \cref{sec:exterior-covectors}.
+It suffices by \cref{lem:multilinear-spanning} to take
+$\alpha=\lambda_1\wedge\cdots\wedge\lambda_p$ and
+$\beta=\mu_1\wedge\cdots\wedge\mu_q$.
+Evaluate on $v_1,\ldots,v_{p+q}$. The left side is the determinant whose
+rows are the values of $\lambda_1,\ldots,\lambda_p,\mu_1,\ldots,\mu_q$
+on these vectors. Expand by the columns assigned to the first $p$ rows.
+For each $(p,q)$-shuffle $\sigma$ the contribution is
+\[
+\operatorname{sgn}(\sigma)
+\det(\lambda_i(v_{\sigma(j)}))_{i,j=1}^{p}
+\det(\mu_i(v_{\sigma(p+j)}))_{i,j=1}^{q}.
+\]
+Summing gives precisely the shuffle definition on the right. This is the
+determinant/concatenation calculation already explained in Chapter~13.
+Equality on every vector tuple proves equality of these alternating forms;
+spanning now extends it to all $\alpha,\beta$. Degree zero uses scalar
+multiplication and the empty determinant $1$; degrees above $\dim V$ give zero.
+\end{proof}
+Appendix~\ref{app:tensors} constructs an exterior algebra through quotients, whereas
+Chapter~13 constructs it through alternating covectors and shuffles.
+The canonical maps $J_k$ identify their products as well as their vector
+spaces, so they give the same exterior algebra after this identification.
+
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\begin{hexercise}{app-d-1}
+Let $R=\operatorname{span}(1,1)$ in $F^2$. Determine which of $x+y$ and
+$x-y$ factor through $F^2/R$, including characteristic two. Construct an
+isomorphism of the quotient with $F$, its reverse, and both composites.
+\end{hexercise}
+\begin{hexercise}{app-d-2}
+Let $R\subseteq E$, $S\subseteq H$ be subspaces and $L:E\to H$ linear
+with $L(R)\subseteq S$. Construct $\widetilde L:E/R\to H/S$ by using the
+quotient universal property on $\pi_HL$. Verify the commutative square and
+prove uniqueness. Explain why the hypothesis is necessary.
+\end{hexercise}
+\begin{exercise}
+Construct the map $F^2\otimes F^2\to F^2$ from
+$b(x,y)=(x_1y_2,x_2y_1)$, checking both slots first. Evaluate it on
+$(e_1-e_2)\otimes(e_1+2e_2)$ using two different expansions.
+\end{exercise}
+\begin{exercise}
+A proposed real-valued rule on $\R^2\otimes\R^2$ sends
+$v\otimes w$ to $\|v\|_2\|w\|_2$. Compare the equal tensors
+$(-v)\otimes w=v\otimes(-w)$ and the additivity requirement on
+$(v+(-v))\otimes w$. Decide whether the proposed values can be those of
+a linear functional, and identify the failed slot-linearity condition.
+\end{exercise}
+\begin{hexercise}{app-d-5}
+Suppose an extra relation $v\otimes w=w\otimes v$ is imposed on
+$F^2\otimes F^2$. Use $b(v,w)=v_1w_2$ to show the resulting quotient
+does not satisfy the ordinary tensor universal property.
+\end{hexercise}
+\begin{exercise}
+For $V_1=F$, $V_2=F^2$, and $W=F^2$, construct both directions of
+$(V_1\oplus V_2)\otimes W\cong(V_1\otimes W)\oplus(V_2\otimes W)$.
+Evaluate them on $((1,(1,-1))\otimes(2,1))$ and on a sum of two
+injected elementary tensors. Verify both composites on these inputs.
+\end{exercise}
+\begin{hexercise}{app-d-7}
+In \cref{ex:four-tensor-components}, consider the component tuple
+$(0,e_1\otimes f_1+e_2\otimes f_2,0,0)$. Send it backward explicitly
+and show that the result is not an elementary tensor of $A\otimes B$.
+Use coordinate projections to isolate a two-by-two coefficient table and
+its nonzero determinant. Explain why a dimension count alone cannot detect this.
+\end{hexercise}
+\begin{exercise}
+For $A:V\to\mathcal L(W,U)$, distinguish the types of $A$, $A(v)$, and
+$A(v)(w)$. Reconstruct its tensor factor and prove the two currying inverse identities.
+\end{exercise}
+\begin{exercise}
+Expand $(e_1+e_2)\wedge(e_2+e_3)$ in $F^3$, and recover the three
+coefficients with the induced determinant maps constructed from independent inputs.
+Compute its wedge with $e_1+e_3$. Interpret the final coefficient $2$
+ in characteristic two and relate its vanishing to dependence of the three vectors.
+\end{exercise}
+\begin{exercise}
+For $T(e_1)=e_1-e_3$, $T(e_2)=2e_2$, $T(e_3)=e_1+e_3$ over $\R$,
+compute $\Lambda^2T$ by its basis images and compare $\Lambda^3T$ with
+$\det T$. Verify the quotient compatibility square on an elementary tensor.
+Also compute $(1+e_1+e_1\wedge e_2)\wedge(2+e_2)$ in $\Lambda\R^2$.
+\end{exercise}
+\begin{hexercise}{app-d-11}
+In the construction of exterior multiplication, prove explicitly that the
+map $\mathbf v\mapsto L_{\mathbf v}$ takes equal $v$ entries to the zero
+linear map. State where spanning, existence, and alternation are used.
+\end{hexercise}
+\begin{exercise}
+For $\alpha=e^1\wedge e^3$ and $\xi=(e_1+e_2)\wedge(e_2+2e_3)$,
+compute the determinant pairing and identify the spaces containing $\alpha$,
+$\xi$, and the answer. Construct the inverse duality map for this basis.
+\end{exercise}

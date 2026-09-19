@@ -1,0 +1,23 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\draw[gray,thick] (-1,-.3) .. controls (-.6,0) and (-.3,0) .. (0,0)
+ .. controls (1,0) and (2,0) .. (3.3,.7);
+\fill (0,0) circle (2pt) node[below left] {$\gamma(t)$};
+\draw[->,very thick,blue] (0,0)--(3,0) node[below] {$\gamma'(t)\Delta t$};
+\draw[->,very thick,red!70!black] (0,0)--(2,2) node[above] {$F(\gamma(t))$};
+\draw[dashed] (2,2)--(2,0);
+\draw[->,thick,red!70!black] (0,.13)--(2,.13) node[midway,above] {$F_{\parallel}\tau$};
+\draw (1.8,0)--(1.8,.2)--(2,.2);
+\node[align=left,text width=6cm,anchor=west] at (4,1) {
+$\tau=\gamma'/\|\gamma'\|$, $F_{\parallel}=F\cdot\tau$ is scalar.\\[3pt]
+Only the tangential component contributes:\\[3pt]
+$F\cdot\gamma'\Delta t=F_{\parallel}\|\gamma'\|\Delta t$.\\[5pt]
+Length uses $\|\gamma'\|\Delta t$,\\
+independent of the force or its sign.};
+
+\end{tikzpicture}
+\caption{The dot product extracts the force component along displacement. The blue vector follows the velocity $\gamma'(t)$ and approximates the actual short displacement along the curve.}
+\label{fig:work-projection}
+\end{figure}

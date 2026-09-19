@@ -1,0 +1,17 @@
+% Original vector figure for Version 3.9.0.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.65pt]
+\begin{scope}[x={(1cm,-.2cm)},y={(.45cm,.45cm)},z={(0cm,1cm)}]
+\foreach \p in {0,45,90,135,180,225,270,315}{
+\draw[gray!55] plot[domain=0:360,samples=90] ({(1.65+.55*cos(\p))*cos(\x)},{(1.65+.55*cos(\p))*sin(\x)},{.55*sin(\p)});}
+\foreach \t in {0,30,...,330}{
+\draw[gray!55] plot[domain=0:360,samples=45] ({(1.65+.55*cos(\x))*cos(\t)},{(1.65+.55*cos(\x))*sin(\t)},{.55*sin(\x)});}
+\draw[blue,very thick,->] plot[domain=0:350,samples=90] ({2.2*cos(\x)},{2.2*sin(\x)},0);
+\draw[red!80!black,very thick,->] plot[domain=0:350,samples=60] ({1.65+.55*cos(\x)},0,{.55*sin(\x)});
+\end{scope}
+\node[blue,below] at (0,-1.5) {major circle: vary $\theta$};
+\node[red!80!black,right] at (2.7,.2) {minor circle: vary $\varphi$};
+\end{tikzpicture}
+\caption{A wireframe of the embedded torus shows both independent circular directions. Hidden curves remain visible in this transparent schematic; periodic parameters are not a single global chart.}\label{fig:embedded-torus}
+\end{figure}

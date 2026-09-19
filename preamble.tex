@@ -3,8 +3,11 @@
 \usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
+% Inline mathematics keeps normal text style; displays use display style.
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage{tikz,tikz-cd}
+\usetikzlibrary{arrows.meta,positioning,calc}
 \usepackage{hyperref}
 \usepackage[nameinlink,capitalize,noabbrev]{cleveref}
 \hypersetup{
@@ -15,19 +18,30 @@
   hypertexnames=false,
   pdftitle={Lecture Notes on Mathematical Analysis: Single and Multivariable Calculus},
   pdfauthor={Tommy Chen},
-  pdfsubject={Rigorous undergraduate mathematical analysis and calculus},
+  pdfsubject={Version 3.29.0: mathematical analysis, elementary functions, and structural appendices},
   pdfkeywords={mathematical analysis, calculus, real analysis, multivariable calculus, Stokes theorem}
 }
-\newcommand{\notesversion}{Version 1.2.0}
-\newcommand{\notesdate}{August 28, 2026}
+\newcommand{\notesversion}{Version 3.29.0}
+\newcommand{\notesdate}{September 19, 2026}
 \newcommand{\noteslicense}{%
   This work is licensed under the
   \href{https://creativecommons.org/licenses/by/4.0/}
   {Creative Commons Attribution 4.0 International License (CC BY 4.0).}%
 }
 \setlist[enumerate]{label=(\alph*),itemsep=0.35em}
-\setcounter{secnumdepth}{3}
+% Number chapters and sections only; retain unnumbered subsections in the contents.
+\setcounter{secnumdepth}{1}
+% Give paragraph breaking room for the longer section-based reference labels.
+\setlength{\emergencystretch}{2em}
+\usepackage{needspace}
+\usepackage{placeins}
+\usepackage{float}
 \setcounter{tocdepth}{2}
+% Allow two-digit chapter and section numbers such as 13.10 in the contents.
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{4.5em}{3.8em}}
+\makeatother
 \newtheoremstyle{analysisplain}
   {\topsep}
   {\topsep}
@@ -38,7 +52,7 @@
   {.5em}
   {}
 \theoremstyle{analysisplain}
-\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -48,6 +62,19 @@
 \newtheorem{construction}[theorem]{Construction}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{exercise}{Exercise}[chapter]
+% Exercises have their own sequence, restarting in each chapter or appendix.
+\renewcommand{\theexercise}{\arabic{exercise}}
+% Reserve the heading and opening lines before hyperref creates the anchor.
+% Otherwise a theorem pushed to the next page can leave its destination behind.
+\BeforeBeginEnvironment{theorem}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{proposition}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{lemma}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{corollary}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{definition}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{construction}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{example}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{remark}{\par\Needspace{6\baselineskip}}
+\BeforeBeginEnvironment{exercise}{\par\Needspace{6\baselineskip}}
 \AtBeginEnvironment{definition}{\let\emph\textbf}
 \crefname{construction}{construction}{constructions}
 \Crefname{construction}{Construction}{Constructions}
@@ -61,3 +88,26 @@
 \newcommand{\norm}[1]{\lVert #1\rVert}
 \newcommand{\set}[1]{\left\{#1\right\}}
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+% Use complete appendix titles in both the TOC and the PDF outline.
+% Chapter counters and destinations still come from the ordinary chapter command.
+\newcommand{\appendixchapter}[1]{%
+  \let\appendixsavedcontentsline\addcontentsline
+  \renewcommand{\addcontentsline}[3]{%
+    \appendixsavedcontentsline{##1}{##2}{Appendix \thechapter: #1}}%
+  \chapter{#1}%
+  \let\addcontentsline\appendixsavedcontentsline
+}
+
+% Hinted exercises share the ordinary exercise counter and use label destinations.
+\newtheoremstyle{hintedanalysis}{\topsep}{\topsep}{\upshape}{}{\bfseries}{}{.5em}
+  {\thmname{#1}\thmnumber{ #2}.\textsuperscript{\hyperref[hint:\currenthint]{*}}}
+\theoremstyle{hintedanalysis}
+\newtheorem{hintedexercise}[exercise]{Exercise}
+\newenvironment{hexercise}[1]
+  {\def\currenthint{#1}\begin{hintedexercise}\label{ex:#1}}
+  {\end{hintedexercise}}
+\BeforeBeginEnvironment{hexercise}{\par\Needspace{6\baselineskip}}
+\newcommand{\exercisehint}[2]{%
+  \par\Needspace{5\baselineskip}\phantomsection\label{hint:#1}%
+  \noindent\textbf{\hyperref[ex:#1]{Exercise \ref*{ex:#1}.}}\quad #2\par\medskip}

@@ -1,0 +1,26 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\fill[gray!7] (0,0) rectangle(2,2);
+\draw[red!75!black,very thick,->] (0,0)--(0,2);
+\draw[red!75!black,very thick,->] (2,0)--(2,2);
+\draw[blue!75!black,very thick,->] (0,0)--(2,0);
+\draw[blue!75!black,very thick,->] (2,2)--(0,2);
+\node[below] at (1,0) {$x$};\node[left] at (0,1) {$y$};
+\draw[->,thick] (2.7,1)--(4,1);
+\begin{scope}[shift={(5.6,.2)},scale=.8]
+\input{figures/klein-bottle-outline}
+\draw[blue!75!black,very thick] (0,.12) ellipse(.2 and .1);
+\node[below,blue!75!black] at (0,-.45) {glued seam};
+\draw[orange!80!black,dotted,thick] (.85,.9) circle(.4);
+\draw[->] (1.2,.9)--(2.35,.55);
+\node[right,align=left] at (2.35,.55) {crossing only:\\no gluing};
+\end{scope}
+\end{tikzpicture}
+\caption{Klein quotient: $(0,y)\sim(1,y)$ and $(x,0)\sim(1-x,1)$.
+The solid blue seam represents the joined circles; the dotted callout
+marks an incidental crossing of distinct sheets. The drawing in $\R^3$
+is not an embedding. See Figure~\ref{fig:klein-gluing} for the deformation
+and Figure~\ref{fig:klein-corner} for the local disk at the corner class.}
+\label{fig:quotient-klein}
+\end{figure}

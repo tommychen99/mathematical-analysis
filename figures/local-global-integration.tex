@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\node[draw,rounded corners,fill=blue!5] (w) at (0,1) {$\omega$};
+\node[draw,rounded corners,fill=blue!5] (a) at (3,2) {$\rho_1\omega$};
+\node[draw,rounded corners,fill=blue!5] (b) at (3,0) {$\rho_2\omega$};
+\node (ia) at (7,2) {$g_1(u)\,du^1\wedge\cdots\wedge du^n$};
+\node (ib) at (7,0) {$g_2(u)\,du^1\wedge\cdots\wedge du^n$};
+\draw[->] (w)--(a);\draw[->] (w)--(b);
+\draw[->] (a)--(ia) node[midway,above] {chart 1};
+\draw[->] (b)--(ib) node[midway,above] {chart 2};
+\node[align=center] at (3,-1.15) {$\rho_1+\rho_2=1$\\supports stay inside charts};
+\node[draw,fill=blue!5] (sum) at (7,-2.25) {$I_{\varphi_1}(\rho_1\omega)+I_{\varphi_2}(\rho_2\omega)$};
+\draw[->] (ia.east)--++(.5,0)|-(sum.east);
+\draw[->] (ib)--(sum);
+\node[anchor=east] at (4.1,-2.25) {ordinary integrals, then add};
+
+\end{tikzpicture}
+\caption{Two-chart integration: multiply by smooth weights, express each piece in coordinates, integrate its scalar coefficient, and add. The weights fade to zero near artificial chart edges. The same architecture works with any locally finite chart cover.}
+\label{fig:local-global-integration}
+\end{figure}

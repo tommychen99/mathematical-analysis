@@ -1,0 +1,20 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\fill[gray!8] (0,0) circle(1);
+\draw[blue!75!black,very thick] (0,0) circle(1);
+\foreach \a in {0,45,...,315}{\fill[blue!75!black] ({cos(\a)},{sin(\a)}) circle(.045);}
+\node[below] at (0,-1.15) {$D^2$: the whole boundary};
+\draw[->,thick] (1.45,0)--(4.15,0) node[midway,above,align=center] {collapse every\\boundary point};
+\draw[fill=gray!8] (5.7,0) circle(1.05);
+\draw[dashed,gray] (4.65,0) arc[start angle=180,end angle=0,x radius=1.05,y radius=.3];
+\draw[gray] (4.65,0) arc[start angle=180,end angle=360,x radius=1.05,y radius=.3];
+\fill[blue!75!black] (5.7,-1.05) circle(.07);
+\draw[->,blue!75!black] (6.8,-.8)--(5.8,-1.05);
+\node[right] at (6.8,-.8) {one point};
+\node[below] at (5.7,-1.35) {$S^2$};
+\end{tikzpicture}
+\caption{The rule for $D^2/\partial D^2$: every marked boundary point belongs
+to one class, shown as the south pole; interior points remain distinct.}
+\label{fig:quotient-sphere}
+\end{figure}

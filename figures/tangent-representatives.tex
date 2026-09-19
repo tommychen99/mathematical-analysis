@@ -1,0 +1,17 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node (p) at (0,1.7) {$p\in M$};
+\node (a) at (-2,0) {$\varphi(p)$};\node (b) at (3,0) {$\psi(p)$};
+\draw[->] (p)--(a) node[midway,left] {$\varphi$};
+\draw[->] (p)--(b) node[midway,right] {$\psi$};
+\draw[->,blue,thick] (a)--(b) node[midway,above] {$\psi\circ\varphi^{-1}$};
+\node (v) at (-2,-1.5) {$v$};\node (w) at (3,-1.5) {$w$};
+\draw[->,red!70!black,thick] (v)--(w) node[midway,below] {$D(\psi\circ\varphi^{-1})(\varphi(p))$};
+\node[anchor=west] at (4,0) {coordinate points};
+\node[anchor=west] at (4,-1.5) {vector components};
+\node at (1,-2.8) {$[\varphi,v]=[\psi,w]=\xi,\qquad w=D(\psi\circ\varphi^{-1})(\varphi(p))v$};
+\end{tikzpicture}
+\caption{One intrinsic tangent direction, two representatives. The transition acts on coordinate points; its derivative acts on vector components. These are different maps with different inputs.}
+\label{fig:tangent-representatives}
+\end{figure}

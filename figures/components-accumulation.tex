@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\filldraw[fill=blue!10,draw=blue,thick] (0,1) ellipse (1 and .6);
+\filldraw[fill=teal!10,draw=teal,thick] (3,1) ellipse (.7 and .9);
+\filldraw[fill=red!10,draw=red!70!black,thick] (6,1) ellipse (1 and .5);
+\node at (0,1) {$C_1$};\node at (3,1) {$C_2$};\node at (6,1) {$C_3$};
+\node at (3,-.1) {three connected components};
+\draw[->,gray] (-1,-1.5)--(7,-1.5);
+\fill[red!70!black] (0,-1.5) circle (2.5pt);
+\foreach \n in {1,...,45}{\fill[blue] ({6/\n},-1.5) circle (1.3pt);}
+\node[below] at (0,-1.5) {$0$};\node[below] at (6,-1.5) {$1$};
+\node[below] at (3,-1.5) {$1/2$};\node at (3,-2.5) {$\{0\}\cup\{1/n:n\geq1\}$: singleton components, nonisolated $0$};
+
+\end{tikzpicture}
+\caption{Components are maximal connected pieces. In the accumulating sequence below, every component is a point, but the component consisting of zero is not open.}
+\label{fig:components-accumulation}
+\end{figure}

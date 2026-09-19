@@ -1,0 +1,24 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\fill[gray!7] (0,0) rectangle(2,2);
+\draw[red!75!black,very thick,->] (0,0)--(0,2);
+\draw[red!75!black,very thick,->] (2,0)--(2,2);
+\draw[blue!75!black,very thick,dashed,->] (0,0)--(2,0);
+\draw[blue!75!black,very thick,dashed,->] (0,2)--(2,2);
+\foreach \x/\y in {0/0,0/2,2/0,2/2}{\fill (\x,\y) circle(.05);}
+\node[left] at (0,1) {$b$};\node[right] at (2,1) {$b$};
+\node[below] at (1,0) {$a$};\node[above] at (1,2) {$a$};
+\draw[->,thick] (2.8,1)--(4.3,1) node[midway,above] {identify};
+\begin{scope}[shift={(6.3,1)},x={(1cm,0cm)},y={(0cm,.4cm)},z={(0cm,.75cm)}]
+\foreach \v in {0,45,...,315}{\draw[gray!60] plot[domain=0:360,samples=65] ({(1.35+.42*cos(\v))*cos(\x)},{(1.35+.42*cos(\v))*sin(\x)},{.42*sin(\v)});}
+\foreach \u in {0,30,...,330}{\draw[gray!45] plot[domain=0:360,samples=40] ({(1.35+.42*cos(\x))*cos(\u)},{(1.35+.42*cos(\x))*sin(\u)},{.42*sin(\x)});}
+\end{scope}
+\node[below] at (6.3,-.2) {$S^1\times S^1$};
+\end{tikzpicture}
+\caption{Torus quotient: $(0,y)\sim(1,y)$ and $(x,0)\sim(x,1)$.
+The dashed $a$-edges and solid $b$-edges distinguish the two pairs.
+The arrows agree on each paired edge, and all four vertices form one class.
+Figure~\ref{fig:torus-parameter-square} gives the full geometric sequence.}
+\label{fig:quotient-torus}
+\end{figure}

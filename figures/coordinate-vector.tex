@@ -1,0 +1,27 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,scale=.85]
+\foreach \shift in {0,6.3}{
+\begin{scope}[xshift=\shift cm]
+\draw[->,gray] (-.4,0)--(3.7,0);
+\draw[->,gray] (0,-1.4)--(0,2.5);
+\draw[->,very thick,red!70!black] (0,0)--(3,1) node[right] {$v$};
+\fill (0,0) circle (1.5pt);
+\end{scope}}
+\draw[->,thick,blue] (0,0)--(1,1) node[above left] {$b_1$};
+\draw[->,thick,blue] (0,0)--(1,-1) node[below right] {$b_2$};
+\draw[dashed,blue] (1,1)--(2,2)--(3,1);
+\node[above] at (1.5,2.6) {$\mathcal B=((1,1),(1,-1))$};
+\node[below] at (1.5,-1.7) {$[v]_{\mathcal B}=(2,1)^{\mathsf T}$};
+\begin{scope}[xshift=6.3cm]
+\draw[->,thick,blue] (0,0)--(1,0) node[below] {$e_1$};
+\draw[->,thick,blue] (0,0)--(0,1) node[left] {$e_2$};
+\draw[dashed,blue] (1,0)--(3,0)--(3,1);
+\node[above] at (1.5,2.6) {$\mathcal C=(e_1,e_2)$};
+\node[below] at (1.5,-1.7) {$[v]_{\mathcal C}=(3,1)^{\mathsf T}$};
+\end{scope}
+\end{tikzpicture}
+\caption{One vector, two coordinate columns. The dashed routes build
+$v=2b_1+b_2=3e_1+e_2$; the red vector stays fixed.}
+\label{fig:coordinate-vector}
+\end{figure}

@@ -1,0 +1,17 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\node (D) at (0,0) {$D\subset\R^2$};\node (S) at (6,0) {$S=\sigma(D)$};
+\node (dD) at (0,1.5) {$\partial D$};\node (dS) at (6,1.5) {$\partial S$};
+\draw[->,thick] (D)--(S) node[midway,above] {$\sigma$};
+\draw[->,thick] (dD)--(dS) node[midway,above] {$\sigma|_{\partial D}$};
+\draw[->] (dD)--(D);\draw[->] (dS)--(S);
+\node[align=center] at (0,-1.1) {$A\,du+B\,dv$ on $\partial D$\\$B_u-A_v$ in $D$};
+\node[align=center] at (6,-1.1) {work on $\partial S$\\curl flux through $S$};
+\node at (3,-2.3) {$B_u-A_v=(\nabla\times F)(\sigma)\cdot(\sigma_u\times\sigma_v)$};
+
+\end{tikzpicture}
+\caption{Patch Stokes is Green\textquotesingle s theorem in parameters. The same parametrization transfers both the oriented boundary and its interior integrand.}
+\label{fig:patch-stokes-mechanism}
+\end{figure}

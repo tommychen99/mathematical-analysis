@@ -1,0 +1,18 @@
+% Original vector figure for Version 3.9.0.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.65pt]
+\fill[blue!10] (1.4,0) arc(0:180:1.4) arc(180:360:1.4 and .35)--cycle;
+\draw[blue] (1.4,0) arc(0:180:1.4);
+\draw[blue,dashed] (-1.4,0) arc(180:360:1.4 and .35);
+\draw[blue,dashed] (-1.4,0) arc(180:0:1.4 and .35);
+\node[above] at (0,1.4) {$U_3^+$};
+\draw[->] (1.8,.5)--(3.3,.5) node[midway,above] {$\varphi_3^+$};
+\fill[blue!10] (4.7,.5) circle(1);
+\draw[blue,dashed] (4.7,.5) circle(1);
+\node at (4.7,.5) {$B^2$};
+\node[below,align=center] at (2.4,-1) {$(x_1,x_2)\longmapsto
+(x_1,x_2,\sqrt{1-x_1^2-x_2^2})$};
+\end{tikzpicture}
+\caption{Deleting the third coordinate maps the open upper hemisphere to the open unit disk. The formula below reconstructs the hemisphere; both boundary circles are excluded.}\label{fig:sphere-chart-disk}
+\end{figure}

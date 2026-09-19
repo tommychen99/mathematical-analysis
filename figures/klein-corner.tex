@@ -1,0 +1,39 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node at (1.35,3.25) {Four square-corner pieces};
+\draw (0,0) rectangle(2.7,2.7);
+\fill[blue!25] (0,0)--(.6,0) arc(0:90:.6)--cycle;
+\fill[orange!35] (2.7,0)--(2.7,.6) arc(90:180:.6)--cycle;
+\fill[green!25!white] (2.7,2.7)--(2.1,2.7) arc(180:270:.6)--cycle;
+\fill[purple!25] (0,2.7)--(0,2.1) arc(270:360:.6)--cycle;
+\node at (.22,.22) {A};\node at (2.48,.22) {B};
+\node at (2.48,2.48) {C};\node at (.22,2.48) {D};
+\draw[red!70!black,thick,->] (0,.8)--(0,1.8);
+\draw[red!70!black,thick,->] (2.7,.8)--(2.7,1.8);
+\draw[blue!75!black,thick,->] (.8,0)--(1.8,0);
+\draw[blue!75!black,thick,->] (1.8,2.7)--(.8,2.7);
+\foreach \p in {(0,0),(2.7,0),(0,2.7),(2.7,2.7)}{\fill \p circle(.035);}
+\draw[->,thick] (3.3,1.35)--(4.55,1.35);
+\node[align=center] at (3.9,2.2) {use the\\edge rules};
+\begin{scope}[shift={(6,1.35)}]
+\fill[blue!25] (0,0)--(1.1,0) arc(0:90:1.1)--cycle;
+\fill[orange!35] (0,0)--(0,1.1) arc(90:180:1.1)--cycle;
+\fill[purple!25] (0,0)--(-1.1,0) arc(180:270:1.1)--cycle;
+\fill[green!25!white] (0,0)--(0,-1.1) arc(270:360:1.1)--cycle;
+\draw[dashed] (0,0) circle(1.1);
+\draw[dotted] (-1.1,0)--(1.1,0) (0,-1.1)--(0,1.1);
+\node at (.45,.45) {A};\node at (-.45,.45) {B};
+\node at (.45,-.45) {C};\node at (-.45,-.45) {D};
+\fill (0,0) circle(.05);
+\end{scope}
+\node at (6,3.25) {One disk at the corner class};
+\node[below,align=center] at (6,-.1) {all four corner marks\\become the center};
+\end{tikzpicture}
+\caption{The Klein-bottle corner chart. Bottom-left A stays in the positive
+quadrant; bottom-right B translates left. Top-right C and top-left D reflect
+horizontally and translate down, as in the displayed representative table.
+The four pieces fill a disk with no missing quadrant, boundary, or singular
+corner. The outer dashed circle is excluded.}
+\label{fig:klein-corner}
+\end{figure}

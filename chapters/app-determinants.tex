@@ -1,0 +1,384 @@
+\appendixchapter{Permutations and Determinants over a Field}
+\label{app:determinants}
+\chaptermark{Permutations and Determinants}
+\section*{Introduction}
+This appendix supplements the self-contained determinant construction in
+Chapter~10 with a slower treatment of permutations and an arbitrary-field
+viewpoint. The inversion-based sign proof in the main text needs no appendix;
+the parity argument below is an alternative conceptual proof. A field $F$ has addition, subtraction, multiplication, and
+division by nonzero elements obeying the familiar arithmetic laws, with
+$0\ne1$. No background in abstract algebra is assumed. Unless otherwise
+stated, vector spaces here are finite dimensional over $F$. Replace real
+scalars by elements of $F$ in the vector-space axioms. Taking $F=\R$
+recovers the main text; neither this appendix nor the next is a prerequisite
+for Chapters~11--13.
+The arbitrary-field determinant will also supply the coordinate detectors
+for exterior bases in Appendix~\ref{app:tensors}; its value lies in the
+field even when no notion of positive orientation is available.
+The permutation exposition is influenced by the author's algebra
+notes~\cite{chen-algebra}, specialized here to the elementary facts needed
+for determinants.
+
+\section{What Survives over an Arbitrary Field?}
+Span, independence, exchange, bases, dimension, linear maps, matrices, dual
+spaces, and multilinear maps use only field arithmetic. The Chapter~10
+proofs therefore work over $F$. Determinants, tensor products, and exterior
+powers also belong to this algebraic theory, as the constructions below show.
+
+A compatible total order, positivity, absolute value or norm, metric,
+topology, convergence, and orientation via determinant sign are additional
+structures, not consequences canonically supplied by field axioms.
+Order, positivity, norms, topology, and convergence must be supplied
+separately. For instance, a symmetric bilinear form over a field need not
+be positive definite; the field axioms do not even specify a meaning for
+``positive.'' The algebraic constructions here need none of these additions.
+
+Integer coefficients encode repeated addition: $m$ in $F$ means
+$m\cdot1_F$ for $m\geq0$, and negative integers mean additive inverses.
+The arithmetic laws survive, but distinct integers can have the same value.
+For a first example $\mathbb F_2=\{0,1\}$ has $1+1=0$, $1\cdot1=1$,
+and $1^{-1}=1$. These tables obey the field laws. Here $3=1$ and $-2=0$.
+
+\begin{example}[Finite fields and characteristic two]
+For prime $p$, the residues $\mathbb F_p$ with arithmetic modulo $p$
+form a field, and $\mathbb F_p^n$ has the usual standard basis.
+For completeness, elementary integer arithmetic supplies the inverse:
+if $p\nmid a$, Bezout's identity gives integers $u,v$ with $ua+vp=1$,
+so the residue of $u$ inverts that of $a$. Bezout's identity is used here
+as elementary arithmetic background; no quotient-ring theory is needed.
+The \textbf{characteristic} of a field is the least positive integer $p$
+such that $p\cdot1=0$, or zero if there is no such integer.
+A positive characteristic is prime: if $p=ab$ with $1<a,b<p$,
+then $(a\cdot1)(b\cdot1)=0$ contradicts invertibility of nonzero factors.
+An ordered field has $1>0$; repeated addition would give $p\cdot1>0$,
+contradicting $p\cdot1=0$. Thus positive-characteristic fields cannot
+be ordered fields, and ordinary Euclidean positivity is unavailable.
+Over $\mathbb F_2^2$, the symmetric bilinear expression
+$B(x,y)=x_1y_1+x_2y_2$ has
+$B((1,1),(1,1))=1+1=0$ although $(1,1)\ne0$.
+\[
+\boxed{\text{alternating means vanishing on repeated inputs}.}
+\]
+This is the field-independent definition. Expansion of
+two equal inputs $u+v$ still proves the interchange identity $A(u,v)=-A(v,u)$
+(with any other slots fixed). In characteristic two, $-1=1$, so an
+alternating bilinear form is also symmetric. Symmetry alone does not force
+zero diagonal: $B(x,y)=xy$ on $\mathbb F_2$ has $B(1,1)=1$.
+The same warning applies to exterior products: $v\wedge v=0$ is fundamental;
+the consequence $v\wedge w=-w\wedge v$ becomes $v\wedge w=w\wedge v$.
+\end{example}
+
+\section{Cycles, Transpositions, and Parity}
+A permutation of $\{1,\ldots,n\}$ is a bijection of this set to itself.
+Their set is denoted $S_n$. Composition is composition of bijections:
+$(\sigma\tau)(j)=\sigma(\tau(j))$. We read the right-hand permutation
+first. The identity fixes every entry, and $\sigma^{-1}$ reverses all
+arrows of $\sigma$. No formal group theory is needed.
+A \textbf{cycle} $(a_1\ a_2\ \cdots\ a_k)$ sends each displayed entry
+to the next and the last back to the first, fixing all others.
+
+\subsection{Reading and composing bijections}
+A two-row display places each input above its output:
+\[
+\sigma=\begin{pmatrix}1&2&3&4&5\\3&1&2&5&4\end{pmatrix}.
+\]
+Its output list $(3,1,2,5,4)$ is shorter, but a cycle uses a different
+convention: $(1\ 3\ 2)$ means $1\mapsto3\mapsto2\mapsto1$.
+Thus $\sigma=(1\ 3\ 2)(4\ 5)$. Starting the same cycle elsewhere
+does not change it: $(1\ 3\ 2)=(3\ 2\ 1)=(2\ 1\ 3)$.
+Reversing it does change the map and gives its inverse $(1\ 2\ 3)$.
+An omitted entry is fixed; it is not absent from the domain.
+\begin{center}
+\begin{tikzpicture}[>=Stealth]
+\node (a) at (0,1) {$1$}; \node (b) at (1.3,-.5) {$3$};
+\node (c) at (-1.3,-.5) {$2$};
+\draw[->] (a)--(b); \draw[->] (b)--(c); \draw[->] (c)--(a);
+\node (d) at (4,.8) {$4$}; \node (e) at (4,-.6) {$5$};
+\draw[->,bend left=30] (d) to (e); \draw[->,bend left=30] (e) to (d);
+\end{tikzpicture}
+\end{center}
+\begin{example}[Why order matters]
+Let $\alpha=(1\ 2\ 3)$ and $\beta=(1\ 2)$ in $S_3$.
+Follow each input through two arrows:
+\[
+\begin{array}{c|ccc|cc}
+j&\beta(j)&\alpha(\beta(j))& &\alpha(j)&\beta(\alpha(j))\\\hline
+1&2&3&&2&1\\2&1&2&&3&3\\3&3&1&&1&2
+\end{array}
+\]
+Thus $\alpha\beta=(1\ 3)$, but $\beta\alpha=(2\ 3)$.
+By contrast $(1\ 3\ 2)$ and $(4\ 5)$ act on disjoint sets of entries.
+For an entry in the first set, the second cycle does nothing, and conversely;
+every other entry is fixed by both. Hence disjoint cycles commute.
+\end{example}
+\subsection{Following a permutation until it closes}
+Why should cycles describe every bijection? Start at one entry and keep
+following its image. There are finitely many entries, so eventually one
+repeats. Injectivity prevents the path from joining itself anywhere except
+its starting point: if $\sigma^r(a)=\sigma^s(a)$ with $0<r<s$, applying
+the inverse $r$ times gives $a=\sigma^{s-r}(a)$, an earlier return.
+After closing one cycle, begin at an unused entry.
+\begin{proposition}[Cycle decomposition]
+Every permutation decomposes into disjoint cycles, uniquely up to the
+order of the cycles and cyclic rotation of their entries. Every permutation
+is a product of transpositions, where a transposition is a two-entry cycle.
+\end{proposition}
+\begin{proof}
+Following successive images of an entry closes a cycle: finiteness forces
+a repetition, and injectivity makes the first repetition the starting entry.
+Starting again outside the entries already used gives disjoint cycles and
+exhausts the finite set. Each cycle is the orbit of any one of its entries,
+with its order prescribed by the permutation, proving the stated uniqueness.
+Finally
+\[
+(a_1\ a_2\ \cdots\ a_k)
+=(a_1\ a_k)(a_1\ a_{k-1})\cdots(a_1\ a_2).
+\]
+Checking the images of the displayed entries proves this identity; applying
+it to each disjoint cycle gives a transposition decomposition.
+\end{proof}
+For example the permutation with list $(2,3,1,5,4)$ is $(1\ 2\ 3)(4\ 5)$,
+and equals $(1\ 3)(1\ 2)(4\ 5)$.
+
+\begin{example}[A full decomposition and its inverse]
+The list $(4,3,2,5,1,6)$ sends $1\to4\to5\to1$,
+$2\to3\to2$, and fixes $6$. Hence
+\[
+\sigma=(1\ 4\ 5)(2\ 3)=(1\ 5)(1\ 4)(2\ 3),\qquad
+\sigma^{-1}=(1\ 5\ 4)(2\ 3).
+\]
+For a cycle $(a_1\cdots a_k)$, the transposition formula can be verified
+without multiplying symbols formally. The rightmost swap takes $a_1$ to
+$a_2$, which later swaps leave alone. For $2\leq j<k$, the swap
+$(a_1\ a_j)$ takes $a_j$ to $a_1$, and the next takes it to $a_{j+1}$.
+The final entry $a_k$ goes to $a_1$. Every unlisted entry stays fixed.
+\end{example}
+\subsection{Adjacent swaps and the parity question}
+An \textbf{adjacent transposition} is $(i\ i+1)$. Swapping positions
+$i<j$ can be accomplished by moving the entry at $i$ rightward to $j$
+and moving the displaced entry leftward back to $i$. Intermediate entries
+return to their original places. This uses $2(j-i)-1$ adjacent swaps:
+\[
+(i\ j)=(i\ i+1)\cdots(j-2\ j-1)(j-1\ j)
+(j-2\ j-1)\cdots(i\ i+1).
+\]
+For example $(1\ 3)=(1\ 2)(2\ 3)(1\ 2)$. The same permutation
+therefore has a one-swap and a three-swap expression. Inserting
+$(1\ 2)(1\ 2)$ produces still more expressions. Length is not intrinsic.
+We must determine whether its parity is intrinsic: could the same
+permutation have both a two-swap and a three-swap expression?
+
+We need parity to be independent of the chosen transpositions. The next
+proof uses formal polynomials with integer coefficients only as finite
+expressions in indeterminates; it does not assume any polynomial theory.
+\begin{theorem}[Parity and sign]
+\label{thm:appendix-parity}
+Any two transposition expressions for a permutation have the same parity
+of length. Define $\operatorname{sgn}(\sigma)=(-1)^r$ using that parity.
+Then sign is multiplicative under composition.
+\end{theorem}
+\begin{proof}
+We seek a nonzero expression whose value reacts predictably when two
+positions are exchanged. The Vandermonde expression has exactly this
+property: every transposition negates it. It can therefore determine
+whether a transposition decomposition has even or odd length. Consider
+$\Delta(t_1,\ldots,t_n)=\prod_{i<j}(t_j-t_i)$ over the integers.
+Swapping adjacent variables $t_i,t_{i+1}$ negates their mutual factor.
+For a third index $k<i$, the pair of factors is
+$(t_i-t_k)(t_{i+1}-t_k)$; for $k>i+1$ it is
+$(t_k-t_i)(t_k-t_{i+1})$. Each pair merely exchanges its factors.
+Thus only the mutual factor changes sign and the whole expression is negated. Swapping positions $i<j$ can be done in
+$2(j-i)-1$ adjacent swaps, hence also negates $\Delta$.
+Thus a decomposition of length $r$ changes $\Delta$ to $(-1)^r\Delta$.
+Two decompositions of the same permutation perform the same substitution,
+so yield equal expressions. They cannot yield opposite signs: evaluating
+at the explicit integer tuple gives
+\[
+\Delta(1,\ldots,n)=\prod_{i<j}(j-i)>0
+\]
+(the empty product is $1$), so $\Delta$ is nonzero and not its negative.
+Parity is therefore well defined. Concatenating decompositions proves
+$\operatorname{sgn}(\sigma\tau)=\operatorname{sgn}(\sigma)
+\operatorname{sgn}(\tau)$.
+\end{proof}
+Call permutations with sign $1$ \textbf{even} and sign $-1$ \textbf{odd}.
+A $k$-cycle has sign $(-1)^{k-1}$.
+The parity is defined over the integers even when coefficients later lie
+in characteristic two; interpreting its signs in that field sends both
+$+1$ and $-1$ to $1$ without changing the combinatorial parity theorem.
+
+The identity uses zero swaps and has sign $1$. Reversing a swap expression
+gives an expression of the same length for the inverse, since each swap
+undoes itself. Therefore $\operatorname{sgn}(\sigma^{-1})
+=\operatorname{sgn}(\sigma)$. A $k$-cycle uses $k-1$ swaps; a
+permutation with disjoint cycles of lengths $k_1,\ldots,k_r$ has sign
+$(-1)^{\sum_j(k_j-1)}$. Fixed points contribute zero to this exponent.
+\subsection{Counting inversions instead of choosing swaps}
+
+The Vandermonde argument explains why parity is intrinsic; inversion
+counting now supplies an efficient way to compute it.
+Parity is known to be independent of a swap decomposition. To compute
+it without finding such a decomposition, count the pairs that appear in
+the wrong order. Each adjacent correction removes exactly one inversion.
+
+\begin{proposition}[Inversions compute the same sign]
+An inversion of $\sigma$ is a pair $i<j$ with $\sigma(i)>\sigma(j)$.
+Then $\operatorname{sgn}(\sigma)=(-1)^{\operatorname{inv}(\sigma)}$.
+\end{proposition}
+\begin{proof}
+If the list is not increasing, it has an adjacent inverted pair.
+Exchanging that pair decreases the inversion count by one: their mutual
+inversion disappears and comparisons with all other entries have the same
+total count. After exactly $\operatorname{inv}(\sigma)$ exchanges the list
+is increasing, hence is the identity. Parity now gives the formula.
+\end{proof}
+\begin{example}[Inversions in a complete list]
+For $(3,1,2,5,4)$ the inverted position pairs are $(1,2),(1,3),(4,5)$.
+There are three, so the permutation is odd. Sorting by adjacent exchanges
+makes the count visible:
+\[
+31254\longrightarrow13254\longrightarrow12354\longrightarrow12345.
+\]
+Its cycle expression $(1\ 3\ 2)(4\ 5)$ also gives sign
+$(-1)^2(-1)=-1$. The two calculations agree for a proved reason, not
+because a preferred decomposition was selected.
+\end{example}
+In the inversion proof, a third entry to the left compares with both
+exchanged entries before and after; the number of these two inversions is
+unchanged. A third entry to the right has the same property. Only the
+comparison between the adjacent entries reverses. Moreover an unsorted
+list must have adjacent entries out of order: if every neighbor increased,
+transitivity would make the entire list increasing.
+\subsection{Permutation matrices connect the notation to linear maps}
+The \textbf{permutation matrix} $P_\sigma$ has column $j$ equal to
+$e_{\sigma(j)}$. Applying it to basis vectors shows
+$P_\sigma P_\tau=P_{\sigma\tau}$ and $P_\sigma^{-1}=P_{\sigma^{-1}}$.
+
+\begin{example}[Which way does a permutation matrix move coordinates?]
+For $\sigma=(1\ 2\ 3)$ the columns are $e_2,e_3,e_1$, hence
+\[
+P_\sigma=\begin{pmatrix}0&0&1\\1&0&0\\0&1&0\end{pmatrix},\qquad
+P_\sigma\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+=\begin{pmatrix}x_3\\x_1\\x_2\end{pmatrix}.
+\]
+The old coordinate $x_j$ moves to position $\sigma(j)$; the new
+coordinate in position $i$ is $x_{\sigma^{-1}(i)}$.
+In the Leibniz sum only the selection $(2,3,1)$ has a nonzero product.
+Its sign is $+1$, so $\det P_\sigma=1$. This example also explains
+why a permutation and its inverse can appear in different coordinate
+conventions without changing the determinant sign.
+\end{example}
+\section{Constructing the Determinant Form}
+
+We have constructed a sign for each permutation and proved how signs
+behave under composition. This is the missing coefficient in the
+determinant formula: multilinearity chooses one basis vector in each slot,
+alternation removes repeated choices, and permutation sign records the
+orientation of the surviving orderings.
+
+Let $(v_1,\ldots,v_n)$ be a basis of $V$ and write
+$x_j=\sum_i a_{ij}v_i$. The slot-by-slot uniqueness argument of
+\cref{thm:determinant-form} uses only multilinearity and alternation,
+so works over $F$: each alternating form is determined by its value on
+this basis. We now give the field-valid existence argument in full.
+\begin{theorem}[Existence over an arbitrary field]
+The formula
+\[
+\omega(x_1,\ldots,x_n)=\sum_{\sigma\in S_n}
+\operatorname{sgn}(\sigma)\prod_{j=1}^n a_{\sigma(j),j}
+\]
+defines the unique alternating $n$-linear form with
+$\omega(v_1,\ldots,v_n)=1$.
+\end{theorem}
+\begin{proof}
+Each product uses one coordinate from each input, so
+distributing sums or scalar multiples in one column proves multilinearity.
+If $x_r=x_s$ for $r\ne s$, pair $\sigma$ with $\sigma\circ(r\ s)$.
+This is a fixed-point-free pairing. The products agree since the two
+coordinate columns agree, and the signs are opposite by parity. Their
+sum is zero in every field, including characteristic two where it is
+twice the same element. On the given basis, all terms except the identity
+term vanish, and that term is $1$. For uniqueness, expanding an arbitrary
+form gives the same sum: repeated tuples vanish, and the surviving tuples
+are permutations with their forced signs.
+\end{proof}
+In the standard basis this is $\det A$. It agrees with the main-text
+determinant when $F=\R$ by uniqueness, and gives
+$\det P_\sigma=\operatorname{sgn}(\sigma)$ interpreted in $F$.
+The uniqueness proof of multiplicativity, the invertibility criterion,
+the transpose formula, and basis independence in Chapter~10 remain valid
+over $F$. No order or positivity was used in them.
+
+\begin{proposition}[Laplace expansion from the permutation sum]
+The minor and cofactor definitions and both expansions in
+\cref{thm:laplace-expansion} are valid over $F$.
+\end{proposition}
+\begin{proof}
+Group the Leibniz terms by the row $i=\sigma(j)$ selected in the fixed
+column $j$. Delete row $i$ and column $j$, preserving the order of all
+remaining rows and columns. The residual choices are precisely the
+permutations of this minor. Moving row $i$ and column $j$ to the first
+positions uses $(i-1)+(j-1)$ adjacent swaps; their sign is $(-1)^{i+j}$.
+The contribution of this group is therefore $a_{ij}(-1)^{i+j}M_{ij}$.
+Summing over $i$ gives column expansion, and transpose invariance gives
+row expansion. This is the permutation counterpart of the alternating-form
+proof of \cref{thm:laplace-expansion}, valid over every field.
+\end{proof}
+For example the sparse matrix of Chapter~10 has determinant
+$-6(8-3)=-30$, interpreted in $F$. The same calculation remains valid
+if this field element becomes zero: $-30=0$ in characteristics $2,3,5$,
+whereas $-30=5$ in characteristic $7$. The matrix is singular in the
+first three cases and invertible in the last. Interpret the scalar in
+$F$ before using the determinant criterion.
+
+\paragraph{A normalized form versus an endomorphism determinant.}
+Let $\omega_e$ be normalized to $1$ on a basis $e$, and let the columns
+of $P$ express a new basis $e'$ in $e$ coordinates. Then
+$\omega_e(e'_1,\ldots,e'_n)=\det P$, so uniqueness of the normalized form gives
+\[
+\omega_{e'}=(\det P)^{-1}\omega_e.
+\]
+For a fixed endomorphism $T:V\to V$, its matrix changes instead from
+$A$ to $P^{-1}AP$; multiplicativity makes their determinants equal.
+For a map between distinct spaces there are separate source and target
+basis changes, so there is no independent scalar determinant without
+normalizations. The top exterior-power action in
+\cref{thm:top-exterior-determinant} will give a fourth equivalent viewpoint
+alongside normalized alternation, Leibniz, and recursive Laplace expansion.
+
+\Needspace{10\baselineskip}
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{exercise}
+Find disjoint cycles, a transposition decomposition, sign, inversion count,
+and determinant of the permutation matrix for the list $(2,5,4,1,3)$.
+\end{exercise}
+\begin{hexercise}{app-c-2}
+Define the adjugate by $(\operatorname{adj}A)_{ji}=C_{ij}(A)$.
+Using cofactor expansion of a matrix with one replaced row, prove
+$A\operatorname{adj}A=(\det A)I$. Derive the inverse formula when
+$\det A\ne0$. For $Ax=b$, use column multilinearity to derive
+$x_j=\det(A_1,\ldots,b,\ldots,A_n)/\det A$ (Cramer's rule).
+\end{hexercise}
+
+\begin{exercise}
+In $S_5$, compute both $(1\ 4\ 2)(2\ 3\ 5)$ and
+$(2\ 3\ 5)(1\ 4\ 2)$ by making a table of all five images. Give
+inverse lists and cycle expressions. Which entries witness noncommutation?
+\end{exercise}
+\begin{exercise}
+Give three distinct transposition expressions for $(1\ 4)$ and count
+their lengths. Explain what parity says, and what it does not say, about
+the smallest possible length of an expression.
+\end{exercise}
+\begin{hexercise}{app-c-5}
+For the reversing list $(n,n-1,\ldots,1)$ find the inversion count and
+sign. Compute its permutation matrix determinant for $n=4,5,6$.
+\end{hexercise}
+\begin{hexercise}{app-c-6}
+Over $\mathbb F_2$, compute the determinant of
+$\left(\begin{matrix}1&1\\1&0\end{matrix}\right)$.
+Explain why the answer gives an invertibility test but no positive or
+negative orientation. Distinguish permutation parity from its field-valued sign.
+\end{hexercise}

@@ -1,0 +1,26 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\filldraw[fill=blue!8,draw=blue!60] (-2,-.9)--(.8,-.9)--(2,.7)--(-.8,.7)--cycle;
+\node at (-1.45,-.6) {$U$};
+\draw[gray] (0,-1.1)--(0,2.6) node[above] {$W$};
+\draw[->,thick,blue] (0,0)--(1.4,.4) node[right] {$u$};
+\draw[->,thick,orange!80!black] (0,0)--(0,1.7) node[left] {$w$};
+\draw[dashed] (0,1.7)--(1.4,2.1)--(1.4,.4);
+\draw[->,very thick,red!70!black] (0,0)--(1.4,2.1) node[right] {$v=u+w$};
+\fill (0,0) circle (1.5pt) node[below left] {$0$};
+\begin{scope}[xshift=6cm]
+\draw[blue] (-1.4,0)--(1.5,0) node[right] {$U_1$};
+\draw[blue] (0,-1)--(0,1.8) node[above] {$U_2$};
+\draw[orange!80!black] (-.8,-.8)--(1.5,1.5) node[right] {$U_3$};
+\draw[->,thick] (0,0)--(1,0);
+\draw[->,thick] (1,0)--(1,1);
+\draw[->,thick,red!70!black] (1,1)--(0,0);
+\node[below,align=center] at (.2,-1.2) {$e_1+e_2-(e_1+e_2)=0$};
+\end{scope}
+\end{tikzpicture}
+\caption{Left: a complementary plane and line give unique components;
+the drawing is oblique and does not assert orthogonality. Right: three
+lines can meet pairwise only at zero while admitting a nonzero relation.}
+\label{fig:internal-direct-sum}
+\end{figure}

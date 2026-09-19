@@ -1,0 +1,81 @@
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,line width=.7pt]
+\begin{scope}[shift={(0,3.7)}]
+\node at (1.4,1.8) {1. Reverse one seam arrow};
+\fill[gray!8] (0,0) rectangle(2.8,1.2);
+\draw[purple!80!black,very thick] (0,0)--(2.8,0) (0,1.2)--(2.8,1.2);
+\draw[red!75!black,very thick,->] (0,0)--(0,1.2);
+\draw[red!75!black,very thick,->] (2.8,1.2)--(2.8,0);
+\draw[teal!80!black,very thick,->] (.7,.2)--(.7,1);
+\fill[teal!80!black] (.7,1) circle(.05);
+\node[above,teal!80!black] at (.7,1.2) {$m$};
+\node[below] at (1.4,0) {$(0,t)\sim(1,-t)$};
+\end{scope}
+\draw[->,thick] (3.5,4.3)--(4.3,4.3);
+\begin{scope}[shift={(5,4.3)}]
+\node at (1.4,1.2) {2. Give one end a half-twist};
+\foreach \u in {0,.2,...,1}{
+\draw[gray!55] ({2.8*\u-.2*sin(180*\u)},{-.6*cos(180*\u)})--({2.8*\u+.2*sin(180*\u)},{.6*cos(180*\u)});}
+\foreach \t in {-1,1}{\draw[purple!80!black,very thick] plot[domain=0:1,samples=60] ({2.8*\x+.2*\t*sin(180*\x)},{.6*\t*cos(180*\x)});}
+% Break the rear projected edge where the foreground edge passes it.
+\draw[purple!80!black,very thick,preaction={draw=white,line width=4pt}]
+plot[domain=.42:.64,samples=25] ({2.8*\x+.2*sin(180*\x)},{.6*cos(180*\x)});
+\draw[red!75!black,very thick,->] (0,-.6)--(0,.6);
+\draw[red!75!black,very thick,->] (2.8,-.6)--(2.8,.6);
+% The same transverse marker at one quarter of the strip.
+\draw[teal!80!black,very thick,->,preaction={draw=white,line width=4pt}]
+(.59,-.34)--(.81,.34);
+\fill[teal!80!black] (.81,.34) circle(.05);
+\node[above,teal!80!black] at (.81,.34) {$m$};
+\draw[->] (3.05,.65) arc(70:-160:.35 and .6);
+\node[below] at (1.4,-.85) {arrows now ready to meet};
+\end{scope}
+\draw[->,thick] (8.9,3.45)--(8.9,2.8)--(2,2.8)--(2,2.05);
+\begin{scope}[shift={(1.4,.7)},x={(1cm,0cm)},y={(0cm,.4cm)},z={(.22cm,.85cm)}]
+\foreach \u in {25,45,...,325}{\draw[gray!55] ({(1.3-.35*cos(\u/2))*cos(\u)},{(1.3-.35*cos(\u/2))*sin(\u)},{-.35*sin(\u/2)})--({(1.3+.35*cos(\u/2))*cos(\u)},{(1.3+.35*cos(\u/2))*sin(\u)},{.35*sin(\u/2)});}
+\foreach \t in {-1,1}{\draw[purple!80!black,thick] plot[domain=25:335,samples=75] ({(1.3+.35*\t*cos(\x/2))*cos(\x)},{(1.3+.35*\t*cos(\x/2))*sin(\x)},{.35*\t*sin(\x/2)});}
+\draw[red!75!black,very thick,->] ({(1.3-.35*cos(12.5))*cos(25)},{(1.3-.35*cos(12.5))*sin(25)},{-.35*sin(12.5)})--({(1.3+.35*cos(12.5))*cos(25)},{(1.3+.35*cos(12.5))*sin(25)},{.35*sin(12.5)});
+\draw[red!75!black,very thick,->] ({(1.3+.35*cos(167.5))*cos(335)},{(1.3+.35*cos(167.5))*sin(335)},{.35*sin(167.5)})--({(1.3-.35*cos(167.5))*cos(335)},{(1.3-.35*cos(167.5))*sin(335)},{-.35*sin(167.5)});
+\draw[teal!80!black,very thick,->,preaction={draw=white,line width=3pt}]
+(0,{1.3-.35*cos(45)},{-.35*sin(45)})--(0,{1.3+.35*cos(45)},{.35*sin(45)});
+\node[above,teal!80!black] at (0,{1.3+.35*cos(45)},{.35*sin(45)}) {$m$};
+\end{scope}
+\node at (1.4,1.95) {3. Bring the ends together};
+\node[below,align=center] at (1.4,-.25) {the half-twist remains\\as the gap closes};
+\draw[->,thick] (3.45,.7)--(4.3,.7);
+\begin{scope}[shift={(6.4,.7)},x={(1cm,0cm)},y={(0cm,.4cm)},z={(.22cm,.85cm)}]
+\foreach \u in {0,15,...,345}{\draw[gray!55] ({(1.3-.35*cos(\u/2))*cos(\u)},{(1.3-.35*cos(\u/2))*sin(\u)},{-.35*sin(\u/2)})--({(1.3+.35*cos(\u/2))*cos(\u)},{(1.3+.35*cos(\u/2))*sin(\u)},{.35*sin(\u/2)});}
+% Dashed rear arcs and white halos distinguish projected depth.
+\foreach \start/\stop/\col/\sty in {0/180/purple!80!black/dashed,180/360/purple!80!black/solid,360/540/teal!80!black/dashed,540/720/teal!80!black/solid}{
+\draw[\col,very thick,\sty,preaction={draw=white,line width=3.5pt}]
+plot[domain=\start:\stop,samples=65]
+({(1.3+.35*cos(\x/2))*cos(\x)},{(1.3+.35*cos(\x/2))*sin(\x)},{.35*sin(\x/2)});}
+\foreach \start/\col in {60/purple!80!black,240/purple!80!black,420/teal!80!black,600/teal!80!black}{
+\draw[\col,very thick,->] plot[domain=\start:{\start+25},samples=12]
+({(1.3+.35*cos(\x/2))*cos(\x)},{(1.3+.35*cos(\x/2))*sin(\x)},{.35*sin(\x/2)});}
+\fill (1.65,0,0) circle(.065) node[right] {$s$};
+\fill (.95,0,0) circle(.05);
+\draw[teal!80!black,very thick,->,preaction={draw=white,line width=3pt}]
+(0,{1.3-.35*cos(45)},{-.35*sin(45)})--(0,{1.3+.35*cos(45)},{.35*sin(45)});
+\node[above,teal!80!black] at (0,{1.3+.35*cos(45)},{.35*sin(45)}) {$m$};
+\end{scope}
+\node at (6.4,1.95) {4. M\"obius strip};
+\node[purple!80!black,below,align=center] at (6.4,-.25) {one continuous boundary:\\two trips around the central loop};
+\node at (.4,-1.6) {$s$};
+\draw[purple!80!black,very thick,->] (.65,-1.6)--(3.25,-1.6);
+\node[above] at (1.95,-1.6) {top: $x=0\to1$};
+\node at (3.85,-1.6) {seam};
+\draw[teal!80!black,very thick,->] (4.45,-1.6)--(7.05,-1.6);
+\node[above] at (5.75,-1.6) {bottom: $x=0\to1$};
+\node at (7.35,-1.6) {$s$};
+\node at (3.85,-2.25) {boundary itinerary: top $\to$ bottom $\to$ start};
+\end{tikzpicture}
+\caption{A half-twist implements the reversed seam rule. In the second
+panel the band is viewed obliquely through the twist; crossing strokes
+are projection effects. The marker $m$ follows the same transverse segment. Dashed rear arcs and
+white gaps distinguish depth at projected crossings. Starting at $s$, the
+purple and teal portions trace one boundary: the edge that starts on top returns along the bottom
+before closing. See \cref{sec:quotient-bands} for the local charts.}
+\label{fig:mobius-gluing}
+\end{figure}

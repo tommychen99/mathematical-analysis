@@ -1,0 +1,18 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\node (M) at (0,2) {$p\in M$};\node (N) at (7,2) {$f(p)\in N$};
+\node (TM) at (0,.5) {$T_pM$};\node (TN) at (7,.5) {$T_{f(p)}N$};
+\node (R) at (0,-1.2) {$\R^m$};\node (Q) at (7,-1.2) {$\R^n$};
+\draw[->,thick] (M)--(N) node[midway,above] {$f$};
+\draw[->,thick,blue] (TM)--(TN) node[midway,above] {$df_p$};
+\draw[->] (TM)--(R) node[midway,left] {$K_\varphi$};
+\draw[->] (TN)--(Q) node[midway,right] {$K_\psi$};
+\draw[->,thick,blue] (R)--(Q) node[midway,below] {$D(\psi\circ f\circ\varphi^{-1})(\varphi(p))$};
+\node at (3.5,1.2) {map of points $\longrightarrow$ map of directions};
+
+\end{tikzpicture}
+\caption{The intrinsic differential is represented by the Euclidean Jacobian. Here $m=\dim M$, $n=\dim N$, and $K_\varphi,K_\psi$ send tangent classes to their coordinate columns. The lower square commutes.}
+\label{fig:map-differential}
+\end{figure}

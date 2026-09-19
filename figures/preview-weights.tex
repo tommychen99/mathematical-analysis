@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\draw[->,gray] (-.2,0)--(8.5,0);
+\draw[->,gray] (0,-.1)--(0,2.4) node[above] {weight};
+\draw[blue,thick] (0,2)--(2,2)..controls (2.7,2) and (3.3,0)..(4,0)--(8,0);
+\draw[teal,thick] (0,0)--(2,0)..controls (2.7,0) and (3.3,2)..(4,2)..controls (4.7,2) and (5.3,0)..(6,0)--(8,0);
+\draw[red!70!black,thick] (0,0)--(4,0)..controls (4.7,0) and (5.3,2)..(6,2)--(8,2);
+\node[blue] at (1,2.3) {$\rho_1$};\node[teal] at (4,2.3) {$\rho_2$};\node[red!70!black] at (7,2.3) {$\rho_3$};
+\draw[blue,thick] (-.1,-.5)--(4.2,-.5) node[right] {$U_1$};
+\draw[teal,thick] (1.8,-.9)--(6.2,-.9) node[right] {$U_2$};
+\draw[red!70!black,thick] (3.8,-1.3)--(8.2,-1.3) node[right] {$U_3$};
+\node at (4,-2) {$\rho_1+\rho_2+\rho_3=1,\qquad\omega=\rho_1\omega+\rho_2\omega+\rho_3\omega$};
+
+\end{tikzpicture}
+\caption{Schematic profiles for a smooth partition of unity: nonnegative weights fade out within their assigned open sets and add to one. Smooth profiles replace the abrupt jump of a hard cutoff; the exact smooth construction comes later.}
+\label{fig:preview-weights}
+\end{figure}
