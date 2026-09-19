@@ -16,6 +16,8 @@ exponential/logarithmic development, and trigonometry. Part II retains its
 architecture, with the requested Chapter 10 compactness clarification.
 Appendices A–I remain optional.
 
+Historical manuscript PDFs are listed in [Historical PDF archive](HISTORICAL_PDFS.md).
+
 These notes give a rigorous introduction to real analysis and rebuild the
 central ideas of calculus from modern foundations. Part I develops the real
 numbers, sequences, limits, continuity, series, differentiation, and Riemann
