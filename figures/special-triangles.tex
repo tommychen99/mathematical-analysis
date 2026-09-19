@@ -1,0 +1,20 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,scale=.92]
+\coordinate (A) at (0,0); \coordinate (B) at (3,0); \coordinate (C) at (3,3);
+\draw[very thick] (A)--(B)--(C)--cycle;
+\draw (2.62,0)--(2.62,.38)--(3,.38);
+\node[below] at (1.5,0) {$1$}; \node[right] at (3,1.5) {$1$};
+\node[above left,rotate=45] at (1.5,1.5) {$\sqrt2$};
+\node at (.55,.23) {$45^\circ$}; \node at (2.73,2.38) {$45^\circ$};
+
+\coordinate (D) at (5.2,0); \coordinate (E) at (8.7,0); \coordinate (F) at (8.7,6.062);
+\draw[very thick] (D)--(E)--(F)--cycle;
+\draw (8.32,0)--(8.32,.38)--(8.7,.38);
+\node[below] at (6.95,0) {$1$}; \node[right] at (8.7,3.03) {$\sqrt3$};
+\node[above left,rotate=60] at (6.95,3.03) {$2$};
+\node at (5.85,.25) {$60^\circ$}; \node at (8.38,5.2) {$30^\circ$};
+\end{tikzpicture}
+\caption{The $45^\circ$--$45^\circ$--$90^\circ$ and $30^\circ$--$60^\circ$--$90^\circ$ triangles. Their side ratios are familiar geometric targets that the analytic construction will later justify.}
+\label{fig:special-triangles}
+\end{figure}

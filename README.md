@@ -6,15 +6,15 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 
 **Author:** Tommy Chen
 
-**Current version:** Version 3.29.0
+**Current version:** Version 3.30.0
 
 **Revision date:** September 19, 2026
 
-**Status:** Focused pedagogical and organizational revision of the authoritative
-Version 3.28.0 working tree. Chapter 8 now separates Taylor theory, the
-exponential/logarithmic development, and trigonometry. Part II retains its
-architecture, with the requested Chapter 10 compactness clarification.
-Appendices A–I remain optional.
+**Status:** Controlled pedagogical revision of the authoritative Version
+3.29.0 manuscript. Chapter 8 now completes arbitrary-base exponential and
+logarithmic functions and gives a dependency-safe geometric development of
+trigonometry, curves, and polar coordinates. Appendix B remains narrow in
+scope but is substantially expanded for a first categorical encounter.
 
 Historical manuscript PDFs are listed in [Historical PDF archive](HISTORICAL_PDFS.md).
 
@@ -25,6 +25,55 @@ integration. Part II develops the finite-dimensional topology and linear
 algebra needed for multivariable analysis, followed by multivariable
 integration, classical line and surface integrals, Green and patch Stokes,
 differential forms, manifolds, and the general Stokes theorem.
+
+## Version 3.30.0 — September 19, 2026
+
+This revision preserves the Version 3.29.0 architecture and concentrates on
+the requested Chapter 8 and Appendix B improvements, together with a few
+named consistency corrections.
+
+- Chapter 8 treats each fixed-base exponential $x\mapsto a^x$ as a function,
+  proving its derivative, the three monotonicity cases, and bijectivity for
+  $a>0$, $a\ne1$. It collects the natural-logarithm arithmetic laws, defines
+  arbitrary-base logarithms only after identifying the exponential's actual
+  range, proves change of base and the derivative formula, and fixes the
+  conventions `log`, `ln`, and `lg`.
+- The trigonometric opening now moves from familiar right-triangle and special-
+  triangle diagrams to analytic series, identities, and only then the
+  unit-circle interpretation. The new figures use degrees before the analytic
+  construction of $\pi$ and introduce the algebraic circle locus only after
+  the Pythagorean identity is proved.
+- Parametrized curves and polar coordinates are formulated first through
+  pairs of scalar functions and coordinate formulas. Circle and ellipse
+  language is explicitly interpretive, polar existence and exact angular
+  nonuniqueness are proved from the constructed inverse trigonometric
+  functions, and velocity and speed appear only after their coordinatewise
+  definitions.
+- Appendix B follows the pedagogical architecture of the author's Homological
+  Algebra notes §§1.3 and 2.1 while retaining its modest scope. Category,
+  opposite-category, functor, variance, diagram, and natural-transformation
+  data are fully typed and decompressed, with worked examples, explicit
+  axioms, and a revised exercise-and-hint set.
+- Chapter 2 and the final attribution note now accurately describe Appendix
+  A's proof of the equivalence of choice principles. Chapter 10 uses the
+  ambient-open-cover wording in the compact-Hausdorff proof, and the Chapter 8
+  L'Hôpital cross-reference now distinguishes §§8.5 and 8.6.
+
+No Git tag or release accompanies this working revision.
+
+### Version 3.30.0 validation
+
+Repeated pdfLaTeX builds produced a clean 516-page `main.pdf`: the final log
+contains no LaTeX errors, warnings, undefined references, or significant
+overfull/underfull boxes. The revised pages of §§8.5–8.7, all three new
+trigonometric figures, all nine pages of Appendix B, and the corresponding
+Appendix I hint page were rendered and visually inspected.
+
+Automated checks found 695 unique explicit source labels with no duplicates,
+1,356 resolved internal PDF links with no unresolved named destinations, and
+310 bookmarks. All 71 selected exercise–hint pairs match in both directions;
+the TOC and bookmark files contain no unresolved entries. `git diff --check`
+passes. No Git tag or release was created.
 
 ## Version 3.29.0 — September 19, 2026
 

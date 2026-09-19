@@ -371,8 +371,10 @@ of type $0/0$ and $\infty/\infty$. Forms such as $0\cdot\infty$,
 $\infty-\infty$, $1^\infty$, $0^0$, and $\infty^0$ must first be transformed
 into a suitable quotient or logarithmic form.
 
-Applications involving exponential and trigonometric functions follow their
-construction in \cref{sec:trigonometric-functions}. The theorem itself and
+Applications involving exponential and logarithmic functions follow their
+construction in \cref{sec:exponential-logarithm}; applications involving
+trigonometric functions follow their construction in
+\cref{sec:trigonometric-functions}. The theorem itself and
 the rational-function example above use only the results already proved.
 
 \subsection*{Calculating derivatives and using their meaning}
@@ -884,6 +886,8 @@ Define
 \qquad
 \log=(\exp)^{-1}.
 \]
+The symbol \(\log\) is the primary notation in these notes. The alternative
+symbol \(\ln\) is widespread and denotes exactly the same natural logarithm.
 \end{definition}
 
 Strict monotonicity gives one inverse value, but does not guarantee a
@@ -926,6 +930,36 @@ Applying the formula to $f=\exp$ gives
 $\log'(x)=1/\exp(\log x)=1/x$.
 \end{proof}
 
+\begin{proposition}[Arithmetic laws of the natural logarithm]
+\label{prop:natural-log-laws}
+For $a,b>0$,
+\[
+\log1=0,\qquad
+\log(ab)=\log a+\log b,
+\]
+\[
+\log\!\left(\frac ab\right)=\log a-\log b,
+\qquad
+\log(a^{-1})=-\log a.
+\]
+\end{proposition}
+\begin{proof}
+Because $\exp0=1$ and $\log$ is the inverse of $\exp$, $\log1=0$.
+Write $a=\exp(\log a)$ and $b=\exp(\log b)$. The exponential addition
+law gives
+\[
+ab=\exp(\log a+\log b).
+\]
+Applying the inverse function $\log$ proves the product law. Since
+$a/b=a\,b^{-1}$, the identity
+$\exp(-\log b)=b^{-1}$ and the product law give the remaining two formulas.
+\end{proof}
+Logarithms turn products, not sums, into sums. In general
+\[
+\log(a+b)\ne\log a+\log b;
+\]
+for instance, $\log(1+1)=\log2\ne0=\log1+\log1$.
+
 Chapter~\ref{ch:continuity} defined $a^q$ for rational $q$. What should
 $a^x$ mean when $x$ is irrational? This is an extension problem: the new
 values must agree with the old ones and preserve the exponent laws.
@@ -957,16 +991,146 @@ a^{x+y}&=a^xa^y,& a^{x-y}&=\frac{a^x}{a^y},\\
 (a^x)^y&=a^{xy},& (ab)^x&=a^xb^x.
 \end{aligned}
 \]
+Moreover,
+\[
+\boxed{\log(a^x)=x\log a.}
+\]
 The general definition requires a positive base. Separately, one may set
 \(0^x=0\) for \(x>0\); it does not define \(0^0\) or negative powers of
 zero. A negative base has no real-valued power \(a^x\) for every real \(x\).
 \end{proposition}
 \begin{proof}
 The first two identities follow immediately from the exponential addition
-law. Because \(\log(a^x)=x\log a\), the third follows from the definition.
+law. The inverse identity
+\[
+\log(a^x)=\log(\exp(x\log a))=x\log a
+\]
+proves the displayed logarithm law, and the third exponent law follows from
+it and the definition.
 The identity \(\log(ab)=\log a+\log b\), obtained by applying the inverse of
 \(\exp\) to its addition law, proves the fourth.
 \end{proof}
+
+\begin{theorem}[Exponential functions with arbitrary positive base]
+\label{thm:arbitrary-base-exponential}
+Fix $a>0$ and define
+\[
+E_a:\R\to(0,\infty),
+\qquad E_a(x)=a^x=\exp(x\log a).
+\]
+Then
+\[
+\boxed{E_a'(x)=a^x\log a.}
+\]
+If $a>1$, then $E_a$ is strictly increasing; if $0<a<1$, then $E_a$ is
+strictly decreasing; and if $a=1$, then $E_a(x)=1$ for every $x$.
+For $a\ne1$, the function $E_a$ is a bijection from $\R$ onto
+$(0,\infty)$.
+\end{theorem}
+\begin{proof}
+\textbf{Strategy.} Differentiate the defining composite, then let the sign of
+$\log a$ control monotonicity. Surjectivity will come from solving the
+equation $a^x=y$ explicitly with the already constructed natural logarithm.
+The chain rule gives
+\[
+E_a'(x)=\exp(x\log a)\log a=a^x\log a.
+\]
+The natural logarithm is strictly increasing because it is the inverse of
+the strictly increasing exponential, and $\log1=0$. Thus $\log a$ is
+positive when $a>1$ and negative when $0<a<1$. Since $a^x>0$, the Mean
+Value Theorem gives the stated strict monotonicity. If $a=1$, the definition
+gives $1^x=\exp(x\log1)=1$.
+
+Now suppose $a\ne1$. Strict monotonicity gives injectivity. For any $y>0$,
+$\log a\ne0$, and
+\[
+x=\frac{\log y}{\log a}
+\]
+satisfies
+\[
+a^x=\exp\!\left(\frac{\log y}{\log a}\log a\right)
+=\exp(\log y)=y.
+\]
+Hence the actual range is all of $(0,\infty)$, proving bijectivity with the
+displayed codomain.
+\end{proof}
+
+\begin{definition}[Logarithm to base $a$]
+\label{def:arbitrary-base-logarithm}
+Let $a>0$ and $a\ne1$. After restricting to such a base,
+\cref{thm:arbitrary-base-exponential} proves that
+$E_a:\R\to(0,\infty)$ is a bijection. Define its inverse
+\[
+\log_a:(0,\infty)\to\R.
+\]
+Equivalently,
+\[
+\boxed{\log_a x=y\quad\Longleftrightarrow\quad a^y=x.}
+\]
+The base $a=1$ is excluded because $1^x$ is constant and therefore is not
+invertible onto $(0,\infty)$. No logarithm with a nonpositive base is being
+defined here.
+\end{definition}
+
+By the two inverse identities,
+\[
+\log_a(a^x)=x\quad(x\in\R),
+\qquad
+a^{\log_a x}=x\quad(x>0).
+\]
+Taking the natural logarithm of $a^y=x$ gives
+$y\log a=\log x$. Therefore
+\[
+\boxed{\log_a x=\frac{\log x}{\log a}}
+\qquad(a>0,\ a\ne1,\ x>0).
+\]
+This change-of-base formula and \cref{prop:natural-log-laws,prop:real-exponent-laws}
+give, for $x,y>0$ and $r\in\R$,
+\[
+\log_a(xy)=\log_a x+\log_a y,
+\qquad
+\log_a\!\left(\frac xy\right)=\log_a x-\log_a y,
+\]
+\[
+\log_a(x^r)=r\log_a x.
+\]
+Differentiating the change-of-base formula yields
+\[
+\boxed{(\log_a x)'=\frac1{x\log a}.}
+\]
+Thus $\log_a$ is increasing when $a>1$ and decreasing when $0<a<1$,
+as is also forced by its being the inverse of the corresponding increasing
+or decreasing exponential.
+
+The notation used in these notes is
+\[
+\boxed{\log x:=\log_e x},
+\qquad
+\ln x=\log x,
+\qquad
+\boxed{\lg x:=\log_{10}x}.
+\]
+The symbol $\lg$ for the common, or decimal, logarithm is familiar but not
+universal, so its meaning is fixed explicitly here. Elementary values include
+\[
+\log e=1,
+\qquad
+\lg10=1,
+\qquad
+\lg100=2,
+\qquad
+\lg1000=3.
+\]
+
+\begin{example}[Solving an exponential equation]
+The equation $2^x=5$ has exactly one solution because $2^x$ is strictly
+increasing. Applying the inverse, or using change of base, gives
+\[
+x=\log_2 5=\frac{\log5}{\log2}.
+\]
+This is the practical role of arbitrary-base logarithms: they recover an
+unknown exponent even when the base is not $e$.
+\end{example}
 
 \begin{theorem}[Derivative of a real power]
 \label{thm:real-power-derivative}
@@ -1104,37 +1268,32 @@ Recall first the right-triangle ratios, as motivation rather than definitions:
 \cos\theta=\frac{\text{adjacent}}{\text{hypotenuse}},\qquad
 \tan\theta=\frac{\text{opposite}}{\text{adjacent}}.
 \]
-Scaling the hypotenuse to one suggests the unit-circle coordinates
-$(\cos\theta,\sin\theta)$, the Pythagorean identity, and the quotient
-$\tan\theta=\sin\theta/\cos\theta$ where defined. Reflection and composition
-of planar rotations suggest the familiar formulas
-\[
-\begin{aligned}
-\sin(-x)&=-\sin x,&\cos(-x)&=\cos x,\\
-\sin(x+y)&=\sin x\cos y+\cos x\sin y,\\
-\cos(x+y)&=\cos x\cos y-\sin x\sin y.
-\end{aligned}
-\]
-Infinitesimal counterclockwise rotation turns a radial vector $(c,s)$ into
-its tangent $(-s,c)$. This suggests
+\Cref{fig:right-triangle-trig} restores the familiar school-level picture
+before analysis begins.
+\input{figures/right-triangle-trig}
+
+The two special triangles in \cref{fig:special-triangles} similarly remind us
+of familiar side ratios. We deliberately use degree notation here:
+$30^\circ$, $45^\circ$, and $60^\circ$ are geometric targets, not yet
+expressions involving an analytically constructed constant $\pi$.
+\input{figures/special-triangles}
+
+The desired analytic functions should reproduce those ratios and the
+familiar geometric identities. Calculus also suggests the derivative pattern
 \[
 s'=c,\qquad c'=-s,\qquad s(0)=0,\qquad c(0)=1.
 \]
-These geometric expectations have not yet been proved for analytic functions.
-They motivate the equations, which in turn force the power-series coefficients:
+These are still targets, not premises. They motivate equations that force the
+power-series coefficients:
 if $s(x)=\sum a_nx^n$ and $c(x)=\sum b_nx^n$, then formally
 \[
 (n+1)a_{n+1}=b_n,\qquad (n+1)b_{n+1}=-a_n.
 \]
 Starting from $a_0=0,b_0=1$ produces alternating odd and even series.
-We will also recover the familiar targets
-\[
-\sin\frac\pi6=\frac12,\qquad
-\cos\frac\pi4=\frac1{\sqrt2},\qquad
-\sin\frac\pi3=\frac{\sqrt3}{2}.
-\]
-Here $\pi$ is recalled only as familiar geometric notation; the analytic
-constant will be constructed below, without assuming these values.
+The construction below will first define sine and cosine by those series,
+then prove their derivative and addition laws, then derive the Pythagorean
+identity. Only after that analytic work will we recover the global circle
+picture and identify the familiar degree angles with radian values.
 
 \begin{proposition}[Convergence of the trigonometric series]
 \label{prop:elementary-series-convergence}
@@ -1202,6 +1361,23 @@ as follows from their series. Hence both differences vanish identically. Finally
 \]
 is zero, and its value at $0$ is $1$; the Mean Value Theorem proves the last identity.
 \end{proof}
+
+The Pythagorean identity now makes the promised geometric interpretation
+dependency-safe. Define the algebraic locus
+\[
+C=\{(u,v)\in\R^2:u^2+v^2=1\}.
+\]
+For every real $t$,
+\[
+(\cos t,\sin t)\in C.
+\]
+In familiar coordinate geometry, $C$ is the circle of radius $1$ centered at
+the origin. We use that picture here as an interpretation; Chapter~10
+formally develops Euclidean distance in $\R^2$. The coordinate labels in
+\cref{fig:unit-circle-trig} also reconnect this global picture with the
+right-triangle ratios. The figure explains the identity; it is not part of
+its proof.
+\input{figures/unit-circle-trig}
 
 The elementary
 derivative formulas proved in \cref{thm:exponential-identities,thm:elementary-series} give $(\exp)^{(n)}=\exp$ and the cycles
@@ -1422,13 +1598,20 @@ Thus tangent is strictly increasing. As $x\to(\pi/2)^-$, continuity gives $\sin 
 then $\tan x>M$. Oddness gives the corresponding limit $-\infty$ at $-\pi/2$. The Intermediate Value Theorem proves that tangent is onto $\R$.
 \end{proof}
 
-The identities $\cos^2t+\sin^2t=1$ and
-$(\cos t,\sin t)'=(-\sin t,\cos t)$ put the series-defined functions
-back on the unit circle. The curve starts at $(1,0)$, travels with speed
-one, and initially moves counterclockwise. The sign and periodicity results
-above describe the successive quadrants. Thus this agrees with the usual
-radian parametrization; once arc length is developed, the unit-speed
-interpretation will coincide with the arc-length definition of radians.
+The identity $\cos^2t+\sin^2t=1$ puts the series-defined pair
+$(\cos t,\sin t)$ on the algebraic locus $C$. The proved special values,
+signs, and periodicity show the coordinate progression
+\[
+(1,0)\to(0,1)\to(-1,0)\to(0,-1)\to(1,0)
+\]
+as
+\[
+t=0,\ \frac\pi2,\ \pi,\ \frac{3\pi}{2},\ 2\pi.
+\]
+In the familiar orientation of the coordinate plane, this is the
+counterclockwise direction. Formal coordinatewise differentiation, velocity,
+and speed are postponed to \cref{sec:elementary-curves-polar}, where those
+terms are defined.
 
 Solving $\sin\theta=y$ means finding an angle with a prescribed vertical
 coordinate. Periodicity gives many solutions, so a global inverse cannot
@@ -1591,56 +1774,168 @@ verify the hypotheses before differentiating.
 
 \section{Parametrized Curves and Polar Coordinates}
 \label{sec:elementary-curves-polar}
-The unit-circle calculation above gives a first example of motion described
-by two ordinary functions. We now record the elementary language it suggests.
+The pair $(\cos t,\sin t)$ suggests motion described by two ordinary
+one-variable functions. This section develops that idea without importing
+multivariable differentiation or a previously defined Euclidean norm. The
+formal statements are coordinate formulas; familiar plane geometry supplies
+interpretation and will be formalized in Chapters~10--11.
 \begin{definition}[Parametrized plane curve, velocity, and speed]
 \label{def:elementary-plane-curve}
-A \textbf{parametrized plane curve} on an interval $I$ is a pair of
-coordinate functions $\gamma(t)=(x(t),y(t))$. It records position at time $t$.
-When both coordinates are differentiable, define its \textbf{velocity vector}
-and \textbf{speed} by
+A \textbf{parametrized plane curve} on an interval $I$ is a pair of ordinary
+scalar functions $x,y:I\to\R$, written
 \[
-\gamma'(t)=(x'(t),y'(t)),\qquad
+\gamma(t)=(x(t),y(t)).
+\]
+When both coordinates are differentiable, define the coordinatewise
+\textbf{velocity} and the \textbf{speed} by
+\[
+\gamma'(t):=(x'(t),y'(t)),\qquad
 \operatorname{speed}(t)=\sqrt{x'(t)^2+y'(t)^2}.
 \]
-Velocity is an ordered pair recording instantaneous motion; speed is its
-nonnegative magnitude. Endpoint derivatives, when used, are one-sided.
+The curve is $C^k$ when both coordinate functions are $C^k$, and is smooth
+when both are smooth. Endpoint derivatives, when used, are one-sided.
 \end{definition}
-Thus the previously computed derivative $(-\sin t,\cos t)$ of the unit
-circle has speed one. The quadrant and periodicity results show that
-$0\leq t\leq2\pi$ starts at $(1,0)$ and makes one counterclockwise traversal.
-On the same interval, $(\cos2t,\sin2t)$ has speed two and traverses the
-same circle twice. A parametrization records speed and multiplicity as
+
+Geometrically, $\gamma(t)$ represents the position of a moving point in the
+plane, $\gamma'(t)$ represents instantaneous motion, and the displayed
+nonnegative number is its speed. Chapter~10 will identify the square-root
+expression with Euclidean length, and Chapter~11 will show that coordinatewise
+differentiation agrees with the Fr\'echet derivative of
+$\gamma:I\to\R^2$. Thus ``velocity vector'' is useful familiar language,
+while the present definition needs only ordered pairs and one-variable
+derivatives.
+
+For $\gamma(t)=(\cos t,\sin t)$, coordinatewise differentiation gives
+\[
+\gamma'(t)=(-\sin t,\cos t),
+\qquad
+\operatorname{speed}(t)=1.
+\]
+The coordinate progression proved in the preceding section shows that on
+$0\leq t\leq2\pi$ the curve starts at $(1,0)$ and, in the familiar
+orientation of the plane, makes one counterclockwise traversal. On the same
+interval, $(\cos2t,\sin2t)$ has speed two and traverses the same algebraic
+locus twice. A parametrization therefore records speed and multiplicity as
 well as its geometric image.
 
 \paragraph{A few reusable choices.}
 For a graph over $[a,b]$, use $\gamma(t)=(t,f(t))$, $a\leq t\leq b$;
 it moves from $(a,f(a))$ to $(b,f(b))$ in increasing horizontal coordinate.
-The line segment from $(x_0,y_0)$ to $(x_1,y_1)$ is
+For two points $(x_0,y_0)$ and $(x_1,y_1)$, first define the set
 \[
-\gamma(t)=((1-t)x_0+tx_1,(1-t)y_0+ty_1),\qquad0\leq t\leq1.
+S=\left\{
+\bigl((1-t)x_0+tx_1,(1-t)y_0+ty_1\bigr):0\leq t\leq1
+\right\}.
 \]
-It starts and ends at the specified points and traverses the segment once
-if they are distinct; equal endpoints give a constant curve.
-For $R>0$, the circle $(R\cos t,R\sin t)$ starts at $(R,0)$ and makes
-one counterclockwise traversal on $[0,2\pi]$. Its velocity is
-$(-R\sin t,R\cos t)$ and its speed is $R$, recovering the unit-speed
-case when $R=1$. Likewise $(a\cos t,b\sin t)$ for $a,b>0$ traverses
-the ellipse once counterclockwise from $(a,0)$ on that interval.
+The displayed formula is the formal definition of $S$; familiar coordinate
+geometry calls it the line segment from $(x_0,y_0)$ to $(x_1,y_1)$.
+Its displayed parameter runs from the first endpoint to the second.
+
+For $R>0$, let $\gamma(t)=(R\cos t,R\sin t)$. Its coordinates satisfy
+\[
+x(t)^2+y(t)^2=R^2(\cos^2t+\sin^2t)=R^2.
+\]
+Elementary coordinate geometry recognizes this locus as the circle of radius
+$R$. Coordinatewise differentiation gives velocity
+$(-R\sin t,R\cos t)$ and speed $R$. Likewise, for $a,b>0$,
+$\gamma(t)=(a\cos t,b\sin t)$ satisfies
+\[
+\frac{x(t)^2}{a^2}+\frac{y(t)^2}{b^2}=1,
+\]
+the familiar ellipse equation. On $[0,2\pi]$ the coordinate progression
+\[
+(1,0)\to(0,1)\to(-1,0)\to(0,-1)\to(1,0)
+\]
+at $t=0,\pi/2,\pi,3\pi/2,2\pi$ shows that both parametrizations move
+counterclockwise in the familiar orientation.
 
 \begin{definition}[Polar coordinates]\label{def:polar-coordinates}
-The unit-circle point in direction $\theta$ is $(\cos\theta,\sin\theta)$.
-Placing it at distance $r\geq0$ from the origin gives
+A \textbf{polar representation} of an ordered pair $(x,y)$ is a pair
+$(r,\theta)$ satisfying
 \[
-\boxed{(x,y)=(r\cos\theta,r\sin\theta),\qquad r=\sqrt{x^2+y^2}.}
+\boxed{x=r\cos\theta,\qquad y=r\sin\theta,\qquad r\geq0.}
 \]
-The pair $(r,\theta)$ consists of radius and direction (radian angle).
-For $c>0$, fixing $r=c$ gives a circle of radius $c$; fixing $\theta=c$
-and varying $r\geq0$ gives a ray from the origin.
+The Pythagorean identity then gives
+\[
+x^2+y^2=r^2,
+\qquad
+\boxed{r=\sqrt{x^2+y^2}}.
+\]
 \end{definition}
-The pairs $(r,\theta)$ and $(r,\theta+2\pi k)$, $k\in\Z$, represent the
-same point. At $r=0$ every angle represents the origin. Thus these
-coordinates are not globally one-to-one.
+
+Geometrically, $r$ is the distance from the origin and $\theta$ is a
+direction angle. Chapter~10 will formalize the distance interpretation
+through the Euclidean metric. In the same familiar interpretation, fixed
+$r>0$ gives a circle and fixed $\theta$ with varying $r\geq0$ gives a ray;
+neither picture is a prerequisite for the algebraic definition.
+
+\begin{proposition}[Existence of polar representations]
+\label{prop:polar-existence}
+Every ordered pair $(x,y)$ has a polar representation. If $(x,y)\ne(0,0)$,
+one can choose $r>0$ and $0\leq\theta<2\pi$.
+\end{proposition}
+\begin{proof}
+The origin is represented by $r=0$ and any angle. Suppose
+$(x,y)\ne(0,0)$ and set
+\[
+r=\sqrt{x^2+y^2}>0,
+\qquad
+u=\frac{x}{r},
+\qquad
+v=\frac{y}{r}.
+\]
+Then $u^2+v^2=1$. Let
+\[
+\alpha=\arccos u\in[0,\pi],
+\qquad
+\theta=
+\begin{cases}
+\alpha,&v\geq0,\\
+2\pi-\alpha,&v<0.
+\end{cases}
+\]
+Because $\cos\alpha=u$ and $\sin\alpha\geq0$, the Pythagorean identity
+gives $\sin\alpha=\sqrt{1-u^2}=|v|$. If $v\geq0$, this is $v$. If
+$v<0$, the addition formulas and periodicity give
+\[
+\cos(2\pi-\alpha)=\cos\alpha=u,
+\qquad
+\sin(2\pi-\alpha)=-\sin\alpha=v.
+\]
+Thus $x=r\cos\theta$ and $y=r\sin\theta$. In the second case $v<0$
+rules out $\alpha=0,\pi$, so $0<2\pi-\alpha<2\pi$; the first case also
+has $0\leq\theta\leq\pi$. Hence the stated angular range is valid.
+\end{proof}
+
+\begin{proposition}[Exact angular nonuniqueness]
+\label{prop:polar-angle-uniqueness}
+If $r>0$, then
+\[
+(r\cos\theta,r\sin\theta)=(r\cos\phi,r\sin\phi)
+\]
+if and only if
+\[
+\theta-\phi\in2\pi\Z.
+\]
+At $r=0$, every angle represents the origin.
+\end{proposition}
+\begin{proof}
+When $r>0$, equality of the ordered pairs gives equality of the two cosines
+and of the two sines. The addition formulas then yield
+\[
+\cos(\theta-\phi)
+=\cos\theta\cos\phi+\sin\theta\sin\phi
+=\cos^2\phi+\sin^2\phi=1.
+\]
+The zero and special-value results in
+\cref{prop:trigonometric-special-values} imply that $\cos s=1$ exactly for
+$s\in2\pi\Z$. Hence $\theta-\phi\in2\pi\Z$. Conversely, $2\pi$-periodicity
+gives equality whenever the angles differ by such a multiple. For $r=0$,
+both coordinates vanish for every angle.
+\end{proof}
+
+Thus polar coordinates are not globally one-to-one. The quadrant information
+cannot be discarded.
 For example $(-1,1)$ has $r=\sqrt2$ and $\theta=3\pi/4$, since
 $\cos(3\pi/4)=-1/\sqrt2$ and $\sin(3\pi/4)=1/\sqrt2$.
 The value $\arctan(y/x)=\arctan(-1)=-\pi/4$ would select the wrong
@@ -1653,7 +1948,8 @@ curve is
 \gamma(\theta)=(\rho(\theta)\cos\theta,\rho(\theta)\sin\theta).
 \]
 For example $\rho(\theta)=\theta$ on $[0,2\pi]$ moves outward from the
-origin through one turn, ending at $(2\pi,0)$.
+origin through one turn, ending at $(2\pi,0)$; ``spiral'' is the familiar
+geometric interpretation of this coordinate formula.
 
 \begin{proposition}[Polar motion]\label{prop:elementary-polar-motion}
 For differentiable $r(t)\geq0$ and $\theta(t)$, set
@@ -1685,15 +1981,19 @@ x'^2+y'^2
 \]
 Taking the nonnegative square root gives speed.
 \end{proof}
-Here $r'$ is the radial contribution to motion and $r\theta'$ the
-tangential contribution from changing angle. For a circle $r=R$,
-speed is $R|\theta'|$; for $\theta=t$ it is $R$. This calculation used
-only one-variable differentiation and the trigonometric identities.
+Informally, $r'$ measures radial motion toward or away from the origin,
+while $r\theta'$ measures motion around the origin. Chapters~10--11 will
+supply the formal Euclidean vector interpretation. For a circle $r=R$,
+the scalar speed formula gives $R|\theta'|$; for $\theta=t$ it gives $R$.
+The derivation used only one-variable differentiation and trigonometric
+identities: no Jacobian, norm, inner product, or multivariable derivative was
+invoked.
 
 \begin{remark}[Polar coordinates can fail at the origin]
-The smooth curve $\gamma(t)=(t,0)$ passes through the origin. Its
-nonnegative polar radius must be $r(t)=|t|$, which is not differentiable
-at $0$; no angle is determined there. Thus a smooth Cartesian curve
+The smooth coordinatewise curve $\gamma(t)=(t,0)$ passes through the origin.
+A nonnegative polar radius must satisfy $r(t)^2=t^2$, hence
+$r(t)=|t|$, which is not differentiable at $0$; no unique angle is
+determined there. Thus a smooth coordinatewise curve
 need not have differentiable polar coordinates through the origin.
 The preceding motion formulas apply where differentiable choices of
 $r,\theta$ have actually been made.

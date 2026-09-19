@@ -1,267 +1,523 @@
 \appendixchapter{Categories and Functors}
 \label{app:categories}
 \chaptermark{Categories and Functors}
-\section*{Introduction}
-Category theory is used here as a language for organizing constructions
-that are already familiar, not as a separate prerequisite subject. This
-appendix introduces only the language used elsewhere in these notes:
-categories, functors, contravariance, commutative diagrams, and natural
-transformations. The forms examples may be read after Chapter~13; they
-organize results proved there and do not supply prerequisites for that
-chapter.
 
-Yoneda's lemma, representable functors as a theory, adjoint functors,
-general limits and colimits, universal arrows, abelian categories,
-exact or derived functors, monads, Kan extensions, and enriched categories
-are deliberately outside the scope. The goal is narrow categorical scope
-with an uncompressed first encounter.
+\section*{Introduction}
+Category theory is used here as a language for organizing constructions that
+are already familiar, not as a separate prerequisite subject. The central
+questions are elementary: What kinds of objects are being studied? Which maps
+are allowed between them? Does a construction respect those maps? This
+appendix develops only the vocabulary needed elsewhere in these notes:
+categories, isomorphisms, opposite categories, functors, commutative diagrams,
+and natural transformations.
+
+The pacing is intentionally concrete. Each abstract definition separates its
+typed data from its axioms, and examples explain what the symbols record.
+Yoneda's lemma, adjunctions, representable-functor theory, limits and colimits,
+abelian categories, exact or derived functors, enriched categories, monads,
+and Kan extensions lie outside the present scope. The forms examples at the
+end may be read after Chapter~13; they organize results proved there and do
+not supply prerequisites for that chapter.
 
 \section{Objects, Morphisms, and Composition}
+A category records objects, morphisms between them, and how those morphisms
+compose. Sets and functions give the first model, but the language is useful
+because the permitted morphisms can encode continuity, linearity, smoothness,
+an order relation, or some other structure.
+
 \begin{definition}[Category]\label{def:category}
-A category $\mathcal C$ consists of objects and, for each ordered pair of
-objects $A,B$, a set of \textbf{morphisms}, or arrows,
-$\operatorname{Hom}_{\mathcal C}(A,B)$. A morphism written $f:A\to B$ has
-source $A$ and target $B$. The category also supplies composition
+A \textbf{category} $\mathcal C$ consists of the following data.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item A class of objects, denoted
 \[
-\operatorname{Hom}(B,C)\times\operatorname{Hom}(A,B)
-\longrightarrow\operatorname{Hom}(A,C),\qquad(g,f)\longmapsto g\circ f,
+\operatorname{Obj}(\mathcal C).
 \]
-and an identity $1_A:A\to A$ for each object. Whenever the composites are
-defined,
+We say ``class'' because the objects of an important category need not form a
+set.
+
+\item For each ordered pair
 \[
-h\circ(g\circ f)=(h\circ g)\circ f,
+A,B\in\operatorname{Obj}(\mathcal C),
+\]
+a set of morphisms
+\[
+\operatorname{Hom}_{\mathcal C}(A,B).
+\]
+Writing $f\in\operatorname{Hom}_{\mathcal C}(A,B)$ is abbreviated to
+\[
+f:A\longrightarrow B.
+\]
+Here $A$ is the source or domain of $f$, while $B$ is its target or codomain.
+The actual range is a separate notion when morphisms happen to be functions.
+
+\item For every triple of objects $A,B,C$, a composition map
+\[
+\operatorname{Hom}_{\mathcal C}(B,C)
+\times\operatorname{Hom}_{\mathcal C}(A,B)
+\longrightarrow\operatorname{Hom}_{\mathcal C}(A,C),
+\]
+\[
+(g,f)\longmapsto g\circ f.
+\]
+Thus
+\[
+A\xrightarrow{f}B\xrightarrow{g}C
+\]
+produces $g\circ f:A\to C$. The notation means first $f$, then $g$.
+
+\item For every object $A$, an identity morphism
+\[
+1_A:A\longrightarrow A.
+\]
+\end{enumerate}
+
+These data satisfy two axioms.
+
+\emph{Associativity.} For composable arrows
+\[
+A\xrightarrow{f}B\xrightarrow{g}C\xrightarrow{h}D,
+\]
+one has
+\[
+h\circ(g\circ f)=(h\circ g)\circ f.
+\]
+
+\emph{Identity laws.} For every $f:A\to B$,
+\[
+1_B\circ f=f,
 \qquad
-1_B\circ f=f=f\circ1_A.
+f\circ1_A=f.
 \]
 \end{definition}
-The arrows are the admissible comparisons or structure-preserving maps of
-the subject. They need not be set-theoretic functions.
-Objects need not form a set; the familiar categories below may have a
-proper class of objects. Their morphisms between any two fixed objects
-do form a set. No further size theory is needed here.
+
+For ordinary functions, associativity says that both parenthesizations
+perform the same three evaluations in the same order. Identity functions do
+nothing. A category keeps precisely these compositional features even when
+its arrows are not presented as functions between displayed underlying sets.
+
+\subsection{Four familiar categories}
+The following table gives the first examples to keep in mind.
 \[
 \begin{array}{c|l|l}
-\text{category}&\text{objects}&\text{morphisms}\\\hline
+\text{category}&\text{objects}&\text{morphisms}\\ \hline
 \mathbf{Set}&\text{sets}&\text{functions}\\
 \mathbf{Vect}_{\R}&\text{real vector spaces}&\text{linear maps}\\
 \mathbf{Top}&\text{topological spaces}&\text{continuous maps}\\
 \mathbf{Man}&\text{smooth manifolds without boundary}&\text{smooth maps}
 \end{array}
 \]
-In each case composition is ordinary map composition; the structural
-condition is preserved by composition. Our manifolds are Hausdorff and
-second countable as in Chapter~13. Here $\mathbf{Man}$ means manifolds
-\emph{without boundary}, for simplicity; Chapter~13's broader treatment
-also permits boundary, but that larger category is not needed here.
+In each row, composition and identities are the ordinary ones. The defining
+property of the morphisms is preserved by composition: composites of linear,
+continuous, or smooth maps remain linear, continuous, or smooth.
+
+For this appendix, $\mathbf{Man}$ uses smooth Hausdorff second-countable
+manifolds \emph{without boundary}. Chapter~13 develops the broader
+boundary-capable setup. That broader class is important for Stokes' theorem,
+but it is not needed for the categorical examples here.
 
 \begin{example}[Divisibility as a category]
-Let $\operatorname{Ob}(\mathcal C)=\N$, and declare that there is a morphism
+Let the objects be the positive integers. Declare that there is one arrow
 \[
 a\longrightarrow b
 \quad\Longleftrightarrow\quad
-a\mid b.
+a\mid b,
 \]
-Reflexivity $a\mid a$ supplies the identity arrow. If $a\mid b$ and
-$b\mid c$, then $a\mid c$, which supplies composition. Between two objects
-there is at most one morphism, and that morphism is not being treated as an
-ordinary function between the integers. It is an abstract arrow recording
-the divisibility relation. For example, $2\mid6$ and $6\mid30$ compose
-to the arrow $2\to30$. For three consecutive arrows, either parenthesization
-has the same endpoints and must be the unique arrow between them.
-This proves associativity; uniqueness likewise proves both identity laws.
+and no arrow otherwise. Reflexivity $a\mid a$ gives the identity arrow. If
+$a\mid b$ and $b\mid c$, transitivity gives $a\mid c$, hence composition.
+For example,
+\[
+2\longrightarrow6\longrightarrow30
+\]
+composes to the arrow $2\to30$.
+
+There is at most one arrow between any two objects. Therefore two composites
+with the same endpoints must agree, proving associativity and the identity
+laws. The arrow $2\to6$ is not being treated as a function from one displayed
+integer to another; it records the divisibility relation.
 \end{example}
-More generally, every poset $(P,\leq)$ determines a category with one arrow
-$x\to y$ exactly when $x\leq y$. Reflexivity and transitivity are precisely
-the identity and composition axioms; antisymmetry says that arrows in both
-directions force equality of objects. This links the present language with
-Appendix~\ref{app:foundations}. For the poset of subsets of a fixed set,
-the arrows are inclusions: $A\subseteq B\subseteq C$ gives the inclusion
-$A\to C$. Both orders of composing three inclusions send each element to
-itself in the final set. In a general poset the same axioms follow from
-uniqueness of arrows with prescribed endpoints.
 
+More generally, every poset $(P,\leq)$ gives a category with one arrow
+$x\to y$ exactly when $x\leq y$. Reflexivity and transitivity become the
+identity and composition laws. Antisymmetry says that arrows in both
+directions force equality of objects. In the poset of subsets of a fixed set,
+the arrows are inclusions: $A\subseteq B\subseteq C$ gives the composite
+inclusion $A\to C$.
+
+\subsection{Isomorphism is not equality}
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
-A morphism $f:A\to B$ is an isomorphism if there is a morphism $g:B\to A$
-with $g\circ f=1_A$ and $f\circ g=1_B$.
-\end{definition}
-The inverse is unique: if $h$ is another, then
-$g=g\circ(f\circ h)=(g\circ f)\circ h=h$.
-In the four categories these are bijections, linear isomorphisms,
-homeomorphisms (\cref{def:homeomorphism}), and diffeomorphisms.
-A bijective continuous map need not be an isomorphism in $\mathbf{Top}$:
-the identity from $\R$ with the discrete topology to $\R$ with its usual
-topology is continuous and bijective, but its inverse is not continuous.
-The category determines which structure an inverse must respect.
-Thus equality and isomorphism are different notions. Equal objects are
-literally the same object; isomorphic objects may be distinct but have the
-same structure as seen by the category. In $\mathbf{Vect}_{\R}$, for
-example, two distinct two-dimensional vector spaces are isomorphic after a
-basis is chosen, but they are not thereby equal as sets.
-
-\section{Functors and the Direction of a Construction}
-\begin{definition}[Covariant functor]\label{def:functor}
-A functor $F:\mathcal C\to\mathcal D$ assigns an object $F(A)$ to every
-object and a morphism $F(f):F(A)\to F(B)$ to every morphism $f:A\to B$,
-with $F(1_A)=1_{F(A)}$ and $F(g\circ f)=F(g)\circ F(f)$.
-\end{definition}
-The definition has two assignments: an object assignment and an arrow
-assignment. Both are essential. Forgetting topology gives
-$\mathbf{Top}\to\mathbf{Set}$: it sends a space to its underlying set and a
-continuous map to the same underlying function. Forgetting vector operations
-similarly gives $\mathbf{Vect}_{\R}\to\mathbf{Set}$.
-
-Another example on $\mathbf{Set}$ is
+A morphism
 \[
-F(X)=X\times X,
+f:A\longrightarrow B
+\]
+is an \textbf{isomorphism} if there exists a morphism
+\[
+g:B\longrightarrow A
+\]
+such that
+\[
+g\circ f=1_A,
 \qquad
-F(f)(x_1,x_2)=(f(x_1),f(x_2)).
+f\circ g=1_B.
 \]
-For an identity function, both coordinates remain unchanged, so
-$F(1_X)=1_{F(X)}$. For
-$X\xrightarrow{f}Y\xrightarrow{g}Z$, applying first
-$F(f)$ and then $F(g)$ sends $(x_1,x_2)$ to
-$(g(f(x_1)),g(f(x_2)))$, which is exactly $F(g\circ f)(x_1,x_2)$.
-Thus the axioms express compatibility, not decoration. Functors send
-isomorphisms to isomorphisms because applying $F$ to the two inverse
-equations preserves them.
+The morphism $g$ is called an inverse of $f$.
+\end{definition}
 
-Another concrete functor sends a set to its power set and a function
-$f:X\to Y$ to the direct-image map $A\mapsto f(A)$. The identities
+The inverse is unique. Indeed, if $g$ and $h$ are both inverses, then
 \[
-\operatorname{id}_X(A)=A,\qquad (g\circ f)(A)=g(f(A))
+g=g\circ1_B=g\circ(f\circ h)
+=(g\circ f)\circ h=1_A\circ h=h.
 \]
-verify the functor laws elementwise. Notice that this uses direct image;
-inverse image will reverse the arrow direction instead.
+We may therefore write $f^{-1}$ and write $A\cong B$ when an isomorphism
+exists.
 
-\subsection{Contravariance and opposite categories}
-Some constructions naturally reverse arrows. A linear map $T:V\to W$
-induces pullback of covectors
+In the four familiar categories, the isomorphisms are respectively
+bijections, linear isomorphisms, homeomorphisms
+(\cref{def:homeomorphism}), and diffeomorphisms. A continuous bijection need
+not be an isomorphism in $\mathbf{Top}$: the identity map from $\R$ with the
+discrete topology to $\R$ with its usual topology is continuous and
+bijective, but the inverse is not continuous. The category determines which
+structure the inverse must preserve.
+
+Literal equality $A=B$ and isomorphism $A\cong B$ are different assertions.
+For example,
 \[
-T^*:W^*\longrightarrow V^*,
-\qquad T^*(\lambda)=\lambda\circ T.
+T:\R^2\longrightarrow\{p\in\R[t]:\deg p\leq1\},
+\qquad
+T(a,b)=a+bt,
 \]
-The output direction reverses because a covector on the target can be
-precomposed with a map from the source. If
-$V\xrightarrow{T}W\xrightarrow{S}U$,
-then
+is a linear isomorphism. The two vector spaces are nevertheless not literally
+the same set with the same presentation. Moreover, this particular
+isomorphism uses the displayed coordinates and polynomial basis.
+
+\begin{remark}[Canonical, natural, and noncanonical]
+The following working distinctions will be enough here:
 \[
-(S\circ T)^*=T^*\circ S^*.
+\boxed{\begin{aligned}
+\text{canonical}
+&:\text{ determined by the stated data without arbitrary auxiliary choices},\\
+\text{natural}
+&:\text{ compatible with morphisms in the relevant variables},\\
+\text{noncanonical}
+&:\text{ requires additional choices}.
+\end{aligned}}
 \]
-The order of the two induced arrows is reversed as well.
+The words are related but are not synonyms. Naturality is the formal
+compatibility condition defined later. Canonical is a working description of
+how an object or map is determined. For finite-dimensional $V$, the
+evaluation map $V\to V^{**}$ is determined without choosing a basis and is
+natural; an isomorphism $V\cong\R^n$ requires a basis and is noncanonical.
+Canonical does not mean ``the only isomorphism,'' and the bare existence of
+some isomorphism gives no preferred choice.
+\end{remark}
+
+\subsection{The opposite category}
+Contravariant constructions reverse arrows. The opposite category turns that
+reversal into ordinary covariant bookkeeping.
+
+\begin{definition}[Opposite category]\label{def:opposite-category}
+The \textbf{opposite category} $\mathcal C^{\mathrm{op}}$ has the same
+objects as $\mathcal C$:
+\[
+\operatorname{Obj}(\mathcal C^{\mathrm{op}})
+=\operatorname{Obj}(\mathcal C).
+\]
+For objects $A,B$, define
+\[
+\operatorname{Hom}_{\mathcal C^{\mathrm{op}}}(A,B)
+=\operatorname{Hom}_{\mathcal C}(B,A).
+\]
+Thus an arrow $f:A\to B$ in $\mathcal C$ gives a formally reversed arrow
+\[
+f^{\mathrm{op}}:B\longrightarrow A
+\]
+in $\mathcal C^{\mathrm{op}}$.
+
+Suppose
+\[
+A\xrightarrow{f^{\mathrm{op}}}B
+\xrightarrow{g^{\mathrm{op}}}C
+\]
+in $\mathcal C^{\mathrm{op}}$. The underlying arrows in $\mathcal C$ are
+$C\xrightarrow{g}B\xrightarrow{f}A$, so composition is defined by
+\[
+\boxed{
+g^{\mathrm{op}}\circ_{\mathcal C^{\mathrm{op}}}f^{\mathrm{op}}
+=(f\circ_{\mathcal C}g)^{\mathrm{op}}.}
+\]
+The identity of $A$ is the same underlying $1_A$.
+\end{definition}
+
+The order reverses because the underlying arrows point the other way. The
+identity laws in $\mathcal C^{\mathrm{op}}$ are the identity laws in
+$\mathcal C$ read backward. Likewise, for three composable opposite arrows,
+the two parenthesizations reduce to the two equal parenthesizations in
+$\mathcal C$; hence associativity holds. A contravariant construction on
+$\mathcal C$ is therefore an ordinary covariant functor from
+$\mathcal C^{\mathrm{op}}$.
+
+\subsection{A brief size convention}
+A category is \textbf{small} if its objects and all its morphisms form sets.
+It is \textbf{locally small} if
+\[
+\operatorname{Hom}_{\mathcal C}(A,B)
+\]
+is a set for every fixed pair of objects $A,B$. Familiar categories such as
+$\mathbf{Set}$, $\mathbf{Top}$, and $\mathbf{Vect}_{\R}$ are usually locally
+small rather than small: their collections of all objects are too large to be
+sets, but the maps between two fixed objects form a set. No further
+foundational size theory is needed in these notes.
+
+\section{Functors and Variance}
+A construction becomes substantially more useful when it tells us not only
+what happens to objects, but also what happens to maps between those objects.
+For example, forgetting topology sends a topological space to its underlying
+set and sends a continuous map to the same underlying function. The action on
+maps is not extra decoration: it is what makes the construction compatible
+with changing the input.
+
+Another elementary example assigns
+\[
+P(X)=X\times X
+\]
+to a set $X$. A function $f:X\to Y$ determines
+\[
+P(f):X\times X\longrightarrow Y\times Y,
+\qquad
+P(f)(x_1,x_2)=(f(x_1),f(x_2)).
+\]
+Identity functions leave both coordinates unchanged. If
+$X\xrightarrow{f}Y\xrightarrow{g}Z$, then both $P(g\circ f)$ and
+$P(g)\circ P(f)$ send $(x_1,x_2)$ to
+$(g(f(x_1)),g(f(x_2)))$. This is the pattern abstracted next.
+
+\begin{definition}[Covariant functor]\label{def:functor}
+A \textbf{covariant functor}
+\[
+F:\mathcal C\longrightarrow\mathcal D
+\]
+consists of two assignments.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item To every object $A$ of $\mathcal C$, it assigns an object $F(A)$ of
+$\mathcal D$:
+\[
+A\longmapsto F(A).
+\]
+\item To every morphism $f:A\to B$ in $\mathcal C$, it assigns a morphism
+in $\mathcal D$ with the displayed domain and codomain:
+\[
+f:A\to B
+\quad\longmapsto\quad
+F(f):F(A)\to F(B).
+\]
+\end{enumerate}
+These assignments satisfy
+\[
+F(1_A)=1_{F(A)}
+\]
+for every object $A$, and
+\[
+F(g\circ f)=F(g)\circ F(f)
+\]
+for every composable pair $A\xrightarrow{f}B\xrightarrow{g}C$.
+\end{definition}
+
+The forgetful construction $U:\mathbf{Top}\to\mathbf{Set}$ satisfies the
+axioms because the underlying function of an identity is an identity and the
+underlying function of a composite is the composite of the underlying
+functions. The product construction $P$ above satisfies them by the explicit
+coordinate calculation. Functors also preserve isomorphisms: applying $F$ to
+the two inverse equations shows that $F(f^{-1})$ is inverse to $F(f)$.
+
+The direct-image construction gives another example. It sends a set $X$ to
+its power set $\mathcal P(X)$ and a function $f:X\to Y$ to
+\[
+f_*:\mathcal P(X)\longrightarrow\mathcal P(Y),
+\qquad
+A\longmapsto f(A).
+\]
+The identities
+\[
+(1_X)_*(A)=A,
+\qquad
+(g\circ f)_*(A)=g_*(f_*(A))
+\]
+verify the functor laws elementwise.
+
+\subsection{Contravariant functors}
+Variance records arrow direction. The two patterns are
+\[
+\begin{array}{c@{\qquad}c}
+\text{covariant}&\text{contravariant}\\[1mm]
+f:A\to B&f:A\to B\\
+\Downarrow&\Downarrow\\
+F(f):F(A)\to F(B)&F(f):F(B)\to F(A).
+\end{array}
+\]
 
 \begin{definition}[Contravariant functor]
 A \textbf{contravariant functor} $F$ from $\mathcal C$ to $\mathcal D$
-assigns $F(A)$ to each object and
+assigns an object $F(A)$ to each object $A$ and, to each arrow $f:A\to B$,
+an arrow
 \[
-F(f):F(B)\longrightarrow F(A)
+F(f):F(B)\longrightarrow F(A).
 \]
-to each $f:A\to B$, with
+It satisfies
 \[
-F(1_A)=1_{F(A)},
-\qquad
-F(g\circ f)=F(f)\circ F(g).
+F(1_A)=1_{F(A)}
 \]
+and, for $A\xrightarrow{f}B\xrightarrow{g}C$,
+\[
+\boxed{F(g\circ f)=F(f)\circ F(g).}
+\]
+Equivalently, it is an ordinary covariant functor
+$\mathcal C^{\mathrm{op}}\to\mathcal D$.
 \end{definition}
 
-Only after seeing the arrow reversal do we package it formally.
-\begin{definition}[Opposite category]\label{def:opposite-category}
-The opposite category $\mathcal C^{\mathrm{op}}$ has the same objects as
-$\mathcal C$ and an arrow $A\to B$ in $\mathcal C^{\mathrm{op}}$ exactly
-when $\mathcal C$ has the reversed arrow $B\to A$. Composition is inherited
-in the reversed order. A contravariant functor on $\mathcal C$ is therefore
-an ordinary covariant functor $\mathcal C^{\mathrm{op}}\to\mathcal D$.
-\end{definition}
-Thus it assigns $F(f):F(B)\to F(A)$ to $f:A\to B$ and satisfies
-$F(g\circ f)=F(f)\circ F(g)$. This is bookkeeping for direction, not
-a new operation on the underlying spaces.
-
-For example, the chain $A\xrightarrow{f}B\xrightarrow{g}C$ becomes
+The algebraic dual is the basic example. A linear map $T:V\to W$ induces
 \[
-C\xrightarrow{g^{\mathrm{op}}}B\xrightarrow{f^{\mathrm{op}}}A,
-\qquad f^{\mathrm{op}}\circ g^{\mathrm{op}}=(g\circ f)^{\mathrm{op}}.
-\]
-These opposite arrows are formal reversals; they do not assert that $f$ or
-$g$ has an inverse function.
-
-For fixed $k\geq0$, pullback of forms (\cref{sec:manifold-form-operations})
-is the principal example:
-\[
-\Omega^k:\mathbf{Man}^{\mathrm{op}}\longrightarrow\mathbf{Vect}_{\R},
+T^*:W^*\longrightarrow V^*,
 \qquad
-M\longmapsto\Omega^k(M),
+T^*(\lambda)=\lambda\circ T.
 \]
+The identity law follows from $\lambda\circ1_V=\lambda$. If
+$V\xrightarrow{T}W\xrightarrow{S}U$, then for $\mu\in U^*$,
 \[
-f:M\to N
-\quad\longmapsto\quad
-f^*:\Omega^k(N)\to\Omega^k(M).
+(S\circ T)^*(\mu)=\mu\circ S\circ T
+=T^*(S^*(\mu)),
 \]
-In degree zero this is the familiar rule $f^*u=u\circ f$.
-In degree one a covector measures a pushed-forward tangent vector:
-$(f^*\omega)_p(v)=\omega_{f(p)}(df_pv)$.
-Directly,
+so
 \[
-(\operatorname{id}_M)^*=\operatorname{id}_{\Omega^k(M)},
-\qquad
-(g\circ f)^*=f^*\circ g^*.
+(S\circ T)^*=T^*\circ S^*.
 \]
-These are exactly the identity and reversed-composition axioms.
+The reversal is forced by precomposition. The pullback of differential forms
+will follow the same pattern.
 
 \section{Commutative Diagrams and Natural Transformations}
-A diagram is \textbf{commutative} when composites along any two directed
-paths with the same starting and ending objects agree. The practical reading
-rule is: choose the two paths, compose along each in travel order, and compare
-the resulting morphisms. For a triangle
+A diagram is \textbf{commutative} when composites along directed paths with
+the same starting and ending objects are equal. The diagram is a compact
+record of a typed equation.
+
+For the triangle
 \[
 \begin{tikzcd}[column sep=large]
 A \arrow[rr,"f"] \arrow[dr,"h"'] && B \arrow[dl,"g"]\\
 & C &
 \end{tikzcd}
 \]
-commutativity means $g\circ f=h$. For the square
+the two paths from $A$ to $C$ are the direct arrow $h$ and the composite
+$g\circ f$. Commutativity means
 \[
-\begin{tikzcd}[column sep=large]
-A \arrow[r,"f"] \arrow[d,"u"'] & B \arrow[d,"v"]\\
-C \arrow[r,"g"'] & D
-\end{tikzcd}
+g\circ f=h.
 \]
-the two routes from $A$ to $D$ give $v\circ f$ and $g\circ u$, so
-commutativity asserts $v\circ f=g\circ u$. Diagrams summarize equalities;
-they do not replace their proof.
 
-As a concrete triangle, let $i:U\to V$ be a subspace inclusion and
-$q:V\to V/U$ the quotient map. The triangle with third arrow the zero
-map $U\to V/U$ commutes because $q(i(u))=[u]=[0]$.
-For a concrete square, use $f:X\to Y$ on top, $f\times f$ on the bottom,
-and the diagonal maps on the two sides. Both paths send $x$ to
-$(f(x),f(x))$. Such a square compares a construction across different sets,
-which motivates the next definition.
-
-\begin{definition}[Natural transformation]\label{def:natural-transformation}
-For functors $F,G:\mathcal C\to\mathcal D$, a natural transformation
-$\eta:F\Rightarrow G$ assigns a morphism $\eta_A:F(A)\to G(A)$ to
-each object, such that for every $f:A\to B$,
-\[
-G(f)\circ\eta_A=\eta_B\circ F(f).
-\]
-\end{definition}
-The components must form a compatible family; arbitrary object-by-object
-choices are not enough. As an elementary example, the diagonals
-$\eta_X:X\to X\times X$, $x\mapsto(x,x)$, give a natural transformation
-from the identity functor on sets to the product functor just described.
-Both routes send $x$ to $(f(x),f(x))$. The naturality square is
+For the square
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-F(A) \arrow[r,"\eta_A"] \arrow[d,"F(f)"'] & G(A) \arrow[d,"G(f)"]\\
-F(B) \arrow[r,"\eta_B"'] & G(B).
+A \arrow[r,"f"] \arrow[d,"u"'] & B \arrow[d,"v"]\\
+C \arrow[r,"g"'] & D,
 \end{tikzcd}
 \]
-Reading its two paths gives exactly
-$G(f)\circ\eta_A=\eta_B\circ F(f)$.
+the top-then-right path gives $v\circ f:A\to D$, while the left-then-bottom
+path gives $g\circ u:A\to D$. The square commutes exactly when
+\[
+v\circ f=g\circ u.
+\]
+A commutative diagram summarizes an equality of composites; it does not
+replace the proof of that equality.
 
-For contravariant functors, an arrow $f:M\to N$ induces vertical arrows
-from values at $N$ down to values at $M$. The central analytic example is
-$d:\Omega^k\Rightarrow\Omega^{k+1}$, with component $d_M$ at $M$.
-For a smooth map $f:M\to N$, its naturality square is
+For a concrete square, let $P(X)=X\times X$ and define the diagonal
+\[
+\Delta_X:X\longrightarrow X\times X,
+\qquad
+\Delta_X(x)=(x,x).
+\]
+Given $f:X\to Y$, both routes around
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X \arrow[r,"\Delta_X"] \arrow[d,"f"'] & X\times X \arrow[d,"P(f)"]\\
+Y \arrow[r,"\Delta_Y"'] & Y\times Y
+\end{tikzcd}
+\]
+send $x$ to $(f(x),f(x))$. This is not one accidental square: it is a
+compatible comparison for every set and every function.
+
+\subsection{Naturality}
+If $F$ and $G$ are two constructions on the same category, what does it mean
+to compare them compatibly with every morphism? A natural transformation
+answers this question.
+
+\begin{definition}[Natural transformation]\label{def:natural-transformation}
+Let
+\[
+F,G:\mathcal C\longrightarrow\mathcal D
+\]
+be covariant functors. A \textbf{natural transformation}
+\[
+\eta:F\Rightarrow G
+\]
+assigns to each object $A$ a component morphism
+\[
+\eta_A:F(A)\longrightarrow G(A).
+\]
+For every morphism $f:A\to B$, these components satisfy the naturality
+equation
+\[
+\boxed{G(f)\circ\eta_A=\eta_B\circ F(f).}
+\]
+Equivalently, the square
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+F(A) \arrow[r,"\eta_A"] \arrow[d,"F(f)"'] &
+G(A) \arrow[d,"G(f)"]\\
+F(B) \arrow[r,"\eta_B"'] & G(B)
+\end{tikzcd}
+\]
+commutes.
+\end{definition}
+
+In words: change the input first and then compare, or compare first and then
+change the input; the result is the same. The diagonal maps above give a
+natural transformation from the identity functor on $\mathbf{Set}$ to the
+product functor $P$. The elementwise calculation proves the required square
+for an arbitrary function $f$.
+
+Naturality is stronger than choosing an unrelated morphism
+$F(A)\to G(A)$ for each object. The components must cooperate with every
+allowed change of input. This is the precise sense in which ``natural'' is a
+compatibility property rather than merely a synonym for ``familiar'' or
+``canonical.''
+
+\section{Differential Forms as the Analytic Payoff}
+The abstract language now packages constructions already proved in
+Chapter~13. For a smooth map
+\[
+f:M\longrightarrow N,
+\]
+pullback gives a linear map
+\[
+f^*:\Omega^k(N)\longrightarrow\Omega^k(M).
+\]
+The direction reverses. Identity and composition satisfy
+\[
+(1_M)^*=1_{\Omega^k(M)},
+\qquad
+(g\circ f)^*=f^*\circ g^*.
+\]
+Consequently
+\[
+\boxed{\Omega^k:\mathbf{Man}^{\mathrm{op}}
+\longrightarrow\mathbf{Vect}_{\R}}
+\]
+is a contravariant functor. In degree zero, $f^*u=u\circ f$ is ordinary
+precomposition; the reversal is already visible there.
+
+Exterior differentiation supplies a comparison between two such functors:
+\[
+d:\Omega^k\Rightarrow\Omega^{k+1}.
+\]
+Its component at a manifold $M$ is
+$d_M:\Omega^k(M)\to\Omega^{k+1}(M)$. For $f:M\to N$, the relevant
+contravariant naturality square is
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
 \Omega^k(N) \arrow[r,"d_N"] \arrow[d,"f^*"'] &
@@ -270,38 +526,72 @@ For a smooth map $f:M\to N$, its naturality square is
 \end{tikzcd}
 \]
 Starting with $\omega\in\Omega^k(N)$, the top-then-right route gives
-$f^*(d_N\omega)$, while the left-then-bottom route gives
-$d_M(f^*\omega)$. Commutativity means
-$f^*(d\omega)=d(f^*\omega)$, the theorem proved in
-\cref{prop:manifold-exterior-derivative}. It says that differentiating
-forms is compatible with every smooth change of space.
-
-Appendix~\ref{app:cohomology} will define cochain complexes and their
-cohomology before using them. Its induced-map construction
-(\cref{prop:cochain-induced,prop:cohomology-pullback}) gives another functor,
+$f^*(d\omega)$, while the left-then-bottom route gives $d(f^*\omega)$.
+Thus commutativity is exactly the identity
 \[
-H_{\mathrm{dR}}^k:\mathbf{Man}^{\mathrm{op}}\to\mathbf{Vect}_{\R}.
+\boxed{f^*(d\omega)=d(f^*\omega),}
 \]
-Pullback preserves closed forms because $d\omega=0$ implies
-$d(f^*\omega)=f^*(d\omega)=0$, and it preserves exact forms because
-$\omega=d\eta$ implies $f^*\omega=d(f^*\eta)$. It therefore descends to
-de Rham cohomology. This is a forward pointer, not an additional assumption
-about cohomology.
-Category theory becomes more central in algebraic topology, homological
-algebra, and algebraic geometry; the language introduced here is enough
-for the comparisons in these notes.
+proved in \cref{prop:manifold-exterior-derivative}.
+
+Appendix~\ref{app:cohomology} constructs de Rham cohomology and the maps
+induced by pullback. Those results give the contravariant functor
+\[
+H^k_{\mathrm{dR}}:
+\mathbf{Man}^{\mathrm{op}}\longrightarrow\mathbf{Vect}_{\R}.
+\]
+Appendix~\ref{app:cohomology}, not the present appendix, supplies the
+cohomology construction and verifies that pullback descends to it. The role
+of the present language is organizational: one formula records the objects,
+the reversed arrows, identities, and composition laws together.
 
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
+
 \begin{exercise}
-Verify that a partially ordered set defines a category with one arrow
-$a\to b$ exactly when $a\leq b$. Which arrows are isomorphisms?
+Let $P$ be a poset. Verify separately the object data, morphism sets,
+composition, identities, associativity, and identity laws for its category.
+Show that an arrow $x\to y$ is an isomorphism exactly when $x=y$.
 \end{exercise}
+
 \begin{hexercise}{app-b-2}
-Prove the two contravariant functor identities for the algebraic dual
-$V\mapsto V^*$. Track domains and codomains in each composition.
+In the divisibility category, determine every isomorphism. Then explain why
+the arrows $2\to6$ and $6\to30$ compose although they are not functions
+between the displayed integers.
 \end{hexercise}
+
 \begin{hexercise}{app-b-3}
-For the functor $X\mapsto X\times X$, prove that each coordinate projection
-is a natural transformation to the identity functor on sets.
+Suppose $A\xrightarrow{f^{\mathrm{op}}}B
+\xrightarrow{g^{\mathrm{op}}}C$ in $\mathcal C^{\mathrm{op}}$. Write the
+corresponding arrows in $\mathcal C$ and compute their composite in
+$\mathcal C^{\mathrm{op}}$, including its source and target.
+\end{hexercise}
+
+\begin{exercise}
+For the functor $P(X)=X\times X$, verify the identity and composition laws
+directly on an arbitrary ordered pair. Then prove that both coordinate
+projections $P\Rightarrow\operatorname{Id}_{\mathbf{Set}}$ are natural.
+\end{exercise}
+
+\begin{hexercise}{app-b-5}
+Prove the two contravariant functor identities for the algebraic dual
+$V\mapsto V^*$. Track every domain and codomain before comparing the
+composites.
+\end{hexercise}
+
+\begin{hexercise}{app-b-6}
+Check the naturality square for the diagonal maps
+$\Delta_X:X\to X\times X$ elementwise. State in words what the two routes do
+to an arbitrary $x\in X$.
+\end{hexercise}
+
+\begin{exercise}
+Let $V$ be an $n$-dimensional real vector space. Explain why choosing a basis
+gives an isomorphism $V\cong\R^n$ but does not give a canonical one. Contrast
+this with the evaluation map $V\to V^{**}$.
+\end{exercise}
+
+\begin{hexercise}{app-b-8}
+For a smooth map $f:M\to N$, write the directions of the four arrows in the
+naturality square for exterior differentiation. Explain why a form on $N$
+pulls back to $M$, rather than the other way around.
 \end{hexercise}
