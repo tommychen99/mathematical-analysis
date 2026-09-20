@@ -1,6 +1,13 @@
 \chapter{Basic Set Theory, Logic, Functions, and Relations}
 \label{ch:foundations}
 
+Sections A.1--A.2 of Appendix~\ref{app:foundations} complement this chapter
+with induction, recursion, factorials, binomial coefficients, Pascal's
+identity, and the finite binomial theorem. They also explain why induction
+and well-ordering of $\N$ are equivalent. Elementary finite algebraic
+identities such as the binomial theorem are admitted background in the main
+text; the appendix supplies optional proofs by induction.
+
 \section{Sets}
 
 Mathematical analysis constantly describes collections: the possible inputs
@@ -14,8 +21,7 @@ We take
 \]
 as the primitive discrete number system. Its usual arithmetic means that
 addition and multiplication have their familiar laws and keep natural
-numbers natural. Its induction property says that a statement true for
-(1), and inherited from each number to its successor, is true for every
+numbers natural. Its induction property says that a statement true at $1$, and inherited from each number to its successor, is true for every
 natural number. Its well-ordering property says that every nonempty
 collection of natural numbers has a smallest member. These principles will
 be used repeatedly, and induction is stated formally in
@@ -271,11 +277,7 @@ that is reflexive, antisymmetric, and transitive: for all $x,y,z\in X$,
 x\leq x,
 \]
 \[
-x\leq y\text{ and }y\leq x\Longrightarrow x=y,
-\]
-and
-\[
-x\leq y\text{ and }y\leq z\Longrightarrow x\leq z.
+x\leq y\text{ and }y\leq x\Longrightarrow x=y,,\qquad x\leq y\text{ and }y\leq z\Longrightarrow x\leq z.
 \]
 A set equipped with a partial order is a \textbf{partially ordered set}, or
 \textbf{poset}. Antisymmetric does not mean ``not symmetric''; it is the
@@ -358,7 +360,11 @@ By its definition $f(g(b))=b$ for every $b$. For $a\in A$, the point $a$
 is a preimage of $f(a)$, and its uniqueness gives $g(f(a))=a$.
 Hence $fg=\operatorname{id}_B$ and $gf=\operatorname{id}_A$.
 If $h:B\to A$ also satisfies the two identities, then
-$f(h(b))=b=f(g(b))$, so injectivity gives $h(b)=g(b)$ for every $b$.
+
+\[
+f(h(b))=b=f(g(b)),
+\]
+ so injectivity gives $h(b)=g(b)$ for every $b$.
 The inverse is unique, and we denote it $f^{-1}$.
 This inverse function is distinct from the inverse-image notation
 $f^{-1}(E)$, which is defined even when $f$ is not bijective.
@@ -467,11 +473,7 @@ difference \(a-b\).  Define
 [a,b]_{\Z}+[c,d]_{\Z}=[a+c,b+d]_{\Z},
 \]
 \[
-[a,b]_{\Z}[c,d]_{\Z}=[ac+bd,ad+bc]_{\Z},
-\]
-and
-\[
--[a,b]_{\Z}=[b,a]_{\Z}.
+[a,b]_{\Z}[c,d]_{\Z}=[ac+bd,ad+bc]_{\Z},,\qquad -[a,b]_{\Z}=[b,a]_{\Z}.
 \]
 Set
 \[
@@ -603,7 +605,11 @@ The set of equivalence classes is denoted by
 \[
 \Q=\bigl(\Z\times(\Z\setminus\{0_{\Z}\})\bigr)/\sim_{\Q}.
 \]
-Write \([a,b]_{\Q}\), or simply \(a/b\), for the class of \((a,b)\).
+Write \([a,b]_{\Q}\), or simply
+\[
+a/b,
+\]
+ for the class of \((a,b)\).
 Define
 \[
 [a,b]_{\Q}+[c,d]_{\Q}=[ad+bc,bd]_{\Q},
@@ -883,4 +889,15 @@ Give an explicit bijection between
 \N
 \]
 and the set of even positive integers.
+\end{exercise}
+
+\begin{exercise}
+Negate each statement, retaining the order of its quantifiers:
+\[
+\forall x\in A\ \exists y\in B:\ f(x)=y,
+\qquad
+\exists y\in B\ \forall x\in A:\ f(x)=y.
+\]
+When $A=B=\N$ and $f(x)=x$, decide which statements are true. Explain
+why interchanging the quantifiers changes the assertion.
 \end{exercise}

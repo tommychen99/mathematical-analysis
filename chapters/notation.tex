@@ -3,6 +3,11 @@
 \markboth{Notation and Conventions}{Notation and Conventions}
 \begingroup
 \small
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\renewcommand{\paragraph}[1]{\par\addvspace{6pt}\noindent\textbf{#1}\enspace}
 Most notation is introduced again when it first becomes mathematically
 relevant. The conventions collected here are those used repeatedly
 throughout the notes, especially where closely related meanings coexist.
@@ -16,6 +21,17 @@ curves use $\gamma$, and surface parametrizations usually use $\sigma$.
 Conventional symbols such as a force field $F$ are retained.
 Composition is $(g\circ f)(x)=g(f(x))$; $f|_A$ is the
 restriction to $A$.
+
+\paragraph{Euclidean inputs and scalar volume.}
+In Part II the full Euclidean input is written
+\[
+\mathbf{x}=(x_1,\ldots,x_n),\qquad f(\mathbf{x}),\qquad
+\int_Qf(\mathbf{x})\,\dd\mathbf{x}.
+\]
+Components $x_i$, scalar coordinates, and abstract points retain ordinary
+type. The unsigned scalar volume symbol $\dd\mathbf{x}$ is distinct from
+coordinate covectors $\dd x_i$, their oriented wedge product, and exterior
+differentiation. Established vector and manifold notation is retained.
 
 \paragraph{Four related differential notations.}
 \[

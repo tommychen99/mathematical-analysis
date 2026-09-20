@@ -11,12 +11,36 @@ Discovering a proof and writing it are different tasks:
 \[
 \boxed{\text{Proof: choose the threshold and verify forward.}}
 \]
-For $\frac1n\to0$, the target $\frac1n<\eps$ suggests
-$n>\frac1\eps$.
-The proof starts instead by choosing a natural number $N>1/\eps$ and
-then checks $n\geq N\Rightarrow \frac1n\leq\frac1N<\eps$.
+For
+\[
+\frac1n\to0,
+\]
+ the target
+\[
+\frac1n<\eps
+\]
+ suggests
+
+\[
+n>\frac1\eps.
+\]
+
+The proof starts instead by choosing a natural number
+\[
+N>1/\eps
+\]
+ and
+then checks
+\[
+n\geq N\Rightarrow \frac1n\leq\frac1N<\eps.
+\]
+
 For $|a_n-a|+|b_n-b|<\eps$, an \emph{error budget} allocates
-$\eps/2$ to each summand. Different allocations are possible; each
+
+\[
+\eps/2
+\]
+ to each summand. Different allocations are possible; each
 must be chosen before verifying the final estimate.
 
 \section{Convergence}
@@ -49,19 +73,34 @@ convergence of prescribed truncations, construction of digits for a given
 real number, and uniqueness apart from endpoint ambiguity. Finite tail
 estimates make the convergence explicit; no infinite-series theory is needed.
 \begin{example}[Constructing digits by successive intervals]
-For $x=1/7$, integer division successively gives
+For
+\[
+x=1/7,
+\]
+ integer division successively gives
 $10=1\cdot7+3$, $30=4\cdot7+2$, $20=2\cdot7+6$,
 $60=8\cdot7+4$, $40=5\cdot7+5$, and $50=7\cdot7+1$.
 Thus the digits repeat $142857$. The first three truncations are
 $0.1,0.14,0.142$, and the $n$th truncation $d_n$ satisfies
-$d_n\leq1/7<d_n+10^{-n}$. The shrinking error, rather than the
-repeating pattern, gives $d_n\to1/7$ by the definition of convergence,
+
+\[
+d_n\leq1/7<d_n+10^{-n}.
+\]
+ The shrinking error, rather than the
+repeating pattern, gives
+\[
+d_n\to1/7
+\]
+ by the definition of convergence,
 recovering Chapter~\ref{ch:reals}'s interval interpretation.
 \end{example}
 \begin{proposition}[Decimal representations]
 \label{prop:decimal-representations}
 For digits $d_j\in\{0,\ldots,9\}$, the truncations
-$s_n=\sum_{j=1}^n d_j10^{-j}$ converge to a real number in $[0,1]$,
+\[
+s_n=\sum_{j=1}^n d_j10^{-j}
+\]
+converge to a real number in $[0,1]$,
 denoted $0.d_1d_2\cdots$.
 Every $x\in[0,1)$ has such an expansion which is not eventually $9$.
 Two different digit strings represent the same number only when, at their
@@ -85,7 +124,11 @@ To construct digits for $x<1$, set $r_0=x$ and recursively choose the
 integer $d_n$, using \cref{lem:integer-part}, with $d_n\leq10r_{n-1}<d_n+1$, putting
 $r_n=10r_{n-1}-d_n$. Then $0\leq r_n<1$, $d_n\in\{0,\ldots,9\}$,
 and $x=s_n+10^{-n}r_n$. For justification set $s_0=0$; the identity
-holds at $n=0$. Substituting $r_{n-1}=(d_n+r_n)/10$ into the
+holds at $n=0$. Substituting
+\[
+r_{n-1}=(d_n+r_n)/10
+\]
+ into the
 identity at $n-1$ proves it at $n$. For $n\geq N$ as above,
 $|x-s_n|=10^{-n}r_n<10^{-n}\leq10^{-N}<\eps$, so $s_n\to x$. This expansion cannot have
 only $9$'s after position $n$: that tail would force $r_n=1$.
@@ -131,7 +174,11 @@ in Chapter~\ref{ch:reals} and made explicit through sequence limits here.
 If $x\in\R$ satisfies $\abs{x}<\eps$ for every $\eps>0$, then $x=0$.
 \end{lemma}
 \begin{proof}
-If $x\ne0$, then $\abs{x}>0$. Taking $\eps=\abs{x}/2$ contradicts the hypothesis.
+If $x\ne0$, then $\abs{x}>0$. Taking
+\[
+\eps=\abs{x}/2
+\]
+ contradicts the hypothesis.
 \end{proof}
 
 \begin{theorem}[Uniqueness of limits]
@@ -139,7 +186,15 @@ If $x\ne0$, then $\abs{x}>0$. Taking $\eps=\abs{x}/2$ contradicts the hypothesis
 A convergent real sequence has exactly one limit.
 \end{theorem}
 \begin{proof}
-Suppose $a_n\to L$ and $a_n\to M$. Given $\eps>0$, choose $N_1,N_2$ such that $\abs{a_n-L}<\eps/2$ for $n\geq N_1$ and $\abs{a_n-M}<\eps/2$ for $n\geq N_2$. For $n\geq\max\{N_1,N_2\}$, the triangle inequality gives
+Suppose $a_n\to L$ and $a_n\to M$. Given $\eps>0$, choose $N_1,N_2$ such that
+\[
+\abs{a_n-L}<\eps/2
+\]
+ for $n\geq N_1$ and
+\[
+\abs{a_n-M}<\eps/2
+\]
+ for $n\geq N_2$. For $n\geq\max\{N_1,N_2\}$, the triangle inequality gives
 \[
 \abs{L-M}\leq\abs{L-a_n}+\abs{a_n-M}<\eps.
 \]
@@ -147,7 +202,15 @@ By \cref{lem:positive-small}, $L-M=0$.
 \end{proof}
 
 \begin{example}
-The sequence $a_n=1/n$ converges to $0$. For a given $\eps>0$, \cref{thm:archimedean} provides $N>1/\eps$, and then $n\geq N$ implies
+The sequence
+\[
+a_n=1/n
+\]
+ converges to $0$. For a given $\eps>0$, \cref{thm:archimedean} provides
+\[
+N>1/\eps,
+\]
+ and then $n\geq N$ implies
 \[
 0<\frac1n\leq\frac1N<\eps.
 \]
@@ -212,28 +275,64 @@ whenever $b_n\ne0$ for all sufficiently large $n$.
 \end{theorem}
 \begin{proof}
 Fix $\eps>0$. For sums choose $N_1,N_2$ so that
-$|a_n-a|<\eps/2$ for $n\geq N_1$ and $|b_n-b|<\eps/2$ for
+
+\[
+|a_n-a|<\eps/2
+\]
+ for $n\geq N_1$ and
+\[
+|b_n-b|<\eps/2
+\]
+ for
 $n\geq N_2$. Put $N=\max\{N_1,N_2\}$. For every $n\geq N$,
 \[
 |(a_n+b_n)-(a+b)|\leq|a_n-a|+|b_n-b|<\eps.
 \]
 If $c=0$, scalar multiplication has zero error. Otherwise choose $N_c$
-with $|a_n-a|<\eps/|c|$ for $n\geq N_c$; then
+with
+\[
+|a_n-a|<\eps/|c|
+\]
+ for $n\geq N_c$; then
 $|ca_n-ca|=|c||a_n-a|<\eps$ for every such $n$.
 
 For products first choose $N_0$ with $|a_n-a|<1$ for $n\geq N_0$.
 Set $B=|a|+1$; thus $|a_n|<B$ on that tail. Choose $N_1$ for
-$|b_n-b|<\eps/(2B)$ and $N_2$ for $|a_n-a|<\eps/(2(|b|+1))$.
+
+\[
+|b_n-b|<\eps/(2B)
+\]
+ and $N_2$ for
+\[
+|a_n-a|<\eps/(2(|b|+1)).
+\]
+
 For every $n\geq N=\max\{N_0,N_1,N_2\}$,
 \[
 |a_nb_n-ab|\leq |a_n||b_n-b|+|b||a_n-a|<\eps.
 \]
 The bound $B$ was fixed before choosing the error thresholds.
 
-For quotients choose $N_0$ with $|b_n-b|<|b|/2$ for $n\geq N_0$.
-Then $|b_n|\geq|b|-|b_n-b|>|b|/2>0$, so the quotient is defined.
-Choose $N_1$ for $|a_n-a|<\eps|b|/4$ and $N_2$ for
-$|b_n-b|<\eps|b|^2/(4(|a|+1))$. For every
+For quotients choose $N_0$ with
+\[
+|b_n-b|<|b|/2
+\]
+ for $n\geq N_0$.
+Then
+\[
+|b_n|\geq|b|-|b_n-b|>|b|/2>0,
+\]
+ so the quotient is defined.
+Choose $N_1$ for
+\[
+|a_n-a|<\eps|b|/4
+\]
+ and $N_2$ for
+
+\[
+|b_n-b|<\eps|b|^2/(4(|a|+1)).
+\]
+ For every
 $n\geq N=\max\{N_0,N_1,N_2\}$,
 \[
 \left|\frac{a_n}{b_n}-\frac ab\right|
@@ -248,7 +347,11 @@ Let $a_n\to a$ and $b_n\to b$. If $a_n\leq b_n$ for every sufficiently large $n$
 \end{theorem}
 \begin{proof}
 Let $N_0$ be a stage from which $a_n\leq b_n$. If $a>b$, put
-$\eps=(a-b)/3$. Choose $N_1,N_2$ for the respective errors
+
+\[
+\eps=(a-b)/3.
+\]
+ Choose $N_1,N_2$ for the respective errors
 $|a_n-a|<\eps$ and $|b_n-b|<\eps$. For every
 $n\geq\max\{N_0,N_1,N_2\}$,
 $a_n>a-\eps=b+2\eps>b_n$, a contradiction.
@@ -262,27 +365,55 @@ If $a_n\leq b_n\leq c_n$ eventually and $a_n\to L$, $c_n\to L$, then $b_n\to L$.
 Let $N_0$ be a stage from which the ordering holds. Given $\eps>0$,
 choose $N_1,N_2$ for $|a_n-L|<\eps$ and $|c_n-L|<\eps$,
 respectively. Put $N=\max\{N_0,N_1,N_2\}$. For every $n\geq N$,
-$L-\eps<a_n\leq b_n\leq c_n<L+\eps$, so $|b_n-L|<\eps$.
+
+\[
+L-\eps<a_n\leq b_n\leq c_n<L+\eps,
+\]
+ so $|b_n-L|<\eps$.
 \end{proof}
 
 
 \begin{example}[Integer powers and geometric sequences]
 A geometric sequence with initial term $a$ and common ratio $r$ is
 $a,ar,ar^2,\ldots$. We first study powers of the ratio.
-For fixed $n\in\N$, the estimate $0<\frac1{k^n}\leq\frac1k$ holds
-for $k\geq1$. Given $\eps>0$, choose $N>\max\{1,1/\eps\}$; every
-$k\geq N$ then has $\frac1{k^n}<\eps$. Here $n$ is fixed and $k$ varies.
+For fixed $n\in\N$, the estimate
+\[
+0<\frac1{k^n}\leq\frac1k
+\]
+ holds
+for $k\geq1$. Given $\eps>0$, choose
+\[
+N>\max\{1,1/\eps\};
+\]
+ every
+$k\geq N$ then has
+\[
+\frac1{k^n}<\eps.
+\]
+ Here $n$ is fixed and $k$ varies.
 For $r>1$, Bernoulli's inequality supplies the growing lower bound
 \[
 r^n=(1+(r-1))^n\geq1+n(r-1).
 \]
-Given $M\in\R$, choose $N>\max\{1,(M-1)/(r-1)\}$. Then $n\geq N$
+Given $M\in\R$, choose
+\[
+N>\max\{1,(M-1)/(r-1)\}.
+\]
+ Then $n\geq N$
 implies $r^n>M$, proving divergence to $+\infty$.
-If $0<|r|<1$, set $h=\frac1{|r|}-1>0$. The same inequality gives
+If $0<|r|<1$, set
+\[
+h=\frac1{|r|}-1>0.
+\]
+ The same inequality gives
 \[
 |r^n|\leq\frac1{1+nh}.
 \]
-Choosing $N>\max\{1,1/(h\eps)\}$ now makes $|r^n|<\eps$ for every
+Choosing
+\[
+N>\max\{1,1/(h\eps)\}
+\]
+ now makes $|r^n|<\eps$ for every
 $n\geq N$. For $r=0$, all positive powers are zero.
 \end{example}
 
@@ -292,7 +423,11 @@ Let $f(x)=a_nx^n+\cdots+a_0$ and $g(x)=b_mx^m+\cdots+b_0$
 be nonzero polynomial expressions, with $a_n\ne0$, $b_m\ne0$,
 $\deg f=n$ and $\deg g=m$ (degrees may be zero).
 Here $x$ is an indeterminate; substituting natural numbers gives the
-sequence $f(k)/g(k)$ wherever its denominator is nonzero.
+sequence
+\[
+f(k)/g(k)
+\]
+ wherever its denominator is nonzero.
 From some stage onward this denominator is nonzero, and
 \[
 \frac{f(k)}{g(k)}\longrightarrow
@@ -312,25 +447,68 @@ F_k=\frac{f(k)}{k^n}=a_n+\frac{a_{n-1}}k+\cdots+\frac{a_0}{k^n}\to a_n,
 \]
 For degree zero the corresponding expression is just its constant term.
 These limits follow from the integer-power example and limit arithmetic.
-Choose $N_0$ such that $|G_k-b_m|<|b_m|/2$ for every $k\geq N_0$.
-Then $|G_k|>|b_m|/2$, so $g(k)\ne0$ there, and
-$H_k=F_k/G_k\to c=a_n/b_m$ by the quotient theorem.
-Now $f(k)/g(k)=k^{n-m}H_k$. For $n<m$, write this as
-$H_k/k^{m-n}$ and use limit arithmetic; for $n=m$ it is $H_k$.
-For $n>m$ and $c>0$, choose $N_1$ such that $|H_k-c|<c/2$ for
+Choose $N_0$ such that
+\[
+|G_k-b_m|<|b_m|/2
+\]
+ for every $k\geq N_0$.
+Then
+\[
+|G_k|>|b_m|/2,
+\]
+ so $g(k)\ne0$ there, and
+
+\[
+H_k=F_k/G_k\to c=a_n/b_m
+\]
+ by the quotient theorem.
+Now
+\[
+f(k)/g(k)=k^{n-m}H_k.
+\]
+ For $n<m$, write this as
+
+\[
+H_k/k^{m-n}
+\]
+ and use limit arithmetic; for $n=m$ it is $H_k$.
+For $n>m$ and $c>0$, choose $N_1$ such that
+\[
+|H_k-c|<c/2
+\]
+ for
 $k\geq N_1$. Given $M\in\R$, choose a natural number
 \[
 N\geq\max\{N_0,N_1\},
 \qquad
 N>\max\left\{1,\frac{2\max\{M,0\}}c\right\}.
 \]
-Every $k\geq N$ satisfies $k^{n-m}H_k>(c/2)k>M$.
-For $c<0$, apply this positive argument to $-f(k)/g(k)$, using
-target $-M$ to obtain $f(k)/g(k)<M$.
+Every $k\geq N$ satisfies
+\[
+k^{n-m}H_k>(c/2)k>M.
+\]
+
+For $c<0$, apply this positive argument to
+\[
+-f(k)/g(k),
+\]
+ using
+target $-M$ to obtain
+\[
+f(k)/g(k)<M.
+\]
+
 \end{proof}
-For example, $(2k+1)/(k^2+1)\to0$,
-$(3k^2-k)/(2k^2+5)\to3/2$, and
-$(-k^3+2)/(k+1)\to-\infty$. The leading coefficients decide the
+For example,
+\[
+(2k+1)/(k^2+1)\to0,
+\]
+
+
+\[
+(3k^2-k)/(2k^2+5)\to3/2,,\qquad (-k^3+2)/(k+1)\to-\infty.
+\]
+ The leading coefficients decide the
 sign in the last case; the lower terms cannot reverse it on the controlled tail.
 
 \begin{example}[Algebraic simplification and rationalization]
@@ -339,7 +517,11 @@ The candidate limit in
 a_n=\frac{3n^2-n}{2n^2+5}
 \]
 becomes visible after division by $n^2$; the limit laws then give
-$a_n\to3/2$.  For
+
+\[
+a_n\to3/2.
+\]
+  For
 \[
 b_n=\sqrt{n^2+n}-n,
 \]
@@ -386,8 +568,16 @@ a_n=8\left(\frac12\right)^n.
 \]
 The geometric-sequence
 result proves $a_n\to0$: any positive tolerance in grams is met
-and retained after some step. For error below $1/10$ gram, $N=7$
-works, since $8/2^7=1/16<1/10$ and the amounts decrease.
+and retained after some step. For error below
+\[
+1/10
+\]
+ gram, $N=7$
+works, since
+\[
+8/2^7=1/16<1/10
+\]
+ and the amounts decrease.
 Convergence does not mean the amount becomes exactly zero at a finite step.
 \end{example}
 
@@ -397,7 +587,11 @@ Negating $a_n\to L$ gives precisely
 \exists\eps_0>0\ \forall N\in\N\ \exists n\geq N:
 \quad |a_n-L|\geq\eps_0.
 \]
-For $a_n=1+1/n$, the candidate $L=0$ fails: take $\eps_0=1$ and
+For
+\[
+a_n=1+1/n,
+\]
+ the candidate $L=0$ fails: take $\eps_0=1$ and
 $n=N$. This does not prove divergence; in fact $a_n\to1$.
 To prove divergence one must exclude \emph{every} real $L$.
 For $(-1)^n$, given $L\geq0$ choose any odd $n\geq N$;
@@ -436,7 +630,7 @@ The sequence $(-1)^n$ diverges. Its even-indexed subsequence is constantly $1$, 
 
 \section{Completeness Consequences}
 
-The order completeness of the real numbers now becomes a practical tool.
+The order completeness of the real numbers now becomes a working tool.
 It converts bounded monotone approximation into a limit, prevents Cauchy
 approximations from leaving a gap, and forces bounded sequences to have
 convergent subsequences.
@@ -451,11 +645,19 @@ An increasing sequence converges if and only if it is bounded above; in that eve
 \end{theorem}
 \begin{proof}
 If $a_n\to L$, choose $N_0$ so that $|a_n-L|<1$ for $n\geq N_0$.
-Then $B=\max\{|L|+1,|a_1|,\ldots,|a_{N_0}|\}$ bounds every $|a_n|$. Conversely, let $s=\sup\set{a_n:n\in\N}$. Given $\eps>0$, $s-\eps$ is not an upper bound, so $a_N>s-\eps$ for some $N$. For $n\geq N$, $s-\eps<a_N\leq a_n\leq s$, and hence $\abs{a_n-s}<\eps$. The decreasing statement follows on applying the increasing statement to $(-a_n)$.
+Then $B=\max\{|L|+1,|a_1|,\ldots,|a_{N_0}|\}$ bounds every $|a_n|$. Conversely, let $s=\sup\set{a_n:n\in\N}$. Given $\eps>0$, $s-\eps$ is not an upper bound, so $a_N>s-\eps$ for some $N$. For $n\geq N$,
+\[
+s-\eps<a_N\leq a_n\leq s,
+\]
+ and hence $\abs{a_n-s}<\eps$. The decreasing statement follows on applying the increasing statement to $(-a_n)$.
 \end{proof}
 
 The theorem immediately constructs one of the central constants of analysis.
-In elementary algebra the expression \((1+1/n)^n\) appears in repeated
+In elementary algebra the expression
+\[
+(1+1/n)^n
+\]
+ appears in repeated
 growth and compound-interest calculations. Here it will do more: bounded
 monotone approximation will produce a real number before any exponential
 function has been defined.
@@ -516,7 +718,11 @@ this same number.
 \end{definition}
 
 \begin{example}[Recognizing the defining sequence for \(e\)]
-Write $a_n=(1+1/n)^n$, so $a_n\to e$. Three altered expressions reduce
+Write
+\[
+a_n=(1+1/n)^n,
+\]
+ so $a_n\to e$. Three altered expressions reduce
 to this sequence by operations already available:
 \[
 \begin{aligned}
@@ -531,7 +737,11 @@ The first is a subsequence; the second removes one factor after an index
 shift; the third rewrites a reciprocal and adds one factor. Thus recognition,
 index shifts, and limit algebra do the work, with only integer powers.
 Chapter~\ref{ch:differentiation} will define real powers and use logarithms
-to prove the broader principle $(1+x/n)^n\to e^x$
+to prove the broader principle
+\[
+(1+x/n)^n\to e^x
+\]
+
 (\cref{prop:exp-binomial-limit}). That formula is a forward pointer, not a
 tool used here.
 \end{example}
@@ -541,7 +751,11 @@ tool used here.
 A real sequence converges if and only if it is Cauchy.
 \end{theorem}
 \begin{proof}
-If $a_n\to L$, choose $N$ with $\abs{a_n-L}<\eps/2$ for $n\geq N$ and, for all $m,n\geq N$, write
+If $a_n\to L$, choose $N$ with
+\[
+\abs{a_n-L}<\eps/2
+\]
+ for $n\geq N$ and, for all $m,n\geq N$, write
 $|a_m-a_n|\leq|a_m-L|+|a_n-L|<\eps$. Conversely, the rational-Cauchy construction of $\R$ proves exactly this assertion in \cref{thm:real-cauchy-complete}.
 \end{proof}
 
@@ -608,21 +822,45 @@ The decreasing sequence $(s_n)$ and increasing sequence $(i_n)$ are
 bounded by the same bounds as $(a_n)$, hence converge by monotone
 convergence. Since $i_n\leq s_n$, order preservation orders their limits.
 If $a_n\to L$, given $\eps>0$ choose $N$ with
-$|a_k-L|<\eps/2$ for $k\geq N$. For every $n\geq N$, all terms in
-the $n$th tail lie between $L-\eps/2$ and $L+\eps/2$. Thus
-$|i_n-L|\leq\eps/2<\eps$ and $|s_n-L|\leq\eps/2<\eps$.
+
+\[
+|a_k-L|<\eps/2
+\]
+ for $k\geq N$. For every $n\geq N$, all terms in
+the $n$th tail lie between
+\[
+L-\eps/2,\qquad L+\eps/2.
+\]
+ Thus
+
+\[
+|i_n-L|\leq\eps/2<\eps,\qquad |s_n-L|\leq\eps/2<\eps.
+\]
+
 Conversely, if $i_n,s_n\to L$, choose $N_1,N_2$ for their errors
 less than $\eps$. For $n\geq\max\{N_1,N_2\}$,
-$L-\eps<i_n\leq a_n\leq s_n<L+\eps$.
+
+\[
+L-\eps<i_n\leq a_n\leq s_n<L+\eps.
+\]
+
 \end{proof}
 
 \paragraph{Why boundedness remains in this definition.}
 \begin{example}[Tail ceilings and floors]
-For $a_n=(-1)^n+1/n$, the even subsequence tends to $1$ and the odd
+For
+\[
+a_n=(-1)^n+1/n,
+\]
+ the even subsequence tends to $1$ and the odd
 subsequence to $-1$. Removing finitely many terms cannot remove either
 recurring behavior. The tail suprema decrease to $1$, while the tail
 infima increase to $-1$. Thus $\limsup a_n=1$ and $\liminf a_n=-1$.
-For $b_n=2+(-1)^n/n$, both tail barriers tend to $2$, so the sequence
+For
+\[
+b_n=2+(-1)^n/n,
+\]
+ both tail barriers tend to $2$, so the sequence
 converges despite oscillating. The limsup is the eventual ceiling,
 not the largest early spike in the whole sequence.
 \end{example}
@@ -630,12 +868,36 @@ For a bounded sequence, every subsequential limit lies between liminf and
 limsup: its late terms lie between every fixed pair of tail bounds.
 Each barrier itself is a subsequential limit. To reach the upper one $s$,
 make two choices at stage $j$. First choose a tail index $N_j>k_{j-1}$
-so late that $|s_{N_j}-s|<1/j$, where $k_0=0$. Then the definition of
+so late that
+\[
+|s_{N_j}-s|<1/j,
+\]
+ where $k_0=0$. Then the definition of
 supremum supplies $k_j\geq N_j$ with
-$s_{N_j}-1/j<a_{k_j}\leq s_{N_j}$. Thus $k_j>k_{j-1}$ and
-$|a_{k_j}-s|<2/j$, proving convergence. For the lower barrier $i$, first
-choose $N_j>k_{j-1}$ with $|i_{N_j}-i|<1/j$, then choose $k_j\geq N_j$
-with $i_{N_j}\leq a_{k_j}<i_{N_j}+1/j$. Again the error is less than $2/j$.
+
+\[
+s_{N_j}-1/j<a_{k_j}\leq s_{N_j}.
+\]
+ Thus $k_j>k_{j-1}$ and
+
+\[
+|a_{k_j}-s|<2/j,
+\]
+ proving convergence. For the lower barrier $i$, first
+choose $N_j>k_{j-1}$ with
+\[
+|i_{N_j}-i|<1/j,
+\]
+ then choose $k_j\geq N_j$
+with
+\[
+i_{N_j}\leq a_{k_j}<i_{N_j}+1/j.
+\]
+ Again the error is less than
+\[
+2/j.
+\]
+
 One can develop conventions for limsup and liminf of unbounded sequences,
 but they are unnecessary here.  We retain real-valued suprema and infima
 and use \cref{def:sequence-infinite-limit} when a sequence eventually
@@ -654,8 +916,16 @@ If a Cauchy sequence has a subsequence converging to $L$, the entire
 sequence converges to $L$. This holds in every ordered field.
 \end{lemma}
 \begin{proof}
-Given $\eps>0$, choose $N$ so that $|a_m-a_n|<\eps/2$ for $m,n\geq N$.
-Choose $K$ so that $|a_{n_k}-L|<\eps/2$ for $k\geq K$.
+Given $\eps>0$, choose $N$ so that
+\[
+|a_m-a_n|<\eps/2
+\]
+ for $m,n\geq N$.
+Choose $K$ so that
+\[
+|a_{n_k}-L|<\eps/2
+\]
+ for $k\geq K$.
 Fix $k=\max\{K,N\}$; then $n_k\geq k\geq N$.
 For all $n\geq N$, the triangle inequality gives
 $|a_n-L|\leq|a_n-a_{n_k}|+|a_{n_k}-L|<\eps$.
@@ -671,11 +941,7 @@ Let $F$ be an Archimedean field. The following assertions are equivalent.
 \item Every increasing sequence in $F$ that is bounded above converges.
 \item Whenever
 \[
-[a_1,b_1]\supseteq[a_2,b_2]\supseteq\cdots
-\]
-and
-\[
-\lim_{n\to\infty}(b_n-a_n)=0,
+[a_1,b_1]\supseteq[a_2,b_2]\supseteq\cdots,\qquad \lim_{n\to\infty}(b_n-a_n)=0,
 \]
 the intervals have a common point.
 \end{enumerate}
@@ -689,7 +955,11 @@ so they apply in $F$ without assuming real completeness.
 
 \emph{$(a)\Rightarrow(d)$.} For a bounded increasing sequence take the
 supremum $s$ of its range. For $\eps>0$ some $a_N>s-\eps$, and
-$s-\eps<a_N\leq a_n\leq s$ for $n\geq N$.
+
+\[
+s-\eps<a_N\leq a_n\leq s
+\]
+ for $n\geq N$.
 
 \emph{$(d)\Rightarrow(c)$.} The peak-index proof extracts a monotone
 subsequence in $F$. It remains bounded, so (d), applied to its negative
@@ -742,15 +1012,35 @@ estimate, shrinking widths, and finally bisection.
 \addcontentsline{toc}{section}{Exercises}
 
 \begin{hexercise}{seq-direct}
-Prove directly that $3/(n+2)\to0$ and $(2n+1)/(n+1)\to2$. For each, show the backward discovery of $N$ separately from the forward proof.
+Prove directly that
+\[
+3/(n+2)\to0,\qquad (2n+1)/(n+1)\to2.
+\]
+ For each, show the backward discovery of $N$ separately from the forward proof.
 \end{hexercise}
 
 \begin{hexercise}{seq-laws}
-Evaluate $((4k^2+1)/(2k^2-k))$, $((k+1)/(k^3+2))$, and $((-2k^4+k)/(k^2+1))$ as $k\to\infty$. Identify the degrees and leading coefficients and justify that denominators are nonzero on a tail.
+Evaluate
+\[
+((4k^2+1)/(2k^2-k)),
+\]
+
+\[
+((k+1)/(k^3+2)),,\qquad ((-2k^4+k)/(k^2+1))
+\]
+ as $k\to\infty$. Identify the degrees and leading coefficients and justify that denominators are nonzero on a tail.
 \end{hexercise}
 
 \begin{hexercise}{seq-geometric}
-Give explicit thresholds proving $(3/4)^n\to0$ and $(3/2)^n\to+\infty$. Determine whether $(-3/2)^n$ has either infinite limit.
+Give explicit thresholds proving
+\[
+(3/4)^n\to0,\qquad (3/2)^n\to+\infty.
+\]
+ Determine whether
+\[
+(-3/2)^n
+\]
+ has either infinite limit.
 \end{hexercise}
 
 \begin{hexercise}{seq-radical}
@@ -758,19 +1048,42 @@ For $c>0$, find the limits of $\sqrt{k^2+ck}-k$ and $\sqrt{k^2+c}-k$. Explain wh
 \end{hexercise}
 
 \begin{hexercise}{seq-model}
-An approximation begins with error at most $6$ units. Each correction reduces the error magnitude to at most one third of its preceding magnitude. Formulate a sequence inequality, prove convergence of the errors to zero, and find a number of corrections guaranteeing error below $1/100$ unit.
+An approximation begins with error at most $6$ units. Each correction reduces the error magnitude to at most one third of its preceding magnitude. Formulate a sequence inequality, prove convergence of the errors to zero, and find a number of corrections guaranteeing error below
+\[
+1/100
+\]
+ unit.
 \end{hexercise}
 
 \begin{hexercise}{seq-disprove}
-Disprove the proposed limit $1$ for $a_n=2+1/n$ using the negated definition. Then prove that $2+(-1)^n$ has no limit. Explain why these are different tasks.
+Disprove the proposed limit $1$ for
+\[
+a_n=2+1/n
+\]
+ using the negated definition. Then prove that $2+(-1)^n$ has no limit. Explain why these are different tasks.
 \end{hexercise}
 
 \begin{exercise}
-Find the limsup and liminf of $(-1)^n+2/n$ and exhibit subsequences attaining them. Prove from the tail bounds that no other subsequential limit is possible.
+Find the limsup and liminf of
+\[
+(-1)^n+2/n
+\]
+ and exhibit subsequences attaining them. Prove from the tail bounds that no other subsequential limit is possible.
 \end{exercise}
 
+\paragraph{A common strategy for monotone recursive sequences.}
+First find a bound preserved by the recurrence, and prove it by induction.
+Then establish monotonicity and apply monotone convergence. Only after
+convergence is known should one pass to the recurrence, using the limit
+laws already established, to identify the limit. Later, continuity will
+often package this last step conveniently.
+
 \begin{exercise}
-Let $a_1=0$ and $a_{n+1}=(a_n+2)/3$. Prove monotonicity and boundedness, deduce convergence, and determine the limit. Which step uses completeness?
+Let $a_1=0$ and
+\[
+a_{n+1}=(a_n+2)/3.
+\]
+ Prove monotonicity and boundedness, deduce convergence, and determine the limit. Which step uses completeness?
 \end{exercise}
 
 \begin{hexercise}{supremum-proof}

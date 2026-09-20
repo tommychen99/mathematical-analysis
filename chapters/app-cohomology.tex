@@ -108,6 +108,7 @@ $d$ (\cref{def:natural-transformation}). The concrete induced pullback
 below is exactly \cref{prop:cochain-induced} applied to forms.
 
 
+\Needspace{10\baselineskip}
 \section{Closed Forms, Exact Forms, and the Quotient}
 \label{sec:de-rham-definition}
 \begin{definition}\label{def:de-rham-cohomology}
@@ -153,7 +154,11 @@ The identity $d(f^*\omega)=f^*(d\omega)$, proved in
 forms. It sends $d\eta$ to $d(f^*\eta)$, so it also sends exact forms to
 exact forms. Compose the linear map $f^*:Z^k(N)\to Z^k(M)$ with the
 quotient map to $H_{\mathrm{dR}}^k(M)$. This composite kills $B^k(N)$,
-and therefore factors uniquely through $Z^k(N)/B^k(N)$.
+and therefore factors uniquely through
+\[
+Z^k(N)/B^k(N).
+\]
+
 Equivalently, replacing $\omega$ by $\omega+d\eta$ changes its image
 by $d(f^*\eta)$, proving representative independence directly.
 The pullback identities on forms descend to the quotient and give the
@@ -165,7 +170,11 @@ stated identities. As with forms, measurements move backward.
 $H_{\mathrm{dR}}^0(M)$ is the space of locally constant real functions.
 If $M$ is nonempty and connected it is canonically $\R$. More generally,
 if $\mathcal C$ is the set of connected components, it is
-$\prod_{C\in\mathcal C}\R$.
+
+\[
+\prod_{C\in\mathcal C}\R.
+\]
+
 \end{proposition}
 \begin{proof}
 There are no nonzero exact $0$-forms, since $\Omega^{-1}=0$.
@@ -194,7 +203,11 @@ that part. The fundamental theorem of calculus measures the difference
 between the two endpoint pullbacks.
 
 \begin{example}[The one-form prototype]
-For a closed $1$-form $\omega=\sum_i a_i(x)\,dx^i$, seek a primitive by
+For a closed $1$-form
+\[
+\omega=\sum_i a_i(x)\,dx^i,
+\]
+ seek a primitive by
 integrating along the radial segment from $0$ to $x$:
 \[
 F(x)=\int_0^1\omega_{tx}(x)\,dt
@@ -238,13 +251,21 @@ h^*\omega=dt\wedge\alpha(t,x)+\beta(t,x),
 \]
 where $\alpha$ has spatial degree $k-1$ and $\beta$ has spatial degree
 $k$, and neither contains $dt$. In degree zero the $\alpha$ term is
-absent. Define $K\omega=\int_0^1\alpha(t,\cdot)\,dt$ coefficientwise.
+absent. Define
+\[
+K\omega=\int_0^1\alpha(t,\cdot)\,dt
+\]
+ coefficientwise.
 The integral has smooth coefficients: near a fixed $x$, compactness of
 $[0,1]$ and openness of $U$ allow the smooth expression $tx$ on a common
 neighborhood of the whole segment. Every coefficient derivative can be
 passed under this compact-interval integral: the fundamental theorem writes
 a spatial difference quotient of a smooth coefficient $a$ as
-$\int_0^1\partial_i a(t,x+su e_i)\,ds$, where $u$ is the increment.
+
+\[
+\int_0^1\partial_i a(t,x+su e_i)\,ds,
+\]
+ where $u$ is the increment.
 Uniform continuity on a compact neighborhood makes this converge uniformly
 in $t$ to $\partial_i a(t,x)$ as $u\to0$. The uniform integral-limit theorem
 (\cref{thm:uniform-riemann-integration})
@@ -288,8 +309,16 @@ For the manifold assertion choose a chart ball about the point, transfer
 the form there, apply this construction, and pull the primitive back.
 \end{proof}
 In degree one the primitive is especially concrete:
-if $\omega=\sum_i a_i(x)\,dx^i$ is closed, then
-$u(x)=\int_0^1\sum_i a_i(tx)x^i\,dt$ satisfies $du=\omega$.
+if
+\[
+\omega=\sum_i a_i(x)\,dx^i
+\]
+ is closed, then
+
+\[
+u(x)=\int_0^1\sum_i a_i(tx)x^i\,dt
+\]
+ satisfies $du=\omega$.
 The positive-degree restriction matters: in degree zero the homotopy
 identity reads $Kdf=f-f(0)$, and nonzero constant functions are not exact.
 Thus for nonempty star-shaped $U$, and in particular for $\R^n$,
@@ -305,13 +334,21 @@ On $\R^2\setminus\{0\}$ set
 \[
 \eta=\frac{-y\,dx+x\,dy}{x^2+y^2}.
 \]
-For $P=-y/(x^2+y^2)$ and $Q=x/(x^2+y^2)$,
+For
+\[
+P=-y/(x^2+y^2),\qquad Q=x/(x^2+y^2),
+\]
+
 \[
 Q_x=\frac{y^2-x^2}{(x^2+y^2)^2}=P_y,
 \qquad d\eta=(Q_x-P_y)\,dx\wedge dy=0.
 \]
 But $\gamma(t)=(\cos t,\sin t)$ satisfies $\gamma^*\eta=dt$, so
-$\int_\gamma\eta=2\pi$. An exact form would have integral zero around
+
+\[
+\int_\gamma\eta=2\pi.
+\]
+ An exact form would have integral zero around
 this closed curve by the line-integral fundamental theorem.
 In any polar angle chart, direct substitution gives $\eta=d\theta$.
 These local angles differ by constants on overlap components but cannot
@@ -334,8 +371,16 @@ Only the degree-one assertion needs a new argument. Pull a $1$-form
 $\omega$ back by $\gamma:\R\to S^1$, $\gamma(t)=(\cos t,\sin t)$:
 $\gamma^*\omega=a(t)\,dt$ with $a$ smooth and $2\pi$-periodic.
 Every $1$-form on the circle is closed by dimension. If
-$\int_0^{2\pi}a(t)\,dt=0$, the function
-$u(t)=\int_0^t a(s)\,ds$ satisfies
+
+\[
+\int_0^{2\pi}a(t)\,dt=0,
+\]
+ the function
+
+\[
+u(t)=\int_0^t a(s)\,ds
+\]
+ satisfies
 \[
 u(t+2\pi)-u(t)=\int_t^{t+2\pi}a(s)\,ds=0.
 \]
@@ -345,8 +390,16 @@ multiple of $2\pi$, and it is smooth by local angle charts.
 The identity $\gamma^*df=du=\gamma^*\omega$ implies $df=\omega$,
 since $\gamma$ is locally a diffeomorphism. Conversely exact forms have
 zero integral. For arbitrary $\omega$, set
-$c=(2\pi)^{-1}\int_{S^1}\omega$; then $\omega-c\alpha$ has integral
-zero and is exact. Finally $\int_{S^1}\alpha=2\pi$, so $[\alpha]\ne0$.
+
+\[
+c=(2\pi)^{-1}\int_{S^1}\omega;
+\]
+ then $\omega-c\alpha$ has integral
+zero and is exact. Finally
+\[
+\int_{S^1}\alpha=2\pi,
+\]
+ so $[\alpha]\ne0$.
 Connectedness gives degree zero, and all forms of degree at least two vanish.
 \end{proof}
 The integral is not merely a nonexactness test here: the zero-period
@@ -375,7 +428,11 @@ Pull a closed form back by
 $q(x,y)=((\cos x,\sin x),(\cos y,\sin y))$ to obtain
 $a(x,y)\,dx+b(x,y)\,dy$. Both coefficients are periodic with period
 $2\pi$ in each variable, and closedness says $a_y=b_x$.
-The horizontal period $a_0(y)=\int_0^{2\pi}a(x,y)\,dx$ is constant, since
+The horizontal period
+\[
+a_0(y)=\int_0^{2\pi}a(x,y)\,dx
+\]
+ is constant, since
 \[
 a_0'(y)=\int_0^{2\pi}b_x(x,y)\,dx=b(2\pi,y)-b(0,y)=0.
 \]
@@ -419,11 +476,19 @@ simplicial chain theories.
 
 For a concrete elementary convention, a smooth singular $k$-cube is a
 smooth map from a neighborhood of $[0,1]^k$ to $M$. A finite real linear
-combination $c=\sum_j a_j\sigma_j$ is a chain. Its boundary is the signed
+combination
+\[
+c=\sum_j a_j\sigma_j
+\]
+ is a chain. Its boundary is the signed
 sum of its face maps: the faces $x^i=1$ and $x^i=0$, with remaining
 coordinates in their original order, have coefficients $(-1)^{i-1}$ and
 $-(-1)^{i-1}$, respectively. A cycle satisfies $\partial c=0$ as a formal
-sum of these maps. Set $\int_c\omega=\sum_j a_j\int_{[0,1]^k}\sigma_j^*\omega$.
+sum of these maps. Set
+\[
+\int_c\omega=\sum_j a_j\int_{[0,1]^k}\sigma_j^*\omega.
+\]
+
 For $k\geq1$, the coordinate proof of local Stokes, or the iterated
 one-variable fundamental theorem on the cube, gives
 \[
@@ -707,8 +772,9 @@ H_{\mathrm{dR}}^k(M)\arrow[r,"\cong"'] & H_{\mathrm{sing}}^k(M;\R).
 Either compare a class first and then pull it back, or pull it back first
 and then compare: the result is the same.
 In the language of \cref{def:natural-transformation}, these comparison
-isomorphisms form a natural isomorphism between the two contravariant
-cohomology functors on smooth manifolds. This is the structural meaning
+isomorphisms form a natural isomorphism between the two cohomology functors,
+viewed as contravariant functors on smooth manifolds, equivalently as
+covariant functors on \(\mathbf{Man}^{\mathrm{op}}\). This is the structural meaning
 of the period computations, not a new prerequisite for the main course.
 
 \section*{Exercises}
@@ -741,7 +807,11 @@ complex multiplication. Specify which basis determines your matrix convention.
 \end{hexercise}
 \begin{hexercise}{app-h-7}
 Give the product torus its product orientation. Show that
-$\int_{T^2}\alpha_1\wedge\alpha_2=(2\pi)^2$, and conclude that this
+
+\[
+\int_{T^2}\alpha_1\wedge\alpha_2=(2\pi)^2,
+\]
+ and conclude that this
 closed $2$-form is not exact. Explain why this alone is not a computation
 of the dimension of $H^2_{\mathrm{dR}}(T^2)$.
 \end{hexercise}

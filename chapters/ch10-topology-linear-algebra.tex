@@ -29,15 +29,25 @@ Keep asking two questions: what is the object, and which numbers describe
 it? A coordinate column, a matrix, and a covector row will answer different
 questions even when all three are arrays of real numbers.
 
+\paragraph{Euclidean input convention.}
+When the input is a full Euclidean coordinate tuple, we write
+\[
+\mathbf{x}=(x_1,\ldots,x_n),\qquad f(\mathbf{x}),\qquad Df(\mathbf{x}).
+\]
+The components $x_i$ and individual scalar coordinates retain ordinary type.
+Points of an abstract metric space and established vector letters such as
+$v\in V$ retain their existing notation. For a sequence of Euclidean inputs,
+$\mathbf{x}_k$ denotes its $k$th point, whereas $x_i$ denotes a component.
+
 \section{Distances, Balls, and Neighborhoods}
 On $\R$, distance is $|x-y|$. In the plane the Pythagorean theorem gives
 \[
-d_2(x,y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2}.
+d_2(\mathbf{x},y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2}.
 \]
 In $\R^n$ define the \emph{Euclidean length}
 \[
-\|x\|_2=\left(\sum_{j=1}^n x_j^2\right)^{1/2},
-\qquad d_2(x,y)=\|x-y\|_2.
+\|\mathbf{x}\|_2=\left(\sum_{j=1}^n x_j^2\right)^{1/2},
+\qquad d_2(\mathbf{x},y)=\|\mathbf{x}-y\|_2.
 \]
 We call this a length for the moment: the triangle inequality, and hence
 the fact that it is a norm, will follow from Cauchy--Schwarz below.
@@ -56,45 +66,62 @@ d(x,z)&\leq d(x,y)+d(y,z) &&\text{(triangle inequality)}.
 The pair $(X,d)$ is a metric space.
 \end{definition}
 \begin{theorem}[Cauchy--Schwarz inequality]\label{thm:cauchy-schwarz}
-Writing $x\cdot y=\sum_jx_jy_j$ and $\|x\|_2=\sqrt{x\cdot x}$, we have
-$|x\cdot y|\leq\|x\|_2\|y\|_2$. Consequently $\|\cdot\|_2$ is a norm
-and $d_2(x,y)=\|x-y\|_2$ is its associated metric.
+Writing
+\[
+\mathbf{x}\cdot y=\sum_jx_jy_j,
+\qquad
+\|\mathbf{x}\|_2=\sqrt{\mathbf{x}\cdot \mathbf{x}},
+\]
+we have
+\[
+|\mathbf{x}\cdot y|\leq\|\mathbf{x}\|_2\|y\|_2.
+\]
+Consequently $\|\cdot\|_2$ is a norm
+and $d_2(\mathbf{x},y)=\|\mathbf{x}-y\|_2$ is its associated metric.
 \end{theorem}
 \begin{proof}
 The triangle inequality for Euclidean length contains the cross term
 $2u\cdot v$. We therefore establish Cauchy--Schwarz first; it is exactly
 the estimate that controls this term.
 If $y=0$ the inequality reads $0\leq0$. Otherwise substitute
-$t=(x\cdot y)/\|y\|_2^2$ into a sum of squares. This value is chosen
+
+\[
+t=(\mathbf{x}\cdot y)/\|y\|_2^2
+\]
+ into a sum of squares. This value is chosen
 because
 \[
-\norm{x-ty}_2^2
-=\norm x_2^2-2t(x\cdot y)+t^2\norm y_2^2
+\norm{\mathbf{x}-ty}_2^2
+=\norm{\mathbf{x}}_2^2-2t(\mathbf{x}\cdot y)+t^2\norm y_2^2
 \]
 is a nonnegative quadratic in $t$, minimized when
-$t=(x\cdot y)/\norm y_2^2$ (equivalently, this choice completes the
+
+\[
+t=(\mathbf{x}\cdot y)/\norm y_2^2
+\]
+ (equivalently, this choice completes the
 square). At its minimum,
 \[
 0\leq\sum_j(x_j-ty_j)^2
-=\|x\|_2^2-\frac{(x\cdot y)^2}{\|y\|_2^2}.
+=\|\mathbf{x}\|_2^2-\frac{(\mathbf{x}\cdot y)^2}{\|y\|_2^2}.
 \]
 Multiplication by $\|y\|_2^2$ and square roots give the assertion. For
-$u=x-y$ and $v=y-z$, it follows that
+$u=\mathbf{x}-y$ and $v=y-z$, it follows that
 \[
 \|u+v\|_2^2=\|u\|_2^2+2u\cdot v+\|v\|_2^2
 \leq(\|u\|_2+\|v\|_2)^2.
 \]
 Taking square roots proves the triangle inequality. A sum of nonnegative
 squares is zero exactly when every coordinate is zero, and
-$\|\alpha x\|_2=|\alpha|\|x\|_2$. Thus Euclidean length satisfies all
-three norm axioms. Applying definiteness to $x-y$ and observing that
-$\|x-y\|_2=\|y-x\|_2$ verify the remaining metric axioms for $d_2$.
+$\|\alpha \mathbf{x}\|_2=|\alpha|\|\mathbf{x}\|_2$. Thus Euclidean length satisfies all
+three norm axioms. Applying definiteness to $\mathbf{x}-y$ and observing that
+$\|\mathbf{x}-y\|_2=\|y-\mathbf{x}\|_2$ verify the remaining metric axioms for $d_2$.
 \end{proof}
 
 From now on, unless another norm is explicitly indicated, the standing
 convention on Euclidean space is
 \[
-\boxed{\|x\|:=\|x\|_2\qquad(x\in\R^n).}
+\boxed{\|\mathbf{x}\|:=\|\mathbf{x}\|_2\qquad(\mathbf{x}\in\R^n).}
 \]
 The later abstract treatment of norms generalizes this notation; it does
 not change the present Euclidean convention.
@@ -136,12 +163,12 @@ A neighborhood of $a$ is any set containing some $B_d(a,r)$.
 The neighborhood itself need not be a ball, or even an open set.
 \end{definition}
 \begin{example}[A ball need not be round]
-On $\R^n$ set $d_\infty(x,y)=\max_j|x_j-y_j|$. Each coordinate
-distance is at most $d_\infty(x,z)+d_\infty(z,y)$, proving the triangle
+On $\R^n$ set $d_\infty(\mathbf{x},y)=\max_j|x_j-y_j|$. Each coordinate
+distance is at most $d_\infty(\mathbf{x},z)+d_\infty(z,y)$, proving the triangle
 inequality after taking the maximum. The other axioms follow coordinatewise.
 Its balls in $\R^2$ are squares with sides parallel to the axes. Moreover,
 \[
-d_\infty(x,y)\leq d_2(x,y)\leq\sqrt n\,d_\infty(x,y).
+d_\infty(\mathbf{x},y)\leq d_2(\mathbf{x},y)\leq\sqrt n\,d_\infty(\mathbf{x},y).
 \]
 Thus a sufficiently small ball for either distance fits into any ball for
 the other. Neighborhood structure, rather than the roundness of balls, is
@@ -154,7 +181,11 @@ without leaving it. An interior point of a disk can move a little in every
 direction. In $\R$, the sets $(0,1)$, $(2,\infty)$, and
 $(0,1)\cup(2,3)$ all have this property at every one of their points.
 For $x\in(0,1)$, for instance, the radius
-$\min(x,1-x)/2$ keeps the ball inside the interval. The set $[0,1)$
+
+\[
+\min(x,1-x)/2
+\]
+ keeps the ball inside the interval. The set $[0,1)$
 fails this test at $0$ when the ambient space is $\R$.
 \begin{definition}[Open and closed]
 A set $U\subseteq X$ is open if
@@ -198,20 +229,40 @@ sets are closed.
 \end{proposition}
 \begin{proof}
 There is no point to test in the empty set; every ball in $X$ lies in $X$.
-If $x\in\bigcup_\alpha U_\alpha$, choose a member containing $x$ and a
+If
+\[
+x\in\bigcup_\alpha U_\alpha,
+\]
+ choose a member containing $x$ and a
 ball inside that member. That same ball lies in the union. If
-$x\in U_1\cap\cdots\cap U_m$, choose $r_i>0$ with $B(x,r_i)\subseteq U_i$.
+
+\[
+x\in U_1\cap\cdots\cap U_m,
+\]
+ choose $r_i>0$ with $B(x,r_i)\subseteq U_i$.
 The minimum of these finitely many positive radii is positive, and its ball
 lies in every $U_i$. The closed-set assertions follow by taking complements
-and applying De Morgan's laws. Finiteness matters: $\bigcap_{m\geq1}(-1/m,1/m)
-=\{0\}$ is not open in $\R$.
+and applying De Morgan's laws. Finiteness matters:
+\[
+\bigcap_{m\geq1}(-1/m,1/m)
+=\{0\}
+\]
+ is not open in $\R$.
 \end{proof}
 
 \subsection{Subspaces: change the universe before testing openness}
 Restrict a metric on $X$ to $Y\subseteq X$. Then
 $B_Y(y,r)=Y\cap B_X(y,r)$: only points allowed in the new universe remain.
 For $Y=[0,1]$, a ball about $0$ is $[0,r)$ when $0<r\leq1$.
-In particular $[0,1/2)$ is open in $Y$: it equals $Y\cap(-1,1/2)$.
+In particular
+\[
+[0,1/2)
+\]
+ is open in $Y$: it equals
+\[
+Y\cap(-1,1/2).
+\]
+
 It is not open in $\R$, where every ball about $0$ includes negative points.
 \begin{proposition}[Subspace open sets]\label{prop:metric-subspace}
 A set $A\subseteq Y$ is open for the restricted metric if and only if
@@ -221,7 +272,11 @@ $A=Y\cap U$ for some open $U\subseteq X$.
 If $A=Y\cap U$, each $a\in A$ has an $X$-ball in $U$; intersecting
 with $Y$ gives a $Y$-ball in $A$. Conversely, for each $a\in A$ choose
 $r_a>0$ with $B_Y(a,r_a)\subseteq A$. Put
-$U=\bigcup_{a\in A}B_X(a,r_a)$, which is open. Every $a\in A$ belongs
+
+\[
+U=\bigcup_{a\in A}B_X(a,r_a),
+\]
+ which is open. Every $a\in A$ belongs
 to $Y\cap U$, and each point of $Y\cap U$ belongs to one of the chosen
 $Y$-balls, hence to $A$. Thus $Y\cap U=A$.
 \end{proof}
@@ -394,22 +449,42 @@ sequence converges to the same limit; and every convergent sequence is Cauchy.
 \end{proposition}
 \begin{proof}
 If $x_n\to x$ and $x_n\to y$, then eventually both
-$d(x_n,x)<\eps/2$ and $d(x_n,y)<\eps/2$. Hence
+
+\[
+d(x_n,x)<\eps/2,\qquad d(x_n,y)<\eps/2.
+\]
+ Hence
 $d(x,y)<\eps$ for every $\eps>0$, so $x=y$. If $x_n\to x$ and
 $n_k$ is strictly increasing, then $n_k\geq k$; every sufficiently late
 $x_{n_k}$ is therefore among the terms already within any prescribed ball
 about $x$. Thus $x_{n_k}\to x$. Finally, if $x_n\to x$, put two late
-terms within $\eps/2$ of $x$ and use the triangle inequality to obtain
+terms within
+\[
+\eps/2
+\]
+ of $x$ and use the triangle inequality to obtain
 $d(x_m,x_n)<\eps$.
 \end{proof}
 \begin{example}[Where must the limit live?]
-The sequence $1/n$ is Cauchy in $(0,1]$, since $|1/m-1/n|\leq1/m+1/n$,
+The sequence
+\[
+1/n
+\]
+ is Cauchy in $(0,1]$, since
+\[
+|1/m-1/n|\leq1/m+1/n,
+\]
+
 but its only possible real limit, $0$, is missing. Thus $(0,1]$ is not
 complete. The space $\R^n$ is complete: each coordinate of a Cauchy sequence
 is real Cauchy; the coordinate limits give a vector, and
-$\|x_n-x\|_2\leq\sqrt n\max_j|x_{n,j}-x_j|\to0$.
+$\|\mathbf{x}_n-\mathbf{x}\|_2\leq\sqrt n\max_j|x_{n,j}-x_j|\to0$.
 In the discrete metric $d(x,y)=1$ for $x\ne y$, a Cauchy sequence is
-eventually constant by the test $\eps=1/2$, so any such space is complete.
+eventually constant by the test
+\[
+\eps=1/2,
+\]
+ so any such space is complete.
 \end{example}
 \begin{definition}[Boundedness and diameter]
 $E\subseteq X$ is bounded if it is empty or lies in some ball $B(a,R)$.
@@ -434,13 +509,25 @@ x\in E'
 \]
 \end{theorem}
 \begin{proof}
-If $x\in\overline E$, each $E\cap B(x,1/n)$ is nonempty. Choose $x_n$
-in that intersection. Then $d(x_n,x)<1/n\to0$. Conversely, if $x_n\in E$
+If $x\in\overline E$, each
+\[
+E\cap B(x,1/n)
+\]
+ is nonempty. Choose $x_n$
+in that intersection. Then
+\[
+d(x_n,x)<1/n\to0.
+\]
+ Conversely, if $x_n\in E$
 and $x_n\to x$, every ball about $x$ contains an eventual term and therefore
 meets $E$. Thus $x\in\overline E$.
 
 If $x\in E'$, choose
-$x_n\in(E\setminus\{x\})\cap B(x,1/n)$; then $x_n\to x$. Conversely,
+
+\[
+x_n\in(E\setminus\{x\})\cap B(x,1/n);
+\]
+ then $x_n\to x$. Conversely,
 if such a sequence exists, every ball about $x$ contains an eventual term
 from $E$ different from $x$, so $x\in E'$.
 \end{proof}
@@ -506,7 +593,11 @@ Closed balls are closed by \cref{prop:metric-balls-open-closed}; apply
 preceding coordinate argument.
 \end{proof}
 The contrast with open balls is essential. The open ball $(-1,1)$ in
-$\R$ is not complete: the Cauchy sequence $1-1/n$ converges in $\R$ to
+$\R$ is not complete: the Cauchy sequence
+\[
+1-1/n
+\]
+ converges in $\R$ to
 the missing boundary point $1$. The successful logical chain is
 \[
 \boxed{
@@ -527,7 +618,11 @@ It is continuous if this holds at every point of $X$.
 \end{definition}
 The output tolerance is prescribed first; the input tolerance may depend on
 both it and the base point. For $f(x,y)=x+2y$,
-$|f(x,y)-f(a,b)|\leq3\|(x-a,y-b)\|_2$, so $\delta=\eps/3$ works.
+$|f(x,y)-f(a,b)|\leq3\|(x-a,y-b)\|_2$, so
+\[
+\delta=\eps/3
+\]
+ works.
 For any metric, $|d(x,c)-d(a,c)|\leq d(x,a)$ by two applications of
 the triangle inequality. Hence distance to a fixed point is continuous.
 \begin{definition}[Limit of a map]
@@ -562,8 +657,20 @@ Then $x_n\to a$ but $f(x_n)\not\to L$, contradicting the sequential
 condition.
 \end{proof}
 \begin{example}[Paths disprove, estimates prove]
-The function $xy/(x^2+y^2)$ has values $1/2$ along $y=x\ne0$ and
-$-1/2$ along $y=-x\ne0$, so has no limit at the origin. In contrast,
+The function
+\[
+xy/(x^2+y^2)
+\]
+ has values
+\[
+1/2
+\]
+ along $y=x\ne0$ and
+
+\[
+-1/2
+\]
+ along $y=-x\ne0$, so has no limit at the origin. In contrast,
 \[
 \left|\frac{x^2y}{x^2+y^2}\right|\leq|y|\leq\|(x,y)\|_2
 \]
@@ -581,7 +688,11 @@ For the converse the negation of continuity is
 \exists\eps_0>0\ \forall\delta>0\ \exists x\in X:
 \quad d_X(x,a)<\delta,\quad d_Y(f(x),f(a))\geq\eps_0.
 \]
-One fixed $\eps_0$ works at every scale. Set $\delta=1/n$ and choose
+One fixed $\eps_0$ works at every scale. Set
+\[
+\delta=1/n
+\]
+ and choose
 such an $x_n$. The inputs converge to $a$, but the output errors never
 fall below $\eps_0$, contradicting the sequential assertion.
 \end{proof}
@@ -641,9 +752,17 @@ then $f^{-1}(g^{-1}(U))=(g\circ f)^{-1}(U)$ is open.
 A homeomorphism $h:X\to Y$ is a bijection such that $h$ and $h^{-1}$
 are continuous. It identifies the open-set structures of the spaces.
 \end{definition}
-For example $x\mapsto\tan(\pi(x-\frac12))$ gives a homeomorphism
+For example
+\[
+x\mapsto\tan(\pi(x-\frac12))
+\]
+ gives a homeomorphism
 $(0,1)\to\R$ with inverse
-$y\mapsto\frac12+\frac{\arctan y}{\pi}$.
+
+\[
+y\mapsto\frac12+\frac{\arctan y}{\pi}.
+\]
+
 It does not preserve lengths or boundedness.
 
 \subsection{Bases: describing all open sets from a smaller family}
@@ -662,7 +781,11 @@ U\in\mathcal T,\quad x\in U
 \end{definition}
 If $U$ is a union of basic sets, choose a member containing $x$.
 Conversely the local criterion gives
-$U=\bigcup\{B\in\mathcal B:B\subseteq U\}$: every point of $U$ is
+
+\[
+U=\bigcup\{B\in\mathcal B:B\subseteq U\}:
+\]
+ every point of $U$ is
 covered, and nothing outside $U$ is included. It is this local criterion
 that most basis arguments actually use.
 
@@ -712,16 +835,24 @@ On $\R^n$, a countable basis is
 \]
 The indexing set $\Q^n\times\Q_{>0}$ is countable by
 \cref{cor:rationals-countable,thm:diagonal-enumeration}, iterating the
-countable-product argument finitely many times. Given $x\in U$ open,
-choose $B(x,\varepsilon)\subseteq U$. For $n\geq1$, choose rational
-$q_i$ with $|q_i-x_i|<\varepsilon/(3\sqrt n)$ for each $i$.
-Then $\|q-x\|^2=\sum_i|q_i-x_i|^2<\varepsilon^2/9$.
+countable-product argument finitely many times. Given $\mathbf{x}\in U$ open,
+choose $B(\mathbf{x},\varepsilon)\subseteq U$. For $n\geq1$, choose rational
+$q_i$ with
+\[
+|q_i-x_i|<\varepsilon/(3\sqrt n)
+\]
+ for each $i$.
+Then
+\[
+\|q-\mathbf{x}\|^2=\sum_i|q_i-x_i|^2<\varepsilon^2/9.
+\]
+
 Choose a rational radius satisfying
 \[
-\|q-x\|<r<\varepsilon-\|q-x\|.
+\|q-\mathbf{x}\|<r<\varepsilon-\|q-\mathbf{x}\|.
 \]
 Density of the rationals supplies these choices.
-Then $x\in B(q,r)\subseteq B(x,\varepsilon)\subseteq U$ by the triangle
+Then $\mathbf{x}\in B(q,r)\subseteq B(\mathbf{x},\varepsilon)\subseteq U$ by the triangle
 inequality. This verifies the local criterion, not just countability.
 For $n=0$ the one-point space has the one-member basis $\{\R^0\}$.
 \end{example}
@@ -856,7 +987,11 @@ of $x$ contains some $U_n$. A space is \textbf{first countable} if each
 point has such a family. We may take the $U_n$ open, by replacing them
 with contained open neighborhoods.
 \end{definition}
-Metric spaces are first countable: take $B(x,1/n)$.
+Metric spaces are first countable: take
+\[
+B(x,1/n).
+\]
+
 Second countability (\cref{def:second-countable}) implies first
 countability by taking the members of a countable topological basis
 that contain the point. First countability is local; it does not require
@@ -870,7 +1005,11 @@ Also $E\subseteq X$ is closed if and only if it is sequentially closed.
 \begin{proof}
 The forward implications were proved in
 \cref{prop:topological-sequential-implications}. At a point $x$, replace
-a countable open local basis by $W_n=U_1\cap\cdots\cap U_n$ to make
+a countable open local basis by
+\[
+W_n=U_1\cap\cdots\cap U_n
+\]
+ to make
 it decreasing. If $f$ is not continuous at $x$, there is an open
 neighborhood $V$ of $f(x)$ such that no $W_n$ maps into $V$.
 Choose $x_n\in W_n$ with $f(x_n)\notin V$. The local basis property
@@ -913,7 +1052,11 @@ $\pi_X\circ f$ and $\pi_Y\circ f$ are continuous.
 $\pi_X^{-1}(U)=U\times Y$ and $\pi_Y^{-1}(V)=X\times V$ are open,
 so the projections are continuous; composition proves one direction.
 Conversely write an arbitrary product-open set as
-$G=\bigcup_\alpha(U_\alpha\times V_\alpha)$. Then
+
+\[
+G=\bigcup_\alpha(U_\alpha\times V_\alpha).
+\]
+ Then
 \[
 f^{-1}(G)=\bigcup_\alpha\left[
 (\pi_X\circ f)^{-1}(U_\alpha)\cap
@@ -976,12 +1119,28 @@ problem:
 \ \longrightarrow\ \text{uniform control}.
 \]
 For example, the relative intervals
-$U_t=[0,1]\cap(t-1/4,t+1/4)$ for $t\in[0,1]$ cover $[0,1]$.
-The five with centers $0,1/4,1/2,3/4,1$ already cover it. This verifies
+
+\[
+U_t=[0,1]\cap(t-1/4,t+1/4)
+\]
+ for $t\in[0,1]$ cover $[0,1]$.
+The five with centers
+\[
+0,1/4,1/2,3/4,1
+\]
+ already cover it. This verifies
 one cover, whereas compactness makes a claim about every open cover.
-In contrast $(0,1)=\bigcup_{n\geq3}(1/n,1-1/n)$ has no finite subcover:
+In contrast
+\[
+(0,1)=\bigcup_{n\geq3}(1/n,1-1/n)
+\]
+ has no finite subcover:
 any finite selection lies in its largest member, leaving points near zero.
-Likewise $\R=\bigcup_{n\geq1}(-n,n)$ has no finite subcover, since every
+Likewise
+\[
+\R=\bigcup_{n\geq1}(-n,n)
+\]
+ has no finite subcover, since every
 finite selection is bounded.
 \Needspace{9\baselineskip}
 \begin{definition}[Covers and compact subsets]\label{def:compact-subset}
@@ -1043,7 +1202,11 @@ compactness.
 \end{proof}
 \begin{definition}[Hausdorff space]\label{def:hausdorff}
 $X$ is Hausdorff if distinct points admit disjoint open neighborhoods.
-Every metric space is Hausdorff: balls of radius $d(x,y)/3$ about distinct
+Every metric space is Hausdorff: balls of radius
+\[
+d(x,y)/3
+\]
+ about distinct
 $x,y$ are disjoint by the triangle inequality.
 \end{definition}
 Hausdorffness isolates a familiar feature of analysis: distinct points can
@@ -1093,7 +1256,11 @@ sets are common zero sets $V(\mathcal S)$ of collections
 $\mathcal S\subseteq k[t]$ of polynomials. If the collection contains a
 nonzero polynomial, its common zero set is finite, since that polynomial
 has finitely many roots. If every polynomial is zero, the zero set is $k$.
-Conversely $\{a_1,\ldots,a_r\}=V(\prod_{j=1}^r(t-a_j))$;
+Conversely
+\[
+\{a_1,\ldots,a_r\}=V(\prod_{j=1}^r(t-a_j));
+\]
+
 also $\varnothing=V(1)$. Thus the closed sets are exactly
 \[
 \varnothing,\qquad k,\qquad\text{finite subsets of }k.
@@ -1147,7 +1314,11 @@ A compact subset $K$ of a Hausdorff space $X$ is closed in $X$.
 Fix $y\notin K$. For each $x\in K$, the Hausdorff hypothesis supplies
 open sets $x\in U_x$ and $y\in V_x$ with $U_x\cap V_x=\varnothing$.
 The $U_x$ form an open cover of $K$, so compactness supplies $x_1,\ldots,x_m$ with
-$K\subseteq U_{x_1}\cup\cdots\cup U_{x_m}$. Put
+
+\[
+K\subseteq U_{x_1}\cup\cdots\cup U_{x_m}.
+\]
+ Put
 \[
 V=V_{x_1}\cap\cdots\cap V_{x_m}.
 \]
@@ -1176,7 +1347,11 @@ $d(K,F):=\inf\{d(x,y):x\in K,y\in F\}>0$.
 We first leave room inside each local neighborhood, then take the smallest
 of finitely many radii. For each $x\in K$ choose $r_x>0$ with
 $B(x,2r_x)\subseteq U$. Choose a finite subcover
-$K\subseteq\bigcup_{i=1}^m B(x_i,r_i)$ and put $\delta=\min_i r_i>0$.
+
+\[
+K\subseteq\bigcup_{i=1}^m B(x_i,r_i)
+\]
+ and put $\delta=\min_i r_i>0$.
 If $y\in B(K,\delta)$, choose $x\in K$ with $d(y,x)<\delta$, and then
 $i$ with $d(x,x_i)<r_i$. Thus
 \[
@@ -1217,16 +1392,32 @@ $B(x,\lambda)$ is contained in some member of that cover.
 \end{lemma}
 \begin{proof}
 If finitely many radius-$\eps$ balls cannot cover the space, choose $x_1$, then choose
-$x_{n+1}\notin\bigcup_{i=1}^nB(x_i,\eps)$. This choice is possible
+
+\[
+x_{n+1}\notin\bigcup_{i=1}^nB(x_i,\eps).
+\]
+ This choice is possible
 because the previous balls do not cover the space. Distinct selected
 points have distance at least $\eps$. A convergent subsequence would be
 Cauchy, contradicting this separation.
 
 If no common cover radius exists, for each $n$ choose $x_n$ such that
-$B(x_n,1/n)$ lies in no cover member. Sequential compactness gives
+
+\[
+B(x_n,1/n)
+\]
+ lies in no cover member. Sequential compactness gives
 $x_{n_j}\to x$, where $n_j$ increases strictly. Choose a cover member
 $U$ containing $x$ and $r>0$ with $B(x,r)\subseteq U$. Eventually both
-$d(x_{n_j},x)<r/2$ and $1/n_j<r/2$. For any $z\in B(x_{n_j},1/n_j)$,
+
+\[
+d(x_{n_j},x)<r/2,\qquad 1/n_j<r/2.
+\]
+ For any
+\[
+z\in B(x_{n_j},1/n_j),
+\]
+
 \[
 d(z,x)\leq d(z,x_{n_j})+d(x_{n_j},x)<1/n_j+r/2<r.
 \]
@@ -1250,22 +1441,42 @@ neighborhood containing $x_n$ for only finitely many indices $n$.
 A finite subcover would then contain terms for only finitely many indices,
 although it covers all of $X$, a contradiction. Thus some $p\in X$ has
 infinitely many sequence indices in every open neighborhood. Starting
-with $n_0=0$, choose $n_k>n_{k-1}$ with $x_{n_k}\in B(p,1/k)$.
+with $n_0=0$, choose $n_k>n_{k-1}$ with
+\[
+x_{n_k}\in B(p,1/k).
+\]
+
 Then $x_{n_k}\to p$. Counting indices handles repeated values correctly.
 
 Conversely, for a given open cover choose $\lambda$ from the preceding
-lemma, then cover the space by finitely many radius-$\lambda/2$ balls
+lemma, then cover the space by finitely many radius-
+\[
+\lambda/2
+\]
+ balls
 with centers $a_1,\ldots,a_m$.
 For each center choose a cover member $U_i$ containing $B(a_i,\lambda)$.
-Every point is within $\lambda/2$ of a center, so lies in one of these
+Every point is within
+\[
+\lambda/2
+\]
+ of a center, so lies in one of these
 $U_i$. These are finitely many members of the original cover.
 For the empty space all three properties hold directly.
 
 Suppose next that $X$ is sequentially compact. Total boundedness was
 proved in \cref{lem:sequential-cover-mechanisms}. If $(x_n)$ is Cauchy,
 choose a subsequence $x_{n_j}\to x\in X$. Given $\varepsilon>0$, choose
-$N$ so $d(x_n,x_m)<\varepsilon/2$ for $n,m\geq N$, and choose $j$
-with $n_j\geq N$ and $d(x_{n_j},x)<\varepsilon/2$. For every $n\geq N$,
+$N$ so
+\[
+d(x_n,x_m)<\varepsilon/2
+\]
+ for $n,m\geq N$, and choose $j$
+with $n_j\geq N$ and
+\[
+d(x_{n_j},x)<\varepsilon/2.
+\]
+ For every $n\geq N$,
 \[
 d(x_n,x)\leq d(x_n,x_{n_j})+d(x_{n_j},x)<\varepsilon.
 \]
@@ -1306,11 +1517,23 @@ D&\text{yes}&\text{yes}&\text{no}&\text{no}
 \]
 Finite subdivisions of $[0,1]$ into intervals shorter than $\varepsilon$
 give finite ball covers: choose a center in each interval meeting the
-subspace. The sequence $1/n$ escapes $(0,1)$; rational approximations to
-$\sqrt2/2$ escape $\Q\cap[0,1]$. Both are Cauchy. Finitely many balls of
+subspace. The sequence
+\[
+1/n
+\]
+ escapes $(0,1)$; rational approximations to
+
+\[
+\sqrt2/2
+\]
+ escape $\Q\cap[0,1]$. Both are Cauchy. Finitely many balls of
 fixed radius in $\R$ have bounded union and cannot cover $\R$.
 In $D$, every Cauchy sequence is eventually constant, but each ball of
-radius $1/2$ is a singleton. Thus $D$ is bounded and complete but not
+radius
+\[
+1/2
+\]
+ is a singleton. Thus $D$ is bounded and complete but not
 totally bounded. These examples distinguish boundedness from total
 boundedness, and total boundedness from compactness without completeness.
 \end{example}
@@ -1335,7 +1558,11 @@ A continuous $f:K\to\R$ on a nonempty compact space attains its extrema.
 By \cref{thm:compact-image,thm:compact-closed}, the image is compact and
 closed in $\R$. Cover it by the intervals $(-m,m)$, $m\in\N$.
 Choose a finite subcover; its largest selected radius bounds the image. Let $s$ be its
-supremum. For each $n$ choose an image value $y_n>s-1/n$, with $y_n\leq s$.
+supremum. For each $n$ choose an image value
+\[
+y_n>s-1/n,
+\]
+ with $y_n\leq s$.
 Then $y_n\to s$, and closedness places $s$ in the image. Applying the
 same argument to $-f$ gives its minimum.
 \end{proof}
@@ -1345,7 +1572,11 @@ continuous.
 \end{theorem}
 \begin{proof}
 Failure would give one $\eps_0>0$ and pairs $x_n,y_n$ with
-$d_X(x_n,y_n)<1/n$ but $d_Y(f(x_n),f(y_n))\geq\eps_0$.
+
+\[
+d_X(x_n,y_n)<1/n
+\]
+ but $d_Y(f(x_n),f(y_n))\geq\eps_0$.
 Extract $x_{n_j}\to x$ by metric compactness. Retain the same indices for
 the paired points, because only those pairs have the small-distance estimate:
 \[
@@ -1361,7 +1592,11 @@ A subset of Euclidean $\R^n$ is compact exactly when it is closed and bounded.
 \begin{proof}
 If $K$ is compact, it is closed because Euclidean space is Hausdorff
 (\cref{thm:compact-closed}). For boundedness use the increasing open cover
-$\R^n=\bigcup_{m\geq1}B(0,m)$. A finite subcover of $K$ has a largest
+
+\[
+\R^n=\bigcup_{m\geq1}B(0,m).
+\]
+ A finite subcover of $K$ has a largest
 selected radius $M$, so $K\subseteq B(0,M)$.
 
 Conversely, by \cref{thm:metric-compact-sequential} it suffices to prove
@@ -1370,7 +1605,7 @@ by coordinate; finite dimensionality makes the extraction terminate;
 closedness keeps the resulting limit inside $K$.
 
 First see the mechanism in $\R^2$. For a sequence
-$x_j=(x_j^1,x_j^2)$ in bounded $K$, Bolzano--Weierstrass gives indices
+$\mathbf{x}_j=(x_j^1,x_j^2)$ in bounded $K$, Bolzano--Weierstrass gives indices
 $j_k$ with $x_{j_k}^1\to a_1$. Apply it again to the bounded scalar
 sequence $(x_{j_k}^2)$ to obtain $k_\ell$ with $x_{j_{k_\ell}}^2\to a_2$.
 The first coordinates still converge to $a_1$: a subsequence of a
@@ -1379,15 +1614,19 @@ The same selected points now work in both coordinates.
 
 In $\R^n$ make the finite sequence of extractions
 \[
-(x_j)\supset(x_{j_k^{(1)}})\supset\cdots\supset(x_{j_k^{(n)}}).
+(\mathbf{x}_j)\supset(\mathbf{x}_{j_k^{(1)}})\supset\cdots\supset(\mathbf{x}_{j_k^{(n)}}).
 \]
 Each extraction retains convergence of all previously treated coordinates.
 Write the final indices simply as $j_k$ and their coordinate limits as
 $a_i$. Given $\varepsilon>0$, for each $i$ choose $K_i$ with
-$|x_{j_k}^i-a_i|<\varepsilon/\sqrt n$ for $k\geq K_i$. The single index
+
+\[
+|x_{j_k}^i-a_i|<\varepsilon/\sqrt n
+\]
+ for $k\geq K_i$. The single index
 $k\geq\max_{1\leq i\leq n}K_i$ then works for every coordinate, and
 \[
-\|x_{j_k}-a\|_2\leq\sqrt n\max_i|x_{j_k}^i-a_i|<\varepsilon.
+\|\mathbf{x}_{j_k}-a\|_2\leq\sqrt n\max_i|x_{j_k}^i-a_i|<\varepsilon.
 \]
 Closedness and \cref{thm:sequential-closed-sets} give $a\in K$.
 The empty set and the case $n=0$ are immediate. Thus
@@ -1402,7 +1641,11 @@ The empty set and the case $n=0$ are immediate. Thus
 A closed subset of complete $\R^n$ is complete by
 \cref{prop:closed-subset-complete}. A bounded subset lies in a bounded
 box. Subdivide that box into finitely many cubes of side
-$a<\varepsilon/\sqrt n$ and choose a point of the subset in each cube
+
+\[
+a<\varepsilon/\sqrt n
+\]
+ and choose a point of the subset in each cube
 that meets it. Every point in that cube is less than $\varepsilon$ from
 the chosen point, since the cube has diameter $a\sqrt n$. Thus the subset
 is totally bounded. The general metric compactness theorem gives the
@@ -1410,7 +1653,7 @@ same conclusion, while the coordinate proof above explains explicitly
 why finite dimension is decisive.
 
 In particular the unit sphere is compact: it is bounded, and the reverse
-length estimate $|\|x\|_2-\|y\|_2|\leq\|x-y\|_2$ makes it closed.
+length estimate $|\|\mathbf{x}\|_2-\|y\|_2|\leq\|\mathbf{x}-y\|_2$ makes it closed.
 A continuous positive function there has a positive minimum: attainment
 places the minimum at a point where the function is strictly positive.
 This observation will supply lower bounds in norm equivalence.
@@ -1449,8 +1692,8 @@ needed for the locally constant assertion.
 A path from $x$ to $y$ is a continuous $\gamma:[0,1]\to X$ with
 $\gamma(0)=x$ and $\gamma(1)=y$. A space is path connected if every two
 points can be joined by a path. A set $C\subseteq\R^n$ is convex if
-$(1-t)x+ty\in C$ for $x,y\in C$ and $0\leq t\leq1$.
-Thus convex sets have the straight-line paths $\gamma(t)=(1-t)x+ty$.
+$(1-t)\mathbf{x}+ty\in C$ for $\mathbf{x},y\in C$ and $0\leq t\leq1$.
+Thus convex sets have the straight-line paths $\gamma(t)=(1-t)\mathbf{x}+ty$.
 \end{definition}
 \begin{proposition}[Connectedness]\label{prop:connectedness}
 Continuous images of connected spaces are connected. Intervals in $\R$
@@ -1467,7 +1710,11 @@ If an interval $I$ had a separation $A,B$, define $h=0$ on $A$ and $h=1$
 on $B$. The relative openness of the pieces makes $h$ locally constant,
 hence continuous. Choose one point from each piece. The closed interval
 between them lies in $I$, so the Intermediate Value Theorem would force
-the value $1/2$, impossible.
+the value
+\[
+1/2,
+\]
+ impossible.
 
 If a path-connected $X$ had a separation, choose $x\in A,y\in B$ and a
 path joining them. The inverse images of $A,B$ under the path would be a
@@ -1533,7 +1780,11 @@ Its closure is exactly $S$. Indeed limits with positive first coordinate
 remain on the graph by continuity; limits with first coordinate zero have
 second coordinate in $[-1,1]$. Conversely, for every $y\in[-1,1]$ choose
 $\theta$ with $\sin\theta=y$. For all sufficiently large integers $m$,
-$x_m=1/(\theta+2\pi m)$ lies in $(0,1]$, and $(x_m,y)\to(0,y)$.
+
+\[
+x_m=1/(\theta+2\pi m)
+\]
+ lies in $(0,1]$, and $(x_m,y)\to(0,y)$.
 Thus \cref{prop:connected-closure} proves $S$ connected.
 
 To rule out a path from the vertical segment to the graph, we force
@@ -1586,16 +1837,28 @@ A space is \textbf{totally disconnected} if all its connected components
 are singletons.
 \end{definition}
 \begin{example}[Totally disconnected need not mean discrete]
-Let $E=\{0\}\cup\{1/n:n\in\mathbb N\}\subset\R$. A connected subset
+Let
+\[
+E=\{0\}\cup\{1/n:n\in\mathbb N\}\subset\R.
+\]
+ A connected subset
 of $\R$ is an interval (\cref{prop:connectedness}); an interval between
 distinct points of $E$ contains an irrational number, hence cannot lie
 in $E$. Thus all connected subsets of $E$ are singletons or empty.
-Yet $0$ is not isolated: every relative neighborhood contains $1/n$ for
+Yet $0$ is not isolated: every relative neighborhood contains
+\[
+1/n
+\]
+ for
 large $n$. Therefore $E$ is totally disconnected but not discrete.
 Likewise, if rational $p<q$ belong to a subset of $\Q$, choose irrational
 $c\in(p,q)$. Intersecting that subset with $(-\infty,c)$ and $(c,\infty)$
 separates it. Thus $\Q$ is totally disconnected; no rational is isolated,
-since $p+1/n\to p$ with distinct rational terms. Total disconnectedness
+since
+\[
+p+1/n\to p
+\]
+ with distinct rational terms. Total disconnectedness
 concerns connected subsets, whereas discreteness concerns open singletons.
 \end{example}
 \input{figures/components-accumulation}
@@ -1608,12 +1871,12 @@ connected: any two points can be joined by finitely many line segments in $U$.
 \begin{proof}
 Fix $p\in U$ and let $A$ consist of the points reachable from $p$ by such
 paths, including the constant path. Small balls will show that reachability
-and its failure are both open conditions. For $x\in U$, choose
-$B(x,r)\subseteq U$. If $x\in A$, append the segment from $x$ to any
-$y\in B(x,r)$ to a path reaching $x$; convexity of the ball gives
-$B(x,r)\subseteq A$. If $x\notin A$, no $y\in B(x,r)$ can belong to
-$A$, because appending the reverse segment would reach $x$. Thus
-$B(x,r)\subseteq U\setminus A$. Both sets are open in $U$.
+and its failure are both open conditions. For $\mathbf{x}\in U$, choose
+$B(\mathbf{x},r)\subseteq U$. If $\mathbf{x}\in A$, append the segment from $\mathbf{x}$ to any
+$y\in B(\mathbf{x},r)$ to a path reaching $\mathbf{x}$; convexity of the ball gives
+$B(\mathbf{x},r)\subseteq A$. If $\mathbf{x}\notin A$, no $y\in B(\mathbf{x},r)$ can belong to
+$A$, because appending the reverse segment would reach $\mathbf{x}$. Thus
+$B(\mathbf{x},r)\subseteq U\setminus A$. Both sets are open in $U$.
 Since $p\in A$, connectedness forces $A=U$.
 \end{proof}
 \begin{corollary}[Components of Euclidean open sets]\label{cor:open-components}
@@ -1621,7 +1884,7 @@ Every connected component of an open subset of $\R^n$ is open and
 polygonally path connected.
 \end{corollary}
 \begin{proof}
-For $x$ in a component $C$, a small ball $B(x,r)\subseteq U$ is connected.
+For $\mathbf{x}$ in a component $C$, a small ball $B(\mathbf{x},r)\subseteq U$ is connected.
 Its union with $C$ is connected by \cref{lem:connected-union}, so maximality
 puts the whole ball in $C$. Thus $C$ is open; apply the preceding theorem.
 \end{proof}
@@ -1696,7 +1959,15 @@ true in $V$, so they remain true for its subset under the inherited operations.
 Can $(3,1)$ be produced from $u=(1,1)$ and $v=(1,-1)$? The equation
 $au+bv=(3,1)$ asks for $a+b=3$ and $a-b=1$, so $a=2,b=1$.
 For a general $(x,y)$ the same equations give
-$a=(x+y)/2$, $b=(x-y)/2$. Thus this pair produces every vector in the plane.
+
+\[
+a=(x+y)/2,
+\]
+
+\[
+b=(x-y)/2.
+\]
+ Thus this pair produces every vector in the plane.
 \begin{definition}[Linear combination]
 A linear combination of $v_1,\ldots,v_r$ is a vector
 $a_1v_1+\cdots+a_rv_r$, where the $a_i$ are scalars. The empty sum is zero.
@@ -1713,9 +1984,16 @@ $\operatorname{span}(S)$ is a subspace, contains $S$, and is contained in
 every subspace containing $S$.
 \end{proposition}
 \begin{proof}
-The empty sum gives zero. If $x=\sum_{i=1}^r a_iu_i$ and
-$y=\sum_{j=1}^s b_jv_j$ belong to the span, then
-$cx+dy=\sum_i(ca_i)u_i+\sum_j(db_j)v_j$ is another finite combination
+The empty sum gives zero. If
+\[
+x=\sum_{i=1}^r a_iu_i,\qquad y=\sum_{j=1}^s b_jv_j
+\]
+ belong to the span, then
+
+\[
+cx+dy=\sum_i(ca_i)u_i+\sum_j(db_j)v_j
+\]
+ is another finite combination
 of members of $S$. The subspace criterion applies. Each $v\in S$ is the
 one-term combination $1v$, so $S$ is contained. If $U$ is any subspace
 containing $S$, scalar closure puts each $a_jv_j$ in $U$ and repeated
@@ -1754,8 +2032,16 @@ a+c=0,\qquad b+c=0,\qquad a+b=0.
 The first two imply $a=b=-c$, so the third gives $-2c=0$; all three
 coefficients vanish. By contrast, replacing the third vector with $(1,1,2)$
 gives the nontrivial relation $(1,0,1)+(0,1,1)-(1,1,2)=0$.
-Whenever $\sum_i a_iv_i=0$ has $a_j\ne0$, solving gives
-$v_j=-\sum_{i\ne j}(a_i/a_j)v_i$. Thus this vector lies in the span of the others.
+Whenever
+\[
+\sum_i a_iv_i=0
+\]
+ has $a_j\ne0$, solving gives
+
+\[
+v_j=-\sum_{i\ne j}(a_i/a_j)v_i.
+\]
+ Thus this vector lies in the span of the others.
 \end{example}
 \begin{definition}[Linear independence]
 A list $(v_1,\ldots,v_r)$ is linearly independent if
@@ -1788,8 +2074,20 @@ enough to conclude that they form a basis of a three-coordinate space.
 \end{example}
 \subsection{Coordinates: existence and uniqueness}
 Fix an ordered basis $\mathcal B=(v_1,\ldots,v_n)$. Spanning provides
-$v=\sum_jx_jv_j$. If also $v=\sum_jy_jv_j$, subtraction gives
-$\sum_j(x_j-y_j)v_j=0$; independence gives $x_j=y_j$ for every $j$.
+
+\[
+v=\sum_jx_jv_j.
+\]
+ If also
+\[
+v=\sum_jy_jv_j,
+\]
+ subtraction gives
+
+\[
+\sum_j(x_j-y_j)v_j=0;
+\]
+ independence gives $x_j=y_j$ for every $j$.
 Define $[v]_{\mathcal B}=(x_1,\ldots,x_n)^{\mathsf T}$, its coordinate column.
 For $\mathcal B=((1,1),(1,-1))$, $[(3,1)]_{\mathcal B}=(2,1)^{\mathsf T}$.
 For $\mathcal C=((1,0,1),(0,1,1),(0,0,1))$,
@@ -1803,19 +2101,27 @@ The polynomial example above supplies a third, non-geometric coordinate system.
 The maps
 \[
 \kappa_{\mathcal B}:V\to\R^n,\quad v\mapsto[v]_{\mathcal B},
-\qquad s_{\mathcal B}:\R^n\to V,\quad x\mapsto\sum_jx_jv_j
+\qquad s_{\mathcal B}:\R^n\to V,\quad \mathbf{x}\mapsto\sum_jx_jv_j
 \]
 preserve addition and scalar multiplication (they are linear), and are
 mutual inverses.
 \end{proposition}
 \begin{proof}
-If $u=\sum_jx_jv_j$ and $v=\sum_jy_jv_j$, then
-$au+bv=\sum_j(ax_j+by_j)v_j$. Uniqueness of coordinates proves
+If
+\[
+u=\sum_jx_jv_j,\qquad v=\sum_jy_jv_j,
+\]
+ then
+
+\[
+au+bv=\sum_j(ax_j+by_j)v_j.
+\]
+ Uniqueness of coordinates proves
 $\kappa_{\mathcal B}(au+bv)=a\kappa_{\mathcal B}(u)+b\kappa_{\mathcal B}(v)$.
 Distributing a finite sum proves
-$s_{\mathcal B}(ax+by)=as_{\mathcal B}(x)+bs_{\mathcal B}(y)$.
-For any $x\in\R^n$, the coefficients of $s_{\mathcal B}(x)$ are precisely
-$x$, so $\kappa_{\mathcal B}s_{\mathcal B}(x)=x$.
+$s_{\mathcal B}(a\mathbf{x}+by)=as_{\mathcal B}(\mathbf{x})+bs_{\mathcal B}(y)$.
+For any $\mathbf{x}\in\R^n$, the coefficients of $s_{\mathcal B}(\mathbf{x})$ are precisely
+$\mathbf{x}$, so $\kappa_{\mathcal B}s_{\mathcal B}(\mathbf{x})=\mathbf{x}$.
 For any $v\in V$, its coordinate expansion gives
 $s_{\mathcal B}\kappa_{\mathcal B}(v)=v$. Thus both composites are identities.
 \end{proof}
@@ -1848,9 +2154,17 @@ process ends with the empty list.
 \begin{example}[One replacement by hand]
 Insert $u=(2,1)$ into the spanning list $e_1,e_2$ of $\R^2$.
 Since $u=2e_1+e_2$, the nonzero coefficient $2$ allows us to solve
-$e_1=(u-e_2)/2$. Thus $u,e_2$ still produces both old generators,
+
+\[
+e_1=(u-e_2)/2.
+\]
+ Thus $u,e_2$ still produces both old generators,
 and every new generator was already in the old span. The spans coincide.
-For example $(3,4)=(3/2)u+(5/2)e_2$. In the general proof we must
+For example
+\[
+(3,4)=(3/2)u+(5/2)e_2.
+\]
+ In the general proof we must
 remove an old generator, never one of the independent vectors already inserted.
 \end{example}
 \begin{theorem}[Replacement and exchange]
@@ -1954,7 +2268,11 @@ $b\in\mathcal B_i$ form a basis of the external sum. Consequently
 \end{proposition}
 \begin{proof}
 Expand each $v_i$ in $\mathcal B_i$ and insert these expansions into
-$(v_1,\ldots,v_r)=\sum_i\iota_i(v_i)$. This proves spanning.
+
+\[
+(v_1,\ldots,v_r)=\sum_i\iota_i(v_i).
+\]
+ This proves spanning.
 For a zero relation among the proposed basis vectors, apply $\pi_i$.
 All terms from other slots vanish, leaving a zero relation in $\mathcal B_i$.
 Its coefficients are zero. Doing this for each $i$ proves independence.
@@ -1971,7 +2289,15 @@ L(v_1,\ldots,v_r)=\sum_iL_i(v_i).
 The formula defines a map on tuples and preserves both operations by the
 corresponding identities for each $L_i$. On a tuple supported in slot $i$
 it gives $L_i(v_i)$, because $L_j(0)=0$. Any other map with the prescribed
-restrictions must send $\sum_i\iota_i(v_i)$ to $\sum_iL_i(v_i)$ by additivity.
+restrictions must send
+\[
+\sum_i\iota_i(v_i)
+\]
+ to
+\[
+\sum_iL_i(v_i)
+\]
+ by additivity.
 Thus it equals $L$. This is the direct-sum construction and uniqueness rule.
 \end{proof}
 
@@ -1998,19 +2324,43 @@ make an arbitrary sum direct.
 The following conditions are equivalent:
 \begin{enumerate}
 \item The sum of the $U_i$ is direct.
-\item If $u_i\in U_i$ and $\sum_i u_i=0$, then every $u_i=0$.
-\item For each $i$, $U_i\cap\sum_{j\ne i}U_j=\{0\}$.
+\item If $u_i\in U_i$ and
+\[
+\sum_i u_i=0,
+\]
+ then every $u_i=0$.
+\item For each $i$,
+\[
+U_i\cap\sum_{j\ne i}U_j=\{0\}.
+\]
+
 \end{enumerate}
 In particular $V=U\oplus W$ exactly when $V=U+W$ and $U\cap W=\{0\}$.
 \end{theorem}
 \begin{proof}
 Uniqueness applied to zero gives (b), since the all-zero representation
-already exists. If (b) holds and $\sum_i u_i=\sum_i u_i'$, then
-$\sum_i(u_i-u_i')=0$, so each difference is zero; this proves (a).
+already exists. If (b) holds and
+\[
+\sum_i u_i=\sum_i u_i',
+\]
+ then
+
+\[
+\sum_i(u_i-u_i')=0,
+\]
+ so each difference is zero; this proves (a).
 For (b)$\Rightarrow$(c), write a point in the intersection as
-$u_i=\sum_{j\ne i}u_j$. Move the right side to the left and use (b).
+
+\[
+u_i=\sum_{j\ne i}u_j.
+\]
+ Move the right side to the left and use (b).
 For (c)$\Rightarrow$(b), a zero sum gives
-$u_i=-\sum_{j\ne i}u_j$ in that intersection, so $u_i=0$ for each $i$.
+
+\[
+u_i=-\sum_{j\ne i}u_j
+\]
+ in that intersection, so $u_i=0$ for each $i$.
 With two subspaces, (c) is just the trivial-intersection condition.
 \end{proof}
 \begin{example}[A plane and a complementary line]\label{ex:positive-direct-sum}
@@ -2076,8 +2426,16 @@ For finite-dimensional subspaces,
 Choose a basis $(z_1,\ldots,z_k)$ of $U\cap W$, extend it by
 $u_1,\ldots,u_a$ to a basis of $U$, and by $w_1,\ldots,w_b$ to a basis
 of $W$. The combined list $(z_i,u_j,w_\ell)$ spans $U+W$.
-If $\sum c_iz_i+\sum d_ju_j+\sum e_\ell w_\ell=0$, then
-$\sum d_ju_j=-\sum c_iz_i-\sum e_\ell w_\ell$ lies in $U\cap W$.
+If
+\[
+\sum c_iz_i+\sum d_ju_j+\sum e_\ell w_\ell=0,
+\]
+ then
+
+\[
+\sum d_ju_j=-\sum c_iz_i-\sum e_\ell w_\ell
+\]
+ lies in $U\cap W$.
 Express it in the $z_i$ and use independence of the basis of $U$ to get
 all $d_j=0$. The remaining relation is in the basis of $W$, so all
 $c_i,e_\ell$ vanish. The combined list is a basis. Its size is
@@ -2150,13 +2508,25 @@ Given a basis $(v_1,\ldots,v_n)$ of $V$ and arbitrary $w_1,\ldots,w_n\in W$,
 there exists exactly one linear map $T:V\to W$ with $T(v_i)=w_i$.
 \end{theorem}
 \begin{proof}
-For the unique coordinate expansion $v=\sum_i x_iv_i$, define
-$T(v)=\sum_i x_iw_i$. Uniqueness of the input coordinates makes this a
+For the unique coordinate expansion
+\[
+v=\sum_i x_iv_i,
+\]
+ define
+
+\[
+T(v)=\sum_i x_iw_i.
+\]
+ Uniqueness of the input coordinates makes this a
 function; the $w_i$ need not be independent. Coordinates of $au+bv$ are
 the corresponding combinations of the coordinates of $u,v$, so distributing
 the finite output sum proves linearity. Substitution of a basis vector
 gives $T(v_i)=w_i$. If $L$ is any other linear map with those basis values,
-then $L(v)=\sum_i x_iL(v_i)=\sum_i x_iw_i=T(v)$ for every $v$. This proves
+then
+\[
+L(v)=\sum_i x_iL(v_i)=\sum_i x_iw_i=T(v)
+\]
+ for every $v$. This proves
 uniqueness after existence has been established.
 \end{proof}
 \begin{definition}[Kernel]
@@ -2195,7 +2565,11 @@ The map is surjective but not injective.
 \begin{example}[Differentiation loses one coefficient]
 For $D:P_2\to P_1$, $D(a+bt+ct^2)=b+2ct$.
 The kernel consists of constants, with basis $(1)$, and every target
-$u+vt$ is the derivative of $ut+(v/2)t^2$. Thus $D$ is surjective but
+$u+vt$ is the derivative of
+\[
+ut+(v/2)t^2.
+\]
+ Thus $D$ is surjective but
 not injective. Its nullity is $1$, its rank is $2$, and their sum is $3$.
 A map is injective when each output has at most one preimage, surjective
 when every target has a preimage, and bijective when both hold.
@@ -2211,11 +2585,31 @@ $(u_1,\ldots,u_k,v_1,\ldots,v_r)$ of $V$ using \cref{lem:subspace-basis}.
 We prove that $T(v_1),\ldots,T(v_r)$ is a basis of the image in two steps.
 
 \emph{Spanning.} For $y\in\operatorname{im}T$, choose $x\in V$ with
-$T(x)=y$. Write $x=\sum_i b_iu_i+\sum_j a_jv_j$. Applying $T$ gives
-$y=\sum_j a_jT(v_j)$, because each $T(u_i)=0$.
+$T(x)=y$. Write
+\[
+x=\sum_i b_iu_i+\sum_j a_jv_j.
+\]
+ Applying $T$ gives
 
-\emph{Independence.} Suppose $\sum_j a_jT(v_j)=0$. Then
-$\sum_j a_jv_j\in\ker T$, so $\sum_j a_jv_j=\sum_i b_iu_i$ for some $b_i$.
+\[
+y=\sum_j a_jT(v_j),
+\]
+ because each $T(u_i)=0$.
+
+\emph{Independence.} Suppose
+\[
+\sum_j a_jT(v_j)=0.
+\]
+ Then
+
+\[
+\sum_j a_jv_j\in\ker T,
+\]
+ so
+\[
+\sum_j a_jv_j=\sum_i b_iu_i
+\]
+ for some $b_i$.
 Consequently
 \[
 \sum_j a_jv_j-\sum_i b_iu_i=0.
@@ -2254,7 +2648,11 @@ of two vectors by applying an injective map to both of them.
 The coordinate and synthesis maps of \cref{prop:coordinate-isomorphism}
 are therefore an explicitly constructed isomorphism. For the summation map
 of \cref{sec:direct-sums}, its image is the internal sum and its kernel is
-exactly the tuples $(u_1,\ldots,u_r)$ with $\sum_i u_i=0$. These are the
+exactly the tuples $(u_1,\ldots,u_r)$ with
+\[
+\sum_i u_i=0.
+\]
+ These are the
 linear relations among the components. Thus a direct internal sum is
 equivalent to injectivity of that map; if the sum is $V$, it is an isomorphism.
 
@@ -2266,10 +2664,18 @@ $P_2\to\R^3$, although a polynomial and a column are different objects.
 \begin{example}[A square table from basis images]
 Take $T:\R^2\to\R^2$, $T(x,y)=(2x-y,x+3y)$, with source and target
 bases both $((1,0),(0,1))$. The basis images $T(1,0)=(2,1)$ and
-$T(0,1)=(-1,3)$ have target columns $\binom21$ and $\binom{-1}3$.
+$T(0,1)=(-1,3)$ have target columns
+\[
+\binom21,\qquad \binom{-1}3.
+\]
+
 Assemble $A=\left(\begin{matrix}2&-1\\1&3\end{matrix}\right)$.
 Directly $T(3,2)=(4,9)$; the column calculation
-$3\binom21+2\binom{-1}3=\binom49$ gives the same result.
+
+\[
+3\binom21+2\binom{-1}3=\binom49
+\]
+ gives the same result.
 \end{example}
 Before using indices, consider differentiation $D:P_2\to P_1$ in
 $\mathcal B=(1,t,t^2)$ and $\mathcal C=(1,t)$. Its three basis images
@@ -2279,8 +2685,16 @@ $(1,0)^{\mathsf T}$, and $(0,2)^{\mathsf T}$. Store them in that order:
 [D]_{\mathcal C\leftarrow\mathcal B}=\begin{pmatrix}0&1&0\\0&0&2\end{pmatrix}.
 \]
 For $p=2+3t-t^2$, direct differentiation gives $3-2t$.
-Its output column is $\binom3{-2}$, and the table acting on
-$(2,3,-1)^{\mathsf T}$ gives $2\binom00+3\binom10-\binom02=\binom3{-2}$.
+Its output column is
+\[
+\binom3{-2},
+\]
+ and the table acting on
+$(2,3,-1)^{\mathsf T}$ gives
+\[
+2\binom00+3\binom10-\binom02=\binom3{-2}.
+\]
+
 There are two rows because outputs need two coordinates, and three columns
 because there are three input basis vectors. The matrix of
 $T(x,y,z)=(x-y,y-z)$ in standard bases is similarly
@@ -2291,7 +2705,11 @@ For $(2,-1,3)$, direct evaluation gives $(3,-4)$; the column sum
 $2(1,0)-(-1,1)+3(0,-1)=(3,-4)$ agrees. These examples suggest the following general rule.
 Choose ordered bases $\mathcal B=(v_1,\ldots,v_n)$ of $V$ and
 $\mathcal C=(w_1,\ldots,w_m)$ of $W$. To know $T$ it suffices to know
-$T(v_j)$: linearity then determines $T(\sum_j x_jv_j)$.
+$T(v_j)$: linearity then determines
+\[
+T(\sum_j x_jv_j).
+\]
+
 Conversely, any prescribed $m$-dimensional vectors $T(v_j)$ define one
 linear map by this formula, because the coordinates $x_j$ are unique.
 Write each basis image in the target basis:
@@ -2311,20 +2729,28 @@ A=[T]_{\mathcal C\leftarrow\mathcal B}
 \]
 The notation $[T]_{\mathcal C\leftarrow\mathcal B}$ says:
 input coordinates are read in $\mathcal B$; output coordinates are written
-in $\mathcal C$. For $v=\sum_j x_jv_j$, apply linearity first and then collect coefficients:
+in $\mathcal C$. For
+\[
+v=\sum_j x_jv_j,
+\]
+ apply linearity first and then collect coefficients:
 \[
 T(v)=\sum_j x_jT(v_j)=\sum_i\left(\sum_j a_{ij}x_j\right)w_i,
 \qquad [T(v)]_{\mathcal C}=\sum_j x_j[T(v_j)]_{\mathcal C}.
 \]
 Thus the compatible definition of matrix-vector multiplication is
-$(Ax)_i=\sum_j a_{ij}x_j$.
+
+\[
+(A\mathbf{x})_i=\sum_j a_{ij}x_j.
+\]
+
 Matrix-vector multiplication is not an arbitrary convention. It is the
 unique coordinate rule compatible with linearity and the fact that the
 columns record the images of basis vectors.
 
 \begin{example}[A rectangular multiplication, two views]
 Let $A=\left(\begin{matrix}1&-1&0\\0&1&-1\end{matrix}\right)$ and
-$x=(2,-1,3)^{\mathsf T}$. By columns,
+$\mathbf{x}=(2,-1,3)^{\mathsf T}$. By columns,
 \[
 Ax=2\binom10-\binom{-1}1+3\binom0{-1}=\binom3{-4}.
 \]
@@ -2376,7 +2802,11 @@ The middle coordinates must match, since
 =B(A[v]_{\mathcal B}).
 \]
 The $j$th column of the composite is $B$ applied to the $j$th column
-of $A$, and therefore has entries $\sum_k b_{ik}a_{kj}$. This forces:
+of $A$, and therefore has entries
+\[
+\sum_k b_{ik}a_{kj}.
+\]
+ This forces:
 \begin{proposition}[Coordinate rules and composition]
 \label{prop:linear-coordinate}
 For the preceding choices,
@@ -2508,7 +2938,11 @@ Before introducing a conversion matrix, solve a conversion. For
 $\mathcal B=((1,1),(1,-1))$ and the standard basis $\mathcal C$,
 a column $(a,b)^{\mathsf T}$ in $\mathcal B$ describes $(a+b,a-b)$.
 Thus the conversion is $(a,b)\mapsto(a+b,a-b)$, with inverse
-$(x,y)\mapsto((x+y)/2,(x-y)/2)$. Both preserve linear combinations.
+
+\[
+(x,y)\mapsto((x+y)/2,(x-y)/2).
+\]
+ Both preserve linear combinations.
 For example $(2,1)^{\mathsf T}$ converts to $(3,1)^{\mathsf T}$.
 Coordinate conversion is itself a linear map on columns.
 Figure~\ref{fig:coordinate-vector} shows the two descriptions of this vector.
@@ -2660,7 +3094,7 @@ the underlying operators visible.
 The dot product measures how two displacements interact. On polynomials,
 another meaningful interaction is the average product over an interval.
 Both lead to a length by pairing a vector with itself.
-Near the start of this chapter, $\|x\|$ was fixed as the standard Euclidean
+Near the start of this chapter, $\|\mathbf{x}\|$ was fixed as the standard Euclidean
 norm on $\R^n$. We now generalize the same notation: on an arbitrary normed
 space it denotes the norm supplied as part of that space's structure.
 \begin{definition}[Real inner product]
@@ -2678,16 +3112,29 @@ Set $\|v\|=\sqrt{\langle v,v\rangle}$; the next theorem proves its length laws.
 
 \end{definition}
 \begin{example}[Two inner products]
-On $\R^n$ use $\sum_i x_i y_i$. On $P_2$ use
-$\langle p,q\rangle=\int_0^1p(t)q(t)\,\dd t$.
+On $\R^n$ and $P_2$, respectively, use
+\[
+\langle \mathbf{x},y\rangle=\sum_i x_i y_i,
+\qquad
+\langle p,q\rangle=\int_0^1p(t)q(t)\,\dd t.
+\]
 Linearity of the integral proves bilinearity, and $pq=qp$ proves symmetry.
 If $p$ is nonzero, it cannot vanish at every point of $[0,1]$;
 a polynomial of degree at most two with three distinct roots is zero by
 successive factorization. At a point where $p\ne0$, continuity supplies
 a subinterval of positive length on which $p^2$ is bounded below by a
-positive constant. Hence $\int_0^1p^2>0$.
-For example $\langle1,t\rangle=\frac12$, $\|t\|=\frac1{\sqrt3}$, and
-$\|1+t\|^2=\int_0^1(1+2t+t^2)\,\dd t=\frac73$.
+positive constant. Hence
+\[
+\int_0^1p^2>0.
+\]
+ For example,
+\[
+\langle1,t\rangle=\frac12,
+\qquad
+\|t\|=\frac1{\sqrt3},
+\qquad
+\|1+t\|^2=\int_0^1(1+2t+t^2)\,\dd t=\frac73.
+\]
 \end{example}
 The goal is to show that the induced length satisfies the following
 three axioms, which also make sense without an inner product.
@@ -2711,22 +3158,22 @@ d(v,w)=\norm{v-w}.
 \]
 \end{definition}
 \paragraph{Standard coordinate norms.}\label{par:standard-coordinate-norms}
-For $x=(x_1,\ldots,x_n)\in\R^n$, $n\geq1$, the standard formulas are
+For $\mathbf{x}=(x_1,\ldots,x_n)\in\R^n$, $n\geq1$, the standard formulas are
 \[
 \begin{aligned}
-\|x\|_1&=\sum_i|x_i| &&\text{(sum norm or $1$-norm)},\\
-\|x\|_2&=\left(\sum_i x_i^2\right)^{1/2}
+\|\mathbf{x}\|_1&=\sum_i|x_i| &&\text{(sum norm or $1$-norm)},\\
+\|\mathbf{x}\|_2&=\left(\sum_i x_i^2\right)^{1/2}
  &&\text{(Euclidean norm or $2$-norm)},\\
-\|x\|_3&=\left(\sum_i|x_i|^3\right)^{1/3},\qquad
-\|x\|_4=\left(\sum_i|x_i|^4\right)^{1/4},\\
-\|x\|_p&=\left(\sum_i|x_i|^p\right)^{1/p}
+\|\mathbf{x}\|_3&=\left(\sum_i|x_i|^3\right)^{1/3},\qquad
+\|\mathbf{x}\|_4=\left(\sum_i|x_i|^4\right)^{1/4},\\
+\|\mathbf{x}\|_p&=\left(\sum_i|x_i|^p\right)^{1/p}
  &&(1\leq p<\infty),\\
-\|x\|_\infty&=\max_i|x_i| &&\text{(maximum or sup norm)}.
+\|\mathbf{x}\|_\infty&=\max_i|x_i| &&\text{(maximum or sup norm)}.
 \end{aligned}
 \]
 For the $1$-norm, summing $|x_i+y_i|\leq|x_i|+|y_i|$ proves the triangle
 inequality. For the maximum norm, each $|x_i+y_i|$ is at most
-$\|x\|_\infty+\|y\|_\infty$; take the maximum. For the Euclidean norm,
+$\|\mathbf{x}\|_\infty+\|y\|_\infty$; take the maximum. For the Euclidean norm,
 \cref{thm:cauchy-schwarz} already proved the triangle inequality by
 expanding the square. Definiteness and homogeneity follow directly in
 all three cases. The general $p$-norm triangle inequality is Minkowski's
@@ -2735,20 +3182,24 @@ arguments use only the three norms just verified, or specified abstract norms.
 
 The useful elementary comparisons are
 \[
-\|x\|_\infty\leq\|x\|_2\leq\|x\|_1\leq\sqrt n\|x\|_2,
-\qquad \|x\|_2\leq\sqrt n\|x\|_\infty,
-\qquad |x_i|\leq\|x\|_2.
+\|\mathbf{x}\|_\infty\leq\|\mathbf{x}\|_2\leq\|\mathbf{x}\|_1\leq\sqrt n\|\mathbf{x}\|_2,
+\qquad \|\mathbf{x}\|_2\leq\sqrt n\|\mathbf{x}\|_\infty,
+\qquad |x_i|\leq\|\mathbf{x}\|_2.
 \]
 A coordinate square is at most the sum of squares. Also
-$\sum_i|x_i|^2\leq(\sum_i|x_i|)^2$, and Cauchy--Schwarz applied to
+
+\[
+\sum_i|x_i|^2\leq(\sum_i|x_i|)^2,
+\]
+ and Cauchy--Schwarz applied to
 $(|x_i|)$ and $(1)$ gives the $1$-to-$2$ comparison. Finally each square
-is at most $\|x\|_\infty^2$; summing gives the last norm comparison.
+is at most $\|\mathbf{x}\|_\infty^2$; summing gives the last norm comparison.
 
 \begin{remark}[Default norm convention]\label{rem:euclidean-norm-default}
 Recall the convention introduced with Euclidean distance: on $\R^n$, unless
 another norm is explicitly indicated,
 \[
-\boxed{\|x\|:=\|x\|_2.}
+\boxed{\|\mathbf{x}\|:=\|\mathbf{x}\|_2.}
 \]
 This convention governs Chapters~11--13. On an abstract normed space $V$,
 $\|v\|$ means its specified norm, not an implicitly Euclidean one.
@@ -2758,7 +3209,7 @@ $\|L\|_{V\to W}$ when its dependence on those norms matters.
 \end{remark}
 For bounded functions on a nonempty set $D$, the notation from
 Chapter~\ref{ch:function-sequences} is $\|f\|_\infty=\sup_{x\in D}|f(x)|$.
-This and $\|x\|_\infty=\max_i|x_i|$ express the same largest-magnitude
+This and $\|\mathbf{x}\|_\infty=\max_i|x_i|$ express the same largest-magnitude
 idea on different vector spaces; context specifies the space.
 
 \begin{theorem}[Inner-product Cauchy--Schwarz]
@@ -2768,7 +3219,11 @@ The induced length is a norm.
 \begin{proof}
 Use the nonnegative squared length of $u-tv$ and
 choose the scalar that removes the linear term. If $v=0$ the inequality
-is immediate. Otherwise set $t=\langle u,v\rangle/\langle v,v\rangle$.
+is immediate. Otherwise set
+\[
+t=\langle u,v\rangle/\langle v,v\rangle.
+\]
+
 Bilinearity and symmetry give
 \[
 0\leq\langle u-tv,u-tv\rangle
@@ -2794,7 +3249,7 @@ make these bounds finite in the spaces used throughout Part~II.
 
 Norms measure vector size and therefore quantify errors in linear
 approximations.  On $\R^2$, the unit balls of
-$\norm{x}_1=|x_1|+|x_2|$, $\norm{x}_2$, and $\norm{x}_\infty$ are,
+$\norm{\mathbf{x}}_1=|x_1|+|x_2|$, $\norm{\mathbf{x}}_2$, and $\norm{\mathbf{x}}_\infty$ are,
 respectively, a diamond, a circle, and a square.  They look different, but
 in finite dimensions they lead to the same convergence and continuity
 theory; the next theorem explains why this is important before derivatives
@@ -2838,7 +3293,7 @@ Interchange $v,w$ and combine the two inequalities.
 \foreach \k/\lab in {0/1,4/2,8/\infty}{
 \begin{scope}[xshift=\k cm]
 \draw[->] (-1.4,0)--(1.4,0); \draw[->] (0,-1.4)--(0,1.4);
-\node at (0,-1.9) {$\|x\|_{\lab}\leq1$};
+\node at (0,-1.9) {$\|\mathbf{x}\|_{\lab}\leq1$};
 \end{scope}}
 \draw[blue,thick] (1,0)--(0,1)--(-1,0)--(0,-1)--cycle;
 \draw[blue,thick] (4,0) circle (1);
@@ -2870,32 +3325,40 @@ uniform lower bound on the compact Euclidean sphere. If $V=\{0\}$ any
 $c,C>0$ work. Otherwise choose a basis and identify $V$ with $\R^n$.
 For any norm on $\R^n$,
 \[
-\norm{x}_b\leq\sum_{j=1}^{n}\abs{x_j}\norm{e_j}_b
-\leq C\norm{x}_2
+\norm{\mathbf{x}}_b\leq\sum_{j=1}^{n}\abs{x_j}\norm{e_j}_b
+\leq C\norm{\mathbf{x}}_2
 \]
 by Cauchy--Schwarz.  Together with \cref{prop:reverse-triangle}, this gives
 \[
-\bigl\lvert\norm{x}_b-\norm{y}_b\bigr\rvert
-\leq C\norm{x-y}_2,
+\bigl\lvert\norm{\mathbf{x}}_b-\norm{y}_b\bigr\rvert
+\leq C\norm{\mathbf{x}-y}_2,
 \]
-so $x\mapsto\norm{x}_b$ is Euclidean-continuous.  It has a positive minimum
+so $\mathbf{x}\mapsto\norm{\mathbf{x}}_b$ is Euclidean-continuous.  It has a positive minimum
 $c$ on the Euclidean
 unit sphere, which is compact by \cref{thm:heine-borel-rn};
 \cref{thm:compact-extreme-value} supplies the attained minimum. It is
-positive because every sphere point is nonzero. For $x\ne0$, the vector
-$u=x/\norm{x}_2$ is on that sphere, so homogeneity gives
-$\norm{x}_b=\norm{x}_2\norm{u}_b\geq c\norm{x}_2$; the same inequality
-holds at zero. Apply these bounds to each given norm, writing
-$c_a\norm{x}_2\leq\norm{x}_a\leq C_a\norm{x}_2$ and
-$c_b\norm{x}_2\leq\norm{x}_b\leq C_b\norm{x}_2$. Then
+positive because every sphere point is nonzero. For $\mathbf{x}\ne0$, the vector
+
 \[
-\frac{c_b}{C_a}\norm{x}_a\leq\norm{x}_b
-\leq\frac{C_b}{c_a}\norm{x}_a.
+u=\mathbf{x}/\norm{\mathbf{x}}_2
+\]
+ is on that sphere, so homogeneity gives
+$\norm{\mathbf{x}}_b=\norm{\mathbf{x}}_2\norm{u}_b\geq c\norm{\mathbf{x}}_2$; the same inequality
+holds at zero. Apply these bounds to each given norm, writing
+$c_a\norm{\mathbf{x}}_2\leq\norm{\mathbf{x}}_a\leq C_a\norm{\mathbf{x}}_2$ and
+$c_b\norm{\mathbf{x}}_2\leq\norm{\mathbf{x}}_b\leq C_b\norm{\mathbf{x}}_2$. Then
+\[
+\frac{c_b}{C_a}\norm{\mathbf{x}}_a\leq\norm{\mathbf{x}}_b
+\leq\frac{C_b}{c_a}\norm{\mathbf{x}}_a.
 \]
 Denote the resulting constants by $c,C$. Their ball inclusions are
-$B_a(x,\eps/C)\subseteq B_b(x,\eps)$ and
-$B_b(x,c\eps)\subseteq B_a(x,\eps)$, so the open sets agree.
-Applying the same inequalities to $x_j-x$ and $x_j-x_k$ proves the
+
+\[
+B_a(\mathbf{x},\eps/C)\subseteq B_b(\mathbf{x},\eps)
+\]
+ and
+$B_b(\mathbf{x},c\eps)\subseteq B_a(\mathbf{x},\eps)$, so the open sets agree.
+Applying the same inequalities to $\mathbf{x}_j-\mathbf{x}$ and $\mathbf{x}_j-\mathbf{x}_k$ proves the
 convergence and Cauchy assertions. Continuity and compactness agree
 because their definitions use only open sets.
 \end{proof}
@@ -2928,8 +3391,16 @@ Every linear map $L:V\to W$ between finite-dimensional normed spaces is Lipschit
 \begin{proof}
 A bound on the finitely many basis images controls every linear combination.
 If $V=\{0\}$ there is nothing to prove. Otherwise choose a basis
-$e_1,\ldots,e_n$ of $V$. For $v=\sum_i a_i e_i$ put
-$\|v\|_c=\sum_i|a_i|$. Norm equivalence gives $\|v\|_c\leq K\|v\|_V$.
+$e_1,\ldots,e_n$ of $V$. For
+\[
+v=\sum_i a_i e_i
+\]
+ put
+
+\[
+\|v\|_c=\sum_i|a_i|.
+\]
+ Norm equivalence gives $\|v\|_c\leq K\|v\|_V$.
 With $M=\max_i\|L(e_i)\|_W$, the triangle inequality gives
 \[
 \|Lv\|_W\leq\sum_i|a_i|\|L(e_i)\|_W
@@ -2963,7 +3434,11 @@ In finite dimensions these conditions hold for every linear map by
 Continuity implies continuity at zero. If $L$ is continuous at zero, choose
 $\delta>0$ such that $\|u\|_V<\delta$ implies $\|Lu\|_W<1$. For
 $v\ne0$, apply this to
-$u=\delta v/(2\|v\|_V)$ and use linearity to obtain
+
+\[
+u=\delta v/(2\|v\|_V)
+\]
+ and use linearity to obtain
 \[
 \|Lv\|_W<\frac{2}{\delta}\|v\|_V.
 \]
@@ -3040,7 +3515,11 @@ $v\mapsto\|Lv\|_W$ is continuous by
 \end{proof}
 
 An upper estimate proves only $\|L\|\leq C$; an input attaining $C$
-proves equality. The coefficient bound $(\sum_{i,j}a_{ij}^2)^{1/2}$
+proves equality. The coefficient bound
+\[
+(\sum_{i,j}a_{ij}^2)^{1/2}
+\]
+
 is generally only an upper bound: for the Euclidean identity on $\R^2$
 it is $\sqrt2$, whereas the operator norm is $1$.
 \begin{proposition}[Operator-norm estimates]
@@ -3110,19 +3589,43 @@ In Chapter~11 the approximation $f(a+h)=f(a)+Df(a)h+o(\|h\|)$ uses
 $\|Df(a)h\|\leq\|Df(a)\|_{\mathrm{op}}\|h\|$.
 For $\lambda(h)=c\cdot h$ on Euclidean $\R^n$, with absolute value on
 the scalar target, $\|\lambda\|_{\mathrm{op}}=\|c\|_2$: Cauchy--Schwarz
-gives the upper bound and $h=c/\|c\|_2$ attains it when $c\ne0$.
+gives the upper bound and
+\[
+h=c/\|c\|_2
+\]
+ attains it when $c\ne0$.
 The zero case is immediate. Chapter~11 will apply this to scalar derivatives.
-For example $\lambda(x,y)=3x-4y$ has norm $5$, attained at $(3/5,-4/5)$.
+For example $\lambda(x,y)=3x-4y$ has norm $5$, attained at
+\[
+(3/5,-4/5).
+\]
+
 
 \subsection{Series of vectors and operators}
-A series $\sum_{k=0}^\infty v_k$ in a finite-dimensional normed space $V$
+A series
+\[
+\sum_{k=0}^\infty v_k
+\]
+ in a finite-dimensional normed space $V$
 means the limit of its partial sums. Norm equivalence shows that convergence
 is equivalent to convergence of every coordinate series in any basis.
-If $\sum_k\|v_k\|<\infty$, the estimate
-$\|\sum_{k=p}^qv_k\|\leq\sum_{k=p}^q\|v_k\|$ makes partial sums Cauchy;
+If
+\[
+\sum_k\|v_k\|<\infty,
+\]
+ the estimate
+
+\[
+\|\sum_{k=p}^qv_k\|\leq\sum_{k=p}^q\|v_k\|
+\]
+ makes partial sums Cauchy;
 finite-dimensional completeness supplies their limit. For a linear map
 $L:V\to W$, continuity applied to partial sums gives
-$L(\sum_kv_k)=\sum_kL(v_k)$. Scalar convergence tests need no redevelopment.
+
+\[
+L(\sum_kv_k)=\sum_kL(v_k).
+\]
+ Scalar convergence tests need no redevelopment.
 \begin{proposition}[Operator geometric series]\label{prop:neumann-series}
 For $T\in\mathcal L(V)$ with $\|T\|_{\mathrm{op}}<1$,
 \[
@@ -3134,7 +3637,11 @@ with convergence in operator norm.
 The space $\mathcal L(V)$ is finite dimensional (its basis coordinates
 are the finitely many matrix entries). Since $\|T^k\|\leq\|T\|^k$
 for $k\geq1$, absolute convergence follows from the scalar geometric series.
-For $S_N=\sum_{k=0}^NT^k$, direct cancellation gives
+For
+\[
+S_N=\sum_{k=0}^NT^k,
+\]
+ direct cancellation gives
 $(I-T)S_N=S_N(I-T)=I-T^{N+1}$. Pass to the limit using the composition
 estimate; both products equal $I$. This also covers the zero space.
 \end{proof}
@@ -3167,7 +3674,11 @@ $\mathcal B^*=(e^1,\ldots,e^n)$ in $V^*$ satisfying
 $e^i(e_j)=\delta^i_j$.
 \end{definition}
 Here are existence, uniqueness, and the reason it is a basis. Define
-$e^i(\sum_j v^j e_j)=v^i$. Unique vector coordinates make this well defined;
+
+\[
+e^i(\sum_j v^j e_j)=v^i.
+\]
+ Unique vector coordinates make this well defined;
 coordinates of sums and scalar multiples show it is linear. Any covector
 with the prescribed values on $e_j$ must have these same values on every
 linear combination, proving uniqueness. For any $\lambda\in V^*$,
@@ -3176,7 +3687,11 @@ linear combination, proving uniqueness. For any $\lambda\in V^*$,
 \lambda=\sum_i\lambda(e_i)e^i.}
 \]
 The second equality holds on each $e_j$, hence on every vector by linearity.
-Evaluating a relation $\sum_i c_i e^i=0$ on $e_j$ gives $c_j=0$.
+Evaluating a relation
+\[
+\sum_i c_i e^i=0
+\]
+ on $e_j$ gives $c_j=0$.
 Thus the $e^i$ span $V^*$ independently, and $\dim V^*=n$.
 The $e_i$ build vectors from coordinates; the $e^i$ extract coordinates.
 Subscripts label vectors and superscripts label covectors, not powers.
@@ -3193,7 +3708,11 @@ $Df(a)h=\nabla f(a)\cdot h$.
 \begin{example}[Classical planes and covectors]\label{ex:affine-hyperplane}
 For $0\ne\lambda\in V^*$, the equation $\lambda(x)=c$ defines an
 \textbf{affine hyperplane}. Choose $p$ with $\lambda(p)=c$: if
-$\lambda(v)\ne0$, take $p=cv/\lambda(v)$. Linearity gives
+$\lambda(v)\ne0$, take
+\[
+p=cv/\lambda(v).
+\]
+ Linearity gives
 \[
 \{x:\lambda(x)=c\}=p+\ker\lambda.
 \]
@@ -3214,8 +3733,16 @@ its representing normal vector depends on that additional choice.
 \input{figures/affine-hyperplane}
 \begin{example}[Finding a dual basis, rather than guessing it]
 For $b_1=(1,1),b_2=(1,-1)$, seek $b^1(x,y)=ax+by$ satisfying
-$a+b=1$ and $a-b=0$. Thus $b^1(x,y)=(x+y)/2$.
-Similarly $b^2(x,y)=(x-y)/2$. Each extracts the coefficient of
+$a+b=1$ and $a-b=0$. Thus
+\[
+b^1(x,y)=(x+y)/2.
+\]
+
+Similarly
+\[
+b^2(x,y)=(x-y)/2.
+\]
+ Each extracts the coefficient of
 its own basis vector: $(x,y)=b^1(x,y)b_1+b^2(x,y)b_2$.
 For $\lambda(x,y)=3x-y$, its values on $b_1,b_2$ are $2,4$, so
 $\lambda=2b^1+4b^2$. The coordinate row changes from $(3,-1)$ to
@@ -3223,7 +3750,11 @@ $(2,4)$ while the functional stays fixed.
 \end{example}
 The gradient is an inner-product representative, not the covector itself.
 For example the functional $\lambda(x,y)=x$ is represented by $(1,0)$
-for the usual dot product, but by $(1/2,0)$ for
+for the usual dot product, but by
+\[
+(1/2,0)
+\]
+ for
 $\langle u,v\rangle=2u_1v_1+u_2v_2$. Both pairings return $x$.
 No such choice is needed to evaluate $\lambda$ or to pull it back.
 \begin{definition}[Pullback of a covector]\label{def:covector-pullback}
@@ -3268,7 +3799,11 @@ gives a norm estimate, and the estimate gives continuity.
 In finite-dimensional normed spaces every
 multilinear map is bounded: coordinate bounds and the triangle inequality
 give a constant $C$ such that
-$\norm{A(v_1,\ldots,v_k)}\leq C\prod_j\norm{v_j}$.
+
+\[
+\norm{A(v_1,\ldots,v_k)}\leq C\prod_j\norm{v_j}.
+\]
+
 For bilinear maps, for example, bound each $|x_i|$ and $|y_j|$ by fixed
 multiples of $\norm x$ and $\norm y$ and sum the finitely many
 $\norm{B(e_i,f_j)}$. This bound also proves continuity, by telescoping
@@ -3278,11 +3813,11 @@ the difference of two evaluations one slot at a time.
 On $\R^2$, suppose $B(e_1,e_1)=1$, $B(e_1,e_2)=2$,
 $B(e_2,e_1)=-1$, and $B(e_2,e_2)=3$. Then
 \[
-B(x,y)=x_1y_1+2x_1y_2-x_2y_1+3x_2y_2.
+B(\mathbf{x},y)=x_1y_1+2x_1y_2-x_2y_1+3x_2y_2.
 \]
 The four basis values force this expression. Since every coordinate
 magnitude is at most the Euclidean norm,
-$|B(x,y)|\leq7\|x\|_2\|y\|_2$. This is an upper bound, not a
+$|B(\mathbf{x},y)|\leq7\|\mathbf{x}\|_2\|y\|_2$. This is an upper bound, not a
 claim that $7$ is optimal. To compare nearby input pairs, write the
 exact two-slot telescoping identity
 \[
@@ -3333,7 +3868,11 @@ of a zero intermediate increment. Triangle inequalities prove the sum
 rules. The bound $\norm{Lr(h)}\leq\norm L_{\mathrm{op}}\norm{r(h)}$
 proves the linear rule after division by $\norm h$.
 For composition, choose $C\geq1$ with $\norm{k(h)}\leq C\norm h$.
-Given $\eps>0$, the estimate $\norm{r(k)}\leq(\eps/C)\norm k$
+Given $\eps>0$, the estimate
+\[
+\norm{r(k)}\leq(\eps/C)\norm k
+\]
+
 holds for sufficiently small nonzero $k$, and for $k=0$ because $r(0)=0$.
 Since $k(h)\to0$, it gives $\norm{r(k(h))}\leq\eps\norm h$ eventually.
 Finally the bilinear bound gives
@@ -3413,7 +3952,11 @@ determined by its one value $c=F(e_1,\ldots,e_n)$ and satisfies $F=c\det$.
 Expand basis coordinates one slot at a time. Alternation
 removes repeated choices; the remaining basis tuples can be reordered
 to the standard one. We separate uniqueness from existence.
-Write $x_j=\sum_i a_{ij}e_i$.
+Write
+\[
+x_j=\sum_i a_{ij}e_i.
+\]
+
 The slot number $j$ specifies which input is being expanded. The index
 $i$ specifies which standard basis vector occurs in that input. Thus
 $a_{ij}$ lies in row $i$, column $j$ of the matrix of input columns.
@@ -3513,7 +4056,11 @@ Dependent columns give zero. Moreover
 \det I_n=1,\qquad\det(AB)=\det A\det B,\qquad
 \det A\ne0\ \Longleftrightarrow\ A\text{ is invertible}.
 \]
-An upper or lower triangular matrix has determinant $\prod_i a_{ii}$.
+An upper or lower triangular matrix has determinant
+\[
+\prod_i a_{ii}.
+\]
+
 \end{theorem}
 \begin{proof}
 Use alternation for column operations and uniqueness for
@@ -3556,7 +4103,11 @@ $e_1$ choice repeats. For $n\geq2$ the first two stages are
 \]
 At stage $j$, the choices $e_1,\ldots,e_{j-1}$ all repeat a previous
 input; only $a_{jj}e_j$ survives. Induction yields
-$\det A=(\prod_j a_{jj})\det(e_1,\ldots,e_n)=\prod_j a_{jj}$.
+
+\[
+\det A=(\prod_j a_{jj})\det(e_1,\ldots,e_n)=\prod_j a_{jj}.
+\]
+
 The case $n=1$ is just scaling. For lower triangular matrices run this argument
 from the last column to the first.
 \end{proof}
@@ -3764,7 +4315,11 @@ The coefficient matrix of our three-variable system reduces by row additions:
 \longrightarrow\begin{pmatrix}1&1&1\\0&1&-1\\0&0&3\end{pmatrix}.
 \]
 Its determinant is $1\cdot1\cdot3=3$. This also confirms invertibility.
-If one scales the last row by $1/3$ to obtain reduced form, the new
+If one scales the last row by
+\[
+1/3
+\]
+ to obtain reduced form, the new
 determinant is $1$; recovering the original requires the factor $3$.
 \end{example}
 The geometric transformations below supply the structural factorization
@@ -3982,14 +4537,14 @@ surjective, and surjective but not injective.
 \begin{exercise}
 For
 \[
-\norm{x}_1=\sum_{j=1}^{n}\abs{x_j},
+\norm{\mathbf{x}}_1=\sum_{j=1}^{n}\abs{x_j},
 \qquad
-\norm{x}_\infty=\max_{1\leq j\leq n}\abs{x_j},
+\norm{\mathbf{x}}_\infty=\max_{1\leq j\leq n}\abs{x_j},
 \]
 prove
 \[
-\norm{x}_\infty\leq\norm{x}_2\leq\norm{x}_1
-\leq\sqrt n\norm{x}_2.
+\norm{\mathbf{x}}_\infty\leq\norm{\mathbf{x}}_2\leq\norm{\mathbf{x}}_1
+\leq\sqrt n\norm{\mathbf{x}}_2.
 \]
 \end{exercise}
 
@@ -4039,7 +4594,7 @@ compute $\lambda(2,1)$ and $T^*\lambda$. Distinguish the input vector,
 the covector, and their coordinate column and row.
 \end{exercise}
 \begin{exercise}
-Show $B(x,y)=x_1y_2+x_2y_1$ is bilinear and symmetric but not alternating.
+Show $B(\mathbf{x},y)=x_1y_2+x_2y_1$ is bilinear and symmetric but not alternating.
 Show it is not linear as a function on $\R^2\times\R^2$.
 \end{exercise}
 \begin{exercise}
@@ -4060,12 +4615,20 @@ State exactly where continuity, connectedness, and invertibility are used.
 \end{exercise}
 
 \begin{exercise}
-For $E=\{1/n:n\geq1\}\cup\{2\}$ in $\R$, compute interior, closure,
+For
+\[
+E=\{1/n:n\geq1\}\cup\{2\}
+\]
+ in $\R$, compute interior, closure,
 boundary, isolated points, and accumulation points. Repeat with ambient
 space $\overline E$, identifying which answers change.
 \end{exercise}
 \begin{exercise}
-On $P_1$ with $\langle p,q\rangle=\int_0^1pq$, compute
+On $P_1$ with
+\[
+\langle p,q\rangle=\int_0^1pq,
+\]
+ compute
 $\|1-t\|$ and $\langle1+t,1-t\rangle$. Verify Cauchy--Schwarz for
 these two polynomials. Does the coordinate sum norm arise from this pairing?
 \end{exercise}

@@ -74,7 +74,11 @@ For $R=\{(t,0):t\in F\}\subseteq F^2$, the rule
 $\mu((x,y)+R)=y$ is independent of representative. Its reverse is
 $\eta(y)=(0,y)+R$. Both are linear by the quotient operations;
 $\mu\eta(y)=y$, and $\eta\mu((x,y)+R)=(0,y)+R=(x,y)+R$ because their
-difference is horizontal. Thus $F^2/R\cong F$ by these specific maps.
+difference is horizontal. Thus
+\[
+F^2/R\cong F
+\]
+ by these specific maps.
 The rule $(x,y)+R\mapsto x$ is not a function on classes: $(0,0)$ and
 $(1,0)$ represent the same class but would give different outputs.
 \end{example}
@@ -138,7 +142,15 @@ $\pi|_S:S\to E/R$.
 \begin{proof}
 Expand $x\in E$ in the extended basis. Its $r$-part disappears in the
 quotient, proving spanning of the surviving cosets. If
-$\sum_j a_j(s_j+R)=0$, then $\sum_j a_js_j\in R$. Expanding that vector
+
+\[
+\sum_j a_j(s_j+R)=0,
+\]
+ then
+\[
+\sum_j a_js_j\in R.
+\]
+ Expanding that vector
 in the $r_i$ and using independence of the full basis gives every $a_j=0$.
 This proves independence and the dimension formula separately.
 For a complement, $\pi|_S$ is linear, has kernel $S\cap R=0$, and is onto
@@ -199,7 +211,11 @@ linear. The equation means both routes send $(v,w)$ to $b(v,w)$.
 \subsection{Construction from formal symbols}
 
 Let $E$ consist of finitely supported coefficient families indexed by pairs
-$(v,w)\in V\times W$. Write such a family as $\sum c_{v,w}[v,w]$.
+$(v,w)\in V\times W$. Write such a family as
+\[
+\sum c_{v,w}[v,w].
+\]
+
 Here finite support means the set $\{(v,w):c_{v,w}\ne0\}$ is finite;
 no closure or topology is involved. The pair $(v,w)$ is a label,
 $[v,w]$ its basis vector, $c_{v,w}$ a scalar, and the full sum an element of $E$.
@@ -426,7 +442,11 @@ For a finite family $(V_i)_{i\in I}$, the direct sum
 $\bigoplus_{i\in I}V_i$ is the vector space of tuples $(v_i)$, with
 componentwise addition and scalar multiplication. The injection
 $\iota_i:V_i\to\bigoplus_i V_i$ places a vector in its $i$th component.
-Every tuple is $\sum_i\iota_i(v_i)$. Given linear maps $L_i:V_i\to X$,
+Every tuple is
+\[
+\sum_i\iota_i(v_i).
+\]
+ Given linear maps $L_i:V_i\to X$,
 Chapter~10's direct-sum construction gives the unique linear map
 $L:\bigoplus_iV_i\to X$ with $L\iota_i=L_i$:
 \[
@@ -747,8 +767,16 @@ If $(e_i)_{i=1}^m$ and $(f_j)_{j=1}^n$ are bases of $V,W$, the tensors
 $e_i\otimes f_j$ form a basis of $V\otimes W$. Its dimension is $mn$.
 \end{theorem}
 \begin{proof}
-\emph{Spanning.} Write $v=\sum_i x_ie_i$ and $w=\sum_j y_jf_j$.
-Bilinearity expands $v\otimes w=\sum_{i,j}x_iy_j(e_i\otimes f_j)$.
+\emph{Spanning.} Write
+\[
+v=\sum_i x_ie_i,\qquad w=\sum_j y_jf_j.
+\]
+
+Bilinearity expands
+\[
+v\otimes w=\sum_{i,j}x_iy_j(e_i\otimes f_j).
+\]
+
 Since elementary tensors span, so does the displayed finite list.
 
 \emph{Independence.} The coordinate maps $e^r:V\to F$ and $f^s:W\to F$
@@ -765,7 +793,11 @@ a linear $\ell_{rs}:V\otimes W\to F$, for which
 \[
 \ell_{rs}(e_i\otimes f_j)=\delta_{ri}\delta_{sj}.
 \]
-Applying this existing map to $\sum c_{ij}e_i\otimes f_j=0$ gives
+Applying this existing map to
+\[
+\sum c_{ij}e_i\otimes f_j=0
+\]
+ gives
 $c_{rs}=0$. All coefficients vanish, proving independence.
 \end{proof}
 We did not define $\ell_{rs}$ as ``the coefficient extractor'': uniqueness
@@ -784,7 +816,11 @@ Choosing bases identifies tensors with rectangular coefficient tables.
 A rectangular coefficient table alone determines no canonical map
 $V\to W$; later, evaluation of a covector factor in $V^*\otimes W$
 will define such a map.
-The maps sending $\sum c_{ij}e_i\otimes f_j$ to $(c_{ij})$ and sending
+The maps sending
+\[
+\sum c_{ij}e_i\otimes f_j
+\]
+ to $(c_{ij})$ and sending
 $(c_{ij})$ back to that sum are linear and inverse: each composite restores
 every coefficient. An elementary tensor has table $(x_iy_j)$. For example
 $(e_1+2e_2)\otimes(f_1-f_2)$ in $F^2\otimes F^2$ has table
@@ -814,7 +850,11 @@ e_{j_1}^{(1)}\otimes\cdots\otimes e_{j_n}^{(n)},\qquad
 1\leq j_i\leq d_i,
 \]
 form a basis of the finite tensor product, and its dimension is
-$\prod_{i=1}^n d_i$.
+
+\[
+\prod_{i=1}^n d_i.
+\]
+
 \end{corollary}
 \begin{proof}
 For $P_1=V_1$, this is the given basis. If the nested basis is known
@@ -986,7 +1026,11 @@ by the finite sum
 K(T)=\sum_i e^i\otimes T(e_i).
 \]
 Pointwise linearity in $T$ and tensor linearity show that $K$ is linear.
-For $v=\sum_i e^i(v)e_i$,
+For
+\[
+v=\sum_i e^i(v)e_i,
+\]
+
 \[
 J(K(T))(v)=\sum_i e^i(v)T(e_i)=T(v),
 \]
@@ -1030,7 +1074,11 @@ The quotient will solve this problem. Define the subspace:
 \[
 R_2=\operatorname{span}\{v\otimes v:v\in V\}\subseteq V\otimes V.
 \]
-Then set $\Lambda^2V=(V\otimes V)/R_2$ and let $u\wedge v$ denote the
+Then set
+\[
+\Lambda^2V=(V\otimes V)/R_2
+\]
+ and let $u\wedge v$ denote the
 class of $u\otimes v$. The two-input wedge map is bilinear, as a composite
 of a bilinear tensor map and a linear quotient map, and $v\wedge v=0$.
 Expanding the repeated input $u+v$ gives
@@ -1196,7 +1244,11 @@ spanning by the three increasing wedges; independence is a separate task.
 \begin{theorem}[Exterior basis]\label{thm:appendix-exterior-basis}
 For a basis $(e_1,\ldots,e_n)$, the wedges
 $e_I=e_{i_1}\wedge\cdots\wedge e_{i_k}$ with $i_1<\cdots<i_k$ form
-a basis of $\Lambda^kV$. Thus $\dim\Lambda^kV=\binom nk$, and the space
+a basis of $\Lambda^kV$. Thus
+\[
+\dim\Lambda^kV=\binom nk,
+\]
+ and the space
 is zero for $k>n$.
 \end{theorem}
 \begin{proof}
@@ -1235,12 +1287,20 @@ e^{i_r}(e_{j_s})=\delta_{i_rj_s}=0\quad(1\leq r\leq k).
 \]
 Thus column $s$ of the determinant is zero and $\widetilde A_I(e_J)=0$.
 We have therefore proved $\widetilde A_I(e_J)=\delta_{IJ}$.
-For a relation $\sum_Jc_Je_J=0$, fix $I$ and apply this constructed map:
+For a relation
+\[
+\sum_Jc_Je_J=0,
+\]
+ fix $I$ and apply this constructed map:
 
 \[
 0=\widetilde A_I\Bigl(\sum_Jc_Je_J\Bigr)=\sum_Jc_J\widetilde A_I(e_J)=c_I.
 \]
-All coefficients vanish. There are $\binom nk$ increasing index sets;
+All coefficients vanish. There are
+\[
+\binom nk
+\]
+ increasing index sets;
 for $k>n$ none remain and the spanning space is zero. In degree zero the
 empty wedge is $1\in F$, giving dimension one.
 \end{proof}
@@ -1249,7 +1309,11 @@ $e_1\wedge e_2,e_1\wedge e_3,e_2\wedge e_3$. The induced linear map extracts a c
 ensures that it respects every presentation of an exterior element.
 
 \paragraph{Coordinates are minors.}
-Write $v_j=\sum_{i=1}^n a_{ij}e_i$ for $1\leq j\leq k$. The linear maps just constructed give the full coordinate expansion
+Write
+\[
+v_j=\sum_{i=1}^n a_{ij}e_i
+\]
+ for $1\leq j\leq k$. The linear maps just constructed give the full coordinate expansion
 \[
 v_1\wedge\cdots\wedge v_k
 =\sum_{i_1<\cdots<i_k}\det(a_{i_rj})_{r,j=1}^k
@@ -1265,7 +1329,11 @@ nonzero exactly when its inputs are linearly independent.
 \end{proposition}
 \begin{proof}
 For a dependent nonempty list, choose a relation with nonzero coefficient
-at position $j$ and solve it as $v_j=\sum_{i\ne j}c_iv_i$. Then
+at position $j$ and solve it as
+\[
+v_j=\sum_{i\ne j}c_iv_i.
+\]
+ Then
 \[
 v_1\wedge\cdots\wedge v_k
 =\sum_{i\ne j}c_i\,
@@ -1427,7 +1495,11 @@ Consequently the evaluation matrix is exactly the indicated minor:
 \bigl(f^{i_r}(Te_{j_s})\bigr)_{r,s}
 =(a_{i_rj_s})_{r,s}=A_{I,J}.
 \]
-Writing $\Lambda^kT(e_J)=\sum_I c_I f_I$, we obtain
+Writing
+\[
+\Lambda^kT(e_J)=\sum_I c_I f_I,
+\]
+ we obtain
 \[
 c_I=\widetilde A_I(\Lambda^kT(e_J))
 =\det\bigl(f^{i_r}(Te_{j_s})\bigr)_{r,s}=\det A_{I,J}.
@@ -1435,7 +1507,11 @@ c_I=\widetilde A_I(\Lambda^kT(e_J))
 Substituting these coefficients proves the formula. For $k=0$ the empty
 minor is $1$; above either dimension the relevant source or target is zero.
 \end{proof}
-For $k=1$ this is the usual basis-image formula $T(e_j)=\sum_i a_{ij}f_i$.
+For $k=1$ this is the usual basis-image formula
+\[
+T(e_j)=\sum_i a_{ij}f_i.
+\]
+
 For example the columns $(1,0,1)$ and $(0,1,1)$ define $T:F^2\to F^3$.
 Its three two-row minors are $1,1,-1$, so
 $\Lambda^2T(e_1\wedge e_2)=f_1\wedge f_2+f_1\wedge f_3-f_2\wedge f_3$.
@@ -1572,9 +1648,17 @@ If two existing multilinear maps $A,B:V_1\times\cdots\times V_r\to U$
 agree on tuples from spanning sets $S_1,\ldots,S_r$, they agree everywhere.
 \end{lemma}
 \begin{proof}
-Write $v_i=\sum_j a_{ij}s_{ij}$ with $s_{ij}\in S_i$. Expanding each
+Write
+\[
+v_i=\sum_j a_{ij}s_{ij}
+\]
+ with $s_{ij}\in S_i$. Expanding each
 slot gives for either map the finite sum over index tuples with coefficient
-$\prod_i a_{ij_i}$ and value at $(s_{1j_1},\ldots,s_{rj_r})$.
+
+\[
+\prod_i a_{ij_i}
+\]
+ and value at $(s_{1j_1},\ldots,s_{rj_r})$.
 Those values agree by hypothesis, so the sums agree. The lemma compares
 maps that already exist; it cannot prove that a proposed rule is a map.
 \end{proof}
@@ -1689,7 +1773,11 @@ $k$ if only that component can be nonzero. Extend the products above by
 =\sum_{p,q}\alpha_p\wedge\beta_q;
 \]
 degrees above $n$ are zero. The degree-$k$ component of the product is
-$\sum_{p+q=k}\alpha_p\wedge\beta_q$. This finite sum is well defined
+
+\[
+\sum_{p+q=k}\alpha_p\wedge\beta_q.
+\]
+ This finite sum is well defined
 because the homogeneous components are unique. Associativity on homogeneous
 elements and finite distribution prove associativity for arbitrary elements.
 The scalar $1$ is an identity. ``Algebra'' here means a vector space with
@@ -1926,11 +2014,17 @@ Chapter~13 constructs it through alternating covectors and shuffles.
 The canonical maps $J_k$ identify their products as well as their vector
 spaces, so they give the same exterior algebra after this identification.
 
+\Needspace{10\baselineskip}
 \section*{Exercises}
+\enlargethispage{3\baselineskip}
 \addcontentsline{toc}{section}{Exercises}
 \begin{hexercise}{app-d-1}
 Let $R=\operatorname{span}(1,1)$ in $F^2$. Determine which of $x+y$ and
-$x-y$ factor through $F^2/R$, including characteristic two. Construct an
+$x-y$ factor through
+\[
+F^2/R,
+\]
+ including characteristic two. Construct an
 isomorphism of the quotient with $F$, its reverse, and both composites.
 \end{hexercise}
 \begin{hexercise}{app-d-2}

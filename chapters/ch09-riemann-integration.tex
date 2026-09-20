@@ -1,6 +1,37 @@
-\chapter[Riemann Integration and the Fundamental Theorem]{Riemann Integration and the Fundamental Theorem of Calculus}
-\chaptermark{Integration}
+\chapter{Riemann Integration}
+\chaptermark{Riemann Integration}
 \label{ch:riemann}
+
+This chapter answers four related questions:
+\[
+\boxed{
+\begin{array}{c}
+\text{When does an integral exist?}\\
+\text{How do we compute it?}\\
+\text{Why do the familiar calculus rules work?}\\
+\text{Where does the Riemann theory begin to break down?}
+\end{array}}
+\]
+Most functions in ordinary calculus are assembled from elementary functions
+by algebraic operations and composition. On their natural domains they are
+usually very regular---often \(C^\infty\), and therefore continuous---so the
+existence hypotheses for proper integrals can become nearly invisible.
+Continuity on a compact interval, not continuous differentiability, is already
+enough for Riemann integrability. At the same time,
+\[
+\boxed{\text{elementary formula}\ne\text{automatic global regularity}.}
+\]
+The functions
+\[
+1/x,
+\]
+ \(\log x\), \(\sqrt{x}\), \(\tan x\), and
+
+\[
+1/\sqrt{1-x^2}
+\]
+ all demand attention to their domains and singularities.
+Accordingly, existence is checked before computation throughout the chapter.
 
 \section{Partitions and Riemann Sums}
 
@@ -26,6 +57,13 @@ M_i=\sup\set{f(x):x\in[x_{i-1},x_i]},
 \qquad
 m_i=\inf\set{f(x):x\in[x_{i-1},x_i]}.
 \]
+For any nonempty interval $I\subseteq[a,b]$, its \textbf{interval oscillation} is
+\[
+\operatorname{osc}_I(f)=\sup_I f-\inf_I f
+=\sup_{x,y\in I}|f(x)-f(y)|.
+\]
+The last equality follows by choosing values arbitrarily close to the
+supremum and infimum; neither needs to be attained.
 The \textbf{upper sum} and \textbf{lower sum} are
 \[
 U(f,P)=\sum_{i=1}^{n}M_i(x_i-x_{i-1}),
@@ -38,9 +76,10 @@ The two panels of Figure~\ref{fig:darboux-sums} use the same function
 and partition. The excess height on cell $I_i$ is its oscillation
 $M_i-m_i$, so, writing $\Delta x_i=x_i-x_{i-1}$,
 \[
-U(f,P)-L(f,P)=\sum_i(M_i-m_i)\Delta x_i.
+U(f,P)-L(f,P)=\sum_i\operatorname{osc}_{I_i}(f)\,\Delta x_i.
 \]
-This is the mechanism behind the continuity proof below: uniform continuity
+This cellwise quantity is distinct from the pointwise oscillation introduced
+in section~9.6. It organizes the next several estimates: uniform continuity
 makes every cell's oscillation small when the partition intervals are short.
 \input{figures/darboux-sums}
 
@@ -56,7 +95,7 @@ where the infimum and supremum range over all partitions of $[a,b]$. Their commo
 \end{definition}
 
 \begin{remark}[The integration variable is bound]
-In $\int_a^b f(x)\,\dd x$, the letter $x$ is a bound variable:
+The letter $x$ in the integral is a bound variable:
 \[
 \int_a^b f(x)\,\dd x=\int_a^b f(t)\,\dd t.
 \]
@@ -68,16 +107,95 @@ without changing this Darboux definition.
 \end{remark}
 
 \begin{example}[All the Darboux sums for a simple function]
-For $f(x)=x$ on $[0,1]$, use $x_j=j/n$. On cell $j$, the minimum
-is $(j-1)/n$, the maximum $j/n$, and the width $1/n$. Therefore
+For $f(x)=x$ on $[0,1]$, use
+\[
+x_j=j/n.
+\]
+ On cell $j$, the minimum
+is
+\[
+(j-1)/n,
+\]
+ the maximum
+\[
+j/n,
+\]
+ and the width
+\[
+1/n.
+\]
+ Therefore
 \[
 L(f,P_n)=\frac1{n^2}\sum_{j=1}^n(j-1)=\frac{n-1}{2n},\qquad
 U(f,P_n)=\frac1{n^2}\sum_{j=1}^nj=\frac{n+1}{2n}.
 \]
-The gap is $1/n$ and both sums tend to $1/2$. Every tagged sum for
+The gap is
+\[
+1/n
+\]
+ and both sums tend to
+\[
+1/2.
+\]
+ Every tagged sum for
 this partition lies between them, regardless of the tags. The Darboux
 criterion asks whether such gaps can be made arbitrarily small.
 \end{example}
+\paragraph{Refinement narrows the Darboux gap.}
+A refinement inserts division points and removes none. To see explicitly
+what happens to one old cell $[u,v]$, insert
+\[
+u=t_0<t_1<\cdots<t_k=v,
+\qquad J_j=[t_{j-1},t_j].
+\]
+Write $m=\inf_{[u,v]}f$, $M=\sup_{[u,v]}f$ and
+$m_j=\inf_{J_j}f$, $M_j=\sup_{J_j}f$. Since $J_j\subseteq[u,v]$,
+\[
+m\leq m_j\leq M_j\leq M.
+\]
+The widths add by cancellation of the inserted endpoints:
+\[
+(t_1-u)+(t_2-t_1)+\cdots+(v-t_{k-1})=v-u.
+\]
+Multiplying each bound by its corresponding positive width yields
+\[
+\begin{aligned}
+m(v-u)
+ &=m(t_1-u)+m(t_2-t_1)+\cdots+m(v-t_{k-1})\\
+ &\leq m_1(t_1-u)+m_2(t_2-t_1)+\cdots+m_k(v-t_{k-1})\\
+ &\leq M_1(t_1-u)+M_2(t_2-t_1)+\cdots+M_k(v-t_{k-1})\\
+ &\leq M(t_1-u)+M(t_2-t_1)+\cdots+M(v-t_{k-1})\\
+ &=M(v-u).
+\end{aligned}
+\]
+For the original cells $I_i=[x_{i-1},x_i]$, write their inserted points as
+$t_{i,0}=x_{i-1},\ldots,t_{i,k_i}=x_i$ and put
+$J_{i,j}=[t_{i,j-1},t_{i,j}]$. Adding the preceding inequalities gives
+\[
+\begin{aligned}
+L(f,P)&=\sum_{i=1}^n m_i(x_i-x_{i-1})\\
+&\leq\sum_{i=1}^n\sum_{j=1}^{k_i}
+ (\inf_{J_{i,j}}f)(t_{i,j}-t_{i,j-1})=L(f,R)\\
+&\leq U(f,R)=\sum_{i=1}^n\sum_{j=1}^{k_i}
+ (\sup_{J_{i,j}}f)(t_{i,j}-t_{i,j-1})\\
+&\leq\sum_{i=1}^n M_i(x_i-x_{i-1})=U(f,P).
+\end{aligned}
+\]
+Figure~\ref{fig:refinement-gap} shows the resulting reduction in uncertainty.
+\input{figures/refinement-gap}
+For two partitions use their common refinement
+\[
+R=P\cup Q.
+\]
+Then
+\[
+L(f,P)\leq L(f,R)\leq U(f,R)\leq U(f,Q).
+\]
+Taking the supremum over $P$ and then the infimum over $Q$ proves
+\[
+\sup_P L(f,P)\leq\inf_Q U(f,Q).
+\]
+
 \begin{proposition}[Darboux criterion]
 \label{prop:darboux-criterion}
 A bounded function $f:[a,b]\to\R$ is Riemann integrable if and only if, for every $\eps>0$, there is a partition $P$ with
@@ -86,33 +204,6 @@ U(f,P)-L(f,P)<\eps.
 \]
 \end{proposition}
 \begin{proof}
-We first record what refinement does to the sums.  If $R$ refines a
-partition $P$, then each interval of $R$ lies in an interval of $P$.  On a
-smaller interval the infimum of $f$ cannot be smaller than the infimum on
-its parent interval, so splitting intervals can only increase the lower
-sum.  Similarly, the supremum on a smaller interval cannot be larger than
-the supremum on its parent interval, so splitting intervals can only
-decrease the upper sum.  Thus
-\[
-L(f,P)\leq L(f,R)\leq U(f,R)\leq U(f,P),
-\]
-where the middle inequality follows from $\inf_I f\leq\sup_I f$ on each
-subinterval $I$, after multiplying by its positive length and summing.
-
-Now let $P$ and $Q$ be arbitrary partitions, and let $R=P\cup Q$ be their
-common refinement.  The preceding observation gives
-\[
-L(f,P)\leq L(f,R)\leq U(f,R)\leq U(f,Q).
-\]
-Hence $L(f,P)\leq U(f,Q)$ for every pair of partitions $P,Q$.  Therefore
-\[
-\sup_P L(f,P)\leq U(f,Q)
-\]
-for every $Q$, and taking the infimum over $Q$ yields
-\[
-\sup_P L(f,P)\leq\inf_Q U(f,Q).
-\]
-
 Put $L^*=\sup_P L(f,P)$ and $U^*=\inf_P U(f,P)$.  If $f$ is integrable,
 then $L^*=U^*=I$.  Given $\eps>0$, choose partitions $P,Q$ such that
 \[
@@ -152,16 +243,37 @@ which is exactly what the Darboux criterion requires.
 Every continuous function $f:[a,b]\to\R$ is Riemann integrable.
 \end{theorem}
 \begin{proof}
-By \cref{thm:heine-cantor}, $f$ is uniformly continuous. Given $\eps>0$, choose $\delta>0$ such that
+By \cref{thm:heine-cantor}, $f$ is uniformly continuous, and by the
+extreme value theorem it is bounded. Given $\eps>0$, choose $\eta>0$ with
 \[
-\abs{x-y}<\delta\Longrightarrow\abs{f(x)-f(y)}<\frac{\eps}{b-a}.
+\eta(b-a)<\eps.
 \]
-Choose a partition with norm less than $\delta$. On every subinterval, $M_i-m_i\leq\eps/(b-a)$; hence
+Choose $\delta>0$ so that
 \[
-U(f,P)-L(f,P)=\sum_{i=1}^{n}(M_i-m_i)(x_i-x_{i-1})\leq\eps.
+|x-y|<\delta\quad\Longrightarrow\quad |f(x)-f(y)|<\eta.
 \]
-The Darboux criterion proves integrability.
+For a partition of mesh less than $\delta$, each cell has oscillation at
+most $\eta$. Consequently
+\[
+U(f,P)-L(f,P)=\sum_i\operatorname{osc}_{I_i}(f)|I_i|
+\leq\eta\sum_i|I_i|=\eta(b-a)<\eps.
+\]
+The Darboux criterion proves integrability. Figure~\ref{fig:uniform-bands}
+depicts the cellwise height control used in this estimate.
 \end{proof}
+
+\input{figures/uniform-bands}
+
+The elementary oscillation inequalities used below are
+\[
+\begin{aligned}
+\operatorname{osc}_I(f+g)&\leq\operatorname{osc}_I(f)+\operatorname{osc}_I(g),\\
+\operatorname{osc}_I(cf)&=|c|\operatorname{osc}_I(f),\\
+\operatorname{osc}_I(|f|)&\leq\operatorname{osc}_I(f).
+\end{aligned}
+\]
+They follow from the triangle inequality, homogeneity of absolute value,
+and the reverse triangle inequality, applied to pairs of values in $I$.
 
 \begin{theorem}[Basic properties of the integral]
 \label{thm:integral-properties}
@@ -183,33 +295,31 @@ U(f,P_f)-L(f,P_f)<\frac{\eps}{2},
 \qquad
 U(g,P_g)-L(g,P_g)<\frac{\eps}{2}.
 \]
-Let $P$ be their common refinement.  Refinement can only decrease upper
-sums and increase lower sums.  On each interval $I_i$ of $P$,
+Let $P$ be their common refinement. The oscillation inequality gives
 \[
-\sup_{I_i}(f+g)\leq\sup_{I_i}f+\sup_{I_i}g,
-\qquad
-\inf_{I_i}(f+g)\geq\inf_{I_i}f+\inf_{I_i}g.
-\]
-Multiplying by the length of $I_i$ and summing gives
-\[
-U(f+g,P)\leq U(f,P)+U(g,P),
-\qquad
-L(f+g,P)\geq L(f,P)+L(g,P)
-\]
-and therefore
-\[
+\begin{aligned}
 U(f+g,P)-L(f+g,P)
-\leq [U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps.
+&=\sum_i\operatorname{osc}_{I_i}(f+g)|I_i|\\
+&\leq[U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps.
+\end{aligned}
 \]
-Thus $f+g$ is integrable. To prove additivity, place both candidate
-values $\int_a^b(f+g)$ and $\int_a^b f+\int_a^b g$ in the same interval
+Thus $f+g$ is integrable. To prove additivity, place both candidate values
+\[
+\int_a^b(f+g)\,\dd x\qquad\text{and}\qquad
+\int_a^b f\,\dd x+\int_a^b g\,\dd x
+\]
+in the same interval, because on every cell the infimum of the sum
+is at least the sum of the infima, and its supremum is at most the sum
+of the suprema:
 \[
 [L(f,P)+L(g,P),\ U(f,P)+U(g,P)].
 \]
 Its length is $[U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps$.
 Since $\eps$ is arbitrary, the two values agree.
 
-For a scalar $c>0$ and every interval $I$,
+The scalar oscillation identity proves integrability of $cf$ by the Darboux
+criterion (with a sufficiently small gap for $f$ when $c\ne0$).
+To identify its integral, for $c>0$ and every interval $I$,
 \[
 \sup_I(cf)=c\sup_I f,
 \qquad
@@ -282,8 +392,12 @@ U_{[a,b]}-L_{[a,b]}
 Both terms on the right are nonnegative, so each is less than $\eps$.
 The Darboux criterion proves that both restrictions are integrable.
 
-Write $I=\int_a^b f$, $I_{\mathrm{left}}=\int_a^c f$, and
-$I_{\mathrm{right}}=\int_c^b f$.  For every partition containing $c$, the
+Write
+\[
+I=\int_a^b f,\qquad I_{\mathrm{left}}=\int_a^c f,\qquad
+I_{\mathrm{right}}=\int_c^b f.
+\]
+For every partition containing $c$, the
 split lower and upper sums give
 \[
 L_{[a,b]}(f,P)\leq I_{\mathrm{left}}+I_{\mathrm{right}}
@@ -304,16 +418,10 @@ implies that, for $x,y$ in a partition interval $I_i$,
 \[
 \bigl\lvert\abs{f(x)}-\abs{f(y)}\bigr\rvert\leq\abs{f(x)-f(y)}.
 \]
-Thus the oscillation of $\abs f$ on $I_i$ satisfies
+Thus
 \[
-\sup_{I_i}\abs f-\inf_{I_i}\abs f
-\leq\sup_{I_i}f-\inf_{I_i}f,
-\]
-because the right-hand side is the supremum of the possible differences
-$\abs{f(x)-f(y)}$ for $x,y\in I_i$.  Multiplying by the interval lengths and
-summing gives
-\[
-U(\abs f,P)-L(\abs f,P)\leq U(f,P)-L(f,P).
+\operatorname{osc}_{I_i}(|f|)\leq\operatorname{osc}_{I_i}(f),
+\qquad U(|f|,P)-L(|f|,P)\leq U(f,P)-L(f,P).
 \]
 The Darboux criterion proves integrability of $\abs f$. Since
 \[
@@ -334,6 +442,56 @@ gives
 \]
 Combine this with (b).
 \end{proof}
+
+\begin{theorem}[Integral H\"older and Cauchy--Schwarz inequalities]
+\label{thm:integral-holder}
+Let \(p,q>1\) be conjugate exponents, and let \(f,g\) be continuous on
+\([a,b]\). Then
+\[
+\boxed{
+\int_a^b|f(x)g(x)|\,\dd x
+\leq
+\left(\int_a^b|f(x)|^p\,\dd x\right)^{1/p}
+\left(\int_a^b|g(x)|^q\,\dd x\right)^{1/q}.}
+\]
+\end{theorem}
+\begin{proof}
+Set
+\[
+A=\left(\int_a^b|f|^p\right)^{1/p},
+\qquad
+B=\left(\int_a^b|g|^q\right)^{1/q}.
+\]
+If \(A=0\), continuity and nonnegativity imply \(f=0\) throughout the
+interval: a nonzero value would persist on a short interval and force a
+positive integral. The same applies when \(B=0\). Otherwise Young's inequality
+\cref{cor:young-inequality}, applied pointwise to \(|f|/A\) and \(|g|/B\),
+gives
+\[
+\frac{|fg|}{AB}
+\leq\frac{|f|^p}{pA^p}+\frac{|g|^q}{qB^q}.
+\]
+Integrate and use \(1/p+1/q=1\), then multiply by \(AB\).
+\end{proof}
+
+For \(p=q=2\), the absolute-value estimate for integrals gives the
+\textbf{integral Cauchy--Schwarz inequality}
+\[
+\boxed{
+\left|\int_a^b f(x)g(x)\,\dd x\right|
+\leq
+\left(\int_a^b|f(x)|^2\,\dd x\right)^{1/2}
+\left(\int_a^b|g(x)|^2\,\dd x\right)^{1/2}.}
+\]
+Taking \(g\equiv1\) in H\"older also gives
+\[
+\int_a^b|f(x)|\,\dd x
+\leq(b-a)^{1/q}
+\left(\int_a^b|f(x)|^p\,\dd x\right)^{1/p}.
+\]
+These are Riemann-integral consequences of Young's inequality; no
+\(L^p\) theory is being introduced. Chapter~\ref{ch:topology-linear-algebra}
+later interprets the \(p=2\) case through an integral inner product.
 
 \begin{theorem}[Integrability of monotone functions]
 \label{thm:monotone-riemann-integrable}
@@ -375,23 +533,21 @@ Calculus computations usually sample once in each cell instead. We must
 show that every sufficiently fine sampling gives the same answer, regardless
 of the tags and without requiring nested partitions.
 
-Fix a coarse partition first. A new, fine cell wholly inside one old cell
-inherits its oscillation bound. Only fine cells crossing old division
-points need the crude global bound. Each old point belongs to at most
-two fine cells, whose total length is at most twice the mesh.
-\begin{center}
-\begin{tikzpicture}[x=1cm,y=1cm]
-\draw[thick] (0,0)--(8,0);
-\foreach \x in {0,.8,1.6,2.4,3.2,4,4.8,5.6,6.4,7.2,8}{\draw (\x,-.1)--(\x,.1);}
-\draw[blue,very thick] (2.4,0)--(3.2,0);
-\draw[red,thick] (2.8,-.3)--(2.8,.5) node[above] {old division point};
-\node at (5,-.5) {fine cells; only a short crossing cell is exceptional};
-\end{tikzpicture}
-\end{center}
+Fix a coarse partition first. A fine cell lying inside one old cell
+inherits its oscillation bound. A \emph{crossing cell} has an old interior
+division point in its interior; it needs only the global height bound.
+Each old point lies in the interior of at most one fine cell. Thus there
+are at most as many crossing cells as old interior division points.
+Figure~\ref{fig:fine-crossing} displays these two contributions.
+\input{figures/fine-crossing}
 
 For a partition $P:a=x_0<\cdots<x_m=b$, choose tags
 $\xi_i\in[x_{i-1},x_i]$. Its tagged sum is
-$S(f,P,\xi)=\sum_i f(\xi_i)(x_i-x_{i-1})$; its mesh is
+
+\[
+S(f,P,\xi)=\sum_i f(\xi_i)(x_i-x_{i-1});
+\]
+ its mesh is
 $|P|=\max_i(x_i-x_{i-1})$.
 
 \begin{theorem}[Fine-mesh characterization]
@@ -401,48 +557,83 @@ if and only if for every $\eps>0$ there is $\delta>0$ such that every tagged
 partition of mesh less than $\delta$ satisfies $|S(f,P,\xi)-I|<\eps$.
 \end{theorem}
 \begin{proof}
-Start with one good Darboux partition. A different fine
-partition can cross its finitely many dividing points only on intervals of
-small total length.
-Suppose $f$ is integrable and $|f|\leq M$. Choose a partition $P_0$ with
-$U(f,P_0)-L(f,P_0)<\eps/2$, and let $r$ be its number of interior dividing
-points. For another partition $P$, intervals whose interiors contain such
-points have total length at most $r|P|$. The remaining intervals lie in
-single cells of $P_0$. Their oscillation contributions are at most the
-gap for $P_0$; the crossing intervals contribute at most $2Mr|P|$.
-Thus $U(f,P)-L(f,P)<\eps/2+2Mr|P|$. Choose
-$\delta=\eps/(4(M+1)(r+1))$. Both $I$ and every tagged sum lie between
-$L(f,P)$ and $U(f,P)$, proving the assertion.
+Suppose $f$ is integrable and $|f|\leq M$. Choose a coarse partition
+$P_0$ such that
+\[
+U(f,P_0)-L(f,P_0)<\frac\eps2,
+\]
+and let $r$ be its number of interior division points. For any partition
+$P$, the good cells inside a fixed coarse cell have total length at most
+that coarse cell's length, and their oscillations are no larger. Hence
+their combined contribution is at most the coarse Darboux gap. There are
+at most $r$ crossing cells, each of length at most $|P|$ and oscillation
+at most $2M$. Therefore
+\[
+U(f,P)-L(f,P)<\frac\eps2+2Mr|P|.
+\]
+If $Mr>0$, choose $\delta>0$ so small that
+\[
+2Mr\delta<\frac\eps2.
+\]
+If $Mr=0$, the crossing contribution is already zero and any $\delta>0$
+works. For $|P|<\delta$, both $I$ and every tagged sum lie between
+$L(f,P)$ and $U(f,P)$, whose gap is less than $\eps$.
 
-Conversely, fix $\eps>0$ and choose a partition $P$ of mesh below
-the stated $\delta$ for tolerance $\eps/4$. Keep this partition fixed.
-Given $\eta>0$, the definition of $M_i=\sup_{[x_{i-1},x_i]}f$
-supplies a tag $\xi_i$ with $f(\xi_i)>M_i-\eta$. The finite estimate is
+Conversely, fix $\eps>0$, use the tagged-sum hypothesis with tolerance
 \[
-0\leq U(f,P)-S(f,P,\xi)
- <\eta\sum_i(x_i-x_{i-1})=\eta(b-a).
+\frac\eps4,
 \]
-No maximum is required. Choosing tags $\zeta_i$ with
-$f(\zeta_i)<m_i+\eta$ gives
-$0\leq S(f,P,\zeta)-L(f,P)<\eta(b-a)$.
-All these tagged sums are within $\eps/4$ of $I$. Therefore
+and choose a partition $P$ with sufficiently small mesh. Choose $\eta>0$
+once so that
 \[
-U(f,P)<I+\frac\eps4+\eta(b-a),\qquad
-L(f,P)>I-\frac\eps4-\eta(b-a).
+\eta(b-a)<\frac\eps4.
 \]
-Since $\eta$ can be arbitrarily small while $P$ stays fixed, these imply
-$U(f,P)\leq I+\eps/4$ and $L(f,P)\geq I-\eps/4$.
-The gap is at most $\eps/2<\eps$, proving integrability by Darboux.
-Its integral and $I$ are then within $\eps/4$ for every $\eps>0$,
-so they agree.
+On each cell choose near-supremum and near-infimum tags satisfying
+\[
+f(\xi_i)>M_i-\eta,\qquad f(\zeta_i)<m_i+\eta.
+\]
+No attained extrema are required. Summing gives
+\[
+\begin{aligned}
+0\leq U(f,P)-S(f,P,\xi)&<\eta(b-a)<\frac\eps4,\\
+0\leq S(f,P,\zeta)-L(f,P)&<\eta(b-a)<\frac\eps4.
+\end{aligned}
+\]
+Both tagged sums are within the chosen tolerance of $I$, so
+\[
+U(f,P)<I+\frac\eps2,\qquad L(f,P)>I-\frac\eps2.
+\]
+The gap is less than $\eps$, proving integrability by the Darboux
+criterion. Its integral $J$ lies between the same sums; hence
+\[
+|J-I|<\frac\eps2.
+\]
+Since $\eps>0$ was arbitrary, $J=I$.
 \end{proof}
 Thus sampled values times interval widths approximate the integral, with
 an error controlled by the mesh independently of the sample choices.
 
 \subsection*{Deciding integrability in ordinary problems}
-First check boundedness, which is required for a proper Riemann integral.
-Continuity and monotonicity supply the two tests just proved. A bounded
-function continuous except at finitely many points is also integrable:
+For a function on \([a,b]\), the available tests depend on its regularity.
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item Check boundedness. Without it, the proper Riemann integral is not
+defined.
+\item Check continuity on the whole compact interval; if it holds,
+\cref{thm:continuous-riemann-integrable} settles the question.
+\item If continuity fails, check monotonicity.
+\item Check whether the function is bounded and piecewise continuous with
+only finitely many jumps.
+\item If no theorem applies immediately, construct a partition for which
+\(U(f,P)-L(f,P)\) is small.
+\item To disprove integrability, look instead for a fixed positive lower
+bound on \(U(f,P)-L(f,P)\) that survives every partition.
+\item After \cref{thm:riemann-lebesgue-criterion} is available, use the
+Lebesgue criterion when the discontinuity set is easier to analyze than
+partitions are.
+\end{enumerate}
+Continuity and monotonicity supply the first two positive tests just proved.
+A bounded function continuous except at finitely many points is also
+integrable:
 choose $M$ with $|f|\leq M$ and cover the exceptional points by finitely
 many intervals of total length $\ell$, where
 \[
@@ -450,9 +641,28 @@ many intervals of total length $\ell$, where
 \]
 On the remaining finitely many
 closed intervals, continuity gives partitions with total Darboux gap
-less than $\eps/2$. Include the covering endpoints in a common partition.
+less than
+\[
+\eps/2.
+\]
+ Include the covering endpoints in a common partition.
+Writing $\mathcal G$ for cells in the remaining good pieces and $\mathcal E$
+for cells in the exceptional neighborhoods, the estimate has the form
+\[
+\begin{aligned}
+U(f,P)-L(f,P)
+&=\sum_{I\in\mathcal G}\operatorname{osc}_I(f)|I|
+ +\sum_{I\in\mathcal E}\operatorname{osc}_I(f)|I|,\\
+\sum_{I\in\mathcal E}\operatorname{osc}_I(f)|I|
+&\leq2M\sum_{I\in\mathcal E}|I|\leq2M\ell.
+\end{aligned}
+\]
 The exceptional intervals contribute at most $2M$ times their total
-length, less than $\eps/2$. Thus the whole gap is below $\eps$.
+length, less than
+\[
+\eps/2.
+\]
+ Thus the whole gap is below $\eps$.
 This justifies the usual bounded piecewise-continuous test, including
 finite jumps, without assuming the later Lebesgue criterion.
 
@@ -464,10 +674,30 @@ U(f,P_n)-L(f,P_n)
 \left(\left(\frac kn\right)^2-\left(\frac{k-1}{n}\right)^2\right)
 =\frac1n.
 \]
-Given $\eps>0$, choose $n>1/\eps$; the Darboux criterion proves
+Given $\eps>0$, choose
+\[
+n>1/\eps;
+\]
+ the Darboux criterion proves
 integrability directly. For the step function that is zero on
-$[0,1/2)$ and one on $[1/2,1]$, isolate the jump in
-$[1/2-\eta,1/2+\eta]$, where $0<\eta<\min\{1/2,\eps/2\}$.
+
+\[
+[0,1/2)
+\]
+ and one on
+\[
+[1/2,1],
+\]
+ isolate the jump in
+
+\[
+[1/2-\eta,1/2+\eta],
+\]
+ where
+\[
+0<\eta<\min\{1/2,\eps/2\}.
+\]
+
 Every other cell has zero oscillation; the gap is at most $2\eta<\eps$.
 \end{example}
 
@@ -475,8 +705,11 @@ To prove nonintegrability it suffices to find $c>0$ such that
 $U(f,P)-L(f,P)\geq c$ for \emph{every} partition $P$.
 For $\mathbf1_{\Q}$ on $[0,1]$, rational and irrational density make
 every cell's supremum $1$ and infimum $0$. Thus the gap is always $1$.
-The later \cref{ex:dirichlet-function,ex:thomae-function} explain why
-dense discontinuities and dense nonzero values are different issues.
+The later \cref{ex:dirichlet-function,ex:thomae-function} contrast a fixed
+gap on every interval with a function whose large oscillations can be
+confined to intervals of arbitrarily small total length. Together with the
+continuous, monotone, and finite-jump cases above, they show why choosing an
+efficient integrability test is part of the problem.
 
 \section{Uniform Limits and Integration}
 
@@ -513,7 +746,11 @@ Fix \(\eps>0\).  Choose \(n\) such that
 \frac{\eps}{4(b-a)}.
 \]
 Choose a partition \(P\) for which the Darboux gap of \(f_n\) is less than
-\(\eps/2\).  On each subinterval of \(P\), the oscillation of \(f\) is at
+
+\[
+\eps/2.
+\]
+  On each subinterval of \(P\), the oscillation of \(f\) is at
 most the oscillation of \(f_n\) plus twice the displayed uniform error.
 Consequently,
 \[
@@ -535,6 +772,20 @@ The right-hand side tends to zero.  The same final estimate proves the last
 assertion.
 \end{proof}
 
+\paragraph{Corollary: integrating a uniformly convergent series.}
+If
+\[
+\sum_{n=1}^{\infty}f_n
+\]
+converges uniformly on $[a,b]$ and each $f_n$
+is Riemann integrable, then its sum is Riemann integrable and
+\[
+\int_a^b\left(\sum_{n=1}^{\infty}f_n(x)\right)\,\dd x
+=\sum_{n=1}^{\infty}\int_a^b f_n(x)\,\dd x.
+\]
+Apply \cref{thm:uniform-riemann-integration} to the partial sums and use
+linearity for each finite sum.
+
 \subsection{Pointwise bounded convergence requires a different argument}
 \label{thm:dominated-uniform-riemann}
 Uniform convergence provides a single bound on all pointwise errors.
@@ -543,8 +794,16 @@ Nevertheless bounded heights and an integrable limit suffice for integral
 convergence. We need an elementary fact about intervals.
 We prove it explicitly, without introducing Lebesgue integration.
 
-Before using finite subcovers for interval unions, we establish the
-needed open-cover property from the sequential compactness already proved.
+\paragraph{Interval covers, without a Chapter 10 dependency.}
+For $K\subseteq[a,b]$, an \emph{open cover} is a family $\mathcal U$ of
+open subsets of $\R$ whose union contains $K$. A \emph{finite subcover}
+is a finite selection from that family whose union still contains $K$.
+Open subsets of the line were defined in Chapter~5. A set is relatively
+open in $[a,b]$ if it is the intersection of $[a,b]$ with an open subset
+of $\R$; relative closedness means that the relative complement is open.
+These local meanings suffice below. We now prove the required cover
+properties from \cref{thm:compact-interval}; the general topological
+definitions and compactness equivalences are postponed to Chapter~10.
 \begin{lemma}[Lebesgue number for a closed interval]
 \label{lem:lebesgue-number-interval}
 Let $\mathcal U$ be an open cover of $[a,b]$.  There is a number
@@ -556,7 +815,11 @@ Suppose no such $\lambda$ exists.  For every $n\in\N$, choose an interval
 \[
 J_n\subseteq[a,b]
 \]
-of length less than $1/n$ that is contained in no member of $\mathcal U$, and choose
+of length less than
+\[
+1/n
+\]
+ that is contained in no member of $\mathcal U$, and choose
 $x_n\in J_n$.  By \cref{thm:bolzano-weierstrass}, some subsequence of
 $(x_n)$ converges to a point $x\in[a,b]$.  Choose
 $U\in\mathcal U$ containing $x$.  Since $U$ is open, there is $r_0>0$ such that
@@ -564,9 +827,21 @@ $U\in\mathcal U$ containing $x$.  Since $U$ is open, there is $r_0>0$ such that
 (x-r_0,x+r_0)\cap[a,b]\subseteq U.
 \]
 Write the subsequence as $x_{n_k}$. Choose $K_1$ so that
-$|x_{n_k}-x|<r_0/2$ for $k\geq K_1$, and choose $K_2>2/r_0$.
+
+\[
+|x_{n_k}-x|<r_0/2
+\]
+ for $k\geq K_1$, and choose
+\[
+K_2>2/r_0.
+\]
+
 For $k\geq\max\{K_1,K_2\}$, the length of $J_{n_k}$ is less than
-$1/n_k\leq1/k<r_0/2$. Every $y\in J_{n_k}$ then satisfies
+
+\[
+1/n_k\leq1/k<r_0/2.
+\]
+ Every $y\in J_{n_k}$ then satisfies
 $|y-x|\leq|y-x_{n_k}|+|x_{n_k}-x|<r_0$, so
 \[
 J_{n_k}\subseteq U,
@@ -609,13 +884,22 @@ Every finite sum of their lengths is at most $b-a$, so the full sum
 exists. This definition is only a tool for open interval covers.
 \begin{lemma}[Two elementary facts about open-set lengths]
 \label{lem:open-length-tool}
-If an open $G$ is contained in $\bigcup_jG_j$ with the $G_j$ open,
-then $\ell(G)\leq\sum_j\ell(G_j)$. Also, for every $\eta>0$ an
+If an open $G$ is contained in
+\[
+\bigcup_jG_j
+\]
+ with the $G_j$ open,
+then
+\[
+\ell(G)\leq\sum_j\ell(G_j).
+\]
+ Also, for every $\eta>0$ an
 open $G\subset(a,b)$ contains a finite union $K$ of compact intervals
 such that $\ell(G\setminus K)<\eta$.
 \end{lemma}
 \begin{proof}
-Reduce comparisons to finite interval covers by compactness.
+Reduce comparisons to finite interval covers by
+\cref{cor:closed-subset-finite-subcover}.
 The length of $G$ is the supremum of lengths of finite unions of compact
 intervals contained in it: retain finitely many component intervals and
 shorten their endpoints slightly. Any such compact union has a finite
@@ -624,27 +908,51 @@ of intervals covering disjoint compact intervals has total length at
 least their combined length. To verify this elementary inequality, sort
 all endpoints and subdivide: every covered subinterval is counted at
 least once in the sum of covering lengths. Thus the compact union has
-length at most $\sum_j\ell(G_j)$, and taking the supremum proves the
+length at most
+\[
+\sum_j\ell(G_j),
+\]
+ and taking the supremum proves the
 first assertion. For the second, retain finitely many components whose
-omitted tail has length less than $\eta/2$; shorten the retained finitely
-many intervals by a combined length less than $\eta/2$. Their compact
+omitted tail has length less than
+\[
+\eta/2;
+\]
+ shorten the retained finitely
+many intervals by a combined length less than
+\[
+\eta/2.
+\]
+ Their compact
 union is $K$, and the components of $G\setminus K$ consist of the
 discarded tail and endpoint strips. Their total length is less than $\eta$.
 \end{proof}
 \begin{lemma}[Nested open sets of uniformly positive length]
 \label{lem:nested-open-length}
 If $G_n\subset(a,b)$ are decreasing open sets and
-$\ell(G_n)\geq c>0$ for every $n$, then $\bigcap_nG_n\ne\varnothing$.
+$\ell(G_n)\geq c>0$ for every $n$, then
+\[
+\bigcap_nG_n\ne\varnothing.
+\]
+
 \end{lemma}
 \begin{proof}
-Open sets are not compact, so the ordinary nested-compact-set theorem
-cannot be applied directly. Choose compact finite interval unions
-$K_n\subset G_n$ with $\ell(G_n\setminus K_n)<c/2^{n+1}$.
+The sets \(G_n\) are open, so the nested-closed-set argument does not apply
+directly. Choose finite unions of closed bounded intervals
+$K_n\subset G_n$ with
+\[
+\ell(G_n\setminus K_n)<c/2^{n+1}.
+\]
+
 The approximations $K_n$ need not be nested: shortening and retaining
 different intervals at each stage makes independent choices. Set
-$H_m=K_1\cap\cdots\cap K_m$ instead. It is a finite union of closed
-bounded intervals (possibly degenerate), hence has the finite-subcover
-property just proved, and $H_{m+1}\subseteq H_m$. We must still show
+
+\[
+H_m=K_1\cap\cdots\cap K_m
+\]
+ instead. It is a finite union of closed bounded intervals (possibly
+degenerate), hence satisfies the local finite-subcover result just proved,
+and $H_{m+1}\subseteq H_m$. We must still show
 nonemptiness; the summable errors were chosen for exactly this purpose.
 If $H_m$ were empty, every point
 of $G_m$ would fail to belong to some $K_i$, $i\leq m$.
@@ -653,8 +961,9 @@ Since $G_m\subset G_i$, this would give
 G_m\subset\bigcup_{i=1}^m(G_i\setminus K_i),\qquad
 \ell(G_m)<\sum_{i=1}^m c/2^{i+1}<c/2,
 \]
-contradicting its lower bound. The nonempty compact sets $H_m$ decrease
-inside $[a,b]$, so their intersection is nonempty. Explicitly, otherwise
+contradicting its lower bound. The nonempty sets \(H_m\), each a finite
+union of closed bounded intervals, decrease inside \([a,b]\), so their
+intersection is nonempty. Explicitly, otherwise
 the open complements of the $H_m$ would finitely cover $H_1$, forcing
 one late $H_m$ to be empty. A point in every $H_m$ belongs to every $G_n$.
 \end{proof}
@@ -678,14 +987,22 @@ proved, satisfy $0\leq g_n\leq2M$, and tend pointwise to zero.
 The cases $a=b$ or $M=0$ are immediate. Otherwise rescale domain and
 height to reduce to $0\leq g_n\leq1$ on $[0,1]$.
 If the integrals do not tend to zero, pass to a subsequence with
-$\int g_n>2\eps$ for a fixed $\eps>0$. For each $n$, integrability
+
+\[
+\int g_n>2\eps
+\]
+ for a fixed $\eps>0$. For each $n$, integrability
 supplies a lower Darboux sum greater than $2\eps$. Cells whose lower
 height is at most $\eps$ contribute at most $\eps$ in total; the
 remaining cells therefore contribute more than $\eps$. Since heights
 are at most $1$, their combined lengths exceed $\eps$.
 Let $U_n$ be the union of the interiors of these remaining cells. Then
 $\ell(U_n)>\eps$ and $g_n(x)>\eps$ throughout $U_n$.
-The open sets $G_N=\bigcup_{n\geq N}U_n$ decrease and each has
+The open sets
+\[
+G_N=\bigcup_{n\geq N}U_n
+\]
+ decrease and each has
 length greater than $\eps$. By \cref{lem:nested-open-length}, some
 $x$ belongs to every $G_N$. Unpacking the union and intersection,
 \[
@@ -697,7 +1014,11 @@ $g_n(x)>\eps$ at arbitrarily large indices. Pointwise convergence at this
 fixed $x$ says all sufficiently late errors are less than $\eps$, a
 contradiction. The point cannot vary with $N$ in this last step. This proves convergence of the absolute
 error integrals. Finally
-$|\int f_n-\int f|\leq\int|f_n-f|$ proves the second assertion.
+
+\[
+|\int f_n-\int f|\leq\int|f_n-f|
+\]
+ proves the second assertion.
 \end{proof}
 \begin{example}[The limit's integrability cannot be dropped]
 Enumerate the rationals in $[0,1]$ as $q_1,q_2,\ldots$ and set
@@ -714,77 +1035,28 @@ that integrability. Neither theorem permits arbitrary unbounded moving
 spikes. Bartle~\cite{bartle-elements} is a classical companion for comparing
 these convergence hypotheses; the interval-cover proof above is internal.
 
-\begin{remark}[The stronger Lebesgue theorem]
-The Lebesgue dominated convergence theorem is substantially stronger.  In
-its usual form, pointwise almost-everywhere convergence of measurable
-functions, together with domination by one integrable function, implies
-convergence of the integrals; uniform convergence is not required.  This
-result depends on measure and Lebesgue integration and is therefore not
-proved or used in these notes.
-\end{remark}
-
-Pointwise convergence is generally too weak to preserve continuity or to
-justify passing a limit through an integral.  Dini's theorem is a striking
-special case in which compactness, continuity, and monotonicity cooperate to
-upgrade pointwise convergence to uniform convergence.
-
-\begin{theorem}[Dini's theorem]
-\label{thm:dini-riemann}
-Let
-\[
-f_n:[a,b]\longrightarrow\R
-\]
-be continuous functions such that
-\[
-f_n(x)\leq f_{n+1}(x)
-\qquad(x\in[a,b],\ n\in\N),
-\]
-and suppose that \(f_n(x)\) converges pointwise to a continuous function
-\(f\) on \([a,b]\).  Then \(f_n\) converges uniformly to \(f\), and hence
-\[
-\lim_{n\to\infty}\int_a^b f_n(x)\,\dd x
-=
-\int_a^b f(x)\,\dd x.
-\]
-The same conclusion holds for a pointwise decreasing sequence.
-\end{theorem}
-\begin{proof}
-\textbf{Strategy.} Nested open good sets turn a finite subcover into one
-uniform index. In the increasing case set $h_n=f-f_n\geq0$ on $K=[a,b]$.
-For $\eps>0$, the relatively open sets
-\[
-U_n=\{x\in K:h_n(x)<\eps/2\}
-\]
-are increasing, and pointwise convergence gives $K=\bigcup_n U_n$.
-The interval finite-subcover result, \cref{cor:closed-subset-finite-subcover},
-supplies a finite subcover: refine these relatively open sets by intersections
-of $K$ with open intervals and apply that result. Its largest-index member
-$U_N$ already covers $K$. For $n\geq N$ and every $x\in K$,
-$0\leq h_n(x)<\eps/2$, hence $\sup_K|f-f_n|\leq\eps/2<\eps$.
-This proves uniform convergence, and \cref{thm:uniform-riemann-integration} gives the integral formula.
-Apply the increasing case to $-f_n$ for a decreasing sequence.
-\end{proof}
-
-\begin{remark}[Dini versus Lebesgue monotone convergence]
-Dini's theorem uses a compact interval, continuity of every \(f_n\) and of
-the limit, and monotone pointwise convergence to produce \textbf{uniform}
-convergence.  The preceding integral formula follows only after applying
-\cref{thm:uniform-riemann-integration}.  By contrast, the Lebesgue Monotone
-Convergence Theorem concerns nonnegative measurable functions and gives
-convergence of integrals without continuity or uniform convergence.  It is a
-measure-theoretic result and is not used in the Riemann development.
-\end{remark}
+Measure-theoretic convergence theorems weaken these hypotheses
+substantially; they are stated and compared with the present Riemann results
+in Section~9.7. Dini's theorem itself now appears in
+Chapter~\ref{ch:function-sequences}.
 
 \section{The Fundamental Theorem of Calculus}
 
 Differentiation measures local change, while integration accumulates local
 change.  The Fundamental Theorem identifies these two operations under the
-continuity hypotheses that make both constructions stable.
+continuity hypotheses that make both constructions stable. In the familiar
+elementary setting one often has \(F\in C^1\), in the one-variable sense of
+\cref{def:one-variable-ck}, so \(F'\) is continuous. The results below first
+work in that comfortable setting and then identify exactly which hypotheses
+can be weakened.
 
 \begin{proposition}[Accumulation at continuity points]
 \label{prop:ftc-continuity-points}
-For Riemann-integrable $f$ on $[a,b]$, $F(x)=\int_a^x f$ is continuous.
-In the expanded notation $F(x)=\int_a^x f(t)\,\dd t$, $x$ is the free
+For Riemann-integrable $f$ on $[a,b]$, the accumulation function
+\[
+F(x)=\int_a^x f(t)\,\dd t
+\]
+is continuous. Here $x$ is the free
 endpoint parameter and $t$ is a bound integration variable. Renaming $t$
 does not change the function $F$.
 At every interior point $c$ where $f$ is continuous, $F'(c)=f(c)$.
@@ -804,8 +1076,16 @@ For $h<0$ use only forward-endpoint integrals at this stage:
 In either case the absolute error is at most
 $\sup\{|f(t)-f(c)|:|t-c|\leq|h|,\ t\in[a,b]\}$.
 Given $\eps>0$, continuity at $c$ supplies a neighborhood on which
-$|f(t)-f(c)|<\eps/2$. Choose $|h|$ small enough that the whole interval
-of integration lies there. The supremum is at most $\eps/2<\eps$,
+
+\[
+|f(t)-f(c)|<\eps/2.
+\]
+ Choose $|h|$ small enough that the whole interval
+of integration lies there. The supremum is at most
+\[
+\eps/2<\eps,
+\]
+
 so the difference quotient tends to $f(c)$.
 \end{proof}
 
@@ -853,10 +1133,112 @@ F(b)-F(a)=G(b)=\int_a^b f(x)\,\dd x.
 \]
 \end{proof}
 
+\subsection{Antiderivatives and indefinite integrals}
+
+\begin{definition}[Antiderivative]
+\label{def:antiderivative}
+Let \(f:I\to\R\) be defined on an interval \(I\). A differentiable function
+\(F:I\to\R\) is an \textbf{antiderivative} of \(f\) on \(I\) if
+\[
+F'(x)=f(x)
+\qquad(x\in I),
+\]
+with one-sided derivatives at included endpoints when appropriate.
+\end{definition}
+
+\begin{proposition}[Antiderivatives differ by a constant]
+\label{prop:antiderivatives-constant}
+If \(F\) and \(G\) are antiderivatives of the same function on an interval
+\(I\), then there is a constant \(C\) such that
+\[
+F(x)-G(x)=C
+\qquad(x\in I).
+\]
+\end{proposition}
+\begin{proof}
+Put \(H=F-G\). Then \(H'=0\) on the interior of \(I\). For any \(x<y\)
+in \(I\), the Mean Value Theorem on \([x,y]\) gives a point \(c\in(x,y)\)
+such that
+\[
+H(y)-H(x)=H'(c)(y-x)=0.
+\]
+Thus \(H\) has one value throughout \(I\).
+\end{proof}
+
+This proposition is the rigorous reason for the arbitrary constant in
+\[
+\int f(x)\,\dd x=F(x)+C.
+\]
+The expression on the left is \textbf{indefinite-integral notation}: it
+denotes the family of all antiderivatives on the interval under discussion.
+It is not a definite Riemann integral with its endpoints deleted. The
+distinction is one of type:
+\[
+\begin{array}{c|c}
+\text{definite integral }\displaystyle\int_a^b f(x)\,\dd x
+&\text{a number}\cr
+\text{indefinite integral }\displaystyle\int f(x)\,\dd x
+&\text{a family of functions }F+C.
+\end{array}
+\]
+The interval hypothesis matters. On \(\R\setminus\{0\}\), two
+antiderivatives of
+\[
+1/x
+\]
+ may differ by one constant on
+\((\! -\infty,0)\) and by another on \((0,\infty)\). Thus
+\[
+\int\frac{\dd x}{x}=\log|x|+C
+\]
+is understood on one interval avoiding zero. More generally, one constant
+is available on each connected component of a disconnected domain.
+
+In the first line below, $F$ is the accumulation function just defined.
+The two FTC statements read in opposite directions:
+\[
+\boxed{
+\begin{aligned}
+\text{FTC I:}\quad
+f\text{ continuous}
+&\Longrightarrow
+F'(x)=f(x),\quad x\in(a,b),\\
+\text{FTC II:}\quad
+F'=f
+&\Longrightarrow
+\int_a^b f(x)\,\dd x=F(b)-F(a)
+\quad\text{under the stated continuity hypotheses.}
+\end{aligned}}
+\]
+FTC I says that integrating a continuous rate produces an antiderivative.
+FTC II, or the Newton--Leibniz formula, is the direction most often used in
+elementary calculations: recognize \(F\), verify \(F'=f\), and evaluate the
+endpoints. Also,
+\[
+\boxed{\text{having an antiderivative}
+\ne
+\text{having an elementary closed-form antiderivative}.}
+\]
+For every continuous \(f\), FTC I supplies the perfectly valid
+antiderivative
+\[
+x\mapsto\int_a^x f(t)\,\dd t,
+\]
+ even when no familiar
+elementary formula is available.
+
 \begin{example}[The two directions of the FTC]
-The integral $A(x)=\int_0^x(1+t^2)\,\dd t$ for $x>0$ defines an antiderivative:
+The integral
+\[
+A(x)=\int_0^x(1+t^2)\,\dd t
+\]
+ for $x>0$ defines an antiderivative:
 the first part of the FTC gives $A'(x)=1+x^2$ directly from continuity
-of the integrand. Conversely, once $B(x)=x+x^3/3$ is known to satisfy
+of the integrand. Conversely, once
+\[
+B(x)=x+x^3/3
+\]
+ is known to satisfy
 $B'(x)=1+x^2$, the second part evaluates
 \[
 \int_0^2(1+x^2)\,\dd x=[x+x^3/3]_0^2=2+8/3=14/3.
@@ -865,50 +1247,148 @@ The first use constructs an antiderivative from an integral; the second
 uses an antiderivative to evaluate a definite integral.
 \end{example}
 
-\begin{example}[Inverse trigonometric antiderivatives]
+\begin{example}[A basic antiderivative library]
 \label{ex:inverse-trigonometric-antiderivatives}
-The derivative formulas in \cref{thm:inverse-trigonometric} now become
-integration formulas. On every interval contained in \((-1,1)\),
+Each entry below is justified by differentiating the proposed
+antiderivative and checking its domain:
 \[
-\int\frac{\dd x}{\sqrt{1-x^2}}=\arcsin x+C,
+\begin{array}{c|c}
+\text{integrand}&\text{antiderivative}\cr\hline
+x^p&\dfrac{x^{p+1}}{p+1}+C\quad(p\ne-1)\cr
+1/x&\log|x|+C\cr
+e^x&e^x+C\cr
+a^x&\dfrac{a^x}{\log a}+C\quad(a>0,\ a\ne1)\cr
+\sin x&-\cos x+C\cr
+\cos x&\sin x+C\cr
+1/\cos^2x&\tan x+C\cr
+1/(1+x^2)&\arctan x+C\cr
+1/\sqrt{1-x^2}&\arcsin x+C\cr
+-1/\sqrt{1-x^2}&\arccos x+C.
+\end{array}
 \]
-and on every real interval,
-\[
-\int\frac{\dd x}{1+x^2}=\arctan x+C.
-\]
-These statements mean that the functions on the right have the displayed
-integrands as derivatives on the stated domains.
+For arbitrary real \(p\), the power formula holds on intervals contained in
+\((0,\infty)\), where Chapter~\ref{ch:differentiation} defines \(x^p\).
+It also holds on any larger real domain on which the relevant power is
+defined and the derivative formula is valid. The logarithmic formula is
+used only on an interval avoiding zero. The tangent formula requires
+\(\cos x\ne0\), and the arcsine formula is used on intervals contained in
+\((-1,1)\).
 
-For a scale \(a>0\), the chain rule gives, on intervals contained in
-\((-a,a)\),
+Representative checks reveal the mechanisms behind the table. For real
+powers on the positive half-line,
 \[
-\frac{\dd}{\dd x}\arcsin\left(\frac xa\right)
-=\frac1{\sqrt{a^2-x^2}},
+\frac{\dd}{\dd x}\left(\frac{x^{p+1}}{p+1}\right)
+=\frac{p+1}{p+1}x^p=x^p\qquad(p\ne-1).
 \]
-because \(a>0\). Likewise, for every \(x\in\R\),
+The sine, cosine, exponential, tangent, and arctangent entries follow by
+the same reversal of their established derivatives. The arcsine entry uses
 \[
-\frac{\dd}{\dd x}\left[\frac1a\arctan\left(\frac xa\right)\right]
-=\frac1{a^2+x^2}.
+\frac{\dd}{\dd x}\arcsin x=\frac1{\sqrt{1-x^2}}\qquad(-1<x<1).
 \]
-Thus
+By the principal-range identity from Chapter~8,
 \[
-\boxed{
+\arcsin x+\arccos x=\frac\pi2.
+\]
+Thus the same antiderivative family can equally be written
+\[
+\int\frac{\dd x}{\sqrt{1-x^2}}
+=\arcsin x+C_1=-\arccos x+C_2\qquad(-1<x<1),
+\]
+where the arbitrary constants are adjusted by the fixed difference.
+
+\paragraph{Why the logarithm contains an absolute value.}
+The real logarithm retains its domain
+\[
+\log:(0,\infty)\longrightarrow\R.
+\]
+For $x>0$ its derivative is the reciprocal. For $x<0$, the positive
+argument $-x$ is available, and the chain rule gives
+\[
+\frac{\dd}{\dd x}\log(-x)=\frac1{-x}(-1)=\frac1x.
+\]
+Since $|x|=x$ on the positive half-line and $|x|=-x$ on the negative
+half-line, these two checks prove
+\[
+\int\frac{\dd x}{x}=\log|x|+C
+\]
+on each interval avoiding zero. No logarithm of a negative number is used.
+For a differentiable $g$ that is nonzero throughout an interval, continuity
+and the intermediate value theorem make its sign constant. Applying the
+same two cases and the chain rule gives
+\[
+\frac{\dd}{\dd x}\log|g(x)|=\frac{g'(x)}{g(x)},
+\qquad \int\frac{g'(x)}{g(x)}\,\dd x=\log|g(x)|+C.
+\]
+For example,
+\[
+\int\frac{2x}{1+x^2}\,\dd x=\log(1+x^2)+C,
+\qquad \int\frac{\dd x}{x-a}=\log|x-a|+C.
+\]
+The first absolute value disappears because $1+x^2>0$; the second formula
+is used on an interval on one side of $a$.
+
+The same recognition pattern gives
+\[
+\boxed{\int\tan x\,\dd x=-\log|\cos x|+C}
+\]
+on intervals avoiding zeros of \(\cos x\), because
+\[
+\tan x=-\frac{(\cos x)'}{\cos x}.
+\]
+
+All affine variants follow from one chain-rule template. If \(a\ne0\),
+\[
+\int F'(ax+b)\,\dd x=\frac1aF(ax+b)+C.
+\]
+Consequently,
+\[
+\begin{aligned}
+\int e^{ax+b}\,\dd x&=\frac1a e^{ax+b}+C,&
+\int\sin(ax+b)\,\dd x&=-\frac1a\cos(ax+b)+C,\\
+\int\cos(ax+b)\,\dd x&=\frac1a\sin(ax+b)+C,&
+\int\frac{\dd x}{ax+b}&=\frac1a\log|ax+b|+C.
+\end{aligned}
+\]
+These are not additional rules to memorize; they follow from the canonical
+antiderivatives by the chain rule or substitution.
+For \(a>0\),
+\[
 \int\frac{\dd x}{\sqrt{a^2-x^2}}
 =\arcsin\left(\frac xa\right)+C
 \quad(|x|<a),
-}
 \]
 and
 \[
-\boxed{
 \int\frac{\dd x}{a^2+x^2}
 =\frac1a\arctan\left(\frac xa\right)+C
 \quad(x\in\R).
-}
 \]
-Inverse trigonometric functions therefore arise naturally as
-antiderivatives of basic algebraic expressions, not merely as formal
-inverses of familiar periodic functions.
+The scaled arcsine family also equals
+\[
+-\arccos\left(\frac xa\right)+C\qquad(|x|<a).
+\]
+The chain rule checks the scale factors explicitly:
+\[
+\begin{aligned}
+\frac{\dd}{\dd x}\arcsin\left(\frac xa\right)
+ &=\frac{1/a}{\sqrt{1-x^2/a^2}}
+ =\frac1{\sqrt{a^2-x^2}},\\
+\frac{\dd}{\dd x}\left[\frac1a\arctan\left(\frac xa\right)\right]
+ &=\frac1{a^2}\frac1{1+x^2/a^2}=\frac1{a^2+x^2}.
+\end{aligned}
+\]
+Here $a>0$ ensures the stated simplification of the square root.
+The inverse-hyperbolic derivative in
+\cref{sec:exponential-logarithm} similarly gives
+\[
+\int\frac{\dd x}{\sqrt{x^2+a^2}}
+=\operatorname{arsinh}(x/a)+C
+=\log\!\left(x+\sqrt{x^2+a^2}\right)+C_1,
+\qquad a>0,
+\]
+where the two constants differ by \(\log a\).
+These formulas are recognition tools, not permissions to ignore singularities
+or cross disconnected components.
 \end{example}
 
 \begin{definition}[Oriented interval integrals]
@@ -934,6 +1414,36 @@ In particular,
 \]
 Thus reversing endpoints reverses the orientation of an integral.
 \end{definition}
+
+\paragraph{Integrating power series.}
+For a power series
+\[
+\sum_{n=0}^{\infty}c_n(t-a)^n
+\]
+of radius $R>0$,
+\cref{thm:power-uniform-inside} gives uniform convergence on every closed
+interval strictly inside its radius. Applying the uniform-series corollary of section~9.3 on the segment
+joining $a$ and $x$ gives
+\[
+\int_a^x\left(\sum_{n=0}^{\infty}c_n(t-a)^n\right)\,\dd t
+=\sum_{n=0}^{\infty}\frac{c_n}{n+1}(x-a)^{n+1},
+\qquad |x-a|<R.
+\]
+For $x<a$ use the orientation convention of
+\cref{def:oriented-interval-integral}. The polynomial integrals follow from the FTC. This is the integration counterpart to
+\cref{thm:power-series-differentiation}.
+
+For example, integrate the geometric series
+\[
+\frac{1}{1-t}=\sum_{n=0}^{\infty}t^n\qquad(|t|<1)
+\]
+from $0$ to $x$. The FTC and the derivative of $-\log(1-t)$ then give
+\[
+-\log(1-x)=\sum_{n=1}^{\infty}\frac{x^n}{n},\qquad |x|<1.
+\]
+Uniform convergence on the segment from $0$ to $x$ justifies the interchange.
+
+\subsection{Substitution}
 
 \begin{theorem}[Substitution]
 \label{thm:one-variable-substitution}
@@ -978,6 +1488,71 @@ F(\phi(\beta))-F(\phi(\alpha))
 \]
 \end{proof}
 
+\paragraph{Substitution is the reverse chain rule.}
+The pattern to recognize is
+\[
+f(g(x))g'(x).
+\]
+Choose an inner expression $u=g(x)$ and check whether its derivative is
+present, perhaps up to a constant. Rewrite the entire integrand in $u$;
+for a definite integral, replace the bounds by $g(a)$ and $g(b)$. The
+substitution is useful when the transformed integral is simpler.
+For instance,
+\[
+\int 2x e^{x^2}\,\dd x=e^{x^2}+C,
+\qquad
+\int\frac{2x}{1+x^2}\,\dd x=\log(1+x^2)+C.
+\]
+For the definite version, continuity first gives existence, and then
+\[
+\int_0^1 2x e^{x^2}\,\dd x
+=\int_0^1 e^u\,\dd u
+=e-1.
+\]
+Here \(u=x^2\) sends the old endpoints \(0,1\) to \(0,1\). Likewise,
+\[
+\int_0^1\frac{2x}{1+x^2}\,\dd x
+=\int_1^2\frac{\dd u}{u}
+=\log2.
+\]
+A substitution may be legal without being useful. Setting \(u=x^2\) in
+
+\[
+\int e^x\,\dd x
+\]
+ introduces \(x=\sqrt u\) and a factor
+
+\[
+1/(2\sqrt u);
+\]
+ it obscures an integral already in the basic table.
+
+\paragraph{A representative trigonometric substitution.}
+For \(a>0\), the radical in
+\[
+\int\sqrt{a^2-x^2}\,\dd x
+\]
+suggests \(x=a\sin\theta\). On a range where
+\(-\pi/2\leq\theta\leq\pi/2\), one has
+\[
+\dd x=a\cos\theta\,\dd\theta,
+\qquad
+\sqrt{a^2-x^2}
+=a\sqrt{1-\sin^2\theta}=a\cos\theta.
+\]
+Hence
+\[
+\int\sqrt{a^2-x^2}\,\dd x
+=a^2\int\cos^2\theta\,\dd\theta
+=\frac{x}{2}\sqrt{a^2-x^2}
+ \frac{a^2}{2}\arcsin(x/a)+C.
+\]
+The recognition principle is to match a radical with an identity:
+\(\sqrt{a^2-x^2}\) suggests sine,
+\(\sqrt{a^2+x^2}\) suggests a hyperbolic sine (or tangent), and
+\(\sqrt{x^2-a^2}\) suggests a hyperbolic cosine (or secant). One carefully
+chosen substitution is usually more useful than a catalogue.
+
 \begin{remark}[Substitution, Jacobians, and pullbacks]
 In one variable, substitution is a short consequence of the chain rule and
 the Fundamental Theorem of Calculus; no injectivity of \(\phi\) is required.
@@ -996,6 +1571,8 @@ formulas as pullback: one-variable substitution leads to multivariable
 change of variables and then to the pullback of differential forms.
 \end{remark}
 
+
+\subsection{Integration by parts}
 
 \begin{theorem}[Integration by parts]
 \label{thm:one-variable-integration-by-parts}
@@ -1037,15 +1614,15 @@ Taking
 \[
 u(x)=x,
 \qquad
-v(x)=\exp x
+v(x)=e^x
 \]
 on \([0,1]\) gives
 \[
-\int_0^1 x\exp x\,\dd x
+\int_0^1 xe^x\,\dd x
 =
-\bigl[x\exp x\bigr]_{x=0}^{x=1}
+\bigl[xe^x\bigr]_{x=0}^{x=1}
 -
-\int_0^1\exp x\,\dd x
+\int_0^1e^x\,\dd x
 =1.
 \]
 \end{example}
@@ -1057,8 +1634,16 @@ for example $v=x$. This shorthand records the already proved
 manipulating infinitesimal numbers. Chapter~11 will give $\dd x$ and
 $df$ their covector interpretation.
 \begin{example}[Choosing which factor to differentiate]
-To compute $\int_1^e\log x\,\dd x$, choose $u=\log x$, $\dd v=\dd x$.
-Then $\dd u=(1/x)\,\dd x$ and $v=x$, because $u'(x)=1/x$ and $v'(x)=1$. This choice simplifies the remaining
+To compute the integral below, choose
+\[
+u=\log x,\qquad \dd v=\dd x,\qquad
+\dd u=\frac1x\,\dd x,\qquad v=x,
+\]
+because
+\[
+u'(x)=1/x
+\]
+ and $v'(x)=1$. This choice simplifies the remaining
 product to $v\,\dd u=\dd x$:
 \[
 \int_1^e\log x\,\dd x=[x\log x]_1^e-\int_1^e1\,\dd x
@@ -1066,6 +1651,201 @@ product to $v\,\dd u=\dd x$:
 \]
 Differentiating the logarithm removed it; integrating the constant factor was easy.
 \end{example}
+
+\paragraph{Choosing the parts.}
+Integration by parts reverses the product rule. Choose \(u\) so that
+differentiating it simplifies it, and choose \(\dd v\) so that an
+antiderivative \(v\) is easy. The mnemonic LIATE (logarithmic, inverse
+trigonometric, algebraic, trigonometric, exponential) can suggest a choice
+of \(u\), but it is a heuristic, not a theorem. After one step, verify that
+the new integral is simpler.
+For the product $xe^x$, choosing
+\[
+u=x,\qquad \dd v=e^x\,\dd x
+\]
+removes the polynomial degree:
+\[
+\int xe^x\,\dd x=xe^x-e^x+C.
+\]
+The reversed choice asks for an antiderivative of \(x\) but differentiates
+\(e^x\), producing
+\[
+\frac12x^2e^x-\frac12\int x^2e^x\,\dd x,
+\]
+ a harder
+integral than the original. A formally valid choice can therefore be a poor
+strategy.
+
+\begin{example}[Integration-by-parts patterns]
+Polynomial--trigonometric products behave like the polynomial--exponential
+case:
+\[
+\int x\sin x\,\dd x=-x\cos x+\sin x+C,
+\qquad
+\int x\cos x\,\dd x=x\sin x+\cos x+C.
+\]
+Hidden products use a factor of \(1\). Thus
+\[
+\int\log x\,\dd x=x\log x-x+C
+\qquad(x>0),
+\]
+and
+\[
+\int\arctan x\,\dd x
+=x\arctan x-\frac12\log(1+x^2)+C.
+\]
+For the arctangent formula, the hidden product is $1\cdot\arctan x$;
+choose $u=\arctan x$ and $v=x$. The remaining integral is
+\[
+\int\frac{x}{1+x^2}\,\dd x=\frac12\log(1+x^2)+C.
+\]
+The same choice for arcsine gives, on $(-1,1)$,
+\[
+\begin{aligned}
+\int\arcsin x\,\dd x
+ &=x\arcsin x-\int\frac{x}{\sqrt{1-x^2}}\,\dd x\\
+ &=x\arcsin x+\sqrt{1-x^2}+C,
+\end{aligned}
+\]
+where the last step follows by substituting $u=1-x^2$, or differentiating
+the square root. Subtract this identity from the integral of the constant
+principal-range sum to obtain
+\[
+\int\arccos x\,\dd x=x\arccos x-\sqrt{1-x^2}+C.
+\]
+As a check, the two formulas add to
+\[
+\frac\pi2x+C;
+\]
+the square-root terms cancel, as the exact arcsine--arccosine identity requires.
+Repeated integration by parts gives
+\[
+\int x^2e^x\,\dd x=e^x(x^2-2x+2)+C.
+\]
+For a cyclic example, write
+\[
+I=\int e^x\cos x\,\dd x.
+\]
+ Two applications
+give
+\[
+I=e^x\cos x+e^x\sin x-I,
+\]
+so
+\[
+\int e^x\cos x\,\dd x
+=\frac12e^x(\sin x+\cos x)+C.
+\]
+Finally, continuity gives existence of the proper integral, and the definite
+formula keeps the boundary term visible:
+\[
+\int_0^\pi x\sin x\,\dd x
+=\bigl[-x\cos x\bigr]_0^\pi+\int_0^\pi\cos x\,\dd x
+=\pi.
+\]
+\end{example}
+
+\subsection{Partial fractions for rational functions}
+For a rational function
+\[
+P(x)/Q(x),
+\]
+ partial fractions turn algebraic
+factorization into logarithmic, power, and arctangent antiderivatives. We use
+the method only when the needed real factorization of \(Q\) is supplied or
+easy to obtain; no general polynomial-factorization theorem is assumed.
+\[
+\boxed{
+\begin{array}{l}
+1.\ \deg P\geq\deg Q\ ?\ \text{Perform polynomial division first}.\\
+2.\ \text{Factor the remaining denominator as needed over }\R.\\
+3.\ \text{Write one term for every required factor and multiplicity}.\\
+4.\ \text{Solve for the coefficients}.\\
+5.\ \text{Integrate the elementary terms}.\\
+6.\ \text{Check poles and the domain of every logarithm}.
+\end{array}}
+\]
+Distinct linear factors use
+\[
+\frac1{(x-a)(x-b)}=\frac{A}{x-a}+\frac{B}{x-b},
+\]
+whereas a repeated factor \((x-a)^m\) requires all terms
+\[
+\frac{A_1}{x-a}+\frac{A_2}{(x-a)^2}+\cdots+
+\frac{A_m}{(x-a)^m}.
+\]
+An irreducible quadratic receives a linear numerator
+\[
+\frac{Ax+B}{x^2+px+q}.
+\]
+If an irreducible quadratic $q(x)$ occurs to power $m$, include every term
+\[
+\frac{A_1x+B_1}{q(x)}+\frac{A_2x+B_2}{q(x)^2}
++\cdots+\frac{A_mx+B_m}{q(x)^m}.
+\]
+Rewriting \(Ax+B\) as a multiple of \(2x+p\) plus a remainder separates a
+logarithmic term from an arctangent-type term after completing the square.
+
+\begin{example}[Four partial-fraction patterns]
+For distinct linear factors,
+\[
+\frac1{(x-1)(x+2)}
+=\frac13\frac1{x-1}-\frac13\frac1{x+2},
+\]
+so on any interval avoiding both poles,
+\[
+\int\frac{\dd x}{(x-1)(x+2)}
+=\frac13\log|x-1|-\frac13\log|x+2|+C.
+\]
+For a repeated factor,
+\[
+\frac1{x(x-1)^2}=\frac1x-\frac1{x-1}+\frac1{(x-1)^2},
+\]
+and therefore
+\[
+\int\frac{\dd x}{x(x-1)^2}
+=\log|x|-\log|x-1|-\frac1{x-1}+C.
+\]
+Polynomial division comes first in
+\[
+\frac{x^2+1}{x-1}=x+1+\frac2{x-1},
+\]
+giving
+\[
+\int\frac{x^2+1}{x-1}\,\dd x
+=\frac{x^2}{2}+x+2\log|x-1|+C.
+\]
+Finally,
+\[
+\frac{3x+5}{x^2+2x+5}
+=\frac32\frac{2x+2}{x^2+2x+5}
++2\frac1{(x+1)^2+4},
+\]
+so
+\[
+\int\frac{3x+5}{x^2+2x+5}\,\dd x
+=\frac32\log(x^2+2x+5)+\arctan\left(\frac{x+1}{2}\right)+C.
+\]
+\end{example}
+
+\begin{remark}[Algebra does not remove a pole]
+The decomposition may be correct wherever the original rational function is
+defined, but it does not make an integral across a pole proper. For example,
+
+\[
+1/(x^2-1)
+\]
+ has a pole at \(x=1\), so
+
+\[
+\int_0^2 1/(x^2-1)\,\dd x
+\]
+ is not a proper integral and must later be
+split into independent one-sided improper integrals. In particular,
+\[
+\boxed{\text{algebraic manipulation does not override domain or convergence questions}.}
+\]
+\end{remark}
 
 
 \begin{theorem}[Mean value theorem for integrals]
@@ -1093,16 +1873,66 @@ Intermediate Value Theorem supplies \(c\in[a,b]\) at which \(f\) takes that
 value.
 \end{proof}
 
-\subsection*{Using the FTC and formulating accumulations}
+\subsection{Using the FTC and formulating accumulations}
 The two parts of the FTC answer different questions. A continuous $f$
-defines an antiderivative $F(x)=\int_a^x f$; conversely a known
-antiderivative $G$ evaluates $\int_a^b f=G(b)-G(a)$.
+defines an antiderivative
+\[
+F(x)=\int_a^x f(t)\,\dd t;
+\]
+conversely, a known antiderivative $G$ evaluates
+\[
+\int_a^b f(t)\,\dd t=G(b)-G(a).
+\]
 Once the hypotheses are checked, neither computation requires
 reconstructing Riemann sums.
 
+For ordinary integrals, let the structure of the integrand suggest the first
+move:
+\[
+\begin{array}{c|c}
+\text{integrand structure}&\text{first method to consider}\cr\hline
+\text{recognizable derivative formula}&\text{basic antiderivative}\cr
+f(g(x))g'(x)&\text{substitution}\cr
+\text{product where differentiation simplifies one factor}
+&\text{integration by parts}\cr
+P(x)/Q(x)&\text{division and partial fractions}.
+\end{array}
+\]
+Real problems may combine methods. Before selecting one, split at changes of
+formula or sign when necessary, reverse orientation if useful, exploit odd or
+even symmetry on symmetric intervals, and check the domain of every formula.
+
+For a definite integral, keep three questions separate:
+\[
+\boxed{
+\begin{array}{l}
+1.\ \text{Does the proper integral exist?}\\
+2.\ \text{Which antiderivative or technique is appropriate?}\\
+3.\ \text{How does the FTC evaluate the result?}
+\end{array}}
+\]
+A complete calculation therefore often follows
+\[
+\begin{gathered}
+\text{check continuity and domain}
+\longrightarrow
+\text{select a method}
+\longrightarrow
+\text{find or transform an antiderivative}\\
+\longrightarrow
+\text{apply the FTC}
+\longrightarrow
+\text{interpret or check the answer}.
+\end{gathered}
+\]
+
 \begin{example}[Evaluation, orientation, and splitting]
 For a polynomial integrand,
-$\int_0^2(3x^2-2x+1)\,\dd x=[x^3-x^2+x]_0^2=6$.
+
+\[
+\int_0^2(3x^2-2x+1)\,\dd x=[x^3-x^2+x]_0^2=6.
+\]
+
 Reversing the bounds gives $-6$.
 For an absolute value first split where its formula changes:
 \[
@@ -1110,13 +1940,39 @@ For an absolute value first split where its formula changes:
 =\int_0^1(1-x)\,\dd x+\int_1^2(x-1)\,\dd x=1.
 \]
 Substitution $u=1+x^2$ gives
-$\int_0^1 2x/(1+x^2)\,\dd x=\int_1^2\dd u/u=\log2$;
+
+\[
+\int_0^1\frac{2x}{1+x^2}\,\dd x=\int_1^2\frac{\dd u}{u}=\log2;
+\]
+
 the new bounds are the substituted endpoint values.
 For an integrable odd function, substitution $x=-t$ shows that the
 two integrals on $[-a,0]$ and $[0,a]$ cancel. Thus
-$\int_{-1}^1(x^3+x)\,\dd x=0$. For an even function the same
+
+\[
+\int_{-1}^1(x^3+x)\,\dd x=0.
+\]
+ For an even function the same
 argument doubles the integral on $[0,a]$.
 \end{example}
+
+\paragraph{From local contribution to total amount.}
+When $q(x)$ measures amount per unit $x$, a short interval contributes
+approximately its width times a representative rate or density:
+\[
+\Delta A_i\approx q(\xi_i)\Delta x_i,
+\qquad A\approx\sum_i q(\xi_i)\Delta x_i.
+\]
+When the model defines the total as the limit of these sums and $q$ is
+Riemann integrable, \cref{thm:tagged-riemann} identifies it as
+\[
+A=\int_a^bq(x)\,\dd x.
+\]
+This makes the modeling assumption visible before the FTC is used to
+compute. For a time rate the units satisfy
+\[
+(\text{amount/time})(\text{time})=\text{amount}.
+\]
 
 \begin{example}[From a rate to an amount]
 A container receives water at rate $r(t)=2+t$ litres per minute during
@@ -1130,24 +1986,108 @@ $r(\xi)\Delta t$ litres. Summing and taking the tagged-sum limit gives
 \]
 Continuity ensures integrability; the FTC evaluates the accumulation.
 Equivalently, if a volume function has derivative $r$, the FTC gives
-exactly its total change. The average rate is
-$(1/3)\int_0^3r=7/2$ litres per minute.
+exactly its total change. The average rate, in litres per minute, is
+\[
+\frac13\int_0^3r(t)\,\dd t=\frac72.
+\]
 \end{example}
 
 \begin{example}[Displacement and distance]
 A particle has velocity $v(t)=t-1$ metres per second on $[0,2]$.
-Its displacement is $\int_0^2v(t)\,\dd t=0$ metres.
+If $s'(t)=v(t)$, the FTC identifies the signed change in position:
+\[
+s(b)-s(a)=\int_a^b v(t)\,\dd t.
+\]
+On short intervals the magnitude of motion is approximately
+\[
+|\Delta s|\approx|v(\xi)|\Delta t,
+\]
+so the accumulation of speed gives total distance. For this particle,
+the displacement, in metres, is
+\[
+\int_0^2v(t)\,\dd t=0.
+\]
 The distance traveled is the accumulation of speed $|v(t)|$;
 splitting at the reversal time $t=1$ gives $1$ metre, by the
-absolute-value computation above. A signed total change and a total
-amount of motion answer different questions.
+absolute-value computation above:
+\[
+\text{distance}=\int_0^2|v(t)|\,\dd t=1\ \text{metre}.
+\]
+The negative and positive velocity contributions cancel in displacement;
+their magnitudes add in distance. Figure~\ref{fig:velocity-distance}
+shows precisely which contributions change sign.
 \end{example}
+
+\input{figures/velocity-distance}
+
+\begin{example}[Mass, average value, and accumulated deviation]
+If a thin rod occupying \([0,L]\) has continuous linear density
+\(\rho(x)\) kilograms per metre, a short piece near $\xi$ has mass
+\[
+\Delta M\approx\rho(\xi)\Delta x.
+\]
+Adding the pieces and taking the tagged-sum limit gives total mass
+\[
+M=\int_0^L\rho(x)\,\dd x.
+\]
+The dimensional check is
+\[
+(\text{mass/length})(\text{length})=\text{mass}.
+\]
+For continuous $f$ on $[a,b]$, its average is the constant $c$ producing
+the same total accumulation:
+\[
+\int_a^b c\,\dd x=\int_a^b f(x)\,\dd x,
+\qquad c(b-a)=\int_a^b f(x)\,\dd x.
+\]
+Dividing by interval length gives
+\[
+f_{\mathrm{avg}}=\frac1{b-a}\int_a^b f(x)\,\dd x;
+\]
+the mean value theorem for integrals says this average is attained at some
+point. For two continuous profiles $f,g$, the local magnitude of discrepancy is
+approximately
+\[
+|f(\xi_i)-g(\xi_i)|\Delta x_i.
+\]
+Thus the nonnegative quantity
+\[
+\int_a^b|f(x)-g(x)|\,\dd x
+\]
+measures total accumulated vertical deviation, whereas
+
+\[
+\int_a^b(f-g)
+\]
+ permits positive and negative discrepancies to cancel.
+In each application, translate the assumptions, choose the
+integrand and bounds, check continuity, compute, and interpret the units.
+\end{example}
+
+\paragraph{Standard and extended Newton--Leibniz hypotheses.}
+The familiar theorem and the next proposition differ only in the regularity
+required of the derivative:
+\[
+\begin{array}{c|c}
+\text{standard continuous-derivative setting}
+&\text{integrable-derivative extension}\cr\hline
+F'\text{ continuous}&F'\text{ merely Riemann integrable}\cr
+F\text{ essentially }C^1&F\text{ merely differentiable}\cr
+\text{Newton--Leibniz holds}&\text{Newton--Leibniz still holds}.
+\end{array}
+\]
+Thus continuous differentiability is a convenient sufficient hypothesis,
+not the boundary of the theorem.
 
 \begin{proposition}[Newton--Leibniz with an integrable derivative]
 \label{prop:newton-leibniz-integrable}
 If $F$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $F'$
 extends to a Riemann-integrable function $g$ on $[a,b]$, then
-$F(b)-F(a)=\int_a^b g$.
+
+\[
+F(b)-F(a)=\int_a^b g.
+\]
+
 \end{proposition}
 \begin{proof}
 On each partition interval the mean value theorem supplies an interior tag
@@ -1157,17 +2097,39 @@ These tags may depend on the partition. Their tagged sum is exactly
 S(g,P,\xi)=\sum_i g(\xi_i)(x_i-x_{i-1})
  =\sum_i\bigl(F(x_i)-F(x_{i-1})\bigr)=F(b)-F(a).
 \]
-Take, for example, equal subdivisions with mesh $(b-a)/N\to0$.
+Take, for example, equal subdivisions with mesh
+\[
+(b-a)/N\to0.
+\]
+
 By \cref{thm:tagged-riemann}, these particular tagged sums converge
-to $\int_a^b g$, since $g$ is integrable and the theorem allows every
+to
+\[
+\int_a^b g,
+\]
+ since $g$ is integrable and the theorem allows every
 choice of tags. They all equal $F(b)-F(a)$, proving the identity.
 \end{proof}
 
-After the negligible-set theory and Lebesgue criterion in section~9.6,
+After the measure-zero theory and Lebesgue criterion in section~9.6,
 we return to Newton--Leibniz when the derivative identity has a small
 exceptional set; see ``\nameref{sec:extended-newton-leibniz}''
 
 \section{Improper Integrals}
+
+For a nonnegative time rate $r$, first distinguish the amount accumulated
+by a finite time from a proposed infinite-time total:
+\[
+A(T)=\int_0^T r(t)\,\dd t,
+\qquad A(\infty)=\int_0^\infty r(t)\,\dd t.
+\]
+The second expression will mean the limit of the first, provided it is
+finite. When it is finite, the amount remaining after time $T$ is the tail
+\[
+A(\infty)-A(T)=\int_T^\infty r(t)\,\dd t.
+\]
+The finite truncation is the modeled amount before any improper limit is taken.
+
 
 Finite-interval Riemann integration does not directly cover infinite domains
 or unbounded behavior.  Improper integrals retain the finite theory and add
@@ -1218,7 +2180,11 @@ In particular,
 \int_0^1\frac{1}{\sqrt{x}}\,\dd x
 =\lim_{c\to0^+}2(1-\sqrt c)=2,
 \]
-while $\int_0^1x^{-1}\,\dd x$ and $\int_1^\infty x^{-1}\,\dd x$ diverge.
+while
+\[
+\int_0^1x^{-1}\,\dd x,\qquad \int_1^\infty x^{-1}\,\dd x
+\]
+ diverge.
 The opposite thresholds are a useful reminder to identify which endpoint
 causes the improper behavior.
 \end{example}
@@ -1226,17 +2192,66 @@ causes the improper behavior.
 The $p$-integral classifications follow from the explicit truncations
 \[
 \int_1^b x^{-p}\,\dd x=
-\begin{cases}(b^{1-p}-1)/(1-p),&p\ne1,\\\log b,&p=1,\end{cases}
+\begin{cases}\dfrac{b^{1-p}-1}{1-p},&p\ne1,\\\log b,&p=1,\end{cases}
 \]
 \[
 \int_c^1 x^{-p}\,\dd x=
-\begin{cases}(1-c^{1-p})/(1-p),&p\ne1,\\-\log c,&p=1.\end{cases}
+\begin{cases}\dfrac{1-c^{1-p}}{1-p},&p\ne1,\\-\log c,&p=1.\end{cases}
 \]
-For $p>1$ the first limit is $1/(p-1)$; for $p<1$ the second
-is $1/(1-p)$. The other cases diverge to $+\infty$.
+For $p>1$ the first limit is
+\[
+1/(p-1);
+\]
+ for $p<1$ the second
+is
+\[
+1/(1-p).
+\]
+ The other cases diverge to $+\infty$.
 Here real powers are available from Chapter~\ref{ch:differentiation}.
-In practice identify the improper endpoint first, write its truncation,
-evaluate the proper integral, and only then test the limit.
+Locate each source of impropriety, split at interior singularities, and
+truncate each piece. Evaluate the resulting proper integrals and take their
+limits independently; convergence requires all of those limits to exist.
+The computational choice occurs only after truncation:
+\[
+\begin{array}{c}
+\text{improper integral}\\
+\downarrow\\
+\text{truncate or split}\\
+\downarrow\\[-1mm]
+\begin{cases}
+\text{easy antiderivative}&\longrightarrow\text{compute and take the limit},\\
+\text{substitution, parts, or fractions}
+&\longrightarrow\text{transform, compute, and take the limit},\\
+\text{no useful closed form}&\longrightarrow\text{comparison or limit comparison}.
+\end{cases}
+\end{array}
+\]
+
+\begin{example}[Ordinary techniques inside improper integrals]
+Substitution evaluates
+\[
+\int_0^\infty xe^{-x^2}\,\dd x
+=\lim_{b\to\infty}\int_0^b xe^{-x^2}\,\dd x
+=\frac12\lim_{b\to\infty}\int_0^{b^2}e^{-u}\,\dd u
+=\frac12.
+\]
+Integration by parts is applied before the limit:
+\[
+\int_1^\infty xe^{-x}\,\dd x
+=\lim_{b\to\infty}\left([-xe^{-x}]_1^b+
+\int_1^b e^{-x}\,\dd x\right)=\frac2e.
+\]
+Partial fractions give
+\[
+\int_1^\infty\frac{\dd x}{x(x+1)}
+=\lim_{b\to\infty}
+\left[\log x-\log(x+1)\right]_1^b
+=\log2.
+\]
+In each calculation the finite truncation is a proper integral and only its
+evaluated value is sent to the improper endpoint.
+\end{example}
 
 \begin{definition}[Absolute convergence of an improper integral]
 An improper integral of $f$ is \textbf{absolutely convergent} if the
@@ -1247,19 +2262,39 @@ If $f$ is integrable on every finite truncation and its improper integral
 converges absolutely, then its improper integral converges.
 \end{proposition}
 \begin{proof}
-Write $H(b)=\int_a^b|f|$ and suppose $H(b)\to H$.
-Given $\eps>0$, choose $A$ so that $|H(t)-H|<\eps/4$ for $t>A$.
+Write
+\[
+H(b)=\int_a^b|f|
+\]
+ and suppose $H(b)\to H$.
+Given $\eps>0$, choose $A$ so that
+\[
+|H(t)-H|<\eps/4
+\]
+ for $t>A$.
 Then for $d>c>\max\{a,A\}$,
 \[
 \left|\int_a^d f-\int_a^c f\right|
 \leq\int_c^d|f|=H(d)-H(c)<\eps/2.
 \]
 For any tolerance the same argument applies, so the integer truncations
-$F_n=\int_a^{a+n}f$ form a Cauchy sequence and converge to $L$.
-Choose $N_1$ with $|F_n-L|<\eps/2$ for $n\geq N_1$ and fix an
+
+\[
+F_n=\int_a^{a+n}f
+\]
+ form a Cauchy sequence and converge to $L$.
+Choose $N_1$ with
+\[
+|F_n-L|<\eps/2
+\]
+ for $n\geq N_1$ and fix an
 integer $n_0\geq N_1$ with $a+n_0>A$. For every
 $b>\max\{A,a+n_0\}$ the displayed estimate and the triangle
-inequality give $|\int_a^b f-L|<\eps$. Thus the real endpoint limit
+inequality give
+\[
+|\int_a^b f-L|<\eps.
+\]
+ Thus the real endpoint limit
 exists. At a finite endpoint, apply the identical argument to
 truncations approaching that endpoint; convergence of the absolute
 integrals bounds every pair of sufficiently close truncations.
@@ -1271,11 +2306,19 @@ For multiple improper endpoints apply the result to each separately.
 Let $0\leq f\leq g$ on $[a,\infty)$, with both functions Riemann integrable on finite intervals. If the improper integral of $g$ converges, then that of $f$ converges.
 \end{theorem}
 \begin{proof}
-Put $H(b)=\int_a^b f$. Nonnegativity makes $H$ increasing in its
+Put
+\[
+H(b)=\int_a^b f.
+\]
+ Nonnegativity makes $H$ increasing in its
 real endpoint $b$, and comparison bounds it by the finite improper
 integral of $g$. Set $L=\sup\{H(b):b\geq a\}$. Given $\eps>0$,
 choose $c$ with $H(c)>L-\eps$. For every real $b\geq c$,
-$L-\eps<H(c)\leq H(b)\leq L$. This is $H(b)\to L$ as $b\to\infty$;
+
+\[
+L-\eps<H(c)\leq H(b)\leq L.
+\]
+ This is $H(b)\to L$ as $b\to\infty$;
 the monotone-convergence argument applies, now with
 a real endpoint rather than an integer index.
 \end{proof}
@@ -1291,24 +2334,56 @@ Then their improper integrals have the same convergence behavior.
 \end{corollary}
 \begin{proof}
 Choose $A_0$ from which $f,g>0$, and $A_1$ such that
-$|f(x)/g(x)-L|<L/2$ for $x>A_1$. For every
-$x>A=\max\{A_0,A_1,a\}$, $(L/2)g(x)<f(x)<(3L/2)g(x)$.
+
+\[
+|f(x)/g(x)-L|<L/2
+\]
+ for $x>A_1$. For every
+$x>A=\max\{A_0,A_1,a\}$,
+\[
+(L/2)g(x)<f(x)<(3L/2)g(x).
+\]
+
 Apply comparison on that tail in both directions;
 changing a finite initial interval does not affect convergence.
 \end{proof}
 
 \begin{example}[Comparison instead of an antiderivative]
-On $[1,\infty)$, $0\leq1/(1+x^2)\leq1/x^2$, so its improper
-integral converges. For $(2x+1)/(x^3+1)$, the ratio to $1/x^2$
+On $[1,\infty)$,
+\[
+0\leq1/(1+x^2)\leq1/x^2,
+\]
+ so its improper
+integral converges. For
+\[
+(2x+1)/(x^3+1),
+\]
+ the ratio to
+\[
+1/x^2
+\]
+
 tends to $2$; positive limit comparison gives convergence.
-For $1/\sqrt{x^2+1}$, the ratio to $1/x$ tends to $1$;
+For
+\[
+1/\sqrt{x^2+1},
+\]
+ the ratio to
+\[
+1/x
+\]
+ tends to $1$;
 its integral diverges. All integrands are continuous on finite
 truncations. These tests decide existence without requiring a formula
 for the accumulated value.
 \end{example}
 
 \begin{example}[An infinite-time accumulation]
-A device releases material at rate $r(t)=2/(1+t)^2$ grams per hour
+A device releases material at rate
+\[
+r(t)=2/(1+t)^2
+\]
+ grams per hour
 for $t\geq0$. The assumptions specify the rate at every nonnegative
 time. The amount released by time $b$ is
 \[
@@ -1317,7 +2392,15 @@ A(b)=\int_0^b\frac{2}{(1+t)^2}\,\dd t
 \]
 Therefore the infinite-time total is $2$ grams, defined as the
 improper limit. The amount yet to be released after time $b$ is
-$2/(1+b)$ grams, below a tolerance $\eta>0$ when $b>2/\eta$.
+
+\[
+2/(1+b)
+\]
+ grams, below a tolerance $\eta>0$ when
+\[
+b>2/\eta.
+\]
+
 The formula yields both a finite limiting total and a usable error bound.
 \end{example}
 
@@ -1349,7 +2432,11 @@ For $x\in[n,n+1]$, monotonicity gives
 f(n+1)\leq f(x)\leq f(n).
 \]
 Integrating these inequalities over the unit intervals and summing gives the displayed bounds. The partial sums and truncated integrals are increasing, so each is bounded above if and only if the other is bounded above. For real endpoints, if $b\geq1$, choose an integer $N\geq b$;
-then $\int_1^b f\leq\int_1^N f$. Thus boundedness at integer
+then
+\[
+\int_1^b f\leq\int_1^N f.
+\]
+ Thus boundedness at integer
 endpoints is boundedness at all endpoints. The supremum argument in
 \cref{thm:improper-comparison} proves convergence of these increasing
 truncations; monotone convergence proves convergence of the partial sums.
@@ -1391,7 +2478,11 @@ Thus the improper integral converges exactly when $p>1$, and \cref{thm:integral-
 \end{proof}
 
 \begin{example}[Cancellation at a singularity]
-The two one-sided integrals of $1/x$ across zero diverge: the negative
+The two one-sided integrals of
+\[
+1/x
+\]
+ across zero diverge: the negative
 side gives $\log\delta\to-\infty$, the positive side gives
 $-\log\eta\to+\infty$. Choosing $\delta=\eta$ cancels them at each
 stage but does not define an improper integral. That linked-cutoff limit
@@ -1409,12 +2500,72 @@ Dirichlet--Thomae comparison decisive: density alone does not decide
 integrability.  We use only countable interval covers, not a formal theory of
 Lebesgue measure.
 
+For comparison, \cref{thm:monotone-discontinuities} already proves that a
+monotone function has at most countably many discontinuities. The direct
+Darboux proof of monotone integrability earlier in this chapter remains
+logically independent of the criterion developed here.
+
+Ordinary interval length is the starting point for Lebesgue measure \(\mu\),
+which assigns a generalized length to a large class of subsets of $\R$,
+called measurable sets. Not every subset of $\R$ is measurable. Ordinary
+intervals are measurable, and for \(a<b\),
+\[
+\boxed{
+\mu([a,b])=\mu((a,b))=\mu([a,b))=\mu((a,b])=b-a.}
+\]
+Indeed, \(\mu(\{a\})=\mu(\{b\})=0\), so adding or deleting finitely many
+endpoints does not change measure.
+The central property, stated here without proof, is countable additivity:
+for pairwise disjoint measurable sets $E_j$,
+\[
+\mu\!\left(\bigcup_{j=1}^{\infty}E_j\right)
+=\sum_{j=1}^{\infty}\mu(E_j).
+\]
+Lebesgue measure is also \emph{translation invariant}, a fact stated
+without proof: for every measurable $E\subseteq\R$ and $t\in\R$, the
+translate is measurable and
+\[
+E+t=\{x+t:x\in E\},\qquad \mu(E+t)=\mu(E).
+\]
+Translation preserves length; it does not remove overlap. For example,
+\[
+E=[0,1],\qquad F=E+\frac12,
+\]
+have equal measure by translation invariance, but
+\[
+\mu(E)+\mu(F)=2,\qquad \mu(E\cup F)=\frac32.
+\]
+The overlap has been counted twice in the sum. Pairwise disjointness in
+countable additivity ensures that no portion is counted more than once.
+A standard consequence of countable additivity, also used here without
+proof, is countable subadditivity:
+\[
+\mu\!\left(\bigcup_{j=1}^{\infty}E_j\right)
+\leq\sum_{j=1}^{\infty}\mu(E_j).
+\]
+Thus, if a measurable set $E$ is covered by open intervals $I_j$ of total
+length less than $\varepsilon$, then
+\[
+\begin{aligned}
+\mu(E)&\leq \mu\!\left(\bigcup_{j=1}^{\infty}I_j\right)
+\leq\sum_{j=1}^{\infty}\mu(I_j)\\
+&=\sum_{j=1}^{\infty}\operatorname{length}(I_j)<\varepsilon.
+\end{aligned}
+\]
+If such a cover exists for every $\varepsilon>0$, then \(\mu(E)=0\).
+A theorem of Lebesgue measure theory, also stated without proof, says that
+\emph{all} subsets satisfying this interval-cover condition are measurable
+and have measure zero, and conversely every measure-zero set has such covers.
+We can therefore use the following self-contained covering definition.
+Only this property is used in this chapter; neither a construction of
+Lebesgue measure nor Lebesgue integration is required.
+
 A discontinuity need not be a jump. To measure all possible local failures
 of continuity at once, compare every pair of nearby values and then shrink
 the neighborhood. The resulting oscillation records the variation that
 cannot be removed by choosing a smaller neighborhood.
 
-\begin{definition}[Oscillation and Riemann-negligible sets]
+\begin{definition}[Oscillation and measure-zero sets]
 Let $f:[a,b]\to\R$ be bounded.  For each $x\in[a,b]$, define
 \[
 \omega_f(x)=
@@ -1422,11 +2573,7 @@ Let $f:[a,b]\to\R$ be bounded.  For each $x\in[a,b]$, define
 \sup\bigl\{\lvert f(y)-f(z)\rvert:
 y,z\in[a,b],\ \lvert y-x\rvert<\delta,\ \lvert z-x\rvert<\delta\bigr\}.
 \]
-A set $E\subseteq[a,b]$ is \textbf{Riemann-negligible} if, for every
-\[
-\eta>0,
-\]
-there are open intervals $I_1,I_2,\ldots$ such that
+A set $E\subseteq[a,b]$ has \textbf{Lebesgue measure zero} if, for every $\eta>0$, there are open intervals $I_1,I_2,\ldots$ such that
 \[
 E\subseteq\bigcup_{j=1}^{\infty}I_j
 \qquad\text{and}\qquad
@@ -1435,11 +2582,10 @@ E\subseteq\bigcup_{j=1}^{\infty}I_j
 Finite covers are allowed as a special case.
 \end{definition}
 
-\begin{remark}[Terminology]
-The temporary term \textbf{Riemann-negligible} refers only to the preceding
-covering property.  In measure theory, these are precisely the sets of
-Lebesgue measure zero.  No measure is being introduced or used here; the
-interval-covering property is all that is needed below.
+\begin{remark}[Null sets and almost everywhere]
+A measure-zero set is also called a \emph{null set}. A property holds
+\emph{almost everywhere} (a.e.) if it holds outside a set of Lebesgue
+measure zero.
 \end{remark}
 
 \begin{proposition}[Oscillation and continuity]
@@ -1453,7 +2599,11 @@ if and only if $f$ is continuous at $x$.
 \begin{proof}
 If $f$ is continuous at $x$, then, for a given $\varepsilon>0$, all values
 in a sufficiently small relative neighborhood of $x$ lie within
-$\varepsilon/2$ of $f(x)$.  Their pairwise differences are therefore less
+
+\[
+\varepsilon/2
+\]
+ of $f(x)$.  Their pairwise differences are therefore less
 than $\varepsilon$, so the defining infimum is zero.  Conversely, if
 $\omega_f(x)=0$, then the defining infimum supplies a $\delta>0$ for which
 the pairwise oscillation in the relative $\delta$-neighborhood of $x$ is
@@ -1475,7 +2625,11 @@ is closed in $[a,b]$.
 \begin{proof}
 If $\omega_f(x)<\varepsilon$, then some neighborhood of $x$ has pairwise
 oscillation less than $\varepsilon$.  If this neighborhood has radius
-$\delta$, then the relative $\delta/2$-neighborhood of every sufficiently
+$\delta$, then the relative
+\[
+\delta/2
+\]
+-neighborhood of every sufficiently
 nearby point is contained in it.  Thus
 \[
 \omega_f(y)<\varepsilon
@@ -1484,13 +2638,9 @@ for every $y$ sufficiently near $x$.  Hence the complement of
 $D_{\varepsilon}$ is open.
 \end{proof}
 
-\begin{proposition}[Countable sets are Riemann-negligible]
+\begin{proposition}[Countable sets have measure zero]
 \label{prop:countable-negligible}
-Every countable subset of
-\[
-[a,b]
-\]
-is Riemann-negligible.
+Every countable subset of $[a,b]$ has measure zero.
 \end{proposition}
 \begin{proof}
 Let
@@ -1505,17 +2655,17 @@ $x_n$ by an open interval of length
 These intervals cover $E$, and their total length is less than $\eta$.
 \end{proof}
 
-\begin{lemma}[Countable unions of negligible sets]
+\begin{lemma}[Countable unions of measure-zero sets]
 \label{lem:countable-union-negligible}
 If
 \[
 E_1,E_2,\ldots\subseteq[a,b]
 \]
-are Riemann-negligible, then
+have measure zero, then
 \[
 \bigcup_{m=1}^{\infty}E_m
 \]
-is Riemann-negligible.
+has measure zero.
 \end{lemma}
 \begin{proof}
 Given $\eta>0$, cover $E_m$ by open intervals having total length less
@@ -1534,8 +2684,11 @@ oscillation may be large, but their total length must be small.
 \underbrace{\sum_{\rm good}\operatorname{osc}_I(f)|I|}_{\leq\eta(b-a)}
 +\underbrace{\sum_{\rm bad}\operatorname{osc}_I(f)|I|}_{\leq2M\,\ell_{\rm bad}}.
 \]
-With $|f|\leq M$, choose $\eta(b-a)<\eps/2$ and
-$2M\ell_{\rm bad}<\eps/2$. Large oscillation is acceptable when
+With $|f|\leq M$, choose
+\[
+\eta(b-a)<\eps/2,\qquad 2M\ell_{\rm bad}<\eps/2.
+\]
+ Large oscillation is acceptable when
 confined to intervals of sufficiently small combined length.
 \begin{center}
 \begin{tikzpicture}
@@ -1548,19 +2701,21 @@ confined to intervals of sufficiently small combined length.
 \end{center}
 \begin{theorem}[Lebesgue criterion for Riemann integrability]
 \label{thm:riemann-lebesgue-criterion}
-Let $f:[a,b]\to\R$ be bounded.  The following are equivalent.
+Let $f:[a,b]\to\R$ be bounded. Then
+\[
+\boxed{f\text{ is Riemann integrable}
+\iff \operatorname{Disc}(f)\text{ has Lebesgue measure zero}.}
+\]
+Here $\operatorname{Disc}(f)$ denotes the discontinuity set. For the proof,
+we use the following equivalent formulations.
 \begin{enumerate}
 \item $f$ is Riemann integrable.
-\item For every
-\[
-\varepsilon>0,
-\]
-the set
+\item For every $\varepsilon>0$, the set
 \[
 D_{\varepsilon}=\bigl\{x\in[a,b]:\omega_f(x)\geq\varepsilon\bigr\}
 \]
-is Riemann-negligible.
-\item The discontinuity set of $f$ is Riemann-negligible.
+has measure zero.
+\item The discontinuity set of $f$ has measure zero.
 \end{enumerate}
 \end{theorem}
 \begin{remark}[Terminology]
@@ -1582,10 +2737,22 @@ would give oscillation less than $\varepsilon$.  Since
 U(f,P)-L(f,P)
 \]
 is the sum of each partition interval's oscillation times its length, the
-total length of the indicated intervals is less than $\eta/4$.  Enlarge the finitely many
+total length of the indicated intervals is less than
+\[
+\eta/4.
+\]
+  Enlarge the finitely many
 closed partition intervals in question to open intervals whose total length
-is less than $\eta/2$.  Cover the finitely many partition points by open
-intervals having total length less than $\eta/2$.  These two finite families
+is less than
+\[
+\eta/2.
+\]
+  Cover the finitely many partition points by open
+intervals having total length less than
+\[
+\eta/2.
+\]
+  These two finite families
 form an open cover of $D_{\varepsilon}$ of total length less than $\eta$.
 Thus (b) holds.
 
@@ -1657,7 +2824,7 @@ so
 \[
 D_{1/2}=[0,1]
 \]
-is not Riemann-negligible.
+does not have measure zero.
 \end{example}
 
 \begin{example}[Thomae's function]
@@ -1706,17 +2873,29 @@ T(y)=\frac1q<\varepsilon.
 \]
 Since $T(x)=0$, this proves that $T$ is continuous at $x$.
 
-If $x=p/q\in[0,1]$ is rational in lowest terms, irrational density
+If
+\[
+x=p/q\in[0,1]
+\]
+ is rational in lowest terms, irrational density
 (\cref{prop:irrational-density}) supplies an irrational point in every
-relative open neighborhood of $x$. There $T$ is zero, whereas $T(x)=1/q$.
-The continuity test with $\eps=1/(2q)$ therefore fails at $x$, including
+relative open neighborhood of $x$. There $T$ is zero, whereas
+\[
+T(x)=1/q.
+\]
+
+The continuity test with
+\[
+\eps=1/(2q)
+\]
+ therefore fails at $x$, including
 at the endpoints. This proves the stated discontinuity set.
 
 The set
 \[
 \Q\cap[0,1]
 \]
-is countable and therefore Riemann-negligible by
+is countable and therefore has measure zero by
 \cref{prop:countable-negligible}.  The criterion proves that $T$ is
 integrable.  Finally, every nondegenerate subinterval of $[0,1]$ contains an
 irrational point by \cref{prop:irrational-density}.
@@ -1725,22 +2904,24 @@ since $T$ is integrable, its integral is zero.
 \end{proof}
 
 \begin{remark}[The Dirichlet--Thomae contrast]
-Both functions are defined using the dense subset $\Q$ of $\R$, but density
-alone does not decide Riemann integrability:
+Earlier integrability proofs constructed partitions and estimated
 \[
-\begin{array}{c@{\qquad}c}
-\text{Dirichlet:}&
-\operatorname{Disc}(\mathbf{1}_{\Q})=[0,1]
-\quad\Longrightarrow\quad
-\text{not Riemann integrable},\\[4pt]
-\text{Thomae:}&
-\operatorname{Disc}(T)=\Q\cap[0,1]
-\quad\Longrightarrow\quad
-\text{Riemann integrable}.
-\end{array}
+U(f,P)-L(f,P).
 \]
-The criterion measures the size of the discontinuity set in the covering
-sense, not whether that set is dense.
+The criterion often saves that work: identify the discontinuity set, show
+it has measure zero, and conclude integrability. A direct Darboux proof for
+Thomae's function requires separating the finitely many large values from
+the small ones. Once continuity has been analyzed, the criterion gives
+\[
+\operatorname{Disc}(T)=\Q\cap[0,1],
+\]
+a countable set, hence a set of measure zero. Thus $T$ is Riemann integrable.
+For the Dirichlet function,
+\[
+\operatorname{Disc}(\mathbf1_{\Q})=[0,1],\qquad \mu([0,1])=1,
+\]
+so it is not Riemann integrable. Density alone does not determine
+integrability; the measure-theoretic size of the discontinuity set does.
 \end{remark}
 
 
@@ -1760,11 +2941,58 @@ of the first two assertions alone gives the other assertions.
 In the finite- and countable-exception theorems below, $F'$ exists at every
 interior point; only the identity $F'=f$ is allowed to fail on the stated
 exceptional set. This differs from the later Lipschitz/a.e. theorem, where
-differentiability itself may fail on a negligible set.
+differentiability itself may fail on a null set.
+
+\begin{example}[Differentiable need not mean \(C^1\)]
+\label{ex:bounded-discontinuous-derivative}
+Set
+\[
+F(0)=0,
+\qquad
+F(x)=x^2\sin(1/x)\quad(x\ne0).
+\]
+Then
+\[
+|F(h)/h|\leq|h|,
+\]
+ so \(F'(0)=0\), while for \(x\ne0\),
+\[
+F'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+This derivative is bounded near zero but has no limit there. Hence \(F\) is
+differentiable and is not \(C^1\). On every compact interval, \(F'\) is
+bounded and continuous except at zero, so the finite-discontinuity argument
+following \cref{thm:tagged-riemann} makes it Riemann integrable.
+Consequently,
+\[
+F'\text{ Riemann integrable}
+\not\Longrightarrow
+F'\text{ continuous},
+\]
+and \cref{prop:newton-leibniz-integrable} is genuinely stronger than the
+continuous-derivative version of the FTC.
+\end{example}
+
+\begin{example}[A Riemann-integrable jump is not a derivative]
+Let \(j(x)=0\) for \(x<0\) and \(j(x)=1\) for \(x\geq0\) on
+\([-1,1]\). This bounded monotone function is Riemann integrable. It cannot
+equal \(F'\) everywhere for any differentiable \(F\), because derivatives
+have the intermediate value property by \cref{thm:darboux-derivatives}, while
+\(j\) omits every value strictly between \(0\) and \(1\). Thus
+\[
+\text{Riemann integrable}
+\not\Longrightarrow
+\text{is a derivative}.
+\]
+\end{example}
 
 \begin{example}[A differentiable function with an unbounded derivative]
 \label{ex:unbounded-derivative}
-Set $F(0)=0$ and $F(x)=x^2\sin(1/x^2)$ for $x\ne0$. Since
+Set $F(0)=0$ and
+\[
+F(x)=x^2\sin(1/x^2)
+\]
+ for $x\ne0$. Since
 \[
 \left|\frac{F(h)-F(0)}h\right|=|h\sin(1/h^2)|\leq |h|\longrightarrow0,
 \]
@@ -1772,7 +3000,11 @@ we have $F'(0)=0$. At other points,
 \[
 F'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2).
 \]
-For $x_n=(2\pi n)^{-1/2}$, one has $F'(x_n)=-2\sqrt{2\pi n}$.
+For
+\[
+x_n=(2\pi n)^{-1/2},
+\]
+ one has $F'(x_n)=-2\sqrt{2\pi n}$.
 The sequence $-x_n$ gives the corresponding positive values. Thus $F'$
 is unbounded on every nondegenerate compact interval containing zero,
 even if zero is an endpoint, and is not Riemann integrable there:
@@ -1860,7 +3092,11 @@ interior point, gives
 \[
 m_i\Delta x_i\leq F(x_i)-F(x_{i-1})\leq M_i\Delta x_i.
 \]
-Summing yields $L(f,P)\leq F(b)-F(a)\leq U(f,P)$.
+Summing yields
+\[
+L(f,P)\leq F(b)-F(a)\leq U(f,P).
+\]
+
 The integral lies in this same interval; Riemann integrability makes its
 length arbitrarily small, proving the equality.
 \end{proof}
@@ -1877,18 +3113,22 @@ Darboux contributions of $f$, so integrability of $f$ completes the proof.
 \begin{theorem}[Lipschitz, almost-everywhere Riemann form; stated without proof]
 \label{thm:ftc-lipschitz-ae}
 Let $F:[a,b]\to\R$ be Lipschitz and let $f:[a,b]\to\R$ be Riemann
-integrable. If $F'$ exists and equals $f$ at every interior point outside
-a Riemann-negligible set, then
+integrable. If $F'=f$ almost everywhere on $(a,b)$ (in particular, $F'$ exists
+outside a set of Lebesgue measure zero), then
 \[
 \boxed{F(b)-F(a)=\int_a^b f(t)\,\dd t.}
 \]
 \end{theorem}
 Here \emph{almost everywhere}, abbreviated a.e., means outside a
-Riemann-negligible set. This is the strongest form developed here whose
+set of Lebesgue measure zero. This is the strongest form developed here whose
 right-hand side remains an ordinary Riemann integral.
 For the measure-theoretic results behind this stated theorem, see for example
 \cite{pugh-analysis,rudin-pma}.
-For $A(x)=\int_a^x f$, the integral estimate makes $A$ Lipschitz, and
+For
+\[
+A(x)=\int_a^x f(t)\,\dd t,
+\]
+the integral estimate makes $A$ Lipschitz, and
 the accumulation theorem and Lebesgue criterion give $A'=f$ a.e.
 Thus $F-A$ is Lipschitz with derivative zero a.e. To conclude that it is
 constant requires a deeper theorem about Lipschitz functions; its proof
@@ -1914,20 +3154,112 @@ is the condition that characterizes indefinite Lebesgue integrals.
 
 \section{Limits of the Riemann Theory}
 
-Riemann integration uses partitions of intervals and the oscillation of a
-function on each subinterval. This suffices for continuous functions and
-much of elementary calculus. The contrast between
-\cref{ex:dirichlet-function} and \cref{ex:thomae-function} identifies the
-next obstacle precisely: dense sets can still be negligible, so a more
-systematic notion of the size of a subset of the real line is beginning to
-be required.
+Section~9.6 has already encountered the simplest important
+measure-theoretic notion of size: sets of Lebesgue measure zero. Full
+measure theory extends this from recognizing null sets to assigning
+generalized length systematically and defining a new integral. This leads
+to the relation between absolute continuity and integration described below.
 
-The Dirichlet function differs from zero only on the negligible set
+The Dirichlet function differs from zero only on the null set
 $\Q\cap[0,1]$, yet it is not Riemann integrable. Thus changing a function
-on a negligible set can destroy Riemann integrability. Thomae's function,
+on a null set can destroy Riemann integrability. Thomae's function,
 whose discontinuity set is the same dense countable set, shows that density
 of the discontinuity set alone is not the obstruction. Improper integrals also force one to treat unbounded
 behavior and infinite domains by separate limiting conventions.
+
+The resulting progression is:
+\[
+\boxed{
+\begin{gathered}
+\text{Riemann integrability}\longrightarrow\text{measure-zero exceptional sets}\\
+\longrightarrow\text{Lebesgue measure and integration}\\
+\longrightarrow\text{MCT and DCT}\\
+\longrightarrow\text{absolute continuity and the Lebesgue FTC}
+\end{gathered}}
+\]
+
+Only the minimum measure-theoretic terminology needed for the comparison is
+used here. A \emph{measurable function} has its standard measure-theoretic
+meaning, and
+\[
+\int_E f\,\dd\mu
+\]
+denotes its Lebesgue integral over a measurable set \(E\subseteq\R\).
+The constructions of measurable functions and the Lebesgue integral belong
+to a subsequent real-analysis course.
+
+\begin{theorem}[Lebesgue monotone convergence theorem; stated without proof]
+\label{thm:lebesgue-mct-preview}
+Let \(E\subseteq\R\) be measurable. If
+\[
+0\leq f_1\leq f_2\leq\cdots
+\]
+are measurable and \(f_n(x)\to f(x)\) almost everywhere on \(E\), then
+\[
+\boxed{\int_E f\,\dd\mu
+=\lim_{n\to\infty}\int_E f_n\,\dd\mu,}
+\]
+allowing the value \(+\infty\). Equivalently,
+\[
+\int_E f_n\,\dd\mu\uparrow\int_E f\,\dd\mu.
+\]
+\end{theorem}
+
+\begin{theorem}[Lebesgue dominated convergence theorem; stated without proof]
+\label{thm:lebesgue-dct-preview}
+Let \(E\subseteq\R\) be measurable. Suppose \(f_n\) are measurable,
+\[
+f_n\to f\quad\text{almost everywhere},
+\]
+and there is a Lebesgue-integrable function \(g\) such that
+\[
+|f_n|\leq g
+\quad\text{almost everywhere for every }n.
+\]
+Then \(f\) is Lebesgue integrable and
+\[
+\boxed{\int_E|f_n-f|\,\dd\mu\longrightarrow0.}
+\]
+Consequently,
+\[
+\boxed{\int_E f_n\,\dd\mu\longrightarrow\int_E f\,\dd\mu.}
+\]
+\end{theorem}
+
+\paragraph{Dini and monotone convergence.}
+Dini's theorem \cref{thm:dini-riemann} says that
+\[
+f_n\uparrow f,\qquad f_n,f\in C([a,b])
+\]
+implies uniform convergence. The Riemann uniform-interchange theorem then
+gives convergence of the integrals:
+\[
+\text{Dini}\Longrightarrow\text{uniform convergence}
+\Longrightarrow\text{Riemann integral convergence}.
+\]
+Lebesgue MCT instead obtains integral convergence directly from
+nonnegative monotone convergence of measurable functions, without
+continuity or a compactness-based uniform-convergence step. Dini is a useful
+Riemann-side precursor, not literally a Riemann MCT.
+
+\paragraph{Arzel\`a bounded convergence and dominated convergence.}
+The Riemann theorem \cref{thm:arzela-bounded-riemann} assumes pointwise
+convergence, one constant bound \(|f_n|\leq M\), and Riemann integrability
+of all relevant functions; it concludes
+\[
+\int_a^b|f_n-f|\,\dd x\to0.
+\]
+Lebesgue DCT allows almost-everywhere convergence and a variable integrable
+dominator \(g(x)\), and it supplies integrability of the limit. The common
+\(L^1\)-error conclusion makes the analogy visible, but the hypotheses and
+proof mechanisms are genuinely different.
+
+For continuous functions, integration and differentiation are cleanly
+inverse operations. Under weaker Riemann hypotheses, one must separately
+track differentiability of \(F\), integrability of \(f\), the identity
+\(F'=f\), and exceptional sets on which equality or differentiability may
+fail. This fragmentation reflects real limitations of the framework, not
+merely inefficient notation.
 
 \begin{remark}[Riemann--Stieltjes integration]
 Another classical extension replaces the ordinary Riemann sums
@@ -1966,7 +3298,7 @@ increasing functions; it gives the broader framework previewed again in
 \end{remark}
 
 Measure theory introduces a systematic notion of size for sets that is fine
-enough to distinguish a dense negligible set from an interval. The Lebesgue integral
+enough to distinguish a dense null set from an interval. The Lebesgue integral
 then organizes summation by the values of a function and by the sizes of
 their level sets, rather than solely by partitions of the domain.  This gives
 stronger convergence theorems and integrates many functions beyond the
@@ -2002,7 +3334,11 @@ The definition gives the hierarchy
 \ \Longrightarrow\ \text{uniformly continuous}.
 \]
 For a Lipschitz constant $L$, sum $|F(b_k)-F(a_k)|\leq L(b_k-a_k)$
-and choose $\delta=\eps/(L+1)$. For the second implication, use just
+and choose
+\[
+\delta=\eps/(L+1).
+\]
+ For the second implication, use just
 one interval.
 
 \Needspace{10\baselineskip}
@@ -2022,9 +3358,7 @@ Both integrals in this theorem are Lebesgue integrals.
 \end{theorem}
 Lebesgue integrability means integrability in the later measure-theoretic
 sense, with finite integral of the absolute value. Values assigned to
-$F'$ where it does not exist do not affect this integral. The negligible
-sets used here are precisely sets of Lebesgue measure zero on the line;
-thus the two meanings of a.e. agree. No construction of the Lebesgue
+$F'$ where it does not exist do not affect this integral. Almost everywhere has the same measure-zero meaning as in section~9.6. No construction of the Lebesgue
 integral or proof of this theorem is attempted in these notes.
 Standard proofs may be found, for example, in
 \cite{pugh-analysis,rudin-pma}.
@@ -2035,6 +3369,8 @@ The two directions characterize the same functions:
 \]
 The additive constant is free, and an integrand is recovered only up to
 equality almost everywhere.
+Absolute continuity is precisely the class on which differentiation and
+integration become inverse operations in the Lebesgue setting.
 
 \paragraph{The hierarchy of FTC statements.}
 In the first four lines below, $F$ is continuous on $[a,b]$ and
@@ -2061,37 +3397,69 @@ sets, a.e. identities, and finally absolute continuity.
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
 
+\subsection*{Integrability, computation, and improper integrals}
+
 \begin{hexercise}{darboux-direct}
 Use equal partitions to prove directly that $f(x)=2x+1$ is Riemann integrable on $[0,2]$. For $\mathbf1_{\Q}$ on this interval show a fixed positive Darboux gap for every partition.
 \end{hexercise}
 
 \begin{exercise}
-Evaluate $\int_2^0(x^2+1)\,\dd x$, $\int_{-2}^2x^3\,\dd x$, $\int_0^3|x-1|\,\dd x$, $\int_0^1 2x\cos(x^2)\,\dd x$, and $\int_1^e\log x\,\dd x$. Name the operation that simplifies each.
+Evaluate
+\[
+\int_2^0(x^2+1)\,\dd x,\qquad
+\int_{-2}^2x^3\,\dd x,\qquad
+\int_0^3|x-1|\,\dd x ,
+\]
+\[
+\int_0^1 2x\cos(x^2)\,\dd x,\qquad
+\int_1^e\log x\,\dd x.
+\]
+Name the operation that simplifies each.
 \end{exercise}
 
 \begin{hexercise}{flow-model}
-Water enters an initially empty container at a rate of $3+2t$ litres per minute for $0\leq t\leq4$, with no outflow. Determine the volume at four minutes and the average inflow rate. Formulate the integrand and bounds before evaluating.
+Water enters an initially empty container at a rate of $3+2t$ litres per minute for $0\leq t\leq4$, with no outflow. Determine the volume at four minutes and the average inflow rate. Formulate the integrand and bounds before evaluating. Explain why rate times
+a short time interval approximates the volume added, check the units, and
+explain why average rate is divided by elapsed time.
 \end{hexercise}
 
 \begin{exercise}
-A particle has velocity $2t-2$ metres per second from $t=0$ to $t=3$. Formulate and calculate its displacement and total distance. Explain the split needed for one of them.
+A particle has velocity $2t-2$ metres per second from $t=0$ to $t=3$. Formulate and calculate its displacement and total distance. Explain the split needed for one of them, and why cancellation is meaningful
+for displacement but not for distance.
 \end{exercise}
 
 \begin{exercise}
-Classify $\int_0^1x^{-2/3}\,\dd x$, $\int_1^\infty x^{-2/3}\,\dd x$, and $\int_{-1}^1(1/x)\,\dd x$. Write every required one-sided truncation; do not combine divergent pieces.
+Classify
+\[
+\int_0^1x^{-2/3}\,\dd x,\qquad
+\int_1^\infty x^{-2/3}\,\dd x,\qquad
+\int_{-1}^1(1/x)\,\dd x.
+\]
+Write every required one-sided truncation; do not combine divergent pieces.
 \end{exercise}
 
 \begin{exercise}
-Use comparison or limit comparison to classify $\int_1^\infty(3x+1)/(x^3+2)\,\dd x$ and $\int_1^\infty1/\sqrt{x^2+4}\,\dd x$. Verify finite-truncation integrability.
+Use comparison or limit comparison to classify
+\[
+\int_1^\infty\frac{3x+1}{x^3+2}\,\dd x,\qquad
+\int_1^\infty\frac{1}{\sqrt{x^2+4}}\,\dd x.
+\]
+Verify finite-truncation integrability.
 \end{exercise}
 
 \begin{exercise}
-A source releases material at $3/(1+t)^2$ grams per hour for all $t\geq0$. Determine its infinite-time total and a time after which less than $0.01$ gram remains to be released. State the improper limit that represents the total.
+A source releases material at
+\[
+3/(1+t)^2
+\]
+ grams per hour for all $t\geq0$. Determine its infinite-time total and a time after which less than $0.01$ gram remains to be released. State the improper limit that represents the total.
 \end{exercise}
 
 \begin{exercise}
 Now justify formally the Integral-Test calculations requested in Chapter~\ref{ch:series}, Exercise~\ref{ex:series-preview}. Check continuity, positivity, and monotonicity, and identify the theorem that closes the preview.
 \end{exercise}
+
+\subsection*{Integrability criteria, convergence, and the FTC}
 
 \begin{exercise}
 Use \cref{thm:riemann-lebesgue-criterion} to prove that a bounded function
@@ -2099,33 +3467,18 @@ with finitely many discontinuities is Riemann integrable.
 \end{exercise}
 
 \begin{exercise}
-Let $f:[a,b]\to\R$ be monotone.  Show that, for each
-\[
-\varepsilon>0,
-\]
-the set
-\[
-D_\varepsilon
-\]
-is finite.
+Let $f:[a,b]\to\R$ be monotone.  Show that, for each $\varepsilon>0$, the oscillation set $D_\varepsilon$
+from \cref{prop:closed-oscillation-sets} is finite.
 \end{exercise}
 
 \begin{exercise}
-Prove directly from the Darboux criterion that a function having only finitely many discontinuities on
-\[
-[a,b]
-\]
-and otherwise constant on finitely many intervals is Riemann integrable.
+Prove directly from the Darboux criterion that a function having only finitely many discontinuities on $[a,b]$ and otherwise constant on finitely many intervals is Riemann integrable.
 \end{exercise}
 
 \begin{exercise}
 Determine whether
 \[
-\int_1^\infty\frac{1}{x^2}\,\dd x
-\]
-and
-\[
-\int_1^\infty\frac{1}{x}\,\dd x
+\int_1^\infty\frac{1}{x^2}\,\dd x,\qquad \int_1^\infty\frac{1}{x}\,\dd x
 \]
 converge. Use \cref{thm:ftc-two}, then compare the conclusion with the two corresponding series.
 \end{exercise}
@@ -2133,7 +3486,7 @@ converge. Use \cref{thm:ftc-two}, then compare the conclusion with the two corre
 \begin{exercise}
 Use \cref{thm:one-variable-substitution} to evaluate
 \[
-\int_0^1 2t\exp(t^2)\,\dd t.
+\int_0^1 2te^{t^2}\,\dd t.
 \]
 State the substitution and identify the endpoint values.
 \end{exercise}
@@ -2146,15 +3499,7 @@ Use \cref{thm:one-variable-integration-by-parts} to evaluate
 \end{exercise}
 
 \begin{exercise}
-Explain why the function
-\[
-\mathbf{1}_{\Q}
-\]
-on
-\[
-[0,1]
-\]
-has the same upper and lower sums for no partition. Which density facts from earlier chapters are being used?
+Explain why the function $\mathbf{1}_{\Q}$ on $[0,1]$ has the same upper and lower sums for no partition. Which density facts from earlier chapters are being used?
 \end{exercise}
 
 \begin{exercise}
@@ -2182,4 +3527,169 @@ outside a countable set: why does this not contradict
 if an arbitrary function agreeing with $f$ outside a countable set were
 substituted for $F'$. In particular, check the intermediate value property
 and integrability of $\mathbf1_{\Q}$.
+\end{exercise}
+
+\subsection*{Computational techniques and applications}
+
+\begin{exercise}
+For each integral, decide whether direct use of a basic antiderivative,
+substitution, integration by parts, partial fractions, or symmetry is the
+most efficient first move. Explain the choice before computing:
+\[
+\int e^{4x+1}\,\dd x,
+\qquad
+\int x\cos(x^2)\,\dd x,
+\qquad
+\int x^2e^x\,\dd x,
+\qquad
+\int\frac{\dd x}{x^2-4},
+\qquad
+\int_{-2}^{2}x^5e^{x^2}\,\dd x.
+\]
+State the interval on which each indefinite answer is valid.
+\end{exercise}
+
+\begin{exercise}
+Evaluate
+\[
+\int\cos(5x-2)\,\dd x,
+\qquad
+\int\frac{3x^2}{1+x^3}\,\dd x,
+\qquad
+\int_0^2 xe^{x^2}\,\dd x.
+\]
+For the definite integral, check existence and transform the endpoint values.
+Then explain why \(u=x^2\) is not an efficient substitution for
+
+\[
+\int e^x\,\dd x.
+\]
+
+\end{exercise}
+
+\begin{exercise}
+Use integration by parts to compute
+\[
+\int x\cos x\,\dd x,
+\qquad
+\int\arctan x\,\dd x,
+\qquad
+\int x^2e^x\,\dd x.
+\]
+For the first integral, compare the choice \(u=x\) with the reversed choice
+and identify which produces the simpler remaining integral.
+\end{exercise}
+
+\begin{exercise}
+Apply integration by parts twice and solve algebraically for the original
+integral to evaluate
+\[
+\int e^x\sin x\,\dd x.
+\]
+Differentiate the answer to check it.
+\end{exercise}
+
+\begin{exercise}
+Evaluate
+\[
+\int_0^\pi x\sin x\,\dd x
+\]
+by integration by parts. State why the proper integral exists before using
+the FTC, and interpret why the answer is positive.
+\end{exercise}
+
+\begin{exercise}
+Decompose and integrate each rational function on an interval avoiding its
+poles:
+\[
+\frac{1}{(x-2)(x+1)},
+\qquad
+\frac{1}{x(x+1)^2},
+\qquad
+\frac{x^2+3}{x+1},
+\qquad
+\frac{2x+7}{x^2+4x+8}.
+\]
+Name the distinct-factor, repeated-factor, division, or irreducible-quadratic
+pattern used in each case.
+\end{exercise}
+
+\begin{exercise}
+Before attempting to evaluate
+\[
+\int_0^3\frac{\dd x}{(x-1)(x+2)},
+\]
+decide whether it is proper. Write the independent one-sided truncations
+required by the definition and classify them. Explain why a partial-fraction
+antiderivative cannot authorize evaluation straight across the pole.
+\end{exercise}
+
+\begin{exercise}
+Let a rod on \([0,2]\) have density \(\rho(x)=1+x\) kilograms per metre.
+Explain the approximate mass of a short piece. Find its mass and its average
+density, with units, deriving the average from equal total mass. Then compute the total
+accumulated deviation of \(\rho\) from its average,
+\[
+\int_0^2|\rho(x)-\rho_{\mathrm{avg}}|\,\dd x.
+\]
+Identify the split point before integrating.
+\end{exercise}
+
+\begin{exercise}
+For each improper integral, first locate the impropriety and write a proper
+truncation. Then select the indicated ordinary method and classify or
+evaluate the integral:
+\[
+\int_0^\infty xe^{-x^2}\,\dd x
+\quad\text{(substitution)},
+\]
+\[
+\int_1^\infty xe^{-x}\,\dd x
+\quad\text{(integration by parts)},
+\qquad
+\int_1^\infty\frac{\dd x}{x(x+1)}
+\quad\text{(partial fractions)}.
+\]
+\end{exercise}
+
+\Needspace{10\baselineskip}
+\subsection*{Extended FTC and uniform integration}
+
+\begin{exercise}
+Let \(F(0)=0\) and
+\[
+F(x)=x^2\sin(1/x)
+\]
+ for \(x\ne0\). Prove from the
+definition that \(F'(0)=0\), compute \(F'(x)\) for \(x\ne0\), and show that
+\(F'\) is bounded but discontinuous at zero. Which version of
+Newton--Leibniz applies on \([-1,1]\), and why does the standard \(C^1\)
+version not apply?
+\end{exercise}
+
+\begin{exercise}
+Give one example for each strict failure:
+\[
+\begin{aligned}
+&\text{differentiable}\not\Longrightarrow C^1,\\
+&\text{differentiable}\not\Longrightarrow
+  \text{Riemann-integrable derivative},\\
+&\text{Riemann integrable}\not\Longrightarrow\text{is a derivative},\\
+&\text{Riemann integrable }f\not\Longrightarrow
+  \left(\int_a^x f\right)'=f\text{ everywhere}.
+\end{aligned}
+\]
+For each, identify the exact failed hypothesis rather than merely naming the
+example.
+\end{exercise}
+
+\begin{exercise}
+Suppose \(f_n\to f\) uniformly on \([a,b]\). Prove directly that
+\[
+\left|\int_a^b f_n-\int_a^b f\right|
+\leq(b-a)\norm{f_n-f}_\infty.
+\]
+Then give a pointwise-convergent sequence from this chapter for which the
+uniform theorem does not apply, and state which stronger special result, if
+any, does apply.
 \end{exercise}

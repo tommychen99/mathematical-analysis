@@ -44,7 +44,11 @@ are smooth. A \textbf{Lie-group homomorphism} is a smooth map preserving
 multiplication (and therefore identity and inverses).
 \end{definition}
 Thus $(\R^n,+)$ and $S^1$ are Lie groups. For $GL_n(\R)$ multiplication
-has entries $\sum_k a_{ik}b_{kj}$, and inversion has entries given by
+has entries
+\[
+\sum_k a_{ik}b_{kj},
+\]
+ and inversion has entries given by
 cofactors divided by $\det A$. They are smooth on the open set in question.
 Products of Lie groups use componentwise multiplication; in particular
 $T^2=S^1\times S^1$ is a Lie group with its main-text product structure.
@@ -53,7 +57,11 @@ $T^2=S^1\times S^1$ is a Lie group with its main-text product structure.
 The sets $SL_n(\R)=(\det)^{-1}(\{1\})$, $O(n)=\{A:A^TA=I\}$, and
 $SO(n)=\{A\in O(n):\det A=1\}$ are embedded submanifolds of matrix
 space and Lie groups under matrix multiplication. Their dimensions are
-$n^2-1$, $n(n-1)/2$, and $n(n-1)/2$, respectively, for $n\geq1$.
+$n^2-1$,
+\[
+n(n-1)/2,,\qquad n(n-1)/2,
+\]
+ respectively, for $n\geq1$.
 \end{proposition}
 \begin{proof}
 We first verify the rank hypotheses and then restrict the operations.
@@ -62,14 +70,22 @@ Multilinearity of the determinant gives
 \det(I+tH)=1+t\sum_i h_{ii}+O(t^2),\qquad
 D(\det)(I)H=\operatorname{tr}H,
 \]
-where $\operatorname{tr}H=\sum_i h_{ii}$. Indeed the linear terms choose
+where
+\[
+\operatorname{tr}H=\sum_i h_{ii}.
+\]
+ Indeed the linear terms choose
 one column from $tH$ and all other columns from $I$; only that column's
 diagonal entry survives. Factoring $A+tH=A(I+tA^{-1}H)$ gives, for
 invertible $A$,
 \[
 D(\det)(A)H=\det A\,\operatorname{tr}(A^{-1}H).
 \]
-At determinant $1$, choosing $H=A/n$ makes this derivative $1$.
+At determinant $1$, choosing
+\[
+H=A/n
+\]
+ makes this derivative $1$.
 The regular-level theorem therefore gives the stated dimension of $SL_n$.
 The orthogonal computation, including its symmetric-matrix target and
 surjectivity, is already proved in \cref{ex:orthogonal-level}.
@@ -123,7 +139,11 @@ is a linear isomorphism. One tangent space supplies directions everywhere.
 A smooth vector field $X$ assigns $X_p\in T_pM$ with smooth coordinate
 components. It acts on smooth scalar functions by
 $Xf(p)=df_p(X_p)$. In a chart this is
-$Xf=\sum_i X^i\partial_i f$, so $Xf$ is smooth and obeys the product rule.
+
+\[
+Xf=\sum_i X^i\partial_i f,
+\]
+ so $Xf$ is smooth and obeys the product rule.
 \begin{definition}
 A vector field $X$ on $G$ is \textbf{left invariant} if
 $d(L_g)_hX_h=X_{gh}$ for all $g,h\in G$. Set $\mathfrak g=T_eG$.

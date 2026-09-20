@@ -1,6 +1,6 @@
 # Manuscript outline and prerequisite map
 
-Current revision: Version 3.29.0 — September 19, 2026.
+Current revision: Version 3.33.0 — September 20, 2026.
 
 ## Front matter
 
@@ -68,7 +68,7 @@ Prerequisites: Chapter 3.
 3. Asymptotic notation: meaning, vanishing, O/o calculus, and derivative remainders
 4. Continuity at limit and isolated points; algebraic operations
 5. Lipschitz continuity and uniform continuity
-6. Intermediate values; general roots, root laws, and positive rational powers
+6. Intermediate values; general roots, elementary AM--GM, root laws, and positive rational powers
 7. Compact intervals, extreme values, and uniform continuity
 
 Prerequisites: Chapters 2--4.
@@ -78,7 +78,7 @@ Prerequisites: Chapters 2--4.
 1. Pointwise and uniform convergence
 2. Uniform Cauchy criterion and uniform-limit theorem
 3. Algebra and boundedness under uniform convergence
-4. Counterexamples to unjustified interchange
+4. Counterexamples to unjustified interchange and Dini's theorem
 5. Weierstrass approximation and the Stone--Weierstrass perspective
 6. Equicontinuity and Arzelà--Ascoli on a compact interval
 
@@ -87,8 +87,8 @@ Prerequisites: Chapters 4--5; integration-dependent results await Chapter 9.
 ### 7. Infinite series
 
 1. Numerical series with real terms
-2. Positivity, comparison, ratio, root, and condensation tests; rational \(p\)-series using Chapter 5 powers
-3. Absolute and conditional convergence; rearrangements
+2. Canonical harmonic and square-reciprocal examples; positivity, comparison, ratio, root, and condensation tests; rational \(p\)-series using Chapter 5 powers
+3. Absolute and conditional convergence; absolute invariance and conditional rearrangement
 4. Power series and radius of convergence
 5. Uniform convergence inside the radius; termwise differentiation in Chapter 8
 
@@ -97,14 +97,14 @@ Prerequisites: Chapters 3--6.
 ### 8. Differentiation
 
 1. Derivative and basic rules
-2. Rolle and mean-value theorems
+2. Local extrema, critical points, derivative tests, Rolle and mean-value theorems, implicit differentiation, and monotone discontinuities
 3. Differentiating limits and power series
-4. Higher derivatives and Taylor approximation: derivative matching, the MVT bridge, remainders, and quantitative bounds
-5. Continuous exponential/logarithm/real-power development: exp(1)=e, rational-power compatibility, and hidden exponential limits
+4. Higher derivatives and Taylor approximation: derivative matching, the MVT bridge, remainders, quantitative bounds, and the second derivative test
+5. Continuous exponential/logarithm/real-power development: exp(1)=e, rational-power compatibility, hidden exponential limits, and hyperbolic functions
 6. Analytic construction of \(\pi\), special-angle values, tangent, and inverse trigonometric functions with explicit domains and ranges
-7. Elementary curves and polar coordinates after the trigonometric theory
+7. Elementary curves, ellipse and hyperbola parametrizations, and polar coordinates
 8. Analyticity introduced at the smooth-cutoff opening: C^k and C^infinity versus real analyticity
-9. Convexity and a continuous nondifferentiable example
+9. Convexity, concavity, inflection points, Jensen, weighted AM--GM, Young, finite Hölder, and finite Cauchy--Schwarz
 
 Prerequisites: Chapters 3--7. Elementary functions are constructed by power series; the smooth cutoff later supplies manifold bump functions.
 
@@ -112,15 +112,16 @@ Chapter 8 also introduces elementary plane curves, coordinatewise velocity
 and speed, polar coordinates and quadrant selection, and the polar-motion
 speed formula after trigonometry and inverse functions.
 
-### 9. Riemann integration and the Fundamental Theorem
+### 9. Riemann Integration
 
 1. Partitions, Riemann sums, upper and lower sums; bound integration variables
 2. Integrability criteria and algebra
-3. Continuous and monotone functions; tagged fine-mesh sums; uniform integration, Arzelà bounded convergence with an elementary proof, and Dini convergence
-4. Fundamental Theorem, inverse-trigonometric antiderivatives, substitution, integration by parts, and the integral mean-value theorem
+3. Continuous and monotone functions; tagged fine-mesh sums; integral Hölder and Cauchy--Schwarz; uniform integration and Arzelà bounded convergence
+4. Fundamental Theorem, inverse-trigonometric and inverse-hyperbolic antiderivatives, substitution, one trigonometric substitution, integration by parts, and the integral mean-value theorem
 5. Improper integrals, the Integral Test, and an analytic rederivation of the real \(p\)-series test
 6. Lebesgue criterion for Riemann integrability
-7. Limits of Riemann theory
+7. Limits of Riemann theory; stated Lebesgue MCT and DCT, comparison with
+   Dini and Arzelà bounded convergence, and absolute continuity/Lebesgue FTC
 
 Prerequisites: Chapters 3--8.
 

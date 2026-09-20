@@ -134,7 +134,11 @@ which is the triangle inequality.
 An upper bound is a ceiling, not necessarily a member of the set.
 For $S=(0,1)$ in $\R$, every number at least $1$ is an upper bound.
 The smallest ceiling is $1$, yet $S$ has no largest member: between
-$x<1$ and $1$ lies $(x+1)/2$. For $[0,1]$ the same ceiling is also
+$x<1$ and $1$ lies
+\[
+(x+1)/2.
+\]
+ For $[0,1]$ the same ceiling is also
 a member, so it is a maximum. A supremum is the least upper bound;
 a maximum is a member larger than or equal to all other members.
 Existence of a supremum does not assert that it is attained.
@@ -150,7 +154,15 @@ Every $x\in S$ satisfies $x\leq s$. If no member exceeded $s-\eps$,
 that smaller number would be an upper bound, contradicting leastness.
 \end{proof}
 The estimate lets us choose elements arbitrarily close to the supremum. For
-$S=\{1-1/n:n\geq1\}$, choose $n>1/\eps$ to obtain such an element.
+
+\[
+S=\{1-1/n:n\geq1\},
+\]
+ choose
+\[
+n>1/\eps
+\]
+ to obtain such an element.
 This choice previews the Archimedean property proved below; it is not part
 of the proof of the preceding proposition.
 The supremum is $1$, even though no term is $1$.
@@ -159,6 +171,51 @@ The supremum is $1$, even though no term is $1$.
 \begin{definition}[Complete ordered field]
 An ordered field having the least-upper-bound property is called a \textbf{complete ordered field}. This is a characterization, not a construction: it says what the real numbers are like, but does not yet exhibit them.
 \end{definition}
+
+\begin{remark}[A first-reading route through this chapter]
+The detailed proofs in this chapter are important, but a first reading has
+a more modest goal. Before continuing, understand why \(\Q\) is inadequate
+for analysis and why the real numbers are characterized structurally as a
+complete ordered field. ``Uniqueness of \(\R\)'' means that any two complete
+ordered fields are related by the unique order-preserving field isomorphism
+that fixes their canonical rational copies; it does not mean that two
+concrete constructions have literally the same underlying set.
+
+Keep the architecture of the uniqueness argument in view:
+\[
+\boxed{
+\begin{gathered}
+\text{completeness}
+\Longrightarrow
+\text{Archimedean property}
+\Longrightarrow
+\Q\text{ dense}\\
+\Longrightarrow
+\text{rational lower cuts determine points}
+\Longrightarrow
+\text{canonical isomorphism}
+\end{gathered}}
+\]
+The existence argument has a parallel architecture:
+\[
+\boxed{
+\begin{gathered}
+\text{rational Cauchy sequences}
+\Longrightarrow
+\text{equivalence classes}\\
+\Longrightarrow
+\text{arithmetic and order}
+\Longrightarrow
+\text{completeness}
+\end{gathered}}
+\]
+Study the well-definedness, quotient, order, and completeness verifications,
+but do not let difficulty reproducing every implementation detail prevent
+progress to sequences and limits in Chapter~\ref{ch:sequences}. On a first
+reading, it is enough to understand what the real numbers are structurally,
+what uniqueness means, why an existence construction is needed, and how the
+two arguments are organized.
+\end{remark}
 
 \section{Rational Numbers, Completeness, and Uniqueness}
 
@@ -223,7 +280,11 @@ If \(u>0\) in an ordered field, then \(u^{-1}>0\): it is nonzero, and if
 \[
 1=u^{-1}u<0,
 \]
-contrary to \(1=1^2>0\). A positive rational has a representation \(m/n\)
+contrary to \(1=1^2>0\). A positive rational has a representation
+\[
+m/n
+\]
+
 with \(m,n\in\N\), so \(m_F>0\) and \((n_F)^{-1}>0\); hence its image is
 positive. Therefore \(\iota_F\) is order preserving and thus injective.
 Any field homomorphism fixes \(1\), then every integer, and then every
@@ -244,8 +305,20 @@ F\text{ is Archimedean}
 \frac1n<\varepsilon.
 \]
 \end{definition}
-Indeed, the large-scale condition applied to \(1/\varepsilon\) gives
-\(n>1/\varepsilon\), hence \(1/n<\varepsilon\). Conversely, assume the
+Indeed, the large-scale condition applied to
+\[
+1/\varepsilon
+\]
+ gives
+
+\[
+n>1/\varepsilon,
+\]
+ hence
+\[
+1/n<\varepsilon.
+\]
+ Conversely, assume the
 small-scale condition. If \(x<1\), take \(n=1\). If \(x\geq1\), choose
 \(n\in\N\) with
 \[
@@ -255,10 +328,43 @@ Inversion reverses this inequality and gives \(n>x+1>x\). Thus natural
 numbers exceed every fixed size exactly when their reciprocals become
 arbitrarily small.
 
+\begin{theorem}[Integer parts and rational density in an Archimedean field]
+\label{thm:archimedean-integer-density}
+Let \(F\) be an Archimedean ordered field, with its canonical copy of
+\(\Q\). Then:
+\begin{enumerate}
+\item for every \(x\in F\), there is \(k\in\Z\) such that
+\[
+k\leq x<k+1;
+\]
+\item if \(x<y\) in \(F\), there is \(q\in\Q\) such that \(x<q<y\).
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+For the first assertion, choose \(M\in\N\) with \(M>-x\). The set
+\[
+E=\{n\in\N:n>x+M\}
+\]
+is nonempty, so it has a least member \(n\). If \(n>1\), minimality gives
+\(n-1\leq x+M<n\); if \(n=1\), the left inequality follows from
+\(x+M>0\). Thus \(k=n-M-1\) has the required property.
+
+For \(x<y\), choose \(N\in\N\) with \(N(y-x)>1\), and apply the first
+assertion to \(Nx\). If \(k\leq Nx<k+1\), then
+\[
+Nx<k+1\leq Nx+1<Ny.
+\]
+Dividing by \(N>0\) gives \(x<(k+1)/N<y\).
+\end{proof}
+
 \begin{theorem}[Every complete ordered field is Archimedean]
 \label{thm:complete-fields-archimedean}
 Every complete ordered field is Archimedean. Consequently, for every
-\(\varepsilon>0\), there is \(N\in\N\) with \(1/N<\varepsilon\).
+\(\varepsilon>0\), there is \(N\in\N\) with
+\[
+1/N<\varepsilon.
+\]
+
 \end{theorem}
 \begin{proof}
 Identify \(\Q\) with its canonical copy.  If \(\N\) had an upper bound, let
@@ -281,33 +387,8 @@ x<q<y.
 \]
 \end{theorem}
 \begin{proof}
-Choose \(N\in\N\) with
-\[
-N(y-x)>1.
-\]
-Choose \(M\in\N\) with \(M>-Nx\).  The set
-\[
-E=\set{n\in\N:n>Nx+M}
-\]
-is nonempty and has a least member \(k\). By definition, \(Nx+M<k\).
-If \(k>1\), then \(k-1\in\N\), and minimality gives \(k-1\notin E\),
-hence \(k-1\leq Nx+M\). If \(k=1\), the preceding choice \(M>-Nx\)
-instead gives
-\[
-Nx+M>0=k-1.
-\]
-Thus in either case
-\[
-k-1\leq Nx+M<k,
-\]
-and hence
-\[
-Nx<k-M\leq Nx+1<Ny.
-\]
-Divide by the positive integer \(N\) and take
-\[
-q=\frac{k-M}{N}.
-\]
+By \cref{thm:complete-fields-archimedean}, \(F\) is Archimedean, so the
+second assertion of \cref{thm:archimedean-integer-density} applies.
 \end{proof}
 
 \begin{lemma}[Rational cuts determine points]
@@ -406,7 +487,15 @@ Rational density gives a positive rational \(p\) with
 \[
 \frac{q}{y}<p<x.
 \]
-Because \(p>q/y\), one has \(q/p<y\); rational density again gives a positive
+Because
+\[
+p>q/y,
+\]
+ one has
+\[
+q/p<y;
+\]
+ rational density again gives a positive
 rational \(r\) with
 \[
 \frac{q}{p}<r<y.
@@ -483,10 +572,22 @@ A real number will be an equivalence class of rational Cauchy approximation
 processes. Different processes represent the same number when their difference
 tends to zero. We can test whether approximations settle down without already
 knowing a limit. The Cauchy condition in $\Q$ does just that.
-For example, $(1+1/n)$ and $(1-1/n)$ should represent the same number,
-$(1/n)$ should represent zero, and the constant sequences $(1)$ and $(2)$
+For example,
+\[
+(1+1/n),\qquad (1-1/n)
+\]
+ should represent the same number,
+
+\[
+(1/n)
+\]
+ should represent zero, and the constant sequences $(1)$ and $(2)$
 must remain different. Eventual equality would be much too restrictive:
-the first two sequences never agree, although their difference $2/n$ becomes
+the first two sequences never agree, although their difference
+\[
+2/n
+\]
+ becomes
 smaller than every positive rational tolerance.
 
 The work has three layers. First identify equivalent processes and do
@@ -508,7 +609,11 @@ For rational Cauchy sequences $(q_n)$ and $(r_n)$, write $(q_n)\sim(r_n)$ if, fo
 The relation $\sim$ is an equivalence relation on the set of rational Cauchy sequences.
 \end{lemma}
 \begin{proof}
-Reflexivity and symmetry are immediate. If $q\sim r$ and $r\sim s$, then for a given $\eps>0$, both $\abs{q_n-r_n}<\eps/2$ and $\abs{r_n-s_n}<\eps/2$ eventually hold. The triangle inequality gives $\abs{q_n-s_n}<\eps$, proving transitivity.
+Reflexivity and symmetry are immediate. If $q\sim r$ and $r\sim s$, then for a given $\eps>0$, both
+\[
+\abs{q_n-r_n}<\eps/2,\qquad \abs{r_n-s_n}<\eps/2
+\]
+ eventually hold. The triangle inequality gives $\abs{q_n-s_n}<\eps$, proving transitivity.
 \end{proof}
 
 \begin{lemma}[Elementary Cauchy facts]
@@ -526,11 +631,19 @@ Let $(q_n)$ and $(r_n)$ be Cauchy sequences in $\Q$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-Choose $N$ such that $m,n\geq N$ gives $\abs{q_m-q_n}<1$. Then $\abs{q_n}\leq\abs{q_N}+1$ for $n\geq N$; enlarge this rational bound to cover the finitely many earlier terms. For sums, make each difference less than $\eps/2$ and apply the triangle inequality. For products, first bound the potentially large factors, then make the differences small. Take a common rational bound $M\geq1$ for both sequences and use
+Choose $N$ such that $m,n\geq N$ gives $\abs{q_m-q_n}<1$. Then $\abs{q_n}\leq\abs{q_N}+1$ for $n\geq N$; enlarge this rational bound to cover the finitely many earlier terms. For sums, make each difference less than
+\[
+\eps/2
+\]
+ and apply the triangle inequality. For products, first bound the potentially large factors, then make the differences small. Take a common rational bound $M\geq1$ for both sequences and use
 \[
 \abs{q_mr_m-q_nr_n}\leq\abs{q_m}\abs{r_m-r_n}+\abs{r_n}\abs{q_m-q_n}\leq M\bigl(\abs{r_m-r_n}+\abs{q_m-q_n}\bigr).
 \]
-Given $\eps>0$, choose a stage after which both differences are less than $\eps/(2M)$. The displayed bound is then less than $\eps$, proving Cauchyness. For the final assertion, the triangle inequality gives the sum statement. Choose a common rational bound $M\geq1$ for the four sequences. The identity
+Given $\eps>0$, choose a stage after which both differences are less than
+\[
+\eps/(2M).
+\]
+ The displayed bound is then less than $\eps$, proving Cauchyness. For the final assertion, the triangle inequality gives the sum statement. Choose a common rational bound $M\geq1$ for the four sequences. The identity
 \[
 q_nr_n-q_n'r_n' =q_n(r_n-r_n')+r_n'(q_n-q_n')
 \]
@@ -538,7 +651,11 @@ then gives
 \[
 \abs{q_nr_n-q_n'r_n'}\leq M\abs{r_n-r_n'}+M\abs{q_n-q_n'},
 \]
-which is less than $\eps$ once both null differences are less than $\eps/(2M)$. Thus the product class does not depend on the representatives.
+which is less than $\eps$ once both null differences are less than
+\[
+\eps/(2M).
+\]
+ Thus the product class does not depend on the representatives.
 \end{proof}
 
 
@@ -564,7 +681,23 @@ Null-equivalence to zero means
 \forall\eta\in\Q_{>0}\ \exists N\ \forall n\geq N:\ |q_n|<\eta.
 \]
 Its negation is $\exists\eta\in\Q_{>0}\ \forall N\ \exists n\geq N$
-with $|q_n|\geq\eta$. Thus there is $\eta>0$ for which $\abs{q_n}\geq\eta$ for infinitely many $n$. Choose $N$ so that $\abs{q_m-q_n}<\eta/2$ whenever $m,n\geq N$, and choose $k\geq N$ with $\abs{q_k}\geq\eta$. If $q_k\geq\eta$, then $q_n>\eta/2$ for every $n\geq N$. If $q_k\leq-\eta$, then $q_n< -\eta/2$ for every $n\geq N$. Take $\delta=\eta/2$.
+with $|q_n|\geq\eta$. Thus there is $\eta>0$ for which $\abs{q_n}\geq\eta$ for infinitely many $n$. Choose $N$ so that
+\[
+\abs{q_m-q_n}<\eta/2
+\]
+ whenever $m,n\geq N$, and choose $k\geq N$ with $\abs{q_k}\geq\eta$. If $q_k\geq\eta$, then
+\[
+q_n>\eta/2
+\]
+ for every $n\geq N$. If $q_k\leq-\eta$, then
+\[
+q_n< -\eta/2
+\]
+ for every $n\geq N$. Take
+\[
+\delta=\eta/2.
+\]
+
 \end{proof}
 
 \begin{construction}[The set of real numbers]
@@ -601,7 +734,15 @@ for $m,n\geq N$ proves Cauchyness: given $\eps>0$, use the Cauchy tolerance $\ep
 \section{Order and Completeness}
 
 Eventual positivity of the entries alone cannot define a positive class:
-$1/n>0$ at every stage, but $(1/n)$ represents zero. We need a positive
+
+\[
+1/n>0
+\]
+ at every stage, but
+\[
+(1/n)
+\]
+ represents zero. We need a positive
 margin that survives arbitrarily accurate changes of representative.
 \begin{definition}[Order on $\R$]
 For $x=[(q_n)]\in\R$, write $x>0$ if there are a rational $\delta>0$ and $N\in\N$ such that $q_n>\delta$ for every $n\geq N$. Define $x<y$ to mean $y-x>0$.
@@ -612,15 +753,31 @@ For $x=[(q_n)]\in\R$, write $x>0$ if there are a rational $\delta>0$ and $N\in\N
 The preceding definition is independent of the chosen representative. It makes $\R$ an ordered field, and $\iota$ preserves order.
 \end{lemma}
 \begin{proof}
-If $q_n>\delta$ eventually and $q\sim r$, then $\abs{q_n-r_n}<\delta/2$ eventually, so $r_n>\delta/2$ eventually. Thus positivity is well defined. Positive eventual lower bounds are closed under addition and multiplication. For a nonzero class, \cref{lem:eventual-separation} gives exactly one eventual sign. Therefore \cref{prop:positive-cone-characterization} makes the resulting relation a compatible total order, and \cref{prop:ordered-field-rules} supplies its basic rules. Constant sequences visibly preserve rational order.
+If $q_n>\delta$ eventually and $q\sim r$, then
+\[
+\abs{q_n-r_n}<\delta/2
+\]
+ eventually, so
+\[
+r_n>\delta/2
+\]
+ eventually. Thus positivity is well defined. Positive eventual lower bounds are closed under addition and multiplication. For a nonzero class, \cref{lem:eventual-separation} gives exactly one eventual sign. Therefore \cref{prop:positive-cone-characterization} makes the resulting relation a compatible total order, and \cref{prop:ordered-field-rules} supplies its basic rules. Constant sequences visibly preserve rational order.
 \end{proof}
 
 \begin{theorem}[The constructed field is Archimedean]
 \label{thm:archimedean}
-For every $x\in\R$, there is $N\in\N$ with $x<N$. Consequently, for every $\eps>0$, there is $N\in\N$ with $1/N<\eps$.
+For every $x\in\R$, there is $N\in\N$ with $x<N$. Consequently, for every $\eps>0$, there is $N\in\N$ with
+\[
+1/N<\eps.
+\]
+
 \end{theorem}
 \begin{proof}
-Let $x=[(q_n)]$. By \cref{lem:cauchy-facts-q}, the rational sequence $(q_n)$ has a rational upper bound $M$. Choose a natural number $N>M$, using the elementary Chapter~2 fact that natural numbers are unbounded above in $\Q$. Then $N-q_n\geq N-M>0$ for all $n$, so the definition of positivity, with margin $(N-M)/2$, gives $x<N$. Thus the constructed field is Archimedean in the sense of \cref{def:archimedean-field}. The reciprocal consequence follows from the equivalent small-scale form.
+Let $x=[(q_n)]$. By \cref{lem:cauchy-facts-q}, the rational sequence $(q_n)$ has a rational upper bound $M$. Choose a natural number $N>M$, using the elementary Chapter~2 fact that natural numbers are unbounded above in $\Q$. Then $N-q_n\geq N-M>0$ for all $n$, so the definition of positivity, with margin
+\[
+(N-M)/2,
+\]
+ gives $x<N$. Thus the constructed field is Archimedean in the sense of \cref{def:archimedean-field}. The reciprocal consequence follows from the equivalent small-scale form.
 \end{proof}
 
 \begin{lemma}[Integer-part lemma]
@@ -631,11 +788,8 @@ k\leq x<k+1.
 \]
 \end{lemma}
 \begin{proof}
-By \cref{thm:archimedean}, choose $M\in\N$ with $M>-x$. The nonempty set
-\[
-E=\set{n\in\N:n>x+M}
-\]
-has a least element $n$ by well ordering. Since $n-1\notin E$ when $n>1$, one has $n-1\leq x+M<n$. The case $n=1$ gives the same left inequality because $x+M>0$. Thus $k=n-M-1$ is an integer satisfying $k\leq x<k+1$.
+The constructed field is Archimedean by \cref{thm:archimedean}; apply the
+first assertion of \cref{thm:archimedean-integer-density}.
 \end{proof}
 
 \begin{theorem}[Density of the rational numbers]
@@ -646,11 +800,8 @@ x<\iota(q)<y.
 \]
 \end{theorem}
 \begin{proof}
-By \cref{thm:archimedean}, choose $N\in\N$ with $N(y-x)>1$. Apply \cref{lem:integer-part} to $Nx$ to obtain $k\in\Z$ with $k\leq Nx<k+1$. Then
-\[
-Nx<k+1\leq Nx+1<Ny.
-\]
-Dividing by the positive integer $N$ gives the result for $q=(k+1)/N$.
+Apply the second assertion of \cref{thm:archimedean-integer-density}, using
+\cref{thm:archimedean}.
 \end{proof}
 
 \begin{definition}[Convergence of a real sequence]
@@ -671,13 +822,21 @@ A real sequence $(x_n)$ is \emph{Cauchy} if, for every $\eps>0$, there is $N\in\
 \begin{lemma}[Bounds for classes]
 \label{lem:tail-estimates-classes}
 If $a\leq u_n\leq b$ eventually, with rational $a,b$, then
-$\iota(a)\leq[(u_n)]\leq\iota(b)$.
+
+\[
+\iota(a)\leq[(u_n)]\leq\iota(b).
+\]
+
 \end{lemma}
 \begin{proof}
 If $[(u_n)]>\iota(b)$, positivity would require $u_n-b>\delta>0$
 eventually, contradicting the upper bound. The lower bound is identical.
 \end{proof}
-Strict bounds need not remain strict: $u_n=1-1/(n+1)<1$ represents $1$.
+Strict bounds need not remain strict:
+\[
+u_n=1-1/(n+1)<1
+\]
+ represents $1$.
 To prove a strict conclusion, reserve a margin in the approximation.
 
 \begin{lemma}[Rational approximation from a representative]
@@ -700,7 +859,11 @@ Cauchyness of $(q_n)$ supplies $N$ such that
 \[
 m,n\geq N\quad\Longrightarrow\quad\abs{q_m-q_n}<e/2.
 \]
-For a fixed $n\geq N$, the real number $\iota(q_n)-x$ is represented by the sequence $(q_n-q_k)_{k\in\N}$, whose tail has absolute value less than $e/2$. By \cref{lem:tail-estimates-classes},
+For a fixed $n\geq N$, the real number $\iota(q_n)-x$ is represented by the sequence $(q_n-q_k)_{k\in\N}$, whose tail has absolute value less than
+\[
+e/2.
+\]
+ By \cref{lem:tail-estimates-classes},
 \[
 \abs{\iota(q_n)-x}\leq\iota(e/2)<\iota(e)<\eps.
 \]
@@ -731,7 +894,11 @@ completeness being established.
 Every Cauchy sequence in $\R$ converges to an element of $\R$.
 \end{theorem}
 \begin{proof}
-For each $j$, choose a rational $r_j$ within $1/j$ of the $j$th real
+For each $j$, choose a rational $r_j$ within
+\[
+1/j
+\]
+ of the $j$th real
 approximation. We show that $(r_j)$ is rational Cauchy and then compare its
 class with $x_j$:
 \[
@@ -740,10 +907,18 @@ x_j\ \approx\ \iota(r_j)\ \longrightarrow\ [(r_j)].
 No summable error is needed, only an error tending to zero.
 
 By \cref{lem:rational-representatives-converge}, choose $r_j\in\Q$ with
-$|x_j-\iota(r_j)|<1/j$. This can be explicit: fix a listing of $\Q$ and
+
+\[
+|x_j-\iota(r_j)|<1/j.
+\]
+ This can be explicit: fix a listing of $\Q$ and
 take its first entry satisfying the inequality for each $j$.
 Given rational $e>0$, choose $J$ so that
-$1/J<e/3$ and $|x_j-x_k|<\iota(e/3)$ for $j,k\geq J$. Then
+
+\[
+1/J<e/3,\qquad |x_j-x_k|<\iota(e/3)
+\]
+ for $j,k\geq J$. Then
 \[
 |\iota(r_j)-\iota(r_k)|
 \leq|\iota(r_j)-x_j|+|x_j-x_k|+|x_k-\iota(r_k)|<\iota(e).
@@ -751,7 +926,11 @@ $1/J<e/3$ and $|x_j-x_k|<\iota(e/3)$ for $j,k\geq J$. Then
 Order preservation gives $|r_j-r_k|<e$, so $(r_j)$ is rational Cauchy.
 Set $x=[(r_j)]$. The representative-approximation lemma gives
 $\iota(r_j)\to x$. Given real $\eps>0$, choose $J$ so that, for $j\geq J$,
-both $1/j<\eps/2$ and $|\iota(r_j)-x|<\eps/2$. Hence
+both
+\[
+1/j<\eps/2,\qquad |\iota(r_j)-x|<\eps/2.
+\]
+ Hence
 \[
 |x_j-x|\leq|x_j-\iota(r_j)|+|\iota(r_j)-x|<\eps.
 \]
@@ -780,19 +959,33 @@ m_n=\frac{s_n+u_n}{2},\qquad
 \]
 The construction preserves the two roles: $s_n$ is not an upper bound,
 whereas $u_n$ is. The interval width is
-$u_n-s_n=2^{-n}(u_0-s_0)$.
+\[
+ u_n-s_n=2^{-n}(u_0-s_0).
+\]
 
 The sequence $(s_n)$ is Cauchy, because for $m\geq n$,
 \[
-0\leq s_m-s_n\leq u_n-s_n=2^{-n}(u_0-s_0),
+0\leq s_m-s_n\leq u_n-s_n=2^{-n}(u_0-s_0).
 \]
-and the right side tends to zero by \cref{thm:archimedean}.
+The elementary induction inequality $2^n\geq n+1$ gives
+\[
+0\leq 2^{-n}\leq\frac{1}{n+1}\longrightarrow0
+\]
+by \cref{thm:archimedean}; hence the right side can be made arbitrarily small.
 By \cref{thm:real-cauchy-complete}, let $s_n\to a$. The upper endpoints
 have the same limit, since
 \[
 \abs{u_n-a}\leq\abs{u_n-s_n}+\abs{s_n-a}\longrightarrow0.
 \]
-Finally, for fixed $n$, the inequalities $s_n\leq s_m\leq u_m\leq u_n$ for $m\geq n$ pass to the limit: if, for example, $s_n>a$, then $s_m$ cannot lie within $(s_n-a)/2$ of $a$ for any $m\geq n$. Hence $s_n\leq a\leq u_n$.
+Finally, for fixed $n$, the inequalities
+\[
+s_n\leq s_m\leq u_m\leq u_n
+\]
+ for $m\geq n$ pass to the limit: if, for example, $s_n>a$, then $s_m$ cannot lie within
+\[
+(s_n-a)/2
+\]
+ of $a$ for any $m\geq n$. Hence $s_n\leq a\leq u_n$.
 
 If $t\in S$ and $t>a$, choose $n$ with $u_n-s_n<t-a$; then $t>u_n$, contradicting that $u_n$ is an upper bound. Thus $a$ is an upper bound. If $v<a$, choose $n$ with $u_n-s_n<a-v$; then $v<s_n$. Since $s_n$ is not an upper bound, neither is $v$. Hence $a$ is the least upper bound.
 \end{proof}
@@ -813,15 +1006,27 @@ For every $a>0$ there is a unique $s>0$ with $s^2=a$, denoted $\sqrt a$.
 \end{proposition}
 \begin{proof}
 Let $S=\{x\geq0:x^2<a\}$. It contains a positive element, for example
-$\min\{1,a\}/2$, and is bounded above by $a+1$. Let $s=\sup S>0$.
+
+\[
+\min\{1,a\}/2,
+\]
+ and is bounded above by $a+1$. Let $s=\sup S>0$.
 If $s^2<a$, we seek a slightly larger member of $S$. The error is
 $(s+h)^2-s^2=2sh+h^2$. First require $h<1$, so this error is less than
 $(2s+1)h$; then require the latter to be smaller than the gap $a-s^2$.
-Accordingly choose $0<h<\min\{1,(a-s^2)/(2s+1)\}$.
+Accordingly choose
+\[
+0<h<\min\{1,(a-s^2)/(2s+1)\}.
+\]
+
 Then $(s+h)^2<s^2+(2s+1)h<a$, contradicting that $s$ is an upper bound.
 If $s^2>a$, we instead seek a smaller upper bound. Since
 $s^2-(s-h)^2=2sh-h^2\leq2sh$, it suffices to keep $2sh$ smaller
-than $s^2-a$, while $h<s$ keeps $s-h$ positive. Choose $0<h<\min\{s,(s^2-a)/(2s)\}$.
+than $s^2-a$, while $h<s$ keeps $s-h$ positive. Choose
+\[
+0<h<\min\{s,(s^2-a)/(2s)\}.
+\]
+
 Then $(s-h)^2>s^2-2sh>a$. Any $x\in S$ must satisfy $x<s-h$,
 since for nonnegative $x\geq s-h$ we would have $x^2\geq(s-h)^2>a$.
 Thus $s-h$ is a smaller upper bound, again a contradiction. Thus $s^2=a$. For $0<u<v$, $v^2-u^2=(v-u)(v+u)>0$,
@@ -867,7 +1072,12 @@ Then there is exactly one real number belonging to every interval.
 \begin{proof}
 The sequence $(a_n)$ is increasing and bounded above by $b_1$, so its range has a least upper bound $c$. For every fixed $n$, nesting gives $a_m\leq a_n\leq b_n$ when $m<n$, and $a_m\leq b_m\leq b_n$ when $m\geq n$. Thus $b_n$ is an upper bound of the whole range, so $c\leq b_n$. Also $a_n\leq c$ by definition of upper bound. Hence $c\in[a_n,b_n]$ for every $n$.
 
-If $d$ belongs to every interval, then $\abs{c-d}\leq b_n-a_n$ for every $n$. Taking the limit gives $\abs{c-d}=0$, so $c=d$. Thus the common point is unique.
+If $d$ belongs to every interval, then
+\[
+\abs{c-d}\leq b_n-a_n\qquad(n\in\N).
+\]
+If $\abs{c-d}>0$, choose $n$ so that $b_n-a_n<\abs{c-d}$,
+contradicting this inequality. Thus $c=d$, and the common point is unique.
 \end{proof}
 
 \subsection{Decimal expansions of real numbers}
@@ -892,7 +1102,11 @@ t_n=m+\frac{a_1}{10}+\cdots+\frac{a_n}{10^n}
 \quad\text{satisfies}\quad t_n\leq x<t_n+10^{-n}.
 \]
 Thus the schematic expression
-$x=m+a_1/10+a_2/10^2+\cdots$ means that these finite truncations
+
+\[
+x=m+a_1/10+a_2/10^2+\cdots
+\]
+ means that these finite truncations
 approximate $x$ with errors at most $10^{-n}$; it invokes no infinite-series
 theory. Conversely, any prescribed digits give nested closed intervals
 $[t_n,t_n+10^{-n}]$. Their lengths shrink to zero, so
@@ -941,7 +1155,11 @@ For example, on $(0,\infty)$ the metrics
 d(x,y)=|x-y|,\qquad \rho(x,y)=|1/x-1/y|
 \]
 have the same open sets: reciprocal coordinates and their inverse are
-continuous. Yet $x_n=1/n$ is Cauchy for $d$ and is not Cauchy for $\rho$,
+continuous. Yet
+\[
+x_n=1/n
+\]
+ is Cauchy for $d$ and is not Cauchy for $\rho$,
 since $\rho(x_n,x_{n+1})=1$. The metric and topological language is
 developed in Chapter~\ref{ch:topology-linear-algebra}; uniform spaces
 are not needed here.
@@ -955,7 +1173,7 @@ laws, Archimedean property, rational density, and completeness far more often
 than it uses equivalence classes. Understanding their construction matters;
 reproducing every verification on a first reading is a separate achievement.
 \end{remark}
-\section{A Small Toolkit of Inequalities}
+\section{Basic Inequalities}
 
 Exact computation is often unnecessary in analysis.  The decisive step is
 usually an estimate that replaces a complicated quantity by one already
@@ -968,7 +1186,11 @@ For $x,y\in\R$,
 \qquad
 \bigl\lvert\abs{x}-\abs{y}\bigr\rvert\leq\abs{x-y}.
 \]
-Consequently, $\abs{x_1+\cdots+x_n}\leq\sum_{j=1}^n\abs{x_j}$.
+Consequently,
+\[
+\abs{x_1+\cdots+x_n}\leq\sum_{j=1}^n\abs{x_j}.
+\]
+
 \end{proposition}
 \begin{proof}
 The triangle inequality was established with the ordered-field absolute
@@ -978,6 +1200,7 @@ bound.  The finite form follows by induction.
 \end{proof}
 
 \begin{proposition}[Quadratic and Bernoulli inequalities]
+\label{prop:quadratic-bernoulli}
 For $u,v\in\R$,
 \[
 2uv\leq u^2+v^2.
@@ -1001,8 +1224,10 @@ reverse triangle inequality keeps denominators away from zero; the quadratic
 estimate turns products into sums; and Bernoulli compares powers with linear
 growth.  For nonnegative inputs, the quadratic estimate later yields the
 usual arithmetic--geometric mean inequality after roots are available.
-Chapter~\ref{ch:topology-linear-algebra} adds Cauchy--Schwarz and the norm
-comparisons
+Part~I obtains the finite scalar Cauchy--Schwarz inequality as the
+\(p=2\) case of H\"older in \cref{thm:finite-holder}.
+Chapter~\ref{ch:topology-linear-algebra} independently develops its
+geometric inner-product form and the norm comparisons
 \[
 \abs{x_i}\leq\norm{x}_2\leq\sqrt n\,\norm{x}_\infty
 \]
@@ -1012,6 +1237,7 @@ sufficiently strong bound rather than an exact formula.
 
 
 
+\Needspace{12\baselineskip}
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
 
@@ -1033,7 +1259,23 @@ Let $F$ be a complete ordered field. Prove that every nonempty open interval in 
 \end{exercise}
 
 \begin{hexercise}{rational-approximations}
-Suppose rational approximations satisfy $|x_j-r_j|<1/j$. Explain why
+Suppose rational approximations satisfy
+\[
+|x_j-r_j|<1/j.
+\]
+ Explain why
 Cauchyness of $(x_j)$ forces Cauchyness of $(r_j)$, and why replacing
-$1/j$ by any positive error tending to zero leaves the argument valid.
+
+\[
+1/j
+\]
+ by any positive error tending to zero leaves the argument valid.
 \end{hexercise}
+
+\begin{exercise}
+Give a bounded nonempty subset of $\R$ whose supremum is not a maximum,
+and one whose supremum is a maximum. State the additional condition on
+$\sup S$ that distinguishes the two cases. Identify where completeness
+enters the assertion that every nonempty bounded-above set has a supremum,
+and explain why the corresponding assertion fails in $\Q$.
+\end{exercise}

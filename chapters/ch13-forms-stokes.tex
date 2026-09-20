@@ -85,11 +85,19 @@ g(t)=f(\gamma(t))\|\gamma'(t)\|,\qquad
 h(t)=F(\gamma(t))\cdot\gamma'(t).
 \]
 Both are continuous on each smooth piece, so Chapter~9 supplies their
-integrals. Thus the following definitions are $\int_a^b g(t)\,\dd t$
-and $\int_a^b h(t)\,\dd t$. The curve lies in $\R^n$ but the integration
+integrals. Thus the following definitions are the ordinary integrals
+\[
+\int_a^b g(t)\,\dd t,
+\qquad
+\int_a^b h(t)\,\dd t.
+\]
+The curve lies in $\R^n$ but the integration
 domain is one-dimensional. Work is scalar because the dot product is taken
 \emph{before} integration; it differs from the componentwise vector
-integral $\int_a^bF(\gamma(t))\,\dd t$.
+integral
+\[
+\int_a^bF(\gamma(t))\,\dd t.
+\]
 
 \begin{definition}[Scalar line integral]
 For continuous $f$ along the image of $\gamma$, set
@@ -139,23 +147,47 @@ decreasing, substitution with $h'$ changes the limits from $b$ to $a$.
 For work this contributes a minus sign. For the scalar integral,
 $|h'|=-h'$ contributes a second minus sign, cancelling the first.
 \end{proof}
-Thus $\int_C f\,\dd s$ is independent of orientation, but it need not
+Thus
+\[
+\int_C f\,\dd s
+\]
+ is independent of orientation, but it need not
 be positive: if $f=-1$ on a nonconstant curve, it equals minus the length.
 In contrast,
-$\int_C F\cdot\dd r$ is signed. The notation $C$ presupposes a specified
+
+\[
+\int_C F\cdot\dd r
+\]
+ is signed. The notation $C$ presupposes a specified
 traversal up to these reparametrizations: tracing a curve twice generally
 doubles its integral and is not a diffeomorphic reparametrization.
 
 \input{figures/curve-reversal}
 \begin{example}[Changing speed and reversing direction]
 Let $\gamma(t)=(t,t^2)$ for $0\leq t\leq1$ and
-$h(s)=(s+s^2)/2$ on $[0,1]$. Then $h'(s)=(1+2s)/2>0$,
+
+\[
+h(s)=(s+s^2)/2
+\]
+ on $[0,1]$. Then
+\[
+h'(s)=(1+2s)/2>0,
+\]
+
 so $h$ is an increasing diffeomorphism with the same endpoint values.
 The new velocity is $(h'(s),2h(s)h'(s))$; the traversal speeds differ,
 but substitution shows both lengths equal
-$\int_0^1\sqrt{1+4t^2}\,\dd t$.
+
+\[
+\int_0^1\sqrt{1+4t^2}\,\dd t.
+\]
+
 For $F=(1,0)$, both work integrals are $1$: in the new parameter
-the integral is $\int_0^1h'(s)\,\dd s=h(1)-h(0)$.
+the integral is
+\[
+\int_0^1h'(s)\,\dd s=h(1)-h(0).
+\]
+
 Using $h(s)=1-s$ instead reverses direction and gives work $-1$.
 The scalar integral of $f=-1$ stays the same negative length.
 \end{example}
@@ -202,7 +234,11 @@ the interior leaves only the oriented endpoint values.
 
 \begin{exercise}
 Integrate $F=(2x,y)$ along the segment from $(0,0)$ to $(1,2)$, directly
-and using a potential. Compute $\int_C y\,\dd s$ as well and explain how
+and using a potential. Compute
+\[
+\int_C y\,\dd s
+\]
+ as well and explain how
 the two answers change under reversal.
 \end{exercise}
 
@@ -217,7 +253,11 @@ but the parameter is one-dimensional. For work the dot product is taken
 \emph{before} the ordinary scalar integral.}}
 \end{center}
 \begin{example}[Mass of a quarter-circle wire]
-Let $R>0$ and $\gamma(t)=(R\cos t,R\sin t)$ for $0\leq t\leq\pi/2$.
+Let $R>0$ and $\gamma(t)=(R\cos t,R\sin t)$ for
+\[
+0\leq t\leq\pi/2.
+\]
+
 For density $\rho(x,y)=x+y$, we have
 $\gamma'=(-R\sin t,R\cos t)$ and $\|\gamma'\|=R$. Thus the mass is
 \[
@@ -232,7 +272,11 @@ For $\gamma(t)=(t,2t)$, $0\leq t\leq1$, and $F(x,y)=(y,x)$,
 F(\gamma(t))=(2t,t),\quad \gamma'(t)=(1,2),\quad
 F(\gamma(t))\cdot\gamma'(t)=4t.
 \]
-Consequently $\int_\gamma F\cdot\dd r=\int_0^1 4t\,\dd t=2$.
+Consequently
+\[
+\int_\gamma F\cdot\dd r=\int_0^1 4t\,\dd t=2.
+\]
+
 The reverse traversal has work $-2$.
 \end{example}
 \begin{example}[A helix]
@@ -307,7 +351,11 @@ By \cref{thm:simple-planar-region} and the FTC,
 \]
 The lower boundary goes left to right and the upper one right to left;
 vertical boundary segments contribute nothing to $P\,\dd x$. This is
-therefore $\int_{\partial D}P\,\dd x$. Similarly,
+therefore
+\[
+\int_{\partial D}P\,\dd x.
+\]
+ Similarly,
 \[
 \int_D Q_x=\int_c^d\bigl(Q(\mu(y),y)-Q(\lambda(y),y)\bigr)\,\dd y
 =\int_{\partial D}Q\,\dd y.
@@ -326,13 +374,25 @@ a decomposition for every conceivable piecewise smooth boundary. Later
 manifold Stokes will supply the global smooth-boundary result.
 
 \begin{example}[Area from circulation]
-For $P=-y/2$, $Q=x/2$, one has $Q_x-P_y=1$. Thus for these regions
+For
+\[
+P=-y/2,
+\]
+
+\[
+Q=x/2,
+\]
+ one has $Q_x-P_y=1$. Thus for these regions
 \[
 \operatorname{area}(D)=\frac12\int_{\partial D}(x\,\dd y-y\,\dd x).
 \]
 On the triangle with vertices $(0,0),(1,0),(0,1)$, the two coordinate
 edges contribute zero. On $(x,y)=(1-t,t)$, $0\leq t\leq1$, the integrand
-is $\dd t$, yielding area $1/2$. Internal-edge cancellation is already
+is $\dd t$, yielding area
+\[
+1/2.
+\]
+ Internal-edge cancellation is already
 a concrete model of the later passage from local formulas to a global one.
 \end{example}
 \begin{exercise}
@@ -386,7 +446,11 @@ gives zero by alternation. For the squared norm, expansion gives
 =\sum_{i\ne j}a_i^2b_j^2-2\sum_{i<j}a_ia_jb_ib_j
 =\|a\|^2\|b\|^2-(a\cdot b)^2.
 \]
-If $a\ne0$, write $b=ta+h$ with $t=(a\cdot b)/\|a\|^2$ and
+If $a\ne0$, write $b=ta+h$ with
+\[
+t=(a\cdot b)/\|a\|^2
+\]
+ and
 $a\cdot h=0$. Substitution in the last identity gives
 $\|a\times b\|^2=\|a\|^2\|h\|^2$. It vanishes exactly when $b$ is
 a multiple of $a$; otherwise $\|a\|$ and $\|h\|$ are the base and
@@ -418,7 +482,11 @@ the information that flux needs.
 For a regular patch $\sigma:D\subseteq\R^2\to\R^3$,
 $D\sigma(u,v):\R^2\to\R^3$ has a $3\times2$ matrix with columns
 $\sigma_u,\sigma_v\in\R^3$; $\det D\sigma$ is not defined. Put $a_\sigma=\|\sigma_u\times\sigma_v\|>0$
-and $n=(\sigma_u\times\sigma_v)/a_\sigma$. The area factor $a_\sigma$ is
+and
+\[
+n=(\sigma_u\times\sigma_v)/a_\sigma.
+\]
+ The area factor $a_\sigma$ is
 a scalar, $n$ a unit vector, and for $f:S\to\R$, $F:S\to\R^3$,
 both $f(\sigma)a_\sigma$ and $(F(\sigma)\cdot n)a_\sigma$ are scalars on $D$.
 In particular,
@@ -501,7 +569,11 @@ For $\sigma(u,v)=(u,v,u+2v)$ on $[0,1]^2$,
 \sigma_u=(1,0,1),\quad \sigma_v=(0,1,2),\quad
 \sigma_u\times\sigma_v=(-1,-2,1).
 \]
-Thus $\operatorname{area}(S)=\int_0^1\int_0^1\sqrt6\,\dd v\,\dd u=\sqrt6$.
+Thus
+\[
+\operatorname{area}(S)=\int_0^1\int_0^1\sqrt6\,\dd v\,\dd u=\sqrt6.
+\]
+
 \begin{center}
 \begin{tikzpicture}[x={(2cm,-.4cm)},y={(1cm,.5cm)},z={(0cm,.8cm)}]
 \filldraw[fill=blue!15] (0,0,0)--(1,0,1)--(1,1,3)--(0,1,2)--cycle;
@@ -526,8 +598,16 @@ $F(\sigma)\cdot(\sigma_u\times\sigma_v)=u+2v$. Thus
 \int_S F\cdot n\,\dd S=\int_0^1\int_0^1(u+2v)\,\dd v\,\dd u
 =\int_0^1(u+1)\,\dd u=\frac32.
 \]
-Area $\sqrt6$, scalar-weighted area $\frac{3\sqrt6}{2}$, and flux
-$\frac32$ are
+Area $\sqrt6$, scalar-weighted area
+\[
+\frac{3\sqrt6}{2},
+\]
+ and flux
+
+\[
+\frac32
+\]
+ are
 three different integrals on the same surface. The scalar density weights
 unsigned area; flux measures the field's oriented normal component.
 
@@ -572,7 +652,11 @@ For $\sigma(u,v)=(u,v,h(u,v))$,
 \sigma_u\times\sigma_v=(-h_u,-h_v,1).
 \]
 The upward area factor is $\sqrt{1+h_u^2+h_v^2}$.
-The upward flux of $(0,0,1)$ is $\int_D1=\operatorname{area}(D)$,
+The upward flux of $(0,0,1)$ is
+\[
+\int_D1=\operatorname{area}(D),
+\]
+
 although the graph's surface area is generally larger. Reversing orientation
 negates the flux and leaves the scalar area unchanged.
 \end{example}
@@ -653,7 +737,11 @@ For each boundary piece $c(t)=(u(t),v(t))$, the chain rule gives
 F(\sigma(c))\cdot(\sigma\circ c)'=A(c)u'+B(c)v'.
 \]
 Integrating and adding boundary pieces yields
-$\int_{\partial S}F\cdot\dd r=\int_{\partial D}A\,\dd u+B\,\dd v$.
+
+\[
+\int_{\partial S}F\cdot\dd r=\int_{\partial D}A\,\dd u+B\,\dd v.
+\]
+
 The product and chain rules next give
 \[
 \begin{aligned}
@@ -684,14 +772,30 @@ of the manifold machinery below.
 
 \begin{example}[Stokes on a tilted patch]
 Take $\sigma(u,v)=(u,v,u+v)$ on the unit square and
-$F=(-y/2,x/2,0)$. Its curl is $(0,0,1)$, so the flux is $1$.
-Boundary work pulls back to $(-v\,\dd u+u\,\dd v)/2$; the bottom and
-left edges contribute zero and the other two contribute $1/2$ each.
+
+\[
+F=(-y/2,x/2,0).
+\]
+ Its curl is $(0,0,1)$, so the flux is $1$.
+Boundary work pulls back to
+\[
+(-v\,\dd u+u\,\dd v)/2;
+\]
+ the bottom and
+left edges contribute zero and the other two contribute
+\[
+1/2
+\]
+ each.
 \end{example}
 
 \begin{proposition}[Divergence on a box]
 For a $C^1$ vector field near a box $Q\subset\R^3$,
-$\int_Q\operatorname{div}F=\int_{\partial Q}F\cdot n\,\dd S$,
+
+\[
+\int_Q\operatorname{div}F=\int_{\partial Q}F\cdot n\,\dd S,
+\]
+
 where the right side is the sum of the outward fluxes across its six faces
 and $\operatorname{div}F=\partial_xF_1+\partial_yF_2+\partial_zF_3$.
 \end{proposition}
@@ -1017,8 +1121,16 @@ Thus $\dd x\wedge\dd y$ is signed area, and
 For example $\dd x\wedge\dd y$ evaluates on $((1,2),(3,1))$ as $-5$.
 
 \paragraph{The basis mechanism in $\R^3$, degree two.}
-Let $A$ be any alternating bilinear form and write $v=\sum_i v_i e_i$,
-$w=\sum_j w_j e_j$. Expanding both slots gives
+Let $A$ be any alternating bilinear form and write
+\[
+v=\sum_i v_i e_i,
+\]
+
+
+\[
+w=\sum_j w_j e_j.
+\]
+ Expanding both slots gives
 \[
 \begin{aligned}
 A(v,w)&=\sum_{i,j=1}^3 v_iw_j A(e_i,e_j)\\
@@ -1051,7 +1163,11 @@ For the dual basis $(e^1,\ldots,e^n)$ of \cref{def:dual-basis}, the elementary w
 e^{i_1}\wedge\cdots\wedge e^{i_k},\qquad i_1<\cdots<i_k,
 \]
 form a basis of $\Lambda^k(V^*)$. Consequently its dimension is
-$\binom nk$ for $0\leq k\leq n$.
+
+\[
+\binom nk
+\]
+ for $0\leq k\leq n$.
 \end{theorem}
 \begin{proof}
 For increasing lists $I=(i_1<\cdots<i_k)$ and $J=(j_1<\cdots<j_k)$,
@@ -1074,7 +1190,11 @@ increasing basis tuple. Second, these tuples determine an alternating
 multilinear map everywhere: expand each input in the basis. Terms with
 repeated indices vanish. Sort each remaining tuple increasingly; each
 swap contributes a minus sign by \cref{prop:alternation}. Thus all
-basis-tuple values agree. Explicitly, for $v_s=\sum_i a_{is}e_i$,
+basis-tuple values agree. Explicitly, for
+\[
+v_s=\sum_i a_{is}e_i,
+\]
+
 \[
 (A-B)(v_1,\ldots,v_k)
 =\sum_{i_1,\ldots,i_k}a_{i_1,1}\cdots a_{i_k,k}
@@ -1082,12 +1202,28 @@ basis-tuple values agree. Explicitly, for $v_s=\sum_i a_{is}e_i$,
 \]
 Therefore $A=B$.
 
-\emph{Independence.} If $\sum_I c_Ie^I=0$, evaluate on the increasing
-tuple indexed by $J$ to obtain $0=\sum_Ic_I\delta_{IJ}=c_J$.
+\emph{Independence.} If
+\[
+\sum_I c_Ie^I=0,
+\]
+ evaluate on the increasing
+tuple indexed by $J$ to obtain
+\[
+0=\sum_Ic_I\delta_{IJ}=c_J.
+\]
+
 Consequently the displayed family is a basis, and counting increasing
-$k$-subsets gives dimension $\binom nk$. For $k=0$ the basis is $\{1\}$.
+$k$-subsets gives dimension
+\[
+\binom nk.
+\]
+ For $k=0$ the basis is $\{1\}$.
 \end{proof}
-Write an arbitrary $k$-covector as $A=\sum_I a_Ie^I$ over increasing $I$.
+Write an arbitrary $k$-covector as
+\[
+A=\sum_I a_Ie^I
+\]
+ over increasing $I$.
 Then $a_I=A(e_{i_1},\ldots,e_{i_k})$. In dimension three the two-covector
 basis is $\dd x\wedge\dd y,\dd x\wedge\dd z,\dd y\wedge\dd z$.
 Thus the flux convention
@@ -1333,7 +1469,11 @@ Using the finite direct sum constructed in \cref{sec:direct-sums}, set
 \]
 Every element has a unique component in each degree. Distribute the wedge
 product over these components: the degree-$r$ part is
-$\sum_{p+q=r}\alpha_p\wedge\beta_q$. An element supported in degree $p$
+
+\[
+\sum_{p+q=r}\alpha_p\wedge\beta_q.
+\]
+ An element supported in degree $p$
 is homogeneous of degree $p$. The direct-sum basis and dimension facts
 are those already proved in Chapter~10.
 \end{definition}
@@ -1391,8 +1531,16 @@ vectors in $\R^n$; we may write $T_pU=\R^n$ to remember their base point.
 \begin{definition}[A Euclidean $1$-form]\label{def:one-form-first}
 A smooth $1$-form on $U$ is a field of covectors
 $p\mapsto\omega_p\in(\R^n)^*$ with smooth coordinate coefficients.
-In coordinates this means $\omega=\sum_{i=1}^n a_i\,dx^i$ with smooth
-functions $a_i$ and $\omega_p(v)=\sum_i a_i(p)v^i$.
+In coordinates this means
+\[
+\omega=\sum_{i=1}^n a_i\,dx^i
+\]
+ with smooth
+functions $a_i$ and
+\[
+\omega_p(v)=\sum_i a_i(p)v^i.
+\]
+
 For example on a planar open set,
 \[
 \omega=P\,\dd x+Q\,\dd y,\qquad
@@ -1450,7 +1598,11 @@ calculation gives $\gamma^*dy=y'(t)\,dt$. Therefore
 =\bigl(P(\gamma(t))x'(t)+Q(\gamma(t))y'(t)\bigr)\,dt.
 \]
 Integrating its coefficient gives precisely
-$\int_\gamma P\,dx+Q\,dy$. For piecewise smooth curves apply the rule
+
+\[
+\int_\gamma P\,dx+Q\,dy.
+\]
+ For piecewise smooth curves apply the rule
 on each piece and add. Pullback changes the domain to the parameter
 interval while preserving the scalar measurement along the traversal.
 
@@ -1466,7 +1618,11 @@ In contrast $\omega_0=x\,dy-y\,dx$ cannot be $df$ on the plane:
 $f_x=-y$ and $f_y=x$ would give $f_{xy}=-1$ and $f_{yx}=1$,
 contradicting equality of mixed partials. On the counterclockwise circle,
 the preceding pullback rule gives $\gamma^*\omega_0=dt$, so
-$\int_{S^1}\omega_0=2\pi$. An exact form would integrate to zero
+
+\[
+\int_{S^1}\omega_0=2\pi.
+\]
+ An exact form would integrate to zero
 on this closed curve. General $1$-forms therefore describe more than
 changes of potential.
 
@@ -1510,10 +1666,10 @@ for $k$ directions using the basis already proved in
 
 For a smooth function \(f:U\subseteq\R^n\to\R\), Chapter~11 gives
 \[
-Df(x):\R^n\longrightarrow\R.
+Df(\mathbf{x}):\R^n\longrightarrow\R.
 \]
-Thus \(Df(x)\) is a \(1\)-covector. Recall from
-\cref{def:coordinate-differentials} that \((df)_x=Df(x)\) is the same
+Thus \(Df(\mathbf{x})\) is a \(1\)-covector. Recall from
+\cref{def:coordinate-differentials} that \((df)_{\mathbf{x}}=Df(\mathbf{x})\) is the same
 derivative viewed intrinsically as a covector, independent of a chosen
 basis. We write this intrinsic differential as $df$. In one coordinate,
 its coordinate expression is
@@ -1553,7 +1709,7 @@ Let $U\subseteq\R^n$ be open and let
 A \textbf{smooth $k$-form} on $U$ is a function
 that assigns to each
 \[
-x\in U
+\mathbf{x}\in U
 \]
 an element of
 \[
@@ -1564,7 +1720,7 @@ whose coordinate coefficients are smooth. By
 \[
 \omega=
 \sum_{1\leq i_1<\cdots<i_k\leq n}
-a_{i_1\cdots i_k}(x)
+a_{i_1\cdots i_k}(\mathbf{x})
 \dd x_{i_1}\wedge\cdots\wedge\dd x_{i_k}.
 \]
 Here the sum is over the increasing multi-indices
@@ -1592,8 +1748,12 @@ the empty increasing-index basis. Thus the derivative of a top-degree
 form and a two-form pulled back to a curve have a specified zero target.
 \end{definition}
 
-In $\omega=\sum_I a_I(x)\,\dd x_I$, each $\dd x_I$ is a fixed
-coordinate $k$-covector basis element at every point; $a_I(x)$ is a scalar
+In
+\[
+\omega=\sum_I a_I(\mathbf{x})\,\dd x_I,
+\]
+ each $\dd x_I$ is a fixed
+coordinate $k$-covector basis element at every point; $a_I(\mathbf{x})$ is a scalar
 coefficient varying with position. It is their combination $\omega_x$
 that is a smoothly varying $k$-covector. Every differential of a smooth
 scalar function is a $1$-form, but a general $1$-form need not globally
@@ -1620,7 +1780,7 @@ For a smooth function \(f:U\to\R\),
 \[
 df=\sum_{i=1}^{n}\frac{\partial f}{\partial x_i}\,\dd x_i.
 \]
-At each \(x\in U\), the form \((df)_x\) is the derivative \(Df(x)\).
+At each \(\mathbf{x}\in U\), the form \((df)_{\mathbf{x}}\) is the derivative \(Df(\mathbf{x})\).
 \end{proposition}
 \begin{proof}
 The covector identity is \cref{def:coordinate-differentials}. For smooth
@@ -1646,15 +1806,15 @@ h^*\omega
 \]
 on $U$ defined by
 \[
-(h^*\omega)_x(v_1,\ldots,v_k)
+(h^*\omega)_{\mathbf{x}}(v_1,\ldots,v_k)
 =
-\omega_{h(x)}(Dh(x)v_1,\ldots,Dh(x)v_k).
+\omega_{h(\mathbf{x})}(Dh(\mathbf{x})v_1,\ldots,Dh(\mathbf{x})v_k).
 \]
-Composition in each input with the linear map $Dh(x)$ preserves
+Composition in each input with the linear map $Dh(\mathbf{x})$ preserves
 multilinearity and alternation, so the value is a $k$-covector.
 Its coefficient on an increasing source basis tuple is its evaluation on
 that tuple by \cref{thm:exterior-covector-basis}. Expanding the vectors
-$Dh(x)e_i$ in the target basis expresses this coefficient as a finite
+$Dh(\mathbf{x})e_i$ in the target basis expresses this coefficient as a finite
 sum of products of coefficients of $\omega$ composed with $h$ and
 entries of $Dh$. Hence all coefficients are smooth. For $k=0$ the
 definition is composition of functions; for $k>n$ input dependence makes
@@ -1728,13 +1888,13 @@ be smooth, with $U,V\subseteq\R^n$ open. For the standard volume form,
 \[
 h^*(\dd y_1\wedge\cdots\wedge\dd y_n)
 =dh_1\wedge\cdots\wedge dh_n
-=\det Dh(x)\,\dd x_1\wedge\cdots\wedge\dd x_n.
+=\det Dh(\mathbf{x})\,\dd x_1\wedge\cdots\wedge\dd x_n.
 \]
 To prove this directly, evaluate the pullback on $v_1,\ldots,v_n$.
 The result is
 \[
-\det[Dh(x)v_1\ \cdots\ Dh(x)v_n]
-=\det Dh(x)\det[v_1\ \cdots\ v_n].
+\det[Dh(\mathbf{x})v_1\ \cdots\ Dh(\mathbf{x})v_n]
+=\det Dh(\mathbf{x})\det[v_1\ \cdots\ v_n].
 \]
 The middle wedge gives the
 same evaluation. Thus the determinant is the coefficient produced by
@@ -1761,22 +1921,22 @@ h^*(\alpha\wedge\beta)
 \begin{proof}
 The chain rule from \cref{prop:multivariable-derivative-rules} gives
 \[
-D(g\circ h)(x)=Dg(h(x))Dh(x).
+D(g\circ h)(\mathbf{x})=Dg(h(\mathbf{x}))Dh(\mathbf{x}).
 \]
 For an arbitrary $k$-form $\omega$ on $W$, evaluate both proposed
-pullbacks at $x\in U$ on $v_1,\ldots,v_k$. The left side gives
-$\omega_{g(h(x))}(D(g\circ h)(x)v_1,\ldots,D(g\circ h)(x)v_k)$.
+pullbacks at $\mathbf{x}\in U$ on $v_1,\ldots,v_k$. The left side gives
+$\omega_{g(h(\mathbf{x}))}(D(g\circ h)(\mathbf{x})v_1,\ldots,D(g\circ h)(\mathbf{x})v_k)$.
 The chain rule makes this the same scalar as the right side:
 \[
-\omega_{g(h(x))}\bigl(
-Dg(h(x))Dh(x)v_1,\ldots,
-Dg(h(x))Dh(x)v_k\bigr).
+\omega_{g(h(\mathbf{x}))}\bigl(
+Dg(h(\mathbf{x}))Dh(\mathbf{x})v_1,\ldots,
+Dg(h(\mathbf{x}))Dh(\mathbf{x})v_k\bigr).
 \]
 Both forms already exist by the pullback definition; equality on every
 tuple proves their equality. The reversal of order comes from first
-evaluating $g^*\omega$ on the vectors $Dh(x)v_i$.
+evaluating $g^*\omega$ on the vectors $Dh(\mathbf{x})v_i$.
 For the wedge rule, its alternating finite sum has the same terms on
-both sides after each argument is replaced by $Dh(x)v_i$, proving
+both sides after each argument is replaced by $Dh(\mathbf{x})v_i$, proving
 the second identity.
 \end{proof}
 
@@ -1816,7 +1976,11 @@ h^*\omega_0
 \]
 For $R>0$, pulling this back further by $\theta\mapsto(R,\theta)$ gives
 $R^2\,\dd\theta$. The classical line-integral formula therefore yields
-$\int_\gamma\omega_0=\int_0^{2\pi}R^2\,\dd\theta=2\pi R^2$ for one
+
+\[
+\int_\gamma\omega_0=\int_0^{2\pi}R^2\,\dd\theta=2\pi R^2
+\]
+ for one
 counterclockwise circle, recovering the running example at $R=1$.
 Pullback exists despite the polar map's lack of global injectivity.
 Identifying region integrals by Chapter~12's change-of-variables theorem
@@ -1842,7 +2006,11 @@ d(P\,\dd x+Q\,\dd y)=(Q_x-P_y)\,\dd x\wedge\dd y.
 \]
 Its coefficient is the local circulation quantity already proved to
 convert boundary work into an interior integral. We seek the higher-degree
-operation that makes $\int_{\partial M}\omega=\int_M d\omega$ type-correct:
+operation that makes
+\[
+\int_{\partial M}\omega=\int_M d\omega
+\]
+ type-correct:
 an $(n-1)$-form on the boundary corresponds to an $n$-form in the interior.
 This motivates the following definition; the product and coordinate-change
 rules still require proof below.
@@ -2053,7 +2221,11 @@ h^*\eta=(u^2+v^2)\dd u\wedge\dd v
 +u\dd v\wedge(2u\dd u+2v\dd v)
 =(v^2-u^2)\dd u\wedge\dd v.
 \]
-Over $[0,1]^2$ its integral is $1/3-1/3=0$.
+Over $[0,1]^2$ its integral is
+\[
+1/3-1/3=0.
+\]
+
 The map from a plane into space is not invertible, yet every step of the
 pullback is defined. As a second example, pulling $\dd x\wedge\dd y$
 onto any curve gives zero, a degree-two form on a one-dimensional source.
@@ -2091,17 +2263,25 @@ continuous $n$-form
 \]
 define
 \[
-\int_Q\omega=\int_Qf(x)\,\dd x.
+\int_Q\omega=\int_Qf(\mathbf{x})\,\dd\mathbf{x}.
 \]
 Reversing the orientation changes the sign of the integral.
 \end{definition}
 
 Thus for standard orientation, integrating
-$f(x)\,\dd x_1\wedge\cdots\wedge\dd x_n$ corresponds to the scalar
-Riemann integral $\int_Q f(x)\,\dd(x_1,\ldots,x_n)$ of Chapter~12.
+$f(\mathbf{x})\,\dd x_1\wedge\cdots\wedge\dd x_n$ corresponds to the scalar
+Riemann integral
+\[
+\int_Q f(\mathbf{x})\,\dd(x_1,\ldots,x_n)
+\]
+ of Chapter~12.
 
 For a smooth parametrized curve $\gamma:[a,b]\to\R^n$ and a smooth
-$1$-form $\omega=\sum_i a_i\,\dd x_i$ near its image, this becomes
+$1$-form
+\[
+\omega=\sum_i a_i\,\dd x_i
+\]
+ near its image, this becomes
 \[
 \begin{aligned}
 \gamma^*\omega&=\sum_i a_i(\gamma(t))x_i'(t)\,\dd t,\\
@@ -2124,7 +2304,7 @@ Let \(V\subseteq\R^n\) be open, and let
 be a continuous top-degree form whose support
 \[
 K=\operatorname{supp}(\omega)
-=\overline{\set{x\in V:f(x)\ne0}}
+=\overline{\set{\mathbf{x}\in V:f(\mathbf{x})\ne0}}
 \]
 is compact and contained in \(V\), where the closure is taken in \(V\).
 By \cref{prop:compact-buffer}, a compact subset of the open set \(V\) is separated from
@@ -2135,7 +2315,7 @@ extending \(f\) by zero outside \(V\) gives a continuous function
 \(\widetilde f\).  Choose any rectangle \(Q\) whose interior contains \(K\),
 and define
 \[
-\int_V\omega=\int_Q\widetilde f(x)\,\dd x.
+\int_V\omega=\int_Q\widetilde f(\mathbf{x})\,\dd\mathbf{x}.
 \]
 This is independent of \(Q\).  Indeed, after enlarging two such rectangles
 to a common containing rectangle, finite additivity of the Riemann integral
@@ -2152,7 +2332,7 @@ extend $f$ by zero within $\mathbb H^n$ outside $O$. This is continuous
 because the support is compact and avoids artificial edges. Define
 \[
 \int_O\eta=\int_{[a_1,b_1]\times\cdots\times[a_{n-1},b_{n-1}]\times[0,b_n]}
-\widetilde f(x)\,\dd x,
+\widetilde f(\mathbf{x})\,\dd\mathbf{x},
 \]
 where the half-rectangle contains the support in its relative interior.
 The scalar construction and independence are those of
@@ -2167,8 +2347,16 @@ The boundary of the standard rectangle is oriented by the
 when adjoining an outward normal before it gives the orientation of the
 rectangle.  The integral over the boundary is the signed sum over its faces.
 Restriction means pullback by inclusion: if $\iota:\partial Q\to Q$ is
-the inclusion, $\int_{\partial Q}\omega$ abbreviates
-$\int_{\partial Q}\iota^*\omega$, interpreted face by face here.
+the inclusion,
+\[
+\int_{\partial Q}\omega
+\]
+ abbreviates
+
+\[
+\int_{\partial Q}\iota^*\omega,
+\]
+ interpreted face by face here.
 \end{definition}
 
 For the standard square the outward-normal-first calculation gives:
@@ -2290,7 +2478,7 @@ Pullback functoriality gives
 \[
 (\sigma\circ\psi)^*\omega=\psi^*(\sigma^*\omega).
 \]
-Write \(\sigma^*\omega=g(x)\,\dd x_1\wedge\cdots\wedge\dd x_k\).  Then
+Write \(\sigma^*\omega=g(\mathbf{x})\,\dd x_1\wedge\cdots\wedge\dd x_k\).  Then
 \[
 \psi^*(\sigma^*\omega)
 =g(\psi(u))\det D\psi(u)\,
@@ -2303,8 +2491,8 @@ zero, its sign is constant.  The scalar change-of-variables theorem
 \int_{D'}g(\psi(u))\det D\psi(u)\,\dd u
 =
 \begin{cases}
-\displaystyle\int_Dg(x)\,\dd x,&\det D\psi>0,\\[4pt]
-\displaystyle-\int_Dg(x)\,\dd x,&\det D\psi<0.
+\displaystyle\int_Dg(\mathbf{x})\,\dd\mathbf{x},&\det D\psi>0,\\[4pt]
+\displaystyle-\int_Dg(\mathbf{x})\,\dd\mathbf{x},&\det D\psi<0.
 \end{cases}
 \]
 These are precisely the asserted orientation-preserving and
@@ -2317,7 +2505,11 @@ orientation-reversing cases.
 \label{prop:open-form-invariance}
 For an orientation-preserving smooth diffeomorphism $\psi:V'\to V$ and
 a continuous compactly supported top-degree form $\eta$ on $V$,
-$\int_{V'}\psi^*\eta=\int_V\eta$. This holds both for open Euclidean sets
+
+\[
+\int_{V'}\psi^*\eta=\int_V\eta.
+\]
+ This holds both for open Euclidean sets
 and for relatively open half-space sets with boundary-preserving transitions.
 \end{proposition}
 \begin{proof}
@@ -2575,12 +2767,12 @@ the identity restrictions generate exactly those structures.
 \begin{example}[Graphs connect to Chapter 11]
 For smooth $f:U\subseteq\R^m\to\R^q$, $U$ open, set
 \[
-\Gamma_f=\{(x,f(x)):x\in U\},\qquad
-\varphi:\Gamma_f\to U,\quad\varphi(x,f(x))=x.
+\Gamma_f=\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in U\},\qquad
+\varphi:\Gamma_f\to U,\quad\varphi(\mathbf{x},f(\mathbf{x}))=\mathbf{x}.
 \]
 With the subspace topology this is a homeomorphism, with inverse
 \[
-\varphi^{-1}:U\to\Gamma_f,\qquad x\mapsto(x,f(x)).
+\varphi^{-1}:U\to\Gamma_f,\qquad \mathbf{x}\mapsto(\mathbf{x},f(\mathbf{x})).
 \]
 Subspaces of Euclidean space are Hausdorff; they are second countable by
 \cref{ex:rational-basis,prop:second-countable-inheritance}. Thus this
@@ -2606,7 +2798,11 @@ $(-1,1)$, but the overlap is the first-quadrant arc. Consequently
 \psi\circ\varphi^{-1}:(0,1)\to(0,1),\qquad
 u\mapsto\sqrt{1-u^2}.
 \]
-Its derivative is $-u/\sqrt{1-u^2}$, nonzero on $(0,1)$.
+Its derivative is
+\[
+-u/\sqrt{1-u^2},
+\]
+ nonzero on $(0,1)$.
 The inverse has the same square-root formula, with its input renamed.
 Both are smooth on the overlap images. A negative derivative changes
 coordinate orientation but does not prevent smooth compatibility.
@@ -2614,10 +2810,10 @@ coordinate orientation but does not prevent smooth compatibility.
 
 
 \begin{example}[Six charts for the sphere]\label{ex:sphere-atlas}
-Give $S^2=\{x\in\R^3:\norm{x}=1\}$ its subspace topology. For
+Give $S^2=\{\mathbf{x}\in\R^3:\norm{\mathbf{x}}=1\}$ its subspace topology. For
 $i=1,2,3$ and $\epsilon\in\{+1,-1\}$ let
 \[
-U_i^\epsilon=\{x\in S^2:\epsilon x_i>0\},\qquad
+U_i^\epsilon=\{\mathbf{x}\in S^2:\epsilon x_i>0\},\qquad
 \varphi_i^\epsilon:U_i^\epsilon\to B^2,
 \quad B^2=\{u\in\R^2:\norm{u}<1\},
 \]
@@ -2670,7 +2866,11 @@ of boundary models can have corners.
 
 Another fundamental family is real projective space,
 $\mathbb{RP}^n$, the space of lines through the origin, equivalently
-$S^n/(x\sim-x)$. Appendix~\ref{app:quotients},
+
+\[
+S^n/(\mathbf{x}\sim-\mathbf{x}).
+\]
+ Appendix~\ref{app:quotients},
 \cref{sec:projective-space}, constructs its topology rigorously and gives
 the standard affine charts. No projective-space theory is needed here.
 
@@ -2685,7 +2885,11 @@ This formula descends to the product of circles: the first circle
 records $(\cos\theta,\sin\theta)$ and the second records
 $(\cos\varphi,\sin\varphi)$. On the image, put $s=\sqrt{x^2+y^2}>0$.
 The two circle points are recovered by
-$(x/s,y/s)$ and $((s-R)/r,z/r)$. These smooth formulas identify the
+
+\[
+(x/s,y/s),\qquad ((s-R)/r,z/r).
+\]
+ These smooth formulas identify the
 image with the product construction. The periodic angle formula repeats
 values at opposite sides of a parameter square and is not a global chart.
 Restricting both angles to sufficiently small open intervals gives a
@@ -2743,7 +2947,11 @@ $(0,y)\sim(1,y)$ and $(x,0)\sim(x,1)$. The first gluing gives a cylinder;
 the second joins its boundary circles in matching directions. There is
 no remaining boundary. The two directions in
 Figure~\ref{fig:torus-parameter-square} correspond to
-$x=\theta/(2\pi)$ and $y=\varphi/(2\pi)$.
+
+\[
+x=\theta/(2\pi),\qquad y=\varphi/(2\pi).
+\]
+
 
 \textbf{Klein bottle.} Keep $(0,y)\sim(1,y)$ but replace the other rule by
 $(x,0)\sim(1-x,1)$. First form a cylinder, then identify its remaining
@@ -2904,12 +3112,28 @@ where $\varphi$ is any half-space chart at $p$.
 \end{definition}
 
 \begin{example}[Flattening the closed disk near its north pole]
-On the part of the closed unit disk with $|x|<1/2$, $y>1/2$, put
+On the part of the closed unit disk with
+\[
+|x|<1/2,
+\]
+
+\[
+y>1/2,
+\]
+ put
 \[
 \varphi(x,y)=(x,\sqrt{1-x^2}-y)=(u,t).
 \]
 Its image is the relatively open half-space set
-$|u|<1/2$, $0\leq t<\sqrt{1-u^2}-1/2$.
+
+\[
+|u|<1/2,
+\]
+
+\[
+0\leq t<\sqrt{1-u^2}-1/2.
+\]
+
 The inverse $(u,t)\mapsto(u,\sqrt{1-u^2}-t)$ is smooth, as is
 $\varphi$, with determinant $-1$. The second coordinate is zero on
 the circular boundary and positive in the disk's interior. Thus this
@@ -3167,15 +3391,39 @@ $K_\varphi:T_pM\to\R^n$ they become the standard basis.
 
 \begin{example}[One circle direction in two coordinate systems]
 On the first-quadrant arc use $u=x$ and $v=y=\sqrt{1-u^2}$.
-At $p=(3/5,4/5)$ the transition derivative is $-3/4$. Hence
+At
+\[
+p=(3/5,4/5)
+\]
+ the transition derivative is
+\[
+-3/4.
+\]
+ Hence
 \[
 [\varphi,1]=[\psi,-3/4],\qquad
 \left.\frac{\partial}{\partial u}\right|_p
 =-\frac34\left.\frac{\partial}{\partial v}\right|_p.
 \]
-The first graph parametrization has velocity $(1,-3/4)$; the second
-has velocity $(-4/3,1)$ per unit $v$. Multiplying the latter by $-3/4$
-gives $(1,-3/4)$ again. The different columns describe the same direction.
+The first graph parametrization has velocity
+\[
+(1,-3/4);
+\]
+ the second
+has velocity
+\[
+(-4/3,1)
+\]
+ per unit $v$. Multiplying the latter by
+\[
+-3/4
+\]
+
+gives
+\[
+(1,-3/4)
+\]
+ again. The different columns describe the same direction.
 \end{example}
 
 We now have an intrinsic notion of direction. The next step is to
@@ -3209,11 +3457,19 @@ Linearity follows from the tangent operations. Direct evaluation gives
 =(e_j)_i=\delta^i_j.
 \]
 Every covector $\lambda$ therefore equals
-$\sum_i\lambda((\partial/\partial x^i)|_p)\,\dd x^i|_p$; these covectors
+
+\[
+\sum_i\lambda((\partial/\partial x^i)|_p)\,\dd x^i|_p;
+\]
+ these covectors
 are precisely the dual basis. Directions lie in $T_pM$, while their
 linear scalar measurements lie in $T_p^*M$. The notation $\dd x^i$
 will also be justified as the differential of the coordinate function.
-Specifically, $\partial/\partial x^i$ represents motion in the $x^i$
+Specifically,
+\[
+\partial/\partial x^i
+\]
+ represents motion in the $x^i$
 direction, whereas $\dd x^i$ measures that motion's $x^i$ component:
 \[
 v=\sum_j v^j\left.\frac{\partial}{\partial x^j}\right|_p
@@ -3293,7 +3549,11 @@ d(u^i)_p[\varphi,v]=D\pi_i(\varphi(p))v=v_i
 \]
 Thus the earlier dual-basis notation really is the differential of the
 coordinate function, with
-$du^i_p((\partial/\partial u^j)|_p)=\delta^i_j$.
+
+\[
+du^i_p((\partial/\partial u^j)|_p)=\delta^i_j.
+\]
+
 This is the local manifold version of $\dd x_i=d\pi_i$ in
 \cref{def:coordinate-differentials}.
 For a smooth scalar function $f$, evaluation on each coordinate basis vector
@@ -3347,13 +3607,21 @@ v=v^x\partial_x+v^y\partial_y\in T_pM
 \quad\Longleftrightarrow\quad f_x(p)v^x+f_y(p)v^y=0.
 \]
 For a graph $y=y(x)$ its velocity is $(1,y')$, recovering
-$f_x+f_y y'=0$ and, when $f_y\ne0$, $y'=-f_x/f_y$.
+$f_x+f_y y'=0$ and, when $f_y\ne0$,
+\[
+y'=-f_x/f_y.
+\]
+
 Thus the implicit differentiation of \cref{ex:circle-local-graph} says
 that the cotangent vector $Df(p)$ annihilates precisely the allowed directions.
 
 \paragraph{Manifold $1$-forms first.}
 In a chart $(x^1,\ldots,x^n)$, recall from \cref{def:cotangent-space}
-that $dx^i|_p$ is dual to $(\partial/\partial x^i)|_p$.
+that $dx^i|_p$ is dual to
+\[
+(\partial/\partial x^i)|_p.
+\]
+
 A smooth $1$-form is a field of linear measurements, locally
 \[
 \omega=\sum_i a_i\,dx^i,\qquad
@@ -3367,7 +3635,11 @@ with $v\in T_pM$.
 On a circle arc, let $\theta$ be an angle coordinate and $s=2\theta$.
 The same tangent vector has representatives $[\theta,a]=[s,2a]$.
 Since $ds=2\,d\theta$, the form written $d\theta$ in the first chart
-is $\tfrac12 ds$ in the second, and
+is
+\[
+\tfrac12 ds
+\]
+ in the second, and
 \[
 d\theta_p([\theta,a])=a
 =\tfrac12 ds_p([s,2a]).
@@ -3451,8 +3723,8 @@ in target coordinates, evaluation on coordinate vectors gives
 \[
 (f^*\omega)_\varphi=h^*\omega_\psi.
 \]
-Indeed both sides apply $\omega_\psi(h(x))$ to
-$Dh(x)a_1,\ldots,Dh(x)a_k$. The right side is the already constructed
+Indeed both sides apply $\omega_\psi(h(\mathbf{x}))$ to
+$Dh(\mathbf{x})a_1,\ldots,Dh(\mathbf{x})a_k$. The right side is the already constructed
 Euclidean pullback and has smooth coefficients. This verifies the claimed
 target space, and proves agreement with Euclidean pullback. Linearity
 follows by evaluation at every point and tuple. The chain rule similarly
@@ -3710,7 +3982,11 @@ For the Klein bottle our exact convention is
 $A(x,y)=(x+1,y)$ and $B(x,y)=(1-x,y+1)$.
 Their derivatives have determinants $+1$ and $-1$, respectively, and
 $B^*(\dd x\wedge\dd y)=-\dd x\wedge\dd y$.
-The loop represented by $(1/2,y)$, $0\leq y\leq1$, closes under $B$.
+The loop represented by
+\[
+(1/2,y),
+\]
+ $0\leq y\leq1$, closes under $B$.
 A continuous orientation along its lift has constant coordinate sign,
 but the closing identification reverses it. This is the same global
 obstruction, now on a surface without boundary. The quotient appendix
@@ -3809,7 +4085,7 @@ if it admits a nowhere-vanishing smooth $n$-form.
 Let $\omega_p\ne0$ for every $p$. For $n\geq1$ declare a tangent basis
 $(v_1,\ldots,v_n)$ positive when $\omega_p(v_1,\ldots,v_n)>0$.
 Alternation and the determinant rule give exactly one orientation class.
-In a chart write $\omega=a(x)\,\dd x^1\wedge\cdots\wedge\dd x^n$.
+In a chart write $\omega=a(\mathbf{x})\,\dd\mathbf{x}^1\wedge\cdots\wedge\dd\mathbf{x}^n$.
 The smooth coefficient never vanishes, so its sign is locally constant.
 Take $s_\varphi=\operatorname{sgn}a$; the change-of-coordinates formula
 gives the signed-atlas compatibility rule above. In interior charts we
@@ -3930,8 +4206,16 @@ the value is nonzero. This closure controls smooth extension by zero.
 
 A sharp subdivision by indicators of chart regions generally makes
 $\mathbf1_U\omega$ discontinuous at artificial interfaces, destroying
-smoothness. Instead use smooth weights with $\sum_\alpha\rho_\alpha=1$,
-so $\omega=\sum_\alpha\rho_\alpha\omega$ and each localized form is smooth.
+smoothness. Instead use smooth weights with
+\[
+\sum_\alpha\rho_\alpha=1,
+\]
+
+so
+\[
+\omega=\sum_\alpha\rho_\alpha\omega
+\]
+ and each localized form is smooth.
 Although differentiation introduces extra terms,
 \[
 d(\rho_\alpha\omega)=d\rho_\alpha\wedge\omega+\rho_\alpha d\omega,
@@ -3976,24 +4260,52 @@ Near any point, only finitely many supports of the smooth functions meet
 one chosen neighborhood. All other functions vanish on that neighborhood,
 so the sum there is an ordinary finite smooth sum, and is smooth.
 
-For closed $A_i$, let $x\notin\bigcup_iA_i$. Choose an open neighborhood
+For closed $A_i$, let
+\[
+x\notin\bigcup_iA_i.
+\]
+ Choose an open neighborhood
 $N$ of $x$ meeting only $A_{i_1},\ldots,A_{i_m}$. The set
-$N\setminus(A_{i_1}\cup\cdots\cup A_{i_m})$ is open, contains $x$,
+
+\[
+N\setminus(A_{i_1}\cup\cdots\cup A_{i_m})
+\]
+ is open, contains $x$,
 and misses every $A_i$. Thus the complement of the full union is open.
 \end{proof}
 
 \begin{example}[Pointwise finiteness does not control a neighborhood]
-Let $r_n=1/(4n(n+1))$ for $n\geq1$, and use the smooth function
+Let
+\[
+r_n=1/(4n(n+1))
+\]
+ for $n\geq1$, and use the smooth function
 $\theta$ of \cref{thm:smooth-cutoff} to define
 \[
 \chi_n(x)=\frac{\theta(1-((x-1/n)/r_n)^2)}{\theta(1)}.
 \]
 This is a smooth bump of height $1$, with support
-$I_n=[1/n-r_n,1/n+r_n]$. These intervals avoid zero and are disjoint:
-the distance between neighboring centers is $1/(n(n+1))$, larger than
+
+\[
+I_n=[1/n-r_n,1/n+r_n].
+\]
+ These intervals avoid zero and are disjoint:
+the distance between neighboring centers is
+\[
+1/(n(n+1)),
+\]
+ larger than
 $r_n+r_{n+1}$. Thus at each point at most one bump is nonzero.
-Nevertheless $S(x)=\sum_{n\geq1}\chi_n(x)$ satisfies $S(0)=0$ and
-$S(1/n)=1$, so it is not even continuous at zero. Every neighborhood of
+Nevertheless
+\[
+S(x)=\sum_{n\geq1}\chi_n(x)
+\]
+ satisfies $S(0)=0$ and
+
+\[
+S(1/n)=1,
+\]
+ so it is not even continuous at zero. Every neighborhood of
 zero meets infinitely many $I_n$. Pointwise finiteness lets us evaluate
 the sum, but local finiteness would give one finite list valid throughout
 a neighborhood, which is what the preceding smoothness proof needs.
@@ -4153,7 +4465,11 @@ closed sets is closed, and therefore
 \subseteq U_\alpha.
 \]
 Regrouping the locally finite sum also gives
-\(\sum_\alpha\rho_\alpha=1\).  Thus the partition is subordinate to the
+
+\[
+\sum_\alpha\rho_\alpha=1.
+\]
+  Thus the partition is subordinate to the
 original cover.
 \end{proof}
 
@@ -4362,9 +4678,17 @@ including opposite coordinate signs. Consequently,
 &=\sum_\beta J_\beta(\sigma_\beta\omega).
 \end{aligned}
 \]
-The first equality uses $\sum_\beta\sigma_\beta=1$ and linearity in a
+The first equality uses
+\[
+\sum_\beta\sigma_\beta=1
+\]
+ and linearity in a
 fixed chart. The middle equality is the overlap formula just verified.
-The last uses $\sum_\alpha\rho_\alpha=1$. Compact support and local
+The last uses
+\[
+\sum_\alpha\rho_\alpha=1.
+\]
+ Compact support and local
 finiteness make this a finite double sum, so no infinite rearrangement
 is involved. Both choices give the same integral.
 \end{proof}
@@ -4378,15 +4702,27 @@ $U_-=S^1\setminus\{(1,0)\}$ with angles $t\in(0,2\pi)$.
 Both angle coordinate frames have positive orientation.
 
 Let $\theta$ be the smooth function from Chapter~8 that is zero on
-$(-\infty,0]$ and $e^{-1/s}$ for $s>0$. For $(x,y)\in S^1$, define
+$(-\infty,0]$ and
+\[
+e^{-1/s}
+\]
+ for $s>0$. For $(x,y)\in S^1$, define
 \[
 \rho_+(x,y)=\frac{\theta(x+1/2)}{\theta(x+1/2)+\theta(1/2-x)},
 \qquad \rho_-=1-\rho_+.
 \]
 The denominator is positive: the two arguments cannot both be nonpositive.
 These are smooth nonnegative weights summing to one.
-The support of $\rho_+$ lies in $\{x\geq-1/2\}\subset U_+$, and that
-of $\rho_-$ lies in $\{x\leq1/2\}\subset U_-$. Both supports are compact.
+The support of $\rho_+$ lies in
+\[
+\{x\geq-1/2\}\subset U_+,
+\]
+ and that
+of $\rho_-$ lies in
+\[
+\{x\leq1/2\}\subset U_-.
+\]
+ Both supports are compact.
 Thus this is an explicit subordinate partition of unity.
 Put $r_\pm(t)=\rho_\pm(\gamma(t))$, which are $2\pi$-periodic. The
 definition of manifold integration gives the two localized coordinate integrals
@@ -4397,7 +4733,11 @@ definition of manifold integration gives the two localized coordinate integrals
 Their integrands vanish near the artificial endpoints of their respective
 charts, as required by chart-supported integration. Split the first integral
 at zero and substitute $s=t+2\pi$ on $[-\pi,0]$. Periodicity changes it to
-$\int_0^{2\pi}r_+(s)\,\dd s$. Consequently
+
+\[
+\int_0^{2\pi}r_+(s)\,\dd s.
+\]
+ Consequently
 \[
 \int_{S^1}\omega=\int_0^{2\pi}(r_++r_-)(t)\,\dd t
 =\int_0^{2\pi}1\,\dd t=2\pi.
@@ -4459,7 +4799,7 @@ orientation, and let $f$ be smooth on a neighborhood of $\Omega$. Then
 \[
 \int_\Omega^{\mathrm{manifold}}
  f\,\dd x_1\wedge\cdots\wedge\dd x_n
-=\int_\Omega^{\mathrm{Riemann}} f(x)\,\dd x.
+=\int_\Omega^{\mathrm{Riemann}} f(\mathbf{x})\,\dd\mathbf{x}.
 \]
 \end{proposition}
 \begin{proof}
@@ -4495,12 +4835,16 @@ is compact and Jordan measurable, and $\psi_\alpha(E_\alpha)\subset\Omega$.
 \Cref{cor:jordan-nonlinear-change} first gives measurability of this image
 and then, for the continuous function $h_\alpha$ on it, gives
 \[
-\int_{\psi_\alpha(E_\alpha)}h_\alpha(x)\,\dd x
+\int_{\psi_\alpha(E_\alpha)}h_\alpha(\mathbf{x})\,\dd\mathbf{x}
 =\int_{E_\alpha}h_\alpha(\psi_\alpha(u))
        |\det D\psi_\alpha(u)|\,\dd u.
 \]
 The function vanishes outside its support. The scalar integral on the left
-is therefore $\int_\Omega h_\alpha$: the omitted difference is Jordan
+is therefore
+\[
+\int_\Omega h_\alpha:
+\]
+ the omitted difference is Jordan
 measurable by \cref{prop:jordan-set-algebra} and has zero integrand.
 The right side is also the coordinate integral over the whole chart,
 using zero extension only across artificial edges. Indeed the coordinate
@@ -4517,8 +4861,16 @@ s_\alpha\det D\psi_\alpha=|\det D\psi_\alpha|.
 Thus the localized manifold integral equals the localized scalar integral.
 
 \emph{3. Sum the localized identities.}
-Since $\sum_\alpha\rho_\alpha=1$ on $\Omega$,
-$\sum_\alpha h_\alpha=f$. Sum the finitely many integral identities.
+Since
+\[
+\sum_\alpha\rho_\alpha=1
+\]
+ on $\Omega$,
+
+\[
+\sum_\alpha h_\alpha=f.
+\]
+ Sum the finitely many integral identities.
 Linearity and the definition of manifold integration prove the proposition.
 \end{proof}
 
@@ -4530,7 +4882,15 @@ sum to one. Compact support will leave only finitely many contributions,
 even if the manifold needs infinitely many charts.
 
 For the boundary inclusion $\iota:\partial M\to M$, the notation
-$\int_{\partial M}\omega$ always means $\int_{\partial M}\iota^*\omega$.
+
+\[
+\int_{\partial M}\omega
+\]
+ always means
+\[
+\int_{\partial M}\iota^*\omega.
+\]
+
 The pullback restricts the form to tangent directions of the boundary.
 
 The general theorem unifies the Fundamental Theorem of Calculus, Green's
@@ -4766,8 +5126,12 @@ Apply \cref{thm:general-stokes} to
 \[
 \omega=P\,\dd x+Q\,\dd y.
 \]
-Its derivative is $(\partial Q/\partial x-\partial P/\partial y)
-\,\dd x\wedge\dd y$. By \cref{prop:manifold-riemann-agreement}, the
+Its derivative is
+\[
+(\partial Q/\partial x-\partial P/\partial y)
+\,\dd x\wedge\dd y.
+\]
+ By \cref{prop:manifold-riemann-agreement}, the
 manifold integral of this form is the displayed scalar Riemann integral.
 \end{proof}
 
@@ -4834,13 +5198,17 @@ outward orientation. Then
 \int_{\partial\Omega}F\cdot n\,\dd S
 =
 \int_\Omega
-\left(\sum_{j=1}^{n}\frac{\partial F_j}{\partial x_j}\right)\dd x.
+\left(\sum_{j=1}^{n}\frac{\partial F_j}{\partial x_j}\right)\dd\mathbf{x}.
 \]
 \end{corollary}
 \begin{proof}
 Apply \cref{thm:general-stokes} to the flux form $\omega_F$ of
 \cref{def:general-flux}. Its exterior derivative is
-$(\sum_j\partial F_j/\partial x_j)\,\dd x_1\wedge\cdots\wedge\dd x_n$:
+
+\[
+(\sum_j\partial F_j/\partial x_j)\,\dd x_1\wedge\cdots\wedge\dd x_n:
+\]
+
 only the $j$th derivative of $F_j$ survives, and moving $\dd x_j$ past
 $j-1$ factors cancels the coefficient sign. Its boundary integral is
 the outward flux by definition. Finally,
@@ -4854,7 +5222,11 @@ of its derivative with the scalar Riemann integral on the right.
 \Needspace{14\baselineskip}
 \subsection*{Computational practice}
 \begin{exercise}
-Compute $\int_\gamma x^2\,\dd s$ on the quarter circle of radius $R>0$.
+Compute
+\[
+\int_\gamma x^2\,\dd s
+\]
+ on the quarter circle of radius $R>0$.
 Compute the work of $(y,x)$ along $(t,3t)$, $0\leq t\leq1$, and its reverse.
 \end{exercise}
 \begin{exercise}
@@ -4966,7 +5338,11 @@ flux. State exactly why this does not by itself prove Stokes on a sphere.
 
 \begin{exercise}
 For $\gamma(t)=(t,t^2)$ on $[0,1]$, compute the work of $F=(y,x)$.
-Repeat with $h(s)=(s+s^2)/2$ by substitution and under reversal.
+Repeat with
+\[
+h(s)=(s+s^2)/2
+\]
+ by substitution and under reversal.
 Explain why doubling the traversal is a different operation.
 \end{exercise}
 \begin{exercise}
@@ -4980,7 +5356,11 @@ of each answer and why a two-form pulled back to this curve is zero.
 \end{exercise}
 \begin{exercise}
 Use the upper- and right-semicircle charts to transform a tangent
-coordinate at $(1/\sqrt2,1/\sqrt2)$. Check the answer by differentiating
+coordinate at
+\[
+(1/\sqrt2,1/\sqrt2).
+\]
+ Check the answer by differentiating
 the corresponding parametrizations in the ambient plane.
 \end{exercise}
 \begin{exercise}
@@ -5036,7 +5416,11 @@ On $S^1$ let $U=\{y>0\}$, $V=\{x>0\}$, $\varphi(x,y)=x$, and
 $\psi(x,y)=y$. Write the full domains and codomains of both charts,
 their inverses, and both overlap transitions. For a general chart
 $\chi:W\to\R^n$, write its coordinate functions using projections.
-At $(\sqrt3/2,1/2)$ convert $[\varphi,2]$ to its $\psi$ representative
+At
+\[
+(\sqrt3/2,1/2)
+\]
+ convert $[\varphi,2]$ to its $\psi$ representative
 and verify the equality of the two parametrized velocities in $\R^2$.
 \end{exercise}
 \begin{exercise}[Dual bases and a graph differential]
@@ -5135,7 +5519,7 @@ g\circ f\simeq\operatorname{id}_X,\qquad f\circ g\simeq\operatorname{id}_Y.
 \end{definition}
 Homotopy formalizes continuous deformation of maps. Homotopy equivalence
 is weaker than homeomorphism: for instance $\R^n$ contracts to a point
-by $H(x,t)=(1-t)x$, but is not homeomorphic to a point for $n\geq1$.
+by $H(\mathbf{x},t)=(1-t)\mathbf{x}$, but is not homeomorphic to a point for $n\geq1$.
 It forgets some local structure while retaining global shape information.
 
 \begin{definition}[Based loops and the fundamental group]
@@ -5195,7 +5579,7 @@ without the path choice.
 Appendix~\ref{app:quotients} glues edges of simple domains. Cell attachment
 extends this idea to disks in successive dimensions.
 \begin{definition}[Cells, skeleta, and CW complexes]
-Put $D^n=\{x\in\R^n:\|x\|\leq1\}$ and, for $n\geq1$,
+Put $D^n=\{\mathbf{x}\in\R^n:\|\mathbf{x}\|\leq1\}$ and, for $n\geq1$,
 $S^{n-1}=\partial D^n$. An $n$-cell is a copy of the open ball
 $\operatorname{int}D^n$; a $0$-cell is a point.
 Start with a discrete set $X^0$ of $0$-cells. Given continuous
@@ -5215,7 +5599,11 @@ ball, not necessarily an open subset of $X$.
 The \textbf{$n$-skeleton} $X^n$ is the union of all cells of dimension
 at most $n$, giving $X^0\subseteq X^1\subseteq\cdots$.
 A \textbf{CW complex} is the resulting Hausdorff space
-$X=\bigcup_{n\geq0}X^n$ with these conditions:
+
+\[
+X=\bigcup_{n\geq0}X^n
+\]
+ with these conditions:
 \begin{enumerate}
 \item \textbf{Closure finiteness (C):} the closure of each cell meets only
 finitely many cells.
@@ -5235,7 +5623,11 @@ general existence identifications are previews, not new prerequisites.
 \begin{itemize}
 \item $S^1$ has one vertex and one $1$-cell: attach both endpoints of an
 interval to that vertex, as in \cref{sec:quotient-circle}.
-\item For $n\geq1$, $S^n\cong D^n/\partial D^n$ by
+\item For $n\geq1$,
+\[
+S^n\cong D^n/\partial D^n
+\]
+ by
 \cref{sec:quotient-sphere} (Figure~\ref{fig:quotient-sphere}), so
 one $0$-cell and one $n$-cell suffice. Separately, $S^0$ has two $0$-cells.
 \item For $T^2$, the square has one vertex class, two edge classes $a,b$,
@@ -5362,7 +5754,11 @@ isomorphic singular homology and cohomology groups. These definitions
 therefore supply topological invariants, not just algebra attached to a presentation.
 
 For a finite CW complex, the further identity
-$\chi(X)=\sum_k(-1)^k\dim H_k(X;\R)$ is an unproved preview.
+
+\[
+\chi(X)=\sum_k(-1)^k\dim H_k(X;\R)
+\]
+ is an unproved preview.
 Cellular homology makes this computationally useful: it uses one generator
 per cell and boundary maps determined by the attachments, not just by cell
 counts. A later course proves agreement with singular homology.
@@ -5426,9 +5822,17 @@ a family
 g_p:T_pM\times T_pM\to\R\qquad(p\in M)
 \]
 of positive-definite inner products, varying smoothly: in each chart the
-functions $g_{ij}(p)=g_p((\partial/\partial x^i)|_p,
-(\partial/\partial x^j)|_p)$ are smooth. For a smooth curve $\gamma$,
-write $\dot\gamma(t)=d\gamma_t(\partial/\partial t)$. Its speed and length are
+functions
+\[
+g_{ij}(p)=g_p((\partial/\partial x^i)|_p,
+(\partial/\partial x^j)|_p)
+\]
+ are smooth. For a smooth curve $\gamma$,
+write
+\[
+\dot\gamma(t)=d\gamma_t(\partial/\partial t).
+\]
+ Its speed and length are
 \[
 \norm{\dot\gamma(t)}_g=
 \sqrt{g_{\gamma(t)}(\dot\gamma(t),\dot\gamma(t))},\qquad
@@ -5480,7 +5884,11 @@ extend well beyond Riemannian geometry.
 \phantomsection\label{sec:de-rham-preview}
 The equation $d^2=0$ gives $\operatorname{im}d\subseteq\ker d$.
 How far is that inclusion from equality? The quotient
-$H^k_{\mathrm{dR}}(M)=\ker d/\operatorname{im}d$, with the maps in
+
+\[
+H^k_{\mathrm{dR}}(M)=\ker d/\operatorname{im}d,
+\]
+ with the maps in
 degrees $k$ and $k-1$, records closed forms modulo exact forms.
 The angular form on the punctured plane is locally a derivative but has
 nonzero integral around the missing point, so it cannot be globally exact.
@@ -5574,11 +5982,23 @@ and the uniform limit is continuous. Its vectors are functions, so its
 dimension is infinite when $a<b$.
 
 Finite-dimensional intuition has limits. Norms need not be equivalent:
-on $C([0,1])$, $\int_0^1|f|$ is another norm, but the continuous functions
-$f_j(x)=\max(1-jx,0)$ have maximum norm $1$ and integral norm $1/(2j)$.
+on $C([0,1])$,
+\[
+\int_0^1|f|
+\]
+ is another norm, but the continuous functions
+$f_j(x)=\max(1-jx,0)$ have maximum norm $1$ and integral norm
+\[
+1/(2j).
+\]
+
 Closed bounded sets need not be compact, either. Continuous unit-height
 bumps with disjoint supports in $(0,1)$ have pairwise maximum-norm distance
-$1$, so finitely many open balls of radius $1/3$ cannot cover the closed unit ball.
+$1$, so finitely many open balls of radius
+\[
+1/3
+\]
+ cannot cover the closed unit ball.
 
 The \textbf{Riesz representation theorem for Hilbert spaces (unproved
 preview)} gives a striking survival of finite-dimensional duality.
@@ -5718,7 +6138,11 @@ map $X:\Omega\to\R$, meaning
 \[
 X^{-1}(U)\in\mathcal F\quad\text{for every open }U\subseteq\R.
 \]
-Its expectation, when $\int_\Omega|X|\,d\mathbb P<\infty$, is the integral
+Its expectation, when
+\[
+\int_\Omega|X|\,d\mathbb P<\infty,
+\]
+ is the integral
 \[
 \boxed{\mathbb E[X]=\int_\Omega X\,d\mathbb P.}
 \]

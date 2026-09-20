@@ -7,11 +7,11 @@ Chapter~10's open-set, product, compactness, and Hausdorff language, and
 Chapter~13's definitions of smooth manifolds and manifolds with boundary.
 The analysis-to-Stokes route uses the product, subspace, and chart
 constructions already given and does not depend on this appendix.
-The practical idea is to specify which points represent the same point,
-then determine continuity and local coordinates from that specification.
+The construction begins by specifying which points represent the same point,
+then determines continuity and local coordinates from that specification.
 These examples prepare the global questions of geometric topology and
 provide spaces on which the cohomological ideas of Appendix~\ref{app:cohomology}
-can be tested. The quotient tools are reusable structural constructions,
+can be tested. The quotient tools are structural constructions used repeatedly,
 not additional hypotheses in the main integration theorems.
 
 \section{Quotient Topology and Quotient Maps}\label{sec:quotient-topology}
@@ -93,10 +93,15 @@ quotient topology above. This is a special case of the same definition.
 If $V$ is a topological vector space and $W$ a linear subspace, it equips
 Appendix~\ref{app:tensors}'s quotient vector space $V/W$ with a topology. For the torus,
 $\Z^2$ is an additive subgroup of $\R^2$, but it is not an $\R$-linear
-subspace (scalar multiplication by $1/2$ does not preserve it).
+subspace (scalar multiplication by
+\[
+1/2
+\]
+ does not preserve it).
 \end{example}
 
-\section{Practical Quotient-Space Tools}\label{sec:quotient-tools}
+\Needspace{10\baselineskip}
+\section{Quotient-Space Tools}\label{sec:quotient-tools}
 \begin{proposition}[Compact quotients]
 A quotient of a compact space is compact.
 \end{proposition}
@@ -175,7 +180,11 @@ if $\pi^{-1}(U)$ is open and contains $p$, choose a relative ball
 $B_Y(p,\rho)\subseteq\pi^{-1}(U)$. Every class at distance less than
 $\rho$ has a representative in this ball and belongs to $U$.
 Thus the two topologies agree. Also $\pi$ is open: for open $A\subseteq Y$,
-$\pi^{-1}(\pi(A))=\bigcup_g g(A)$ is open.
+
+\[
+\pi^{-1}(\pi(A))=\bigcup_g g(A)
+\]
+ is open.
 
 For the last assertion, finiteness with $p=q$ and $R=1$, together with
 the absence of fixed points, gives $\delta_p>0$ such that
@@ -220,7 +229,7 @@ e(t)=(\cos2\pi t,\sin2\pi t)
 \]
 is onto $S^1$, and $e(s)=e(t)$ exactly when $s-t\in\Z$.
 It therefore descends to a continuous bijection
-$\widetilde e:\R/\Z\to S^1$. 
+$\widetilde e:\R/\Z\to S^1$.
 \paragraph{Topology.}
 Every class has a representative in $[0,1]$,
 so the restriction of the canonical projection to $[0,1]$ is a continuous
@@ -233,7 +242,11 @@ subspace of $\R^2$. The criterion proves
 Restricting $e$ to $[0,1]$ gives exactly the endpoint relation $0\sim1$,
 with every other class a singleton. The same factorization and
 compact-to-Hausdorff argument give
-$[0,1]/(0\sim1)\cong S^1$. Joining endpoints is therefore a precise
+
+\[
+[0,1]/(0\sim1)\cong S^1.
+\]
+ Joining endpoints is therefore a precise
 topological construction, illustrated in Figure~\ref{fig:circle-gluing}.
 The resulting circle has the local arc charts already used in Chapter~13;
 the whole closed interval is not one chart.
@@ -246,7 +259,11 @@ Closing an interval joins its two endpoints. In higher dimensions we can
 instead collapse the entire boundary to a single point.
 \begin{proposition}[Sphere as a disk quotient]
 For $n\geq1$, collapsing $\partial D^n$ to one class gives
-$D^n/\partial D^n\cong S^n$.
+
+\[
+D^n/\partial D^n\cong S^n.
+\]
+
 \end{proposition}
 \begin{proof}
 Write $r=\|x\|$ and define the continuous map $f:D^n\to S^n$ by
@@ -254,16 +271,28 @@ Write $r=\|x\|$ and define the continuous map $f:D^n\to S^n$ by
 f(x)=\left(\frac{\sin(\pi r)}{r}x,\cos(\pi r)\right)\quad(r>0),
 \qquad f(0)=(0,\ldots,0,1).
 \]
-Continuity at zero follows from $\sin(\pi r)/r\to\pi$.
+Continuity at zero follows from
+\[
+\sin(\pi r)/r\to\pi.
+\]
+
 The whole boundary maps to the south pole. For $0<r<1$ the last
 coordinate determines $r$ uniquely, and the first $n$ coordinates
 determine the direction of $x$. To see surjectivity explicitly, write a
 sphere point as $(u,t)$ with $\|u\|^2+t^2=1$. If $-1<t<1$, let
-$r=\arccos(t)/\pi\in(0,1)$ and $x=ru/\sin(\pi r)$. Since
+
+\[
+r=\arccos(t)/\pi\in(0,1),\qquad x=ru/\sin(\pi r).
+\]
+ Since
 $\|u\|=\sin(\pi r)$, this has $\|x\|=r$ and $f(x)=(u,t)$.
 The north pole comes only from $x=0$; the south pole comes exactly from
 the boundary. Thus the fibers are precisely the prescribed classes. The universal property gives
-a continuous bijection $\widetilde f:D^n/\partial D^n\to S^n$.
+a continuous bijection
+\[
+\widetilde f:D^n/\partial D^n\to S^n.
+\]
+
 The domain is compact and the sphere Hausdorff, so it is a homeomorphism.
 \end{proof}
 Figure~\ref{fig:quotient-sphere} shows the two-dimensional case. This
@@ -310,8 +339,12 @@ Figure~\ref{fig:torus-parameter-square}, including both stages of gluing.
 \FloatBarrier
 
 \paragraph{Coordinate conventions.}
-The linear rescaling $(\theta,\varphi)\mapsto
-(\theta/(2\pi),\varphi/(2\pi))$ and its inverse respect the respective
+The linear rescaling
+\[
+(\theta,\varphi)\mapsto
+(\theta/(2\pi),\varphi/(2\pi))
+\]
+ and its inverse respect the respective
 relations; both descend continuously by the universal property. Hence
 $\R^2/(2\pi\Z)^2\cong\R^2/\Z^2$.
 These homeomorphisms identify the topological models. The smooth structure
@@ -367,7 +400,11 @@ allows only finitely many integers $k$. No $f_k$ with $k\ne0$ fixes a
 point, and $\|p-f_k(p)\|\geq |k|\geq1$. Thus
 \cref{prop:isometric-quotient-metric} applies. It also shows that this
 metric induces the quotient topology and that relative balls of radius
-less than $1/2$ project to quotient neighborhoods. In particular the
+less than
+\[
+1/2
+\]
+ project to quotient neighborhoods. In particular the
 quotient is Hausdorff.
 \end{proof}
 \begin{proposition}[The finite and infinite models agree]
@@ -396,7 +433,11 @@ Hausdorff by \cref{lem:band-metric}. Apply
 
 \subsection{Charts across seams and at boundary points}
 \begin{proposition}[Small strip neighborhoods are quotient charts]
-For $p\in B$ and $0<\rho<1/4$, let
+For $p\in B$ and
+\[
+0<\rho<1/4,
+\]
+ let
 $D=B\cap B_{\R^2}(p,\rho)$. Then
 $\pi|_D:D\to\pi(D)$ is a homeomorphism onto an open quotient neighborhood.
 \end{proposition}
@@ -461,7 +502,11 @@ class has a representative $(x,1)$, and two such representatives agree
 exactly when their parameters differ by an even integer. Thus the map
 $x\mapsto[x,1]$ descends to a continuous bijection
 $\R/(2\Z)\to\partial Q_{-1}$. Its source is compact and its target is
-Hausdorff, so it is a homeomorphism. Rescaling $x$ by $1/2$ identifies the
+Hausdorff, so it is a homeomorphism. Rescaling $x$ by
+\[
+1/2
+\]
+ identifies the
 source with $\R/\Z\cong S^1$.
 \end{proof}
 Following the top rectangle edge continues along the bottom edge before
@@ -528,7 +573,11 @@ single class represented by all four square corners.
 \begin{proof}
 For $(m,n)\ne(0,0)$ the displacement of a point under $G_{m,n}$ is at
 least $1$: use the vertical displacement when $n\ne0$ and the horizontal
-one otherwise. A disk of radius $\rho<1/4$ therefore has disjoint translates.
+one otherwise. A disk of radius
+\[
+\rho<1/4
+\]
+ therefore has disjoint translates.
 The triangle estimate in the strip proof shows the disk misses every
 nontrivial translate. By \cref{lem:separated-quotient-neighborhood}, its
 projection is a homeomorphism onto an open neighborhood.
@@ -601,16 +650,36 @@ nonzero rescaling describes the same projective point.
 Every line meets $S^n$ in exactly two antipodal points. To identify the
 topologies, rather than just the sets, we use the universal property twice.
 \begin{proposition}[Scaling and antipodal quotients]
-There is a natural homeomorphism $\mathbb{RP}^n\cong S^n/(x\sim-x)$.
+There is a natural homeomorphism
+\[
+\mathbb{RP}^n\cong S^n/(x\sim-x).
+\]
+
 \end{proposition}
 \begin{proof}
-Let $\pi_S:S^n\to S^n/{\pm1}$ be the antipodal projection and let
-$N(x)=x/\|x\|$. The continuous composite $\pi_S\circ N$ is unchanged
+Let
+\[
+\pi_S:S^n\to S^n/{\pm1}
+\]
+ be the antipodal projection and let
+
+\[
+N(x)=x/\|x\|.
+\]
+ The continuous composite $\pi_S\circ N$ is unchanged
 by nonzero scaling, including negative scaling, so it induces a continuous
-map $\widetilde N:\mathbb{RP}^n\to S^n/{\pm1}$.
+map
+\[
+\widetilde N:\mathbb{RP}^n\to S^n/{\pm1}.
+\]
+
 The inclusion $\iota:S^n\to\R^{n+1}\setminus\{0\}$ followed by $\pi$
 is constant on antipodal pairs, so it induces a continuous map
-$\widetilde\iota:S^n/{\pm1}\to\mathbb{RP}^n$.
+
+\[
+\widetilde\iota:S^n/{\pm1}\to\mathbb{RP}^n.
+\]
+
 Normalizing a unit vector changes nothing, and normalizing a nonzero
 vector leaves its line unchanged. Thus both composites are identities.
 \end{proof}
@@ -647,7 +716,11 @@ both numerator and denominator by the same nonzero scalar, so the ratios
 and their domains are independent of the representative.
 
 \emph{Continuity by descent.} On $\{x_i\ne0\}$ define the continuous
-ratio map $\gamma_i(x)=(x_j/x_i)_{j\ne i}$. The restriction of $\pi$
+ratio map
+\[
+\gamma_i(x)=(x_j/x_i)_{j\ne i}.
+\]
+ The restriction of $\pi$
 over $U_i$ is quotient: a preimage open in this restricted source is open
 in the full source, since $\pi^{-1}(U_i)$ is open; the quotient criterion
 then applies. The universal property gives
@@ -660,7 +733,11 @@ order. This is a continuous map into $\R^{n+1}\setminus\{0\}$, and
 \varphi_i^{-1}=\pi\circ s_i.
 \]
 Indeed, taking ratios of $s_i(u)$ returns $u$, while inserting $1$ into
-the ratios of $x$ returns $x/x_i$, representing the same line as $x$.
+the ratios of $x$ returns
+\[
+x/x_i,
+\]
+ representing the same line as $x$.
 This verifies both inverse identities and continuity of the inverse.
 \end{proof}
 
@@ -702,7 +779,11 @@ each of the $n+1$ open charts.
 Their finite union is countable and is a basis: intersect any open
 neighborhood with a chart containing its point and choose a basis member
 there. Thus the space is second countable. It is compact because the
-continuous map $S^n\to S^n/{\pm1}\cong\mathbb{RP}^n$ is onto and $S^n$
+continuous map
+\[
+S^n\to S^n/{\pm1}\cong\mathbb{RP}^n
+\]
+ is onto and $S^n$
 is compact. The smooth transitions give an atlas; extending it maximally
 proves that $\mathbb{RP}^n$ is a compact smooth $n$-manifold without boundary.
 For $n=0$ the space is a point with a chart into $\R^0$.
@@ -718,11 +799,16 @@ $u\mapsto(u,\sqrt{1-\|u\|^2})$. The induced map from the disk quotient
 to $\mathbb{RP}^2$ is a continuous bijection. Compactness of the disk
 quotient and the Hausdorff property just proved make it a homeomorphism.
 Thus $\mathbb{RP}^2$ identifies only antipodal boundary pairs, whereas
-$D^2/\partial D^2\cong S^2$ collapses the entire boundary to one point.
+
+\[
+D^2/\partial D^2\cong S^2
+\]
+ collapses the entire boundary to one point.
 \end{example}
 \input{figures/projective-disk}
 \FloatBarrier
 
+\Needspace{10\baselineskip}
 \section*{Exercises}
 \addcontentsline{toc}{section}{Exercises}
 \begin{hexercise}{app-e-1}
@@ -735,8 +821,16 @@ Descend $(x,t)\mapsto(e(x),t)$ from the rectangle to $Q_1$ and prove
 $Q_1\cong S^1\times[-1,1]$. Identify its two boundary components.
 \end{exercise}
 \begin{hexercise}{app-e-3}
-For $\sigma=-1$, write the seam chart centered at $[0,1/2]$ using a disk
-of radius $1/8$. State its two finite-rectangle domains and its inverse.
+For $\sigma=-1$, write the seam chart centered at
+\[
+[0,1/2]
+\]
+ using a disk
+of radius
+\[
+1/8.
+\]
+ State its two finite-rectangle domains and its inverse.
 Repeat at $[0,1]$, using half-disk coordinates.
 \end{hexercise}
 \begin{exercise}

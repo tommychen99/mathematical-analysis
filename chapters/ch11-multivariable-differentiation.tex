@@ -12,8 +12,8 @@ metric spaces; see
 We use those results here rather than rebuilding
 them for Euclidean space. Chapter~6 supplies the one-variable models.
 The new work is finite-dimensional: coordinate descriptions, norm estimates,
-practical multivariable limit methods, and convergence of families of
-vector-valued maps. We use the Euclidean default $\|x\|=\|x\|_2$ established
+standard multivariable limit methods, and convergence of families of
+vector-valued maps. We use the Euclidean default $\|\mathbf{x}\|=\|\mathbf{x}\|_2$ established
 near the beginning of Chapter~10, retaining subscripts when comparing norms.
 
 \subsection{Limits and continuity in finite dimensions}
@@ -22,7 +22,7 @@ criteria of Chapter~10 with Euclidean distance. What is special to the target
 $\R^m$ is the componentwise description. By
 \cref{prop:finite-product-convergence},
 \[
-f(x)\to b\quad\Longleftrightarrow\quad f_j(x)\to b_j
+f(\mathbf{x})\to b\quad\Longleftrightarrow\quad f_j(\mathbf{x})\to b_j
 \quad(j=1,\ldots,m),
 \]
 and the same equivalence holds for continuity. The quantitative estimates
@@ -32,12 +32,16 @@ and the same equivalence holds for continuity. The quantitative estimates
 let component estimates be converted into one norm estimate and vice versa.
 The sequential criterion used below is precisely
 \cref{thm:sequential-map-limit}: the limit is $b$ if and only if
-$f(x_k)\to b$ for every sequence
-$x_k\in D\setminus\{a\}$ tending to $a$.
+$f(\mathbf{x}_k)\to b$ for every sequence
+$\mathbf{x}_k\in D\setminus\{a\}$ tending to $a$.
 
 \paragraph{Start with continuity and algebra.}
 Try substitution before estimating. For example,
-$(x^2+y)/(1+x^2+y^2)\to2/3$ as $(x,y)\to(1,1)$, by the algebra of
+
+\[
+(x^2+y)/(1+x^2+y^2)\to2/3
+\]
+ as $(x,y)\to(1,1)$, by the algebra of
 continuous functions and the nonzero denominator. At a singular formula,
 use the limit laws and squeeze theorem of Chapter~5: factor, cancel only
 where the cancelled factor is nonzero, or rationalize. Thus, near the origin,
@@ -65,8 +69,12 @@ proves the limit if it is uniform in $\theta$. Convergence at every
 fixed angle is insufficient: the angle may depend on $r$.
 
 \paragraph{Turn the distance into a bound.}
-A particularly useful target is $|f(x)-L|\leq C\|x-a\|^\alpha$ with
-$C>0$ and $\alpha>0$. Then $\delta=(\eps/C)^{1/\alpha}$ works.
+A particularly useful target is $|f(\mathbf{x})-L|\leq C\|\mathbf{x}-a\|^\alpha$ with
+$C>0$ and $\alpha>0$. Then
+\[
+\delta=(\eps/C)^{1/\alpha}
+\]
+ works.
 In two variables put $r=\sqrt{x^2+y^2}$. The estimates
 $|x|,|y|\leq r$ and $2|xy|\leq r^2$ often remove the directional dependence.
 For the Chapter~10 example,
@@ -83,11 +91,27 @@ estimating a function, with no integration formula involved.
 
 \paragraph{Use paths to test a suspected failure.}
 Begin with the axes, then lines $y=mx$. For
-$f(x,y)=xy/(x^2+y^2)$, both axes give zero, but $y=x$ gives $1/2$
-and $y=-x$ gives $-1/2$. In radial coordinates this is
+
+\[
+f(x,y)=xy/(x^2+y^2),
+\]
+ both axes give zero, but $y=x$ gives
+\[
+1/2
+\]
+
+and $y=-x$ gives
+\[
+-1/2.
+\]
+ In radial coordinates this is
 $\cos\theta\sin\theta$, whose directional dependence remains with no
 decaying radial factor. The two paths yield the sequences
-$(1/k,1/k)$ and $(1/k,-1/k)$ with different limiting outputs, so the
+
+\[
+(1/k,1/k),\qquad (1/k,-1/k)
+\]
+ with different limiting outputs, so the
 sequential criterion disproves a joint limit.
 The two iterated limits are nevertheless both zero: for each fixed $y$,
 the limit as $x\to0$ is zero, and the reversed order gives the same result.
@@ -98,22 +122,34 @@ Even agreement on every line is insufficient. Consider
 \[
 q(x,y)=\frac{x^2y}{x^4+y^2},\qquad (x,y)\ne(0,0).
 \]
-On $y=mx$ with $m\ne0$ this is $mx/(x^2+m^2)\to0$; both axes also
+On $y=mx$ with $m\ne0$ this is
+\[
+mx/(x^2+m^2)\to0;
+\]
+ both axes also
 give zero. To choose a curved path, balance the denominator terms:
 $y^2$ is comparable to $x^4$ when $y$ is of order $x^2$.
-On $y=x^2$, $q=1/2$. Thus $(1/k,0)$ and $(1/k,1/k^2)$ disprove
+On $y=x^2$,
+\[
+q=1/2.
+\]
+ Thus
+\[
+(1/k,0),\qquad (1/k,1/k^2)
+\]
+ disprove
 the zero limit suggested by all straight lines. Successful path tests
 are evidence for a candidate, never a proof of a joint limit.
 
 \begin{center}\fbox{\begin{minipage}{0.91\linewidth}
 \textbf{Limit checklist.} (1) Try continuity and substitution.
 (2) Simplify on the actual punctured domain.
-(3) Seek a bound in $\|x-a\|$.
+(3) Seek a bound in $\|\mathbf{x}-a\|$.
 (4) Try radial coordinates with a uniform angular bound.
 (5) Test axes and lines to disprove a candidate.
 (6) If lines agree, balance competing terms to select curved paths.
 \end{minipage}}\end{center}
-Here $x_k\to a$ varies the input of one fixed function. In $f_k\to f$,
+Here $\mathbf{x}_k\to a$ varies the input of one fixed function. In $f_k\to f$,
 we vary entire functions, as follows.
 
 \subsection{Pointwise and uniform convergence}
@@ -125,10 +161,10 @@ every input with one stage. Norms replace absolute values in the errors.
 For maps $f_k,f:D\subseteq\R^n\to\R^m$, convergence means
 \[
 \begin{array}{ll}
-\text{pointwise:}&\forall x\in D\ \forall\eps>0\ \exists N=N(x,\eps)
-\ \forall k\geq N:\ \|f_k(x)-f(x)\|<\eps,\\[2pt]
-\text{uniform:}&\forall\eps>0\ \exists N=N(\eps)\ \forall x\in D
-\ \forall k\geq N:\ \|f_k(x)-f(x)\|<\eps.
+\text{pointwise:}&\forall \mathbf{x}\in D\ \forall\eps>0\ \exists N=N(\mathbf{x},\eps)
+\ \forall k\geq N:\ \|f_k(\mathbf{x})-f(\mathbf{x})\|<\eps,\\[2pt]
+\text{uniform:}&\forall\eps>0\ \exists N=N(\eps)\ \forall \mathbf{x}\in D
+\ \forall k\geq N:\ \|f_k(\mathbf{x})-f(\mathbf{x})\|<\eps.
 \end{array}
 \]
 For pointwise convergence, fix \emph{all} input coordinates first; only
@@ -139,13 +175,21 @@ f(x,y)=\begin{cases}0,&0\leq x<1,\\1,&x=1.\end{cases}
 The unused coordinate $y$ is still part of the fixed input.
 
 Once the pointwise limit is known, form the error
-$E_k(x)=\|f_k(x)-f(x)\|$. Uniform convergence is exactly
-$\sup_{x\in D}E_k(x)\to0$. One may compute this supremum or bound it
+$E_k(\mathbf{x})=\|f_k(\mathbf{x})-f(\mathbf{x})\|$. Uniform convergence is exactly
+$\sup_{\mathbf{x}\in D}E_k(\mathbf{x})\to0$. One may compute this supremum or bound it
 by a number $a_k\to0$ independent of the input. To disprove uniform
-convergence, find $\eps_0>0$ and moving inputs $x_k\in D$ with
-$E_k(x_k)\geq\eps_0$ for arbitrarily large $k$.
-For $x^k$, choose $(2^{-1/k},0)$. Its first coordinate is less than $1$,
-so its limit-function value is zero and its error is exactly $1/2$.
+convergence, find $\eps_0>0$ and moving inputs $\mathbf{x}_k\in D$ with
+$E_k(\mathbf{x}_k)\geq\eps_0$ for arbitrarily large $k$.
+For $x^k$, choose
+\[
+(2^{-1/k},0).
+\]
+ Its first coordinate is less than $1$,
+so its limit-function value is zero and its error is exactly
+\[
+1/2.
+\]
+
 The input changes with $k$: this contradicts uniform convergence without
 contradicting convergence at any fixed input. In fact the error supremum
 is $1$ for every $k$, approached as $x\uparrow1$ but not attained.
@@ -157,7 +201,11 @@ Interchanging a limit and a supremum would erase precisely the moving
 bad points that uniform convergence must control.
 
 \begin{example}[The domain determines the uniform estimate]
-For $f_k(x,y)=(x/k,y/k)$ on $[-1,1]^2$, the pointwise limit is zero and
+For
+\[
+f_k(x,y)=(x/k,y/k)
+\]
+ on $[-1,1]^2$, the pointwise limit is zero and
 \[
 E_k(x,y)=\frac{\sqrt{x^2+y^2}}{k}\leq\frac{\sqrt2}{k}.
 \]
@@ -166,7 +214,11 @@ rectangle admits the same argument with its own fixed bound on
 $\sqrt{x^2+y^2}$. On all of $\R^2$, the same formula converges pointwise
 but the error supremum is infinite for every $k$, so convergence is not uniform.
 \end{example}
-An estimate such as $E_k(x,y)\leq(x^2+y^2)/k$ gives an index depending
+An estimate such as
+\[
+E_k(x,y)\leq(x^2+y^2)/k
+\]
+ gives an index depending
 on $x,y,\eps$ and hence only proves pointwise convergence until the
 domain supplies a common bound on $x^2+y^2$. Inspect the dependencies
 of the chosen $N$, not merely the last inequality in the calculation.
@@ -190,16 +242,28 @@ A uniform limit of continuous maps $D\to\R^m$ is continuous on $D$.
 \begin{proof}
 Choose one sufficiently late continuous map.
 Given $a\in D$ and $\eps>0$, choose $k$ with
-$\|f-f_k\|_\infty<\eps/3$, then choose $\delta$ by continuity of this
-fixed $f_k$ at $a$. For $x\in D$ within $\delta$ of $a$,
+
 \[
-\|f(x)-f(a)\|\leq\|f(x)-f_k(x)\|+
-\|f_k(x)-f_k(a)\|+\|f_k(a)-f(a)\|<\eps.
+\|f-f_k\|_\infty<\eps/3,
+\]
+ then choose $\delta$ by continuity of this
+fixed $f_k$ at $a$. For $\mathbf{x}\in D$ within $\delta$ of $a$,
+\[
+\|f(\mathbf{x})-f(a)\|\leq\|f(\mathbf{x})-f_k(\mathbf{x})\|+
+\|f_k(\mathbf{x})-f_k(a)\|+\|f_k(a)-f(a)\|<\eps.
 \]
 \end{proof}
 Uniform convergence does not preserve differentiability. The smooth maps
-$f_k(x,y)=\sqrt{x^2+1/k}$ satisfy
-$0\leq f_k(x,y)-|x|\leq1/\sqrt k$ everywhere, but $|x|$ is not
+
+\[
+f_k(x,y)=\sqrt{x^2+1/k}
+\]
+ satisfy
+
+\[
+0\leq f_k(x,y)-|x|\leq1/\sqrt k
+\]
+ everywhere, but $|x|$ is not
 differentiable on $x=0$. Differentiability will require stronger control
 of the linear approximations, not just the function values.
 
@@ -215,8 +279,8 @@ maps from $K$ to $\R^m$. A family $\mathcal F\subseteq C(K,\R^m)$ is
 \emph{equicontinuous} if for every $a\in K$ and $\eps>0$ there is
 $\delta=\delta(a,\eps)>0$ such that
 \[
-x\in K,\ \|x-a\|<\delta\ \Longrightarrow\
-\|g(x)-g(a)\|<\eps\quad\text{for every }g\in\mathcal F.
+\mathbf{x}\in K,\ \|\mathbf{x}-a\|<\delta\ \Longrightarrow\
+\|g(\mathbf{x})-g(a)\|<\eps\quad\text{for every }g\in\mathcal F.
 \]
 It is uniformly equicontinuous if one $\delta(\eps)$ works for every
 $a\in K$ as well. The common scale across all maps is essential.
@@ -224,16 +288,24 @@ $a\in K$ as well. The common scale across all maps is essential.
 An equicontinuous family on compact $K$ is uniformly equicontinuous.
 \end{lemma}
 \begin{proof}
-Otherwise choose $x_j,y_j\in K$ and $g_j\in\mathcal F$ with
-$\|x_j-y_j\|<1/j$ and $\|g_j(x_j)-g_j(y_j)\|\geq\eps_0>0$.
-Pass to a subsequence $x_j\to a\in K$; then $y_j\to a$ too.
+Otherwise choose $\mathbf{x}_j,y_j\in K$ and $g_j\in\mathcal F$ with
+
+\[
+\|\mathbf{x}_j-y_j\|<1/j
+\]
+ and $\|g_j(\mathbf{x}_j)-g_j(y_j)\|\geq\eps_0>0$.
+Pass to a subsequence $\mathbf{x}_j\to a\in K$; then $y_j\to a$ too.
 Equicontinuity at this one $a$ makes both
-$\|g_j(x_j)-g_j(a)\|$ and $\|g_j(y_j)-g_j(a)\|$ less than
-$\eps_0/2$ eventually, contradicting the triangle inequality.
+$\|g_j(\mathbf{x}_j)-g_j(a)\|$ and $\|g_j(y_j)-g_j(a)\|$ less than
+
+\[
+\eps_0/2
+\]
+ eventually, contradicting the triangle inequality.
 \end{proof}
 \begin{theorem}[Finite-dimensional Arzel\`a--Ascoli]\label{thm:finite-arzela-ascoli}
 An equicontinuous sequence $f_j:K\to\R^m$ on compact $K\subseteq\R^n$
-with $\sup_{j,x}\|f_j(x)\|<\infty$ has a uniformly convergent subsequence.
+with $\sup_{j,\mathbf{x}}\|f_j(\mathbf{x})\|<\infty$ has a uniformly convergent subsequence.
 Its limit is continuous.
 \end{theorem}
 \begin{proof}
@@ -241,7 +313,11 @@ Select convergence on countably many sample points, then
 use a common continuity scale to control the gaps between samples.
 The empty domain is immediate. For each positive integer $r$, compactness
 and total boundedness (\cref{thm:metric-compact-sequential}) give a finite
-cover of $K$ by radius-$1/r$ balls centered in $K$. The union of their
+cover of $K$ by radius-
+\[
+1/r
+\]
+ balls centered in $K$. The union of their
 finite sets of centers is a countable dense set
 $\{d_1,d_2,\ldots\}$ (repeat points if it is finite).
 Boundedness and Bolzano--Weierstrass in $\R^m$ select a subsequence whose
@@ -250,17 +326,25 @@ continue with nested subsequences. Taking the $j$th index of the $j$th
 subsequence gives increasing indices $k_j$; each tail lies in every earlier
 selection. Thus $f_{k_j}(d_i)$ converges for each fixed $i$.
 
-Given $\eps>0$, choose the uniform equicontinuity scale for $\eps/3$.
+Given $\eps>0$, choose the uniform equicontinuity scale for
+\[
+\eps/3.
+\]
+
 The balls of that radius centered at the dense points $d_i$ cover $K$;
 compactness selects finitely many. Thus every point is less than that
 scale from one of the finitely many selected centers. At all these finitely many points, sufficiently
-late $f_{k_p},f_{k_q}$ differ by less than $\eps/3$. For any $x\in K$
+late $f_{k_p},f_{k_q}$ differ by less than
+\[
+\eps/3.
+\]
+ For any $\mathbf{x}\in K$
 choose one such point $d$ and write
 \[
-\|f_{k_p}(x)-f_{k_q}(x)\|\leq
-\|f_{k_p}(x)-f_{k_p}(d)\|+
+\|f_{k_p}(\mathbf{x})-f_{k_q}(\mathbf{x})\|\leq
+\|f_{k_p}(\mathbf{x})-f_{k_p}(d)\|+
 \|f_{k_p}(d)-f_{k_q}(d)\|+
-\|f_{k_q}(d)-f_{k_q}(x)\|<\eps.
+\|f_{k_q}(d)-f_{k_q}(\mathbf{x})\|<\eps.
 \]
 This is uniform Cauchyness. Completeness of $\R^m$ supplies pointwise
 limits, and passing $q\to\infty$ in this common estimate proves uniform
@@ -485,7 +569,11 @@ away from zero. The exact identity
 +\frac{\Delta^2}{c^2(c+\Delta)}
 \]
 has final term $O(\|h\|^2)$, so the reciprocal has derivative
-$-Dg(a)/c^2$. Applying the already proved product rule now gives the quotient.
+
+\[
+-Dg(a)/c^2.
+\]
+ Applying the already proved product rule now gives the quotient.
 
 For the chain rule set $A=Df(a)$ and $B=Dg(f(a))$. Write both
 remainder formulas with their own input variables:
@@ -607,7 +695,11 @@ Thus column $j$ records the response of \emph{every output} to the $j$th
 input direction. Row $i$ records the response of the scalar output $f_i$
 to all input directions. There are $m$ rows because outputs have $m$
 coordinates, and $n$ columns because the input basis has $n$ vectors.
-For $h=\sum_j h_je_j$, linearity now explains matrix multiplication:
+For
+\[
+h=\sum_j h_je_j,
+\]
+ linearity now explains matrix multiplication:
 \[
 Df(a)h=\sum_{j=1}^n h_jDf(a)e_j
 =\sum_{j=1}^n h_j\partial_jf(a)=J_f(a)h.
@@ -630,7 +722,11 @@ coordinate rules, while retaining the same derivative map.
 
 \subsubsection*{Coordinate projections and differentials}
 \paragraph{Remark: familiar notation, new structure.}
-Earlier chapters used $d/dx$ and $\int f(x)\,\dd x$ operationally:
+Earlier chapters used
+\[
+d/dx,\qquad \int f(x)\,\dd x
+\]
+ operationally:
 we could differentiate and integrate correctly before studying $\dd x$
 as an object. We now begin to explain the linear structure behind this
 notation. This does not make every earlier integration symbol a covector;
@@ -682,7 +778,11 @@ first-order part, not generally the whole change.
 \end{example}
 
 For the line, $\pi(x)=x$ and $\dd x=d\pi$ is the standard basis of
-$\R^*$. Thus $(df)_x=f'(x)\,\dd x$. The notation $df/dx=f'(x)$ says that
+$\R^*$. Thus $(df)_x=f'(x)\,\dd x$. The notation
+\[
+df/dx=f'(x)
+\]
+ says that
 $f'(x)$ is the coefficient of $df$ relative to $\dd x$; it is not an
 ordinary quotient of real numbers and does not justify arbitrary fraction
 manipulations.
@@ -715,7 +815,11 @@ Df(a)h=\nabla f(a)\cdot h.
 \end{definition}
 For a unit vector $v$, $D_vf(a)=\nabla f(a)\cdot v\leq\|\nabla f(a)\|$
 by Cauchy--Schwarz. If the gradient is nonzero, equality holds for
-$v=\nabla f(a)/\|\nabla f(a)\|$. Thus it points toward greatest
+
+\[
+v=\nabla f(a)/\|\nabla f(a)\|.
+\]
+ Thus it points toward greatest
 first-order increase, and its norm is the maximal unit directional
 derivative. This representation depends on the Euclidean inner product;
 the intrinsic derivative remains the covector $Df(a)$.
@@ -820,7 +924,11 @@ To justify it directly, put $u=(h,k,\ell)$ and expand:
 f((a,b,c)+u)-f(a,b,c)-J_f(a,b,c)u
 =\binom{hk}{h^2-k\ell}.
 \]
-Since $|hk|\leq\|u\|^2/2$ and
+Since
+\[
+|hk|\leq\|u\|^2/2
+\]
+ and
 $|h^2-k\ell|\leq\|u\|^2$, the remainder norm is at most
 $2\|u\|^2$. Dividing by $\|u\|$ gives zero in the limit.
 Thus $Df(a,b,c)=L$ is the total derivative, without needing a
@@ -994,7 +1102,11 @@ p_0=a,
 p_j=a+h_1e_1+\cdots+h_je_j
 \qquad(1\leq j\leq n).
 \]
-If $\|h\|_2<r/\sqrt n$, every point $q$ on one of these segments satisfies
+If
+\[
+\|h\|_2<r/\sqrt n,
+\]
+ every point $q$ on one of these segments satisfies
 \[
 \|q-a\|_2\leq |h_1|+\cdots+|h_n|
 \leq\sqrt n\,\|h\|_2<r.
@@ -1032,12 +1144,14 @@ A differentiable map on an open set is of class
 C^1
 \]
 when its derivative is continuous as a map into the finite-dimensional space
-of linear maps.
+of linear maps. This extends the one-variable terminology of
+\cref{def:one-variable-ck}: ordinary derivatives are replaced by Fr\'echet
+derivatives between finite-dimensional spaces.
 \end{definition}
 
 Here $Df:U\to\mathcal L(\R^n,\R^m)$ is itself a function, with
 linear maps as values. Its continuity at $a$ means
-$\|Df(x)-Df(a)\|_{\mathrm{op}}\to0$.
+$\|Df(\mathbf{x})-Df(a)\|_{\mathrm{op}}\to0$.
 \begin{proposition}[$C^1$ and continuous partials]
 A map $f:U\to\R^m$ is $C^1$ if and only if all its first scalar
 partial derivatives exist and are continuous on $U$.
@@ -1050,12 +1164,20 @@ dimensional. Conversely a continuous derivative has continuous entries
 $\partial_j f_i$, by coordinate evaluation.
 \end{proof}
 \begin{example}[Differentiable need not mean $C^1$]
-Reuse $\phi(t)=t^2\sin(1/t)$ for $t\ne0$, $\phi(0)=0$, from Chapter~8,
+Reuse
+\[
+\phi(t)=t^2\sin(1/t)
+\]
+ for $t\ne0$, $\phi(0)=0$, from Chapter~8,
 and put $f(x,y)=\phi(x)$. At zero,
 $|f(h)|\leq h_1^2\leq\|h\|^2$, so $Df(0,0)=0$.
 Away from $x=0$ the usual rules apply; at every $(0,y)$ the same remainder
 bound proves differentiability. But for $x\ne0$,
-$\partial_xf=2x\sin(1/x)-\cos(1/x)$, which does not approach zero.
+
+\[
+\partial_xf=2x\sin(1/x)-\cos(1/x),
+\]
+ which does not approach zero.
 Thus $f$ is differentiable everywhere and is not $C^1$ near the origin.
 \end{example}
 
@@ -1085,21 +1207,37 @@ produce the columns and their continuity justifies the derivative.
 
 \begin{example}[Continuous with partials, but not differentiable]
 \label{ex:continuous-partials-not-total}
-Set $f(0,0)=0$ and $f(x,y)=x^3/(x^2+y^2)$ elsewhere. The bound
+Set $f(0,0)=0$ and
+\[
+f(x,y)=x^3/(x^2+y^2)
+\]
+ elsewhere. The bound
 \[
 |f(x,y)|\leq |x|\leq\sqrt{x^2+y^2}
 \]
 proves continuity at zero. On the axes $f(t,0)=t$ and $f(0,t)=0$,
 so $\partial_xf(0)=1$, $\partial_yf(0)=0$. The only candidate is
-$L(h,k)=h$. But $f(t,t)=t/2$ for $t\ne0$, and hence
+$L(h,k)=h$. But
+\[
+f(t,t)=t/2
+\]
+ for $t\ne0$, and hence
 \[
 \frac{|f(t,t)-L(t,t)|}{\|(t,t)\|}=\frac1{2\sqrt2}.
 \]
 The normalized error does not tend to zero. Without absolute values the
-quotient is $-1/(2\sqrt2)$ for $t>0$ and has the opposite sign for
+quotient is
+\[
+-1/(2\sqrt2)
+\]
+ for $t>0$ and has the opposite sign for
 $t<0$; either one-sided approach disproves differentiability.
 \end{example}
-The earlier example $xy/(x^2+y^2)$ showed that partials alone need not
+The earlier example
+\[
+xy/(x^2+y^2)
+\]
+ showed that partials alone need not
 even imply continuity. This example shows that adding continuity still
 does not prove total differentiability. By contrast, nearby partials
 continuous at the point do suffice. Partials test coordinate directions;
@@ -1140,7 +1278,11 @@ For the function in \cref{ex:continuous-partials-not-total} and $v\ne0$,
 D_vf(0)=\frac{v_1^3}{v_1^2+v_2^2}.
 \]
 All directional derivatives exist, but they are not linear in $v$:
-the values on $e_1,e_2,e_1+e_2$ are $1,0,1/2$.
+the values on $e_1,e_2,e_1+e_2$ are
+\[
+1,0,1/2.
+\]
+
 They cannot be the values of one linear map $Df(0)$.
 \end{remark}
 
@@ -1151,22 +1293,42 @@ They cannot be the values of one linear map $Df(0)$.
 
 
 \begin{example}[Even linear directional data can fail]
-Let $h(0,0)=0$ and $h(x,y)=x^3y/(x^4+y^2)$ elsewhere.
-Since $2|x^2y|\leq x^4+y^2$, $|h(x,y)|\leq|x|/2$, so $h$ is continuous
+Let $h(0,0)=0$ and
+\[
+h(x,y)=x^3y/(x^4+y^2)
+\]
+ elsewhere.
+Since $2|x^2y|\leq x^4+y^2$,
+\[
+|h(x,y)|\leq|x|/2,
+\]
+ so $h$ is continuous
 at zero. For $v=(a,b)$ with $b\ne0$,
 \[
 \frac{h(ta,tb)}t=\frac{t a^3b}{t^2a^4+b^2}\longrightarrow0;
 \]
 for $b=0$ it is identically zero. Every directional derivative is therefore
-zero; hence $v\mapsto D_vh(0)$ is the zero linear functional. But $h(x,x^2)=x/2$ for $x\ne0$, and
-$|h(x,x^2)|/\|(x,x^2)\|\to1/2$. Total differentiability requires
+zero; hence $v\mapsto D_vh(0)$ is the zero linear functional. But
+\[
+h(x,x^2)=x/2
+\]
+ for $x\ne0$, and
+
+\[
+|h(x,x^2)|/\|(x,x^2)\|\to1/2.
+\]
+ Total differentiability requires
 uniform first-order control over all increments, including curved approaches.
 \end{example}
 
 In the preceding example $h_t=(t,t^2)$ tends to zero while its direction
 changes with $t$. Fixed-line tests do not control this approach.
 For a proposed linear map $L$, directional information may give
-$[f(a+tv)-f(a)]/t\to Lv$ for each fixed unit $v$, with the allowed size
+
+\[
+[f(a+tv)-f(a)]/t\to Lv
+\]
+ for each fixed unit $v$, with the allowed size
 of $t$ depending on $v$. Differentiability requires a single neighborhood:
 \[
 \begin{gathered}
@@ -1239,6 +1401,13 @@ The blue mesh therefore bends away from the plane quadratically. $Df(a)$ is the
 linear part acting on $(h,k)$; adding $f(a)$ produces the affine graph.
 \end{example}
 
+For a Euclidean input the preceding notation specializes to
+\[
+Df(\mathbf{x})h,\qquad \nabla f(\mathbf{x}),\qquad
+D^2f(\mathbf{x})[h,h],\qquad h=\mathbf{x}-a.
+\]
+The increment $h$ and base point $a$ keep their established notation.
+
 \section{Higher Derivatives and Local Estimates}
 
 The one-variable Mean Value and Taylor theorems describe a function by its
@@ -1277,14 +1446,14 @@ the open-ball case.
 
 \begin{theorem}[Scalar mean-value equality]\label{thm:scalar-multivariable-mvt}
 For differentiable $f:U\subseteq\R^n\to\R$ on open $U$ and
-$[x,y]\subset U$, there is $t\in(0,1)$ such that
+$[\mathbf{x},y]\subset U$, there is $t\in(0,1)$ such that
 \[
-f(y)-f(x)=Df(x+t(y-x))(y-x).
+f(y)-f(\mathbf{x})=Df(\mathbf{x}+t(y-\mathbf{x}))(y-\mathbf{x}).
 \]
 \end{theorem}
 \begin{proof}
-Apply the ordinary mean value theorem to $g(t)=f(x+t(y-x))$ on $[0,1]$;
-the chain rule gives $g'(t)=Df(x+t(y-x))(y-x)$.
+Apply the ordinary mean value theorem to $g(t)=f(\mathbf{x}+t(y-\mathbf{x}))$ on $[0,1]$;
+the chain rule gives $g'(t)=Df(\mathbf{x}+t(y-\mathbf{x}))(y-\mathbf{x})$.
 \end{proof}
 Scalar output admits this exact intermediate-point equality.
 For vector-valued functions there need not be a single intermediate point
@@ -1295,51 +1464,51 @@ A norm estimate still bounds the change between endpoints.
 \begin{theorem}[Mean-value estimate]
 \label{thm:multivariable-mvt}
 Let $U\subseteq\R^n$ be open, let $f:U\to\R^m$ be differentiable, and suppose
-the segment from $x$ to $y$ lies in $U$.  If
+the segment from $\mathbf{x}$ to $y$ lies in $U$.  If
 \[
-\norm{Df((1-t)x+ty)}_{\mathrm{op}}\leq M
+\norm{Df((1-t)\mathbf{x}+ty)}_{\mathrm{op}}\leq M
 \qquad(0\leq t\leq1),
 \]
 then
 \[
-\norm{f(y)-f(x)}\leq M\norm{y-x}.
+\norm{f(y)-f(\mathbf{x})}\leq M\norm{y-\mathbf{x}}.
 \]
 \end{theorem}
 \begin{proof}
-If $f(y)\ne f(x)$, put
+If $f(y)\ne f(\mathbf{x})$, put
 \[
-u=\frac{f(y)-f(x)}{\norm{f(y)-f(x)}}
+u=\frac{f(y)-f(\mathbf{x})}{\norm{f(y)-f(\mathbf{x})}}
 \]
 The choice of this unit vector is made so that
 \[
-u\cdot(f(y)-f(x))
-=\frac{\|f(y)-f(x)\|^2}{\|f(y)-f(x)\|}
-=\|f(y)-f(x)\|.
+u\cdot(f(y)-f(\mathbf{x}))
+=\frac{\|f(y)-f(\mathbf{x})\|^2}{\|f(y)-f(\mathbf{x})\|}
+=\|f(y)-f(\mathbf{x})\|.
 \]
 Thus one scalar projection captures the full length of the difference.
 Keep $u$ fixed while applying the one-variable Mean Value Theorem to
 \[
-t\longmapsto u\cdot f((1-t)x+ty).
+t\longmapsto u\cdot f((1-t)\mathbf{x}+ty).
 \]
 For some $c\in(0,1)$,
 \[
-\norm{f(y)-f(x)}
+\norm{f(y)-f(\mathbf{x})}
 =
-u\cdot Df((1-c)x+cy)(y-x).
+u\cdot Df((1-c)\mathbf{x}+cy)(y-\mathbf{x}).
 \]
 Cauchy--Schwarz and the operator-norm bound prove the assertion.  The zero
 case is immediate.
 \end{proof}
 
 \begin{corollary}[Local Lipschitz continuity]
-If $U$ is convex and $\|Df(x)\|_{\mathrm{op}}\leq M$ on $U$, then
+If $U$ is convex and $\|Df(\mathbf{x})\|_{\mathrm{op}}\leq M$ on $U$, then
 $f$ is $M$-Lipschitz on $U$. Every $C^1$ map is locally Lipschitz.
 \end{corollary}
 \begin{proof}
-Convexity keeps the segment between any $x,y\in U$ in $U$, so
+Convexity keeps the segment between any $\mathbf{x},y\in U$ in $U$, so
 \cref{thm:multivariable-mvt} applies. For a $C^1$ map, continuity of
 $Df$ at any $a$ supplies a ball in $U$ where
-$\|Df(x)\|_{\mathrm{op}}\leq\|Df(a)\|_{\mathrm{op}}+1$. Apply the first assertion
+$\|Df(\mathbf{x})\|_{\mathrm{op}}\leq\|Df(a)\|_{\mathrm{op}}+1$. Apply the first assertion
 on that convex ball, using \cref{prop:normed-balls-convex}. A bound outside
 the connecting segment would not suffice.
 \end{proof}
@@ -1354,20 +1523,20 @@ converges uniformly there to a map $f$, and $Df=A$ on $B(a,r)$.
 \begin{proof}
 Anchor the functions at $a$ and control their increments by the derivatives.
 The closed ball is convex by \cref{prop:normed-balls-convex}, so every segment
-from $a$ to $x\in\overline B(a,r)$ stays in the ball. The mean-value estimate gives
+from $a$ to $\mathbf{x}\in\overline B(a,r)$ stays in the ball. The mean-value estimate gives
 \[
-\|f_k(x)-f_l(x)\|\leq\|f_k(a)-f_l(a)\|
+\|f_k(\mathbf{x})-f_l(\mathbf{x})\|\leq\|f_k(a)-f_l(a)\|
 +r\sup_{z\in\overline B(a,r)}\|Df_k(z)-Df_l(z)\|.
 \]
 Thus the functions are uniformly Cauchy; completeness gives a uniform limit.
 The map $A:\overline B(a,r)\to\mathcal L(\R^n,\R^m)$ is continuous by
 the uniform-limit theorem, using finite-dimensional coordinates on the target.
-Fix $x\in B(a,r)$ and put $\eta=r-\|x-a\|>0$. If $\|h\|<\eta$, then
-$\|x+th-a\|<r$ for $0\leq t\leq1$, so the segment stays in the ball. Apply
-the mean-value estimate to $z\mapsto f_k(z)-A(x)z$ to obtain
+Fix $\mathbf{x}\in B(a,r)$ and put $\eta=r-\|\mathbf{x}-a\|>0$. If $\|h\|<\eta$, then
+$\|\mathbf{x}+th-a\|<r$ for $0\leq t\leq1$, so the segment stays in the ball. Apply
+the mean-value estimate to $z\mapsto f_k(z)-A(\mathbf{x})z$ to obtain
 \[
-\|f_k(x+h)-f_k(x)-A(x)h\|
-\leq\sup_{0\leq t\leq1}\|Df_k(x+th)-A(x)\|\,\|h\|.
+\|f_k(\mathbf{x}+h)-f_k(\mathbf{x})-A(\mathbf{x})h\|
+\leq\sup_{0\leq t\leq1}\|Df_k(\mathbf{x}+th)-A(\mathbf{x})\|\,\|h\|.
 \]
 Set
 \[
@@ -1376,16 +1545,16 @@ e_k=\sup_{z\in\overline B(a,r)}\|Df_k(z)-A(z)\|_{\mathrm{op}}
 \]
 The triangle inequality gives the uniform comparison
 \[
-\sup_{0\leq t\leq1}\|Df_k(x+th)-A(x)\|_{\mathrm{op}}
-\leq e_k+\sup_{0\leq t\leq1}\|A(x+th)-A(x)\|_{\mathrm{op}}.
+\sup_{0\leq t\leq1}\|Df_k(\mathbf{x}+th)-A(\mathbf{x})\|_{\mathrm{op}}
+\leq e_k+\sup_{0\leq t\leq1}\|A(\mathbf{x}+th)-A(\mathbf{x})\|_{\mathrm{op}}.
 \]
 For fixed $h$, letting $k\to\infty$ therefore gives
 \[
-\|f(x+h)-f(x)-A(x)h\|
-\leq\sup_{0\leq t\leq1}\|A(x+th)-A(x)\|_{\mathrm{op}}\,\|h\|.
+\|f(\mathbf{x}+h)-f(\mathbf{x})-A(\mathbf{x})h\|
+\leq\sup_{0\leq t\leq1}\|A(\mathbf{x}+th)-A(\mathbf{x})\|_{\mathrm{op}}\,\|h\|.
 \]
-Now let $h\to0$. Since $\|th\|\leq\|h\|$, continuity of $A$ at $x$
-makes the remaining supremum tend to zero. Hence $Df(x)=A(x)$.
+Now let $h\to0$. Since $\|th\|\leq\|h\|$, continuity of $A$ at $\mathbf{x}$
+makes the remaining supremum tend to zero. Hence $Df(\mathbf{x})=A(\mathbf{x})$.
 \end{proof}
 A common derivative bound on a convex neighborhood of a compact set gives
 a common Lipschitz bound on that set, hence equicontinuity. With uniform
@@ -1421,7 +1590,9 @@ each output is itself a linear map. Thus it is bilinear in the sense of
 \cref{sec:dual-multilinear}. Inductively, evaluate a linear-map-valued
 derivative on its first argument and then on the remaining arguments to
 obtain $D^kf(a):V^k\to W$. Its coefficients in bases form a finite array;
-continuity and differentiation of that array use the equivalent finite-dimensional norms.  The map is of class $C^k$ when all derivatives through order $k$ exist and are continuous.
+continuity and differentiation of that array use the equivalent finite-dimensional norms.  Extending the convention of
+\cref{def:one-variable-ck}, the map is of class $C^k$ when all Fr\'echet
+derivatives through order $k$ exist and are continuous.
 \end{definition}
 
 \paragraph{Differentiate the base point, not the increment.}
@@ -1501,10 +1672,18 @@ $\xi\in(0,s)$,
 \]
 Apply it again, now to $v\mapsto\partial_i f(a+\xi e_i+ve_j)$
 on $[0,t]$. For some $\eta\in(0,t)$ this yields
-$\Delta/(st)=\partial_j\partial_i f(a+\xi e_i+\eta e_j)$.
+
+\[
+\Delta/(st)=\partial_j\partial_i f(a+\xi e_i+\eta e_j).
+\]
+
 Reversing the two initial differences instead gives, for possibly different
-$\xi',\eta'$, $\Delta/(st)=\partial_i\partial_j
-f(a+\xi'e_i+\eta'e_j)$. Both points tend to $a$ as $s,t\to0^+$.
+$\xi',\eta'$,
+\[
+\Delta/(st)=\partial_i\partial_j
+f(a+\xi'e_i+\eta'e_j).
+\]
+ Both points tend to $a$ as $s,t\to0^+$.
 Continuity of the two mixed partials equates their limits. A single
 choice of positive shrinking rectangles suffices to compare their values at $a$.
 \end{proof}
@@ -1606,7 +1785,7 @@ Repeating the input gives
 $D^2f(a)[h,h]=(2h_1^2+6h_1h_2,2h_2^2)$, a vector rather than a scalar.
 \end{example}
 
-\paragraph{Second-order objects at a glance.}
+\paragraph{Distinguishing the second-order objects.}
 For scalar $C^2$ functions, keep the following distinctions:
 \begin{itemize}
 \item $D^2f(a)$ is a bilinear map; $h_f(a)$ is its matrix in the
@@ -1856,7 +2035,11 @@ If $f$ is only $C^k$ near $a$, $k\geq1$, then
 $f(a+h)=T_kf(a;h)+o(\|h\|^k)$.
 \end{corollary}
 \begin{proof}
-For a nonzero remainder vector $R$, fix $u=R/\|R\|$ and apply the
+For a nonzero remainder vector $R$, fix
+\[
+u=R/\|R\|
+\]
+ and apply the
 scalar segment theorem to $u\cdot f$. Its remainder is $u\cdot R=\|R\|$,
 and $|u\cdot D^{k+1}f[h,\ldots,h]|\leq M\|h\|^{k+1}$.
 The zero case is immediate; no common intermediate point for all
@@ -1902,7 +2085,11 @@ e^u\cos v=T_2f(0;h)+O(\|h\|^3).
 \]
 Indeed the third derivative is continuous and therefore bounded by some
 $M$ on a fixed compact ball around zero; the error is at most
-$M\|h\|^3/6$ there. With only $C^2$ information the justified conclusion
+
+\[
+M\|h\|^3/6
+\]
+ there. With only $C^2$ information the justified conclusion
 would instead be $o(\|h\|^2)$. The bilinear Hessian has two input slots;
 the polynomial repeats the increment in both.
 \end{example}
@@ -1919,7 +2106,11 @@ h^\alpha=\prod_i h_i^{\alpha_i},\qquad
 \]
 Expanding $D^jf(a)[h,\ldots,h]$ by multilinearity gives one term for
 each ordered choice of $j$ coordinate indices. If index $i$ occurs
-$\alpha_i$ times, the same monomial $h^\alpha$ occurs $j!/\alpha!$
+$\alpha_i$ times, the same monomial $h^\alpha$ occurs
+\[
+j!/\alpha!
+\]
+
 times. Symmetry makes their derivative coefficients equal. Consequently
 \[
 \frac1{j!}D^jf(a)[h,\ldots,h]
@@ -1937,7 +2128,7 @@ finite $k$, not equality to an infinite Taylor expansion.
 \begin{definition}[Real-analytic map]
 A scalar function on an open subset of $\R^n$ is real analytic at $a$
 if on a neighborhood of $a$ it is represented by a convergent power
-series in the coordinates of $h=x-a$. It is real analytic on its domain
+series in the coordinates of $h=\mathbf{x}-a$. It is real analytic on its domain
 if this holds at every point. Vector-valued maps are real analytic when
 each scalar component is.
 \end{definition}
@@ -1954,15 +2145,27 @@ coordinatewise, put $m=|\alpha|$. Then
 \leq C_{\beta,r,R}|c_\alpha|R^{|\alpha|},
 \end{aligned}
 \]
-where $C_{\beta,r,R}=r^{-q}\sup_{m\geq0}m^q(r/R)^m<\infty$.
+where
+\[
+C_{\beta,r,R}=r^{-q}\sup_{m\geq0}m^q(r/R)^m<\infty.
+\]
+
 For $q=0$ take $m^0=1$; if $\alpha\not\geq\beta$, the derivative is
 zero. The supremum is finite because geometric decay dominates fixed
 polynomial growth. Absolute convergence gives
-$\sum_\alpha|c_\alpha|R^{|\alpha|}<\infty$, so the M-test proves uniform
+
+\[
+\sum_\alpha|c_\alpha|R^{|\alpha|}<\infty,
+\]
+ so the M-test proves uniform
 convergence of each derivative series on the smaller box. Apply the
 differentiating-limits theorem successively in each coordinate. As in
 Chapter~8, this proves smoothness and the forced coefficients
-$\partial^\alpha f(a)/\alpha!$.
+
+\[
+\partial^\alpha f(a)/\alpha!.
+\]
+
 Thus, for sufficiently small $h$,
 \[
 f(a+h)=\sum_\alpha\frac{\partial^\alpha f(a)}{\alpha!}h^\alpha
@@ -1982,7 +2185,7 @@ Let $f(x_1,\ldots,x_n)=\theta(x_1)$ with $\theta$ from
 makes $f$ smooth. A derivative involving another coordinate is zero;
 the derivatives using only $x_1$ are derivatives of $\theta$.
 Hence $f(0)=0$ and $D^kf(0)=0$ for every $k\geq1$. Its Taylor series
-at zero is the zero series, although $f(x)>0$ whenever $x_1>0$.
+at zero is the zero series, although $f(\mathbf{x})>0$ whenever $x_1>0$.
 All derivatives at a point therefore need not determine a smooth map nearby.
 \end{example}
 The inverse and implicit function arguments below preserve $C^r$
@@ -1995,19 +2198,19 @@ The inverse theorem below first constructs a $C^1$ inverse and then gains
 derivatives from its first-derivative formula. Writing $g=f^{-1}$, the
 identity $g\circ f=\operatorname{id}$ gives
 \[
-Dg(f(x))=[Df(x)]^{-1},\qquad
+Dg(f(\mathbf{x}))=[Df(\mathbf{x})]^{-1},\qquad
 Dg=\operatorname{Inv}\circ Df\circ g,
 \]
 where $\operatorname{Inv}(A)=A^{-1}$ on $GL(\R^n)$. Smoothness of
 operator inversion, proved below, makes the available regularity visible:
 \[
 f\in C^k\ \Longrightarrow\ Df\in C^{k-1}
-\ \Longrightarrow\ (x\mapsto[Df(x)]^{-1})\in C^{k-1}.
+\ \Longrightarrow\ (\mathbf{x}\mapsto[Df(\mathbf{x})]^{-1})\in C^{k-1}.
 \]
 Composition with $g$ must be justified inductively. Once $g\in C^j$
 for $j<k$, the formula for $Dg$ gives $Dg\in C^j$ and hence
 $g\in C^{j+1}$. Repeating this reaches $Dg\in C^{k-1}$ and $g\in C^k$.
-Here $[Df(x)]^{-1}$ means inversion of a linear map, not differentiation
+Here $[Df(\mathbf{x})]^{-1}$ means inversion of a linear map, not differentiation
 of an inverse function. The implicit graph is constructed from the local
 inverse of $h(x,y)=(x,f(x,y))$ by restricting to $(x,0)$ and projecting
 onto the remaining coordinates. These operations preserve $C^k$
@@ -2039,8 +2242,16 @@ D^2f(a)[h,h]\geq c\norm h^2
 for some $c>0$.  The sphere minimum is attained at a nonzero vector, so it is strictly
 positive; pointwise positivity alone would not yield this uniform constant
 without compactness. By \cref{cor:second-peano}, choose $\|h\|$ small
-enough that the absolute remainder is at most $c\|h\|^2/4$. Then
-$f(a+h)-f(a)\geq(c/2-c/4)\|h\|^2>0$ for $h\ne0$.  Apply this to $-f$ for the
+enough that the absolute remainder is at most
+\[
+c\|h\|^2/4.
+\]
+ Then
+
+\[
+f(a+h)-f(a)\geq(c/2-c/4)\|h\|^2>0
+\]
+ for $h\ne0$.  Apply this to $-f$ for the
 maximum assertion.
 \end{proof}
 
@@ -2079,10 +2290,30 @@ direction, which maximizes first-order increase by Cauchy--Schwarz.
 \node at (-2.7,1.7) {$f=1,3,5$};
 \end{tikzpicture}
 \end{center}
-More generally, for $a,b>0$ the ellipse $x^2/a^2+y^2/b^2=1$ has
-normal $(2x/a^2,2y/b^2)$ at $(x,y)$. At $(x_0,y_0)$ its tangent line is
-$x_0x/a^2+y_0y/b^2=1$. The hyperbola $x^2/a^2-y^2/b^2=1$ similarly
-has nonzero normal $(2x/a^2,-2y/b^2)$ everywhere, although it has two
+More generally, for $a,b>0$ the ellipse
+\[
+x^2/a^2+y^2/b^2=1
+\]
+ has
+normal
+\[
+(2x/a^2,2y/b^2)
+\]
+ at $(x,y)$. At $(x_0,y_0)$ its tangent line is
+
+\[
+x_0x/a^2+y_0y/b^2=1.
+\]
+ The hyperbola
+\[
+x^2/a^2-y^2/b^2=1
+\]
+ similarly
+has nonzero normal
+\[
+(2x/a^2,-2y/b^2)
+\]
+ everywhere, although it has two
 components, distinguished by $x>0$ and $x<0$.
 \end{example}
 
@@ -2090,30 +2321,34 @@ components, distinguished by $x>0$ and $x<0$.
 The line-segment method also generalizes Chapter~8's convexity theory.
 For an open convex $U\subseteq\R^n$, a function $f:U\to\R$ is convex if
 \[
-f((1-t)x+ty)\leq(1-t)f(x)+tf(y)\qquad(x,y\in U,\ 0\leq t\leq1).
+f((1-t)\mathbf{x}+ty)\leq(1-t)f(\mathbf{x})+tf(y)\qquad(\mathbf{x},y\in U,\ 0\leq t\leq1).
 \]
-It is strictly convex if the inequality is strict for $x\ne y$ and
+It is strictly convex if the inequality is strict for $\mathbf{x}\ne y$ and
 $0<t<1$. The tangent affine function will now replace the tangent line.
 \begin{proposition}[Criteria for convexity]\label{prop:multivariable-convexity}
 For differentiable $f$, convexity is equivalent to
 \[
-f(y)\geq f(x)+Df(x)(y-x)\qquad(x,y\in U).
+f(y)\geq f(\mathbf{x})+Df(\mathbf{x})(y-\mathbf{x})\qquad(\mathbf{x},y\in U).
 \]
 For $C^2$ functions it is equivalent to
-$D^2f(x)[h,h]\geq0$ for all $x\in U$, $h\in\R^n$;
+$D^2f(\mathbf{x})[h,h]\geq0$ for all $\mathbf{x}\in U$, $h\in\R^n$;
 in coordinates, the Hessian is positive semidefinite everywhere.
 \end{proposition}
 \begin{proof}
-Restrict to $g(t)=f(x+t(y-x))$. Convexity gives
-$(g(t)-g(0))/t\leq g(1)-g(0)$ for $0<t<1$; let $t\downarrow0$
-to obtain the supporting inequality. Conversely put $z=(1-t)x+ty$,
-apply that inequality based at $z$ to $x$ and $y$, and multiply by
+Restrict to $g(t)=f(\mathbf{x}+t(y-\mathbf{x}))$. Convexity gives
+
+\[
+(g(t)-g(0))/t\leq g(1)-g(0)
+\]
+ for $0<t<1$; let $t\downarrow0$
+to obtain the supporting inequality. Conversely put $z=(1-t)\mathbf{x}+ty$,
+apply that inequality based at $z$ to $\mathbf{x}$ and $y$, and multiply by
 $1-t$ and $t$. The derivative terms sum to
-$Df(z)((1-t)x+ty-z)=0$, proving convexity.
+$Df(z)((1-t)\mathbf{x}+ty-z)=0$, proving convexity.
 For $C^2$ functions the restriction has
-$g''(t)=D^2f(x+t(y-x))[y-x,y-x]$; the one-variable second-derivative
+$g''(t)=D^2f(\mathbf{x}+t(y-\mathbf{x}))[y-\mathbf{x},y-\mathbf{x}]$; the one-variable second-derivative
 criterion proves sufficiency. Necessity follows by restricting a convex
-$f$ to a small line interval $x+th$ within the open domain and testing at zero.
+$f$ to a small line interval $\mathbf{x}+th$ within the open domain and testing at zero.
 \end{proof}
 If $Df(a)=0$, the supporting inequality gives $f(y)\geq f(a)$ everywhere:
 $a$ is a global minimum. For strictly convex $f$ there cannot be two
@@ -2197,20 +2432,24 @@ and
 \[
 \norm p\leq\frac{\norm{T(0)}}{1-q}<r.
 \]
-For every $x_0\in B_2(0,r)$, the iteration $x_{j+1}=T(x_j)$ converges to
+For every $\mathbf{x}_0\in B_2(0,r)$, the iteration $\mathbf{x}_{j+1}=T(\mathbf{x}_j)$ converges to
 $p$.
 \end{corollary}
 \begin{proof}
-Put $c=\norm{T(0)}/(1-q)<r$. If $\norm x<r$, then
+Put
 \[
-\norm{T(x)}\leq\norm{T(x)-T(0)}+\norm{T(0)}
-\leq q\norm x+(1-q)c<r,
+c=\norm{T(0)}/(1-q)<r.
+\]
+ If $\norm{\mathbf{x}}<r$, then
+\[
+\norm{T(\mathbf{x})}\leq\norm{T(\mathbf{x})-T(0)}+\norm{T(0)}
+\leq q\norm{\mathbf{x}}+(1-q)c<r,
 \]
 so $T$ is a self-map of the open ball. That ball need not be complete, so
 we do not apply the contraction theorem to it. Choose $s$ with
-$c<s<r$. For $\norm x\leq s$,
+$c<s<r$. For $\norm{\mathbf{x}}\leq s$,
 \[
-\norm{T(x)}\leq qs+(1-q)c<s.
+\norm{T(\mathbf{x})}\leq qs+(1-q)c<s.
 \]
 Thus the closed ball $\overline B_2(0,s)$ is invariant and is complete by
 \cref{cor:closed-ball-complete}, so
@@ -2219,19 +2458,34 @@ the open ball is unique by the contraction inequality, and
 \[
 (1-q)\norm p\leq\norm{T(0)}
 \]
-gives the asserted bound. Given an arbitrary $x_0$ in the open ball,
-choose instead $s$ with $\max\{c,\norm{x_0}\}<s<r$. The same invariant
+gives the asserted bound. Given an arbitrary $\mathbf{x}_0$ in the open ball,
+choose instead $s$ with $\max\{c,\norm{\mathbf{x}_0}\}<s<r$. The same invariant
 closed-ball argument then proves convergence of its iterates to $p$.
 \end{proof}
 
 The strict inequality is sharp. On $(-1,1)$, the map
-$T(x)=(x+1)/2$ has $q=1/2$ and
-$|T(0)|=(1-q)r=1/2$, but its only fixed point is the boundary point $1$.
+
+\[
+T(x)=(x+1)/2
+\]
+ has
+\[
+q=1/2,\qquad |T(0)|=(1-q)r=1/2,
+\]
+ but its only fixed point is the boundary point $1$.
 
 \begin{example}[Solving $x=\cos x$ by iteration]
-On $X=[1/2,1]$ with the usual metric, $T(x)=\cos x$ maps $X$ into itself.
+On
+\[
+X=[1/2,1]
+\]
+ with the usual metric, $T(x)=\cos x$ maps $X$ into itself.
 Indeed, the elementary-function theory gives
-$1/2<\cos1\leq\cos x<1$ there.  The Mean Value Theorem and
+
+\[
+1/2<\cos1\leq\cos x<1
+\]
+ there.  The Mean Value Theorem and
 $\abs{\sin x}\leq\sin1<1$ give
 \[
 \abs{T(x)-T(y)}\leq(\sin1)\abs{x-y}.
@@ -2248,7 +2502,11 @@ analysis.
 \paragraph{What each contraction hypothesis contributes.}
 The self-map hypothesis keeps every iterate in the space. The factor
 $q<1$ makes successive steps shrink geometrically. Completeness places
-the Cauchy limit in that same space. For $T(x)=x/2$ on $(0,1)$,
+the Cauchy limit in that same space. For
+\[
+T(x)=x/2
+\]
+ on $(0,1)$,
 the first two properties hold but the fixed point $0$ is missing, so
 completeness cannot be omitted. On $\R$, $T(x)=x+1$ shows why a
 Lipschitz factor $1$ is insufficient even in a complete space.
@@ -2273,7 +2531,11 @@ then $B$ is invertible.
 \end{proposition}
 \begin{proof}
 Set $T=I-A^{-1}B$. By \cref{prop:neumann-series}, $I-T$ has
-inverse $S=\sum_{k=0}^\infty T^k$. Since $B=A(I-T)$, its inverse is
+inverse
+\[
+S=\sum_{k=0}^\infty T^k.
+\]
+ Since $B=A(I-T)$, its inverse is
 $SA^{-1}$, in that order.
 \end{proof}
 
@@ -2281,9 +2543,10 @@ $SA^{-1}$, in that order.
 
 \section{Inverse and Implicit Functions}
 
-There are two related questions. An inverse problem solves $y=f(x)$ for
-$x$ as a function of $y$. An implicit problem solves $f(x,y)=0$ for
-one block of variables, say $y$, in terms of the other block $x$.
+There are two related questions. An inverse problem solves $y=f(\mathbf{x})$ for
+$\mathbf{x}$ as a function of $y$. An implicit problem solves
+$f(\mathbf{x},y)=0$ for one block of variables, say $y$, in terms of
+the independent Euclidean block $\mathbf{x}$.
 In each case we first ask whether the linear approximation can solve
 for the desired unknowns.
 
@@ -2345,7 +2608,11 @@ so $\operatorname{GL}(\R^n)$ is open.
 
 We first establish continuity and the local bound used in the derivative
 estimate. If
-$\norm{A^{-1}(B-A)}_{\mathrm{op}}<1/2$, the geometric series gives
+
+\[
+\norm{A^{-1}(B-A)}_{\mathrm{op}}<1/2,
+\]
+ the geometric series gives
 \[
 \norm{B^{-1}}_{\mathrm{op}}\leq2\norm{A^{-1}}_{\mathrm{op}}.
 \]
@@ -2355,7 +2622,11 @@ B^{-1}-A^{-1}=B^{-1}(A-B)A^{-1}
 \]
 then proves $B^{-1}\to A^{-1}$ when $B\to A$.
 
-For $\|h\|_{\mathrm{op}}<1/(2\|A^{-1}\|_{\mathrm{op}})$, the preceding
+For
+\[
+\|h\|_{\mathrm{op}}<1/(2\|A^{-1}\|_{\mathrm{op}}),
+\]
+ the preceding
 argument makes $A+h$ invertible. Rearranging
 $(A+h)^{-1}(A+h)=I$ first gives
 \[
@@ -2389,12 +2660,12 @@ if its restriction to some open neighborhood of $a$ is a $C^k$
 diffeomorphism onto an open set.
 \end{definition}
 
-The correction map $T_y(x)=x-Df(a)^{-1}(f(x)-y)$ comes from solving
-the affine model. If $f(x)=f(a)+B(x-a)$ with $B$ invertible, then
+The correction map $T_y(\mathbf{x})=\mathbf{x}-Df(a)^{-1}(f(\mathbf{x})-y)$ comes from solving
+the affine model. If $f(\mathbf{x})=f(a)+B(\mathbf{x}-a)$ with $B$ invertible, then
 \[
-T_y(x)=a+B^{-1}(y-f(a)),
+T_y(\mathbf{x})=a+B^{-1}(y-f(a)),
 \]
-independent of $x$ and exactly the solution of $f(x)=y$. For a nonlinear
+independent of $\mathbf{x}$ and exactly the solution of $f(\mathbf{x})=y$. For a nonlinear
 map, source and target translations move $a$ and $f(a)$ to zero, while
 multiplication by $B^{-1}$ reduces the linear part to the identity. The
 remaining nonlinear deviation then has small derivative and generates a
@@ -2407,56 +2678,56 @@ Let $U\subseteq\R^n$ be open and let
 \[
 f_0:U\longrightarrow\R^n
 \]
-be $C^k$, $1\leq k\leq\infty$. If $x_0\in U$ and $Df_0(x_0)$ is
-invertible, then there are open neighborhoods $U_0$ of $x_0$ and $V_0$
-of $f_0(x_0)$ such that
+be $C^k$, $1\leq k\leq\infty$. If $\mathbf{x}_0\in U$ and $Df_0(\mathbf{x}_0)$ is
+invertible, then there are open neighborhoods $U_0$ of $\mathbf{x}_0$ and $V_0$
+of $f_0(\mathbf{x}_0)$ such that
 \[
 f_0:U_0\longrightarrow V_0
 \]
 is a $C^k$ diffeomorphism, and
 \[
-D(f_0^{-1})(f_0(x))=(Df_0(x))^{-1}
-\qquad(x\in U_0).
+D(f_0^{-1})(f_0(\mathbf{x}))=(Df_0(\mathbf{x}))^{-1}
+\qquad(\mathbf{x}\in U_0).
 \]
 \end{theorem}
 \begin{proof}
 \noindent\textbf{1. Normalization.}
 Let
 \[
-A=Df_0(x_0).
+A=Df_0(\mathbf{x}_0).
 \]
-For $a\in\R^n$, let $\tau_a(x)=x+a$. Directly,
+For $a\in\R^n$, let $\tau_a(\mathbf{x})=\mathbf{x}+a$. Directly,
 \[
-\tau_a(x+h)-\tau_a(x)-Ih
-=(x+h+a)-(x+a)-h=0.
+\tau_a(\mathbf{x}+h)-\tau_a(\mathbf{x})-Ih
+=(\mathbf{x}+h+a)-(\mathbf{x}+a)-h=0.
 \]
-Hence $D\tau_a(x)=I$ at every $x$, with zero remainder. The derivative map
+Hence $D\tau_a(\mathbf{x})=I$ at every $\mathbf{x}$, with zero remainder. The derivative map
 is constant, so $D^j\tau_a=0$ for $j\geq2$; thus $\tau_a\in C^\infty$.
 Its inverse is $\tau_{-a}$, making $\tau_a$ a global smooth diffeomorphism.
 
 Define
 \[
-g_0(h)=f_0(x_0+h)-f_0(x_0).
+g_0(h)=f_0(\mathbf{x}_0+h)-f_0(\mathbf{x}_0).
 \]
 Then
 \[
-g_0=\tau_{-f_0(x_0)}\circ f_0\circ\tau_{x_0}.
+g_0=\tau_{-f_0(\mathbf{x}_0)}\circ f_0\circ\tau_{\mathbf{x}_0}.
 \]
 Consequently $g_0$ is $C^k$ on the open set
-$\widetilde U=U-x_0$, and the chain rule gives
+$\widetilde U=U-\mathbf{x}_0$, and the chain rule gives
 \[
-Dg_0(h)=Df_0(x_0+h),
-\qquad Dg_0(0)=Df_0(x_0)=A.
+Dg_0(h)=Df_0(\mathbf{x}_0+h),
+\qquad Dg_0(0)=Df_0(\mathbf{x}_0)=A.
 \]
 Thus translations change the choice of origin without changing the derivative.
 Apply the invertible linear normalization
 \[
 \widetilde f(h)=A^{-1}g_0(h)
-=A^{-1}\bigl(f_0(x_0+h)-f_0(x_0)\bigr).
+=A^{-1}\bigl(f_0(\mathbf{x}_0+h)-f_0(\mathbf{x}_0)\bigr).
 \]
 The chain rule yields
 \[
-D\widetilde f(h)=A^{-1}Df_0(x_0+h),
+D\widetilde f(h)=A^{-1}Df_0(\mathbf{x}_0+h),
 \qquad
 \widetilde f(0)=0,
 \qquad
@@ -2473,19 +2744,19 @@ We now write $U,f$ for the normalized domain and map.
 \noindent\textbf{2. The contraction estimate.}
 For each $y\in\R^n$, define
 \[
-g_y(x)=x-f(x)+y.
+g_y(\mathbf{x})=\mathbf{x}-f(\mathbf{x})+y.
 \]
 Then
 \[
-f(x)=y\quad\Longleftrightarrow\quad g_y(x)=x.
+f(\mathbf{x})=y\quad\Longleftrightarrow\quad g_y(\mathbf{x})=\mathbf{x}.
 \]
 Set
 \[
-g_0(x)=x-f(x).
+g_0(\mathbf{x})=\mathbf{x}-f(\mathbf{x}).
 \]
-Thus $g_y(x)=g_0(x)+y$ and
+Thus $g_y(\mathbf{x})=g_0(\mathbf{x})+y$ and
 \[
-Dg_0(x)=I-Df(x).
+Dg_0(\mathbf{x})=I-Df(\mathbf{x}).
 \]
 The derivative is a map
 \[
@@ -2494,14 +2765,18 @@ Df:U\longrightarrow\mathcal L(\R^n),
 where the target has the operator norm. Therefore continuity of $Df$ at
 $0$ means
 \[
-\|Df(x)-Df(0)\|_{\mathrm{op}}\longrightarrow0.
+\|Df(\mathbf{x})-Df(0)\|_{\mathrm{op}}\longrightarrow0.
 \]
-Since $Df(0)=I$, use $\eps=1/2$ in this continuity statement. There is
+Since $Df(0)=I$, use
+\[
+\eps=1/2
+\]
+ in this continuity statement. There is
 $\delta>0$ such that
 \[
-\|x\|<\delta
+\|\mathbf{x}\|<\delta
 \quad\Longrightarrow\quad
-\|Df(x)-I\|_{\mathrm{op}}<\frac12.
+\|Df(\mathbf{x})-I\|_{\mathrm{op}}<\frac12.
 \]
 Separately, because $0\in U$ and $U$ is open,
 \cref{prop:interior-closed-ball} gives $\rho>0$ such that
@@ -2516,39 +2791,43 @@ Then
 \[
 \overline B(0,r)\subseteq U,
 \qquad
-\|Df(x)-I\|_{\mathrm{op}}<\frac12
-\quad(x\in\overline B(0,r)).
+\|Df(\mathbf{x})-I\|_{\mathrm{op}}<\frac12
+\quad(\mathbf{x}\in\overline B(0,r)).
 \]
 By \cref{thm:operator-norm-characterizations},
 \[
-\|(Df(x)-I)v\|
-\leq\|Df(x)-I\|_{\mathrm{op}}\|v\|
+\|(Df(\mathbf{x})-I)v\|
+\leq\|Df(\mathbf{x})-I\|_{\mathrm{op}}\|v\|
 \leq\frac12\|v\|
 \qquad(v\in\R^n).
 \]
-Since $Dg_0(x)=I-Df(x)$,
+Since $Dg_0(\mathbf{x})=I-Df(\mathbf{x})$,
 \[
-\|Dg_0(x)\|_{\mathrm{op}}<\frac12
-\qquad(x\in\overline B(0,r)).
+\|Dg_0(\mathbf{x})\|_{\mathrm{op}}<\frac12
+\qquad(\mathbf{x}\in\overline B(0,r)).
 \]
-If $x_1,x_2\in\overline B(0,r)$ and $0\leq t\leq1$, then
+If $\mathbf{x}_1,\mathbf{x}_2\in\overline B(0,r)$ and $0\leq t\leq1$, then
 \[
-\|(1-t)x_1+tx_2\|
-\leq(1-t)\|x_1\|+t\|x_2\|
+\|(1-t)\mathbf{x}_1+t\mathbf{x}_2\|
+\leq(1-t)\|\mathbf{x}_1\|+t\|\mathbf{x}_2\|
 \leq r.
 \]
 Thus the connecting segment lies in $\overline B(0,r)\subseteq U$. The
 mean-value estimate
 \cref{thm:multivariable-mvt} therefore applies and gives
 \[
-\|g_0(x_1)-g_0(x_2)\|
-\leq\frac12\|x_1-x_2\|.
+\|g_0(\mathbf{x}_1)-g_0(\mathbf{x}_2)\|
+\leq\frac12\|\mathbf{x}_1-\mathbf{x}_2\|.
 \]
 Translation by $y$ cancels in differences, so every $g_y$ has contraction
-constant $q=1/2$:
+constant
 \[
-\|g_y(x_1)-g_y(x_2)\|
-\leq\frac12\|x_1-x_2\|.
+q=1/2:
+\]
+
+\[
+\|g_y(\mathbf{x}_1)-g_y(\mathbf{x}_2)\|
+\leq\frac12\|\mathbf{x}_1-\mathbf{x}_2\|.
 \]
 
 \noindent\textbf{3. Solving nearby equations.}
@@ -2556,12 +2835,12 @@ Set
 \[
 V_0=B(0,r/2).
 \]
-Because $g_0(0)=0$, for $x\in\overline B(0,r)$ and $y\in V_0$,
+Because $g_0(0)=0$, for $\mathbf{x}\in\overline B(0,r)$ and $y\in V_0$,
 \[
 \begin{aligned}
-\|g_y(x)\|
-&\leq\|g_0(x)-g_0(0)\|+\|y\|\\
-&\leq\frac12\|x\|+\|y\|\\
+\|g_y(\mathbf{x})\|
+&\leq\|g_0(\mathbf{x})-g_0(0)\|+\|y\|\\
+&\leq\frac12\|\mathbf{x}\|+\|y\|\\
 &<\frac r2+\frac r2=r.
 \end{aligned}
 \]
@@ -2575,9 +2854,9 @@ Thus $g_y$ maps the closed ball into itself. By
 \cref{cor:closed-ball-complete}, this closed ball is complete because it is
 a closed subset of the complete metric space $\R^n$. The contraction mapping
 theorem \cref{thm:contraction} now gives, for every $y\in V_0$, a unique
-fixed point $x\in\overline B(0,r)$. The strict self-map estimate places that
+fixed point $\mathbf{x}\in\overline B(0,r)$. The strict self-map estimate places that
 fixed point in $B(0,r)$. Hence each $y\in V_0$ has exactly one solution of
-$f(x)=y$ inside $B(0,r)$.
+$f(\mathbf{x})=y$ inside $B(0,r)$.
 
 Define
 \[
@@ -2595,13 +2874,13 @@ f:U_0\longrightarrow V_0
 is bijective.
 
 \noindent\textbf{4. The inverse Lipschitz estimate.}
-Since $f(x)=x-g_0(x)$, for $x,z\in U_0$,
+Since $f(\mathbf{x})=\mathbf{x}-g_0(\mathbf{x})$, for $\mathbf{x},z\in U_0$,
 \[
 \begin{aligned}
-\|f(x)-f(z)\|
-&=\|(x-z)-(g_0(x)-g_0(z))\|\\
-&\geq\|x-z\|-\|g_0(x)-g_0(z)\|\\
-&\geq\frac12\|x-z\|.
+\|f(\mathbf{x})-f(z)\|
+&=\|(\mathbf{x}-z)-(g_0(\mathbf{x})-g_0(z))\|\\
+&\geq\|\mathbf{x}-z\|-\|g_0(\mathbf{x})-g_0(z)\|\\
+&\geq\frac12\|\mathbf{x}-z\|.
 \end{aligned}
 \]
 Therefore the inverse satisfies
@@ -2613,54 +2892,54 @@ In particular, the inverse is continuous. The same estimate will provide
 the $O(\|h\|)$ comparison required when differentiating it.
 
 \noindent\textbf{5. Differentiability of the inverse.}
-For every $x\in\overline B(0,r)$,
+For every $\mathbf{x}\in\overline B(0,r)$,
 \[
-\|I-Df(x)\|_{\mathrm{op}}<\frac12<1.
+\|I-Df(\mathbf{x})\|_{\mathrm{op}}<\frac12<1.
 \]
 Apply \cref{prop:perturbation} with the
-invertible map $A=I$ and $B=Df(x)$. It follows that $Df(x)$ is invertible
+invertible map $A=I$ and $B=Df(\mathbf{x})$. It follows that $Df(\mathbf{x})$ is invertible
 throughout the closed ball.
 
-Let $g=f^{-1}$. Fix $y=f(x)\in V_0$ and, for small $h$ with
+Let $g=f^{-1}$. Fix $y=f(\mathbf{x})\in V_0$ and, for small $h$ with
 $y+h\in V_0$, set
 \[
-\Delta x=g(y+h)-g(y).
+\Delta \mathbf{x}=g(y+h)-g(y).
 \]
-Since $f(x+\Delta x)-f(x)=h$, differentiability of $f$ at $x$ gives
+Since $f(\mathbf{x}+\Delta \mathbf{x})-f(\mathbf{x})=h$, differentiability of $f$ at $\mathbf{x}$ gives
 \[
-h=Df(x)\Delta x+R(\Delta x),
-\qquad R(\Delta x)=o(\|\Delta x\|).
+h=Df(\mathbf{x})\Delta \mathbf{x}+R(\Delta \mathbf{x}),
+\qquad R(\Delta \mathbf{x})=o(\|\Delta \mathbf{x}\|).
 \]
 The inverse Lipschitz estimate yields
 \[
-\|\Delta x\|\leq2\|h\|,
+\|\Delta \mathbf{x}\|\leq2\|h\|,
 \]
-so $\Delta x=O(\|h\|)$ and in particular $\Delta x\to0$ as $h\to0$.
-For $h\ne0$, injectivity of $g$ gives $\Delta x\ne0$, and
+so $\Delta \mathbf{x}=O(\|h\|)$ and in particular $\Delta \mathbf{x}\to0$ as $h\to0$.
+For $h\ne0$, injectivity of $g$ gives $\Delta \mathbf{x}\ne0$, and
 \[
-\frac{\|R(\Delta x)\|}{\|h\|}
+\frac{\|R(\Delta \mathbf{x})\|}{\|h\|}
 =
-\frac{\|R(\Delta x)\|}{\|\Delta x\|}
-\frac{\|\Delta x\|}{\|h\|}
+\frac{\|R(\Delta \mathbf{x})\|}{\|\Delta \mathbf{x}\|}
+\frac{\|\Delta \mathbf{x}\|}{\|h\|}
 \longrightarrow0.
 \]
-Thus $R(\Delta x)=o(\|h\|)$. Multiplication by the fixed bounded linear
-map $Df(x)^{-1}$ preserves this estimate, because
+Thus $R(\Delta \mathbf{x})=o(\|h\|)$. Multiplication by the fixed bounded linear
+map $Df(\mathbf{x})^{-1}$ preserves this estimate, because
 \[
-\|Df(x)^{-1}R(\Delta x)\|
-\leq\|Df(x)^{-1}\|_{\mathrm{op}}\|R(\Delta x)\|.
+\|Df(\mathbf{x})^{-1}R(\Delta \mathbf{x})\|
+\leq\|Df(\mathbf{x})^{-1}\|_{\mathrm{op}}\|R(\Delta \mathbf{x})\|.
 \]
 Solving the remainder equation gives
 \[
-\Delta x=Df(x)^{-1}h+o(\|h\|),
+\Delta \mathbf{x}=Df(\mathbf{x})^{-1}h+o(\|h\|),
 \]
 and therefore
 \[
-Dg(y)=Df(x)^{-1}.
+Dg(y)=Df(\mathbf{x})^{-1}.
 \]
 Equivalently,
 \[
-D(f^{-1})(f(x))=(Df(x))^{-1}.
+D(f^{-1})(f(\mathbf{x}))=(Df(\mathbf{x}))^{-1}.
 \]
 The remainder calculation establishes differentiability before the identity
 $f^{-1}\circ f=\operatorname{id}$ is differentiated.
@@ -2683,41 +2962,41 @@ $g\in C^{j+1}$. Iteration gives $g\in C^k$; when $k=\infty$, repeat the
 argument for every finite $j$.
 
 \noindent\textbf{7. Returning to the original coordinates.}
-Return to the original map $f_0$, the point $x_0$, and
-$A=Df_0(x_0)$. The normalized relation was
+Return to the original map $f_0$, the point $\mathbf{x}_0$, and
+$A=Df_0(\mathbf{x}_0)$. The normalized relation was
 \[
-f(h)=A^{-1}\bigl(f_0(x_0+h)-f_0(x_0)\bigr).
+f(h)=A^{-1}\bigl(f_0(\mathbf{x}_0+h)-f_0(\mathbf{x}_0)\bigr).
 \]
 Thus the normalized bijection $f:U_0\to V_0$ corresponds to
 \[
-f_0:x_0+U_0\longrightarrow f_0(x_0)+AV_0.
+f_0:\mathbf{x}_0+U_0\longrightarrow f_0(\mathbf{x}_0)+AV_0.
 \]
-The two displayed sets are open neighborhoods of $x_0$ and $f_0(x_0)$.
+The two displayed sets are open neighborhoods of $\mathbf{x}_0$ and $f_0(\mathbf{x}_0)$.
 With $g=f^{-1}$, the inverse in the original coordinates is
 \[
-f_0^{-1}(y)=x_0+g\bigl(A^{-1}(y-f_0(x_0))\bigr).
+f_0^{-1}(y)=\mathbf{x}_0+g\bigl(A^{-1}(y-f_0(\mathbf{x}_0))\bigr).
 \]
 These affine coordinate changes preserve the inverse identities and the
 $C^k$ regularity. Moreover,
 \[
-Df(h)=A^{-1}Df_0(x_0+h),
+Df(h)=A^{-1}Df_0(\mathbf{x}_0+h),
 \]
 and hence
 \[
 [Df(h)]^{-1}
-=[Df_0(x_0+h)]^{-1}A.
+=[Df_0(\mathbf{x}_0+h)]^{-1}A.
 \]
 The chain rule for the displayed formula for $f_0^{-1}$ gives
 \[
 \begin{aligned}
-D(f_0^{-1})(f_0(x_0+h))
+D(f_0^{-1})(f_0(\mathbf{x}_0+h))
 &=[Df(h)]^{-1}A^{-1}\\
-&=[Df_0(x_0+h)]^{-1}AA^{-1}\\
-&=[Df_0(x_0+h)]^{-1}.
+&=[Df_0(\mathbf{x}_0+h)]^{-1}AA^{-1}\\
+&=[Df_0(\mathbf{x}_0+h)]^{-1}.
 \end{aligned}
 \]
-Writing $x=x_0+h$ proves
-$D(f_0^{-1})(f_0(x))=(Df_0(x))^{-1}$ on the original neighborhood.
+Writing $\mathbf{x}=\mathbf{x}_0+h$ proves
+$D(f_0^{-1})(f_0(\mathbf{x}))=(Df_0(\mathbf{x}))^{-1}$ on the original neighborhood.
 Renaming the translated neighborhoods as $U_0,V_0$ gives the theorem.
 \end{proof}
 
@@ -2749,7 +3028,11 @@ At $(0,0)$ the determinant is $1$, so the theorem supplies neighborhoods of
 $(0,0)$ on which $f$ has a unique smooth inverse. In ordinary language,
 every output sufficiently close to $(0,0)$ comes from exactly one nearby
 input, and that input varies differentiably with the output.  The theorem
-does not make a global claim; on the curve $uv=1/4$ the derivative is
+does not make a global claim; on the curve
+\[
+uv=1/4
+\]
+ the derivative is
 singular, so the Inverse Function Theorem gives no conclusion about local
 invertibility there.
 
@@ -2829,12 +3112,12 @@ D_yf(a,b)v&=Df(a,b)(0,v),&D_yf(a,b)&:\R^m\to\R^m.
 \end{aligned}
 \]
 Linearity gives $Df(a,b)(u,v)=D_xf(a,b)u+D_yf(a,b)v$.
-Here $x,y$ are blocks of variables and $f(x,y)=0$ means $m$ scalar
+Here $\mathbf{x},y$ are blocks of variables and $f(\mathbf{x},y)=0$ means $m$ scalar
 equations; $0$ is the zero vector of $\R^m$. Thus only the square
 dependent-variable block has the invertibility type required below.
 The auxiliary map
 \[
-h:U\to\R^{n+m},\qquad h(x,y)=(x,f(x,y))
+h:U\to\R^{n+m},\qquad h(\mathbf{x},y)=(\mathbf{x},f(\mathbf{x},y))
 \]
 retains the $n$ independent coordinates beside the $m$ equations, so
 source and target have the same dimension. Its block derivative is
@@ -2846,10 +3129,10 @@ nonlinear counterpart:
 \[
 \begin{array}{c|c}
 \text{linear}&\text{nonlinear near }(a,b)\\\hline
-T(x,y)=0&f(x,y)=0\\
+T(\mathbf{x},y)=0&f(\mathbf{x},y)=0\\
 T_y\text{ invertible}&D_yf(a,b)\text{ invertible}\\
-y=-T_y^{-1}T_xx&y=\varphi(x)\\
--T_y^{-1}T_x&-(D_yf(x,\varphi(x)))^{-1}D_xf(x,\varphi(x)).
+y=-T_y^{-1}T_x\mathbf{x}&y=\varphi(\mathbf{x})\\
+-T_y^{-1}T_x&-(D_yf(\mathbf{x},\varphi(\mathbf{x})))^{-1}D_xf(\mathbf{x},\varphi(\mathbf{x})).
 \end{array}
 \]
 The last row solves the differential of the nonlinear equation by exactly
@@ -2867,18 +3150,18 @@ neighborhoods $A\subseteq\R^n$ of $a$ and $B\subseteq\R^m$ of $b$,
 with $A\times B\subseteq U$, and a unique $C^k$ map
 $\varphi:A\to B$ such that
 \[
-\varphi(a)=b,\qquad f(x,\varphi(x))=0,
+\varphi(a)=b,\qquad f(\mathbf{x},\varphi(\mathbf{x}))=0,
 \]
 and
 \[
-\{(x,y)\in A\times B:f(x,y)=0\}
-=\{(x,\varphi(x)):x\in A\}.
+\{(\mathbf{x},y)\in A\times B:f(\mathbf{x},y)=0\}
+=\{(\mathbf{x},\varphi(\mathbf{x})):\mathbf{x}\in A\}.
 \]
 Moreover,
 \[
-D\varphi(x)
-=-\bigl(D_yf(x,\varphi(x))\bigr)^{-1}
-  D_xf(x,\varphi(x)).
+D\varphi(\mathbf{x})
+=-\bigl(D_yf(\mathbf{x},\varphi(\mathbf{x}))\bigr)^{-1}
+  D_xf(\mathbf{x},\varphi(\mathbf{x})).
 \]
 \end{theorem}
 \begin{proof}
@@ -2886,10 +3169,10 @@ D\varphi(x)
 The construction straightens the zero set to the coordinate plane
 $\R^n\times\{0\}$. Define
 \[
-h(x,y)=(x,f(x,y)).
+h(\mathbf{x},y)=(\mathbf{x},f(\mathbf{x},y)).
 \]
-It keeps the independent variable $x$ and replaces $y$ by the residual
-$f(x,y)$, so $f(x,y)=0$ exactly when $h(x,y)=(x,0)$.
+It keeps the independent variable $\mathbf{x}$ and replaces $y$ by the residual
+$f(\mathbf{x},y)$, so $f(\mathbf{x},y)=0$ exactly when $h(\mathbf{x},y)=(\mathbf{x},0)$.
 \par\medskip
 \Needspace{12\baselineskip}
 \noindent\textbf{2. The block derivative.}
@@ -2914,14 +3197,14 @@ $h:W\to Z$ is a $C^k$ diffeomorphism.
 Choose an open neighborhood $A_0$ of $a$ with
 $A_0\times\{0\}\subseteq Z$, and immediately define
 \[
-\varphi_0(x)=\pi_2\bigl(h^{-1}(x,0)\bigr)
-\qquad(x\in A_0).
+\varphi_0(\mathbf{x})=\pi_2\bigl(h^{-1}(\mathbf{x},0)\bigr)
+\qquad(\mathbf{x}\in A_0).
 \]
-If $h^{-1}(x,0)=(x',y')$, then $h(x',y')=(x,0)$, and the first component
-of $h$ forces $x'=x$. Hence
+If $h^{-1}(\mathbf{x},0)=(\mathbf{x}',y')$, then $h(\mathbf{x}',y')=(\mathbf{x},0)$, and the first component
+of $h$ forces $\mathbf{x}'=\mathbf{x}$. Hence
 \[
-h^{-1}(x,0)=(x,\varphi_0(x)),\qquad
-f(x,\varphi_0(x))=0.
+h^{-1}(\mathbf{x},0)=(\mathbf{x},\varphi_0(\mathbf{x})),\qquad
+f(\mathbf{x},\varphi_0(\mathbf{x}))=0.
 \]
 Also $\varphi_0(a)=b$, and $\varphi_0$ is $C^k$.
 
@@ -2930,31 +3213,31 @@ Because $W$ is open at $(a,b)$, choose open neighborhoods $A_1$ of $a$
 and $B$ of $b$ with $A_1\times B\subseteq W$. Continuity of $\varphi_0$
 at $a$ permits shrinking $A_1$ inside $A_0$ so that
 $\varphi_0(A_1)\subseteq B$. Set $A=A_1$ and
-$\varphi=\varphi_0|_A$. If $(x,y)\in A\times B$ and $f(x,y)=0$, then
+$\varphi=\varphi_0|_A$. If $(\mathbf{x},y)\in A\times B$ and $f(\mathbf{x},y)=0$, then
 \[
-h(x,y)=(x,0)=h(x,\varphi(x)).
+h(\mathbf{x},y)=(\mathbf{x},0)=h(\mathbf{x},\varphi(\mathbf{x})).
 \]
-Both points lie in $W$, so injectivity of $h|_W$ gives $y=\varphi(x)$.
+Both points lie in $W$, so injectivity of $h|_W$ gives $y=\varphi(\mathbf{x})$.
 This proves the local graph equality and uniqueness.
 
 \noindent\textbf{6. Differentiating the graph equation.}
 The operator in the derivative formula is invertible throughout the graph
 neighborhood. Indeed, since $h|_W$ is a diffeomorphism, the chain rule for
 $h^{-1}\circ h$
-shows that $Dh(x,y)$ is invertible at every $(x,y)\in W$. At a graph
-point, if $D_yf(x,\varphi(x))v=0$, then
+shows that $Dh(\mathbf{x},y)$ is invertible at every $(\mathbf{x},y)\in W$. At a graph
+point, if $D_yf(\mathbf{x},\varphi(\mathbf{x}))v=0$, then
 \[
-Dh(x,\varphi(x))(0,v)=(0,0).
+Dh(\mathbf{x},\varphi(\mathbf{x}))(0,v)=(0,0).
 \]
 Thus $v=0$. The endomorphism
-$D_yf(x,\varphi(x)):\R^m\to\R^m$ is injective and hence, in finite
+$D_yf(\mathbf{x},\varphi(\mathbf{x})):\R^m\to\R^m$ is injective and hence, in finite
 dimension, invertible.
 
 The graph function $\varphi$ has now been constructed. Differentiating
-$f(x,\varphi(x))=0$ as an identity of maps from $\R^n$ to $\R^m$ gives
+$f(\mathbf{x},\varphi(\mathbf{x}))=0$ as an identity of maps from $\R^n$ to $\R^m$ gives
 \[
-D_xf(x,\varphi(x))
-+D_yf(x,\varphi(x))D\varphi(x)=0.
+D_xf(\mathbf{x},\varphi(\mathbf{x}))
++D_yf(\mathbf{x},\varphi(\mathbf{x}))D\varphi(\mathbf{x})=0.
 \]
 Here
 \[
@@ -2962,17 +3245,25 @@ D_xf:\R^n\to\R^m,\qquad
 D_yf:\R^m\to\R^m,\qquad
 D\varphi:\R^n\to\R^m.
 \]
-Multiplication on the left by $D_yf(x,\varphi(x))^{-1}$ proves
+Multiplication on the left by $D_yf(\mathbf{x},\varphi(\mathbf{x}))^{-1}$ proves
 \[
-D\varphi(x)
-=-D_yf(x,\varphi(x))^{-1}D_xf(x,\varphi(x)).
+D\varphi(\mathbf{x})
+=-D_yf(\mathbf{x},\varphi(\mathbf{x}))^{-1}D_xf(\mathbf{x},\varphi(\mathbf{x})).
 \]
 \end{proof}
 \begin{example}[An equation without an explicit solution]
 For $f(x,y)=y+\sin y-x$, $f(0,0)=0$ and $f_y(0,0)=2$.
 Thus near zero there is a unique $y=\varphi(x)$ with
 $\varphi(x)+\sin\varphi(x)=x$, and
-$\varphi'(x)=1/(1+\cos\varphi(x))$, in particular $\varphi'(0)=1/2$.
+
+\[
+\varphi'(x)=1/(1+\cos\varphi(x)),
+\]
+ in particular
+\[
+\varphi'(0)=1/2.
+\]
+
 The theorem supplies existence and derivatives without an explicit inverse formula.
 \end{example}
 
@@ -3043,9 +3334,21 @@ $\left(\begin{matrix}1&1\\1&-1\end{matrix}\right)$,
 of determinant $-2$. Thus both $y$ and $z$ can be solved as smooth
 functions of the one independent variable $x$. Directly adding and
 subtracting the equations gives
-$y(x)=(x-x^2)/2$, $z(x)=(x+x^2)/2$.
+
+\[
+y(x)=(x-x^2)/2,
+\]
+
+\[
+z(x)=(x+x^2)/2.
+\]
+
 At zero the implicit derivative formula yields
-$ (y'(0),z'(0))^{\mathsf T}=(1/2,1/2)^{\mathsf T}$,
+
+\[
+(y'(0),z'(0))^{\mathsf T}=(1/2,1/2)^{\mathsf T},
+\]
+
 which agrees with the explicit solution. The invertible object is the
 entire dependent-variable block, not one selected partial derivative.
 \end{example}
@@ -3088,7 +3391,11 @@ reconstruction.
 \begin{example}[A computable implicit series]
 Take $\phi(t)=1+t^2$ and $h(t)=t$. The coefficient rule gives zero in
 even degrees, and in degree $2j+1$ gives
-$\binom{2j+1}{j}/(2j+1)$. Hence
+
+\[
+\binom{2j+1}{j}/(2j+1).
+\]
+ Hence
 \[
 w=z+z^3+2z^5+5z^7+\cdots.
 \]
@@ -3101,13 +3408,25 @@ c_j=\frac{1}{2j+1}\binom{2j+1}{j}
 =\frac{1}{j+1}\binom{2j}{j}.
 \]
 The finite binomial theorem gives
-$0\leq c_j\leq\binom{2j}{j}\leq 2^{2j}=4^j$. Thus, for $|z|<1/2$,
+
+\[
+0\leq c_j\leq\binom{2j}{j}\leq 2^{2j}=4^j.
+\]
+ Thus, for
+\[
+|z|<1/2,
+\]
+
 \[
 \sum_{j=0}^{\infty}c_j|z|^{2j+1}
 \leq |z|\sum_{j=0}^{\infty}(4|z|^2)^j
 =\frac{|z|}{1-4|z|^2}.
 \]
-The algebraic solution $w=(1-\sqrt{1-4z^2})/(2z)$, with its removable
+The algebraic solution
+\[
+w=(1-\sqrt{1-4z^2})/(2z),
+\]
+ with its removable
 value $0$ at zero, provides an independent consistency check.
 \end{example}
 
@@ -3127,14 +3446,18 @@ The map has \textbf{constant rank $r$} on a set if this number equals $r$
 at every point of that set.
 \end{definition}
 \begin{lemma}[Persistence of a nonzero minor]\label{lem:rank-persistence}
-If $\operatorname{rank}Df(a)=r$, then $\operatorname{rank}Df(x)\geq r$
+If $\operatorname{rank}Df(a)=r$, then $\operatorname{rank}Df(\mathbf{x})\geq r$
 on a neighborhood of $a$.
 \end{lemma}
 \begin{proof}
 For $r=0$ the claim is automatic. Otherwise \cref{prop:rank-minors}
-supplies an $r\times r$ minor with determinant $d\ne0$. Its determinant is continuous in $x$, since the
+supplies an $r\times r$ minor with determinant $d\ne0$. Its determinant is continuous in $\mathbf{x}$, since the
 entries of $Df$ are continuous and a determinant is a polynomial in them.
-On a neighborhood where its difference from $d$ is less than $|d|/2$,
+On a neighborhood where its difference from $d$ is less than
+\[
+|d|/2,
+\]
+
 that minor is nonzero, so the rank is at least $r$.
 \end{proof}
 
@@ -3155,7 +3478,7 @@ of the remaining outputs on those coordinates. If $r=0$, the derivative
 vanishes on a ball about $a$; the mean-value estimate makes $f$ constant
 there. Translations in source and target give the assertion. Assume $r>0$.
 Translate $a$ and $f(a)$ to zero and permute coordinates so that the
-first $r$ rows and columns form an invertible submatrix. Write $x=(s,t)$,
+first $r$ rows and columns form an invertible submatrix. Write $\mathbf{x}=(s,t)$,
 $s\in\R^r$, $t\in\R^{n-r}$, and set
 \[
 A(s,t)=(f_1(s,t),\ldots,f_r(s,t),t).
@@ -3234,8 +3557,8 @@ $\ker Df(a)$.
 \begin{proof}
 The images of the coordinate basis vectors span $\R^m$; select $m$ of
 them forming a basis and reorder these as dependent coordinates $y$.
-The remaining coordinates are $x\in\R^{n-m}$, and $D_yf(a)$ is invertible.
-Apply the implicit theorem to $f(x,y)-c$ to obtain $y=\phi(x)$ locally.
+The remaining coordinates are $\mathbf{x}\in\R^{n-m}$, and $D_yf(a)$ is invertible.
+Apply the implicit theorem to $f(\mathbf{x},y)-c$ to obtain $y=\phi(\mathbf{x})$ locally.
 A curve $\gamma$ in the level set satisfies $Df(a)\gamma'(0)=0$ by
 the chain rule. Conversely write a kernel vector as $(u,v)$. The equation
 $D_xf(a)u+D_yf(a)v=0$ gives $v=D\phi(a_x)u$.
@@ -3254,14 +3577,14 @@ to the constraint and prepares the multiplier condition below.
 
 \begin{remark}[Equations, graphs, and parametrizations]
 The classical descriptions $y=f(x)$, $f(x,y)=0$, and
-$(x,y)=\gamma(t)$ become, in higher dimensions, a graph $y=\varphi(x)$,
-a level set $f(x)=c$, and a parametrization $x=\sigma(u)$.
+$(\mathbf{x},y)=\gamma(t)$ become, in higher dimensions, a graph $y=\varphi(\mathbf{x})$,
+a level set $f(\mathbf{x})=c$, and a parametrization $\mathbf{x}=\sigma(u)$.
 The implicit theorem turns a regular equation locally into a graph;
 the constant-rank theorem gives its coordinate normal form. In Chapter~13,
 the inverse of a chart will provide the corresponding local parametrization.
 For a regular scalar level surface in $\R^3$, the affine tangent plane is
 \[
-\nabla f(a)\cdot(x-a)=0,
+\nabla f(a)\cdot(\mathbf{x}-a)=0,
 \qquad T_a(f^{-1}(c))=\ker Df(a).
 \]
 The gradient is the Euclidean representative of the derivative covector.
@@ -3285,15 +3608,15 @@ the cylinder and cone. These coordinate choices will also simplify integrals.
 \input{figures/implicit-surface}
 \input{figures/conics-quadrics}
 The auxiliary map already used in the proof,
-$h(x,y)=(x,f(x,y))$, is a local diffeomorphism when $D_yf(a)$ is invertible.
-In coordinates $(x,z)=h(x,y)$, the equation
-$f(h^{-1}(x,z))=z$ says that $f$ becomes projection onto the second block.
+$h(\mathbf{x},y)=(\mathbf{x},f(\mathbf{x},y))$, is a local diffeomorphism when $D_yf(a)$ is invertible.
+In coordinates $(\mathbf{x},z)=h(\mathbf{x},y)$, the equation
+$f(h^{-1}(\mathbf{x},z))=z$ says that $f$ becomes projection onto the second block.
 This is the local submersion form supplied by the same proof.
 
 If $f:U\to\R^n$ is $C^1$ with invertible derivative everywhere, the inverse
 theorem makes it a local diffeomorphism at every point. It is an open map:
 for any open $V\subseteq U$, restrict a local inverse neighborhood at each
-$x\in V$; its intersection with $V$ has open image under that local
+$\mathbf{x}\in V$; its intersection with $V$ has open image under that local
 homeomorphism, and these images cover $f(V)$. This does not give global
 injectivity, as the earlier periodic map $(x,y)\mapsto(e^x\cos y,e^x\sin y)$
 demonstrates: $y$ and $y+2\pi$ have the same image.
@@ -3309,7 +3632,11 @@ parameters: if $f(t,y)=0$ and $D_yf(t_0,y_0)$ is invertible, the nearby
 solution $y=\phi(t)$ has the regularity of $f$ and
 $D\phi(t)=-(D_yf(t,\phi(t)))^{-1}D_tf(t,\phi(t))$.
 For $f(t,y)=y^2-t$ at $(1,1)$ this selects the positive branch
-$\phi(t)=\sqrt t$ near $1$, and $\phi'(t)=1/(2\phi(t))$.
+$\phi(t)=\sqrt t$ near $1$, and
+\[
+\phi'(t)=1/(2\phi(t)).
+\]
+
 The negative branch illustrates why the conclusion is local to the chosen solution.
 
 
@@ -3318,7 +3645,7 @@ The negative branch illustrates why the conclusion is local to the chosen soluti
 Let $f,g:U\subseteq\R^n\to\R$ be of class $C^1$.  Suppose that $a$ is a
 local extremum of $f$ subject to
 \[
-g(x)=c,
+g(\mathbf{x})=c,
 \]
 with $g(a)=c$, and that $\nabla g(a)\ne0$.  Then there is $\lambda\in\R$ such that
 \[
@@ -3371,14 +3698,30 @@ The Lagrange equations are
 (y,x)=\lambda(2x,2y),
 \qquad x^2+y^2=1.
 \]
-They give $\lambda=1/2$ and $y=x$, or $\lambda=-1/2$ and $y=-x$.
-Thus $f=1/2$ at
+They give
+\[
+\lambda=1/2
+\]
+ and $y=x$, or
+\[
+\lambda=-1/2
+\]
+ and $y=-x$.
+Thus
+\[
+f=1/2
+\]
+ at
 \[
 \left(\frac1{\sqrt2},\frac1{\sqrt2}\right),
 \qquad
 \left(-\frac1{\sqrt2},-\frac1{\sqrt2}\right),
 \]
-and $f=-1/2$ at the two points with $y=-x$.  These are respectively the
+and
+\[
+f=-1/2
+\]
+ at the two points with $y=-x$.  These are respectively the
 maximum and minimum, as also follows from $2\abs{xy}\leq x^2+y^2=1$.
 \end{example}
 
@@ -3439,7 +3782,7 @@ coordinate changes while the others remain available as parameters.
 A $C^k$ map on an open subset of $\R^n$ is \textbf{primitive} if for
 some $i$ it has the form
 \[
-q(x)=(x_1,\ldots,x_{i-1},p(x),x_{i+1},\ldots,x_n).
+q(\mathbf{x})=(x_1,\ldots,x_{i-1},p(\mathbf{x}),x_{i+1},\ldots,x_n).
 \]
 A primitive diffeomorphism is such a map that is a diffeomorphism onto
 an open image. Coordinate permutations are treated separately.
@@ -3448,10 +3791,10 @@ Expanding its determinant along the unchanged rows gives
 $\det Dq=\partial_i p$. Thus $\partial_i p(a)\ne0$ makes $q$ a local
 $C^k$ diffeomorphism at $a$ by the inverse theorem. To see why one
 product box suffices, write the changed coordinate last:
-$q(x',t)=(x',p(x',t))$. Continuity keeps $\partial_t p$ of one sign
-on a sufficiently small open product box $B$ around $a$. For fixed $x'$,
-the mean value theorem makes $t\mapsto p(x',t)$ strictly monotone.
-If $q(x',t)=q(y',s)$, the unchanged coordinates give $x'=y'$, and
+$q(\mathbf{x}',t)=(\mathbf{x}',p(\mathbf{x}',t))$. Continuity keeps $\partial_t p$ of one sign
+on a sufficiently small open product box $B$ around $a$. For fixed $\mathbf{x}'$,
+the mean value theorem makes $t\mapsto p(\mathbf{x}',t)$ strictly monotone.
+If $q(\mathbf{x}',t)=q(y',s)$, the unchanged coordinates give $\mathbf{x}'=y'$, and
 strict monotonicity then gives $t=s$. Thus $q$ is injective on all of $B$.
 At every point of $B$ its derivative is invertible, so the inverse
 function theorem gives an open image neighborhood and a $C^k$ local
@@ -3485,7 +3828,7 @@ $\partial_jf_{j-1,i}(a_{j-1})\ne0$. Choose an output permutation
 $\tau_j$ fixing coordinates $1,\ldots,j-1$ and bringing this component
 to position $j$. Put $g_j=\tau_j\circ f_{j-1}$ and define
 \[
-q_j(x)=(x_1,\ldots,x_{j-1},g_{j,j}(x),x_{j+1},\ldots,x_n).
+q_j(\mathbf{x})=(x_1,\ldots,x_{j-1},g_{j,j}(\mathbf{x}),x_{j+1},\ldots,x_n).
 \]
 The scalar function $g_{j,j}$ is component $j$ of the permuted residual map.
 Since $\det Dq_j(a_{j-1})=\partial_jg_{j,j}(a_{j-1})\ne0$, the
@@ -3495,8 +3838,8 @@ on a smaller neighborhood. Set
 a_j=q_j(a_{j-1}),\qquad
 f_j=g_j\circ q_j^{-1}=\tau_j\circ f_{j-1}\circ q_j^{-1}.
 \]
-For $y=q_j(x)$, the first $j-1$ components of $g_j(x)$ are
-$x_l=y_l$, and its $j$th component is $g_{j,j}(x)=y_j$. Consequently
+For $y=q_j(\mathbf{x})$, the first $j-1$ components of $g_j(\mathbf{x})$ are
+$x_l=y_l$, and its $j$th component is $g_{j,j}(\mathbf{x})=y_j$. Consequently
 \[
 f_j(y)=(y_1,\ldots,y_j,f_{j,j+1}(y),\ldots,f_{j,n}(y)).
 \]
@@ -3556,8 +3899,8 @@ $[0,1]$, equals zero for $t\leq0$, and equals one for $t\geq1$.
 For each $a\in K$ choose $r_a>0$ with $\overline B(a,2r_a)\subset G$.
 Finitely many $B(a_j,r_j)$ cover $K$. Define
 \[
-b_j(x)=s\left(\frac{4r_j^2-\|x-a_j\|^2}{3r_j^2}\right),
-\qquad \chi(x)=1-\prod_j(1-b_j(x)).
+b_j(\mathbf{x})=s\left(\frac{4r_j^2-\|\mathbf{x}-a_j\|^2}{3r_j^2}\right),
+\qquad \chi(\mathbf{x})=1-\prod_j(1-b_j(\mathbf{x})).
 \]
 The function $b_j$ is one on $\overline B(a_j,r_j)$ and supported in
 $\overline B(a_j,2r_j)$. Hence $\chi$ has the required range, equals
@@ -3568,7 +3911,11 @@ the finite union of the larger closed balls inside $G$.
 \begin{theorem}[Finite Euclidean partition of unity]\label{thm:finite-euclidean-pou}
 If a compact $K\subseteq\R^n$ is covered by open sets $U_1,\ldots,U_N$,
 there are smooth $\rho_i:\R^n\to[0,1]$ with compact support in $U_i$
-and $\sum_i\rho_i=1$ on a neighborhood of $K$.
+and
+\[
+\sum_i\rho_i=1
+\]
+ on a neighborhood of $K$.
 \end{theorem}
 \begin{proof}
 \textbf{Strategy.} Assign each cutoff the portion not already assigned;
@@ -3611,17 +3958,33 @@ computed directly and by the chain rule.
 \end{exercise}
 \begin{exercise}
 Find polar coordinates for $(-\sqrt3,-1)$ with $0\leq\theta<2\pi$.
-Explain why $\arctan(y/x)$ alone selects the wrong quadrant.
+Explain why
+\[
+\arctan(y/x)
+\]
+ alone selects the wrong quadrant.
 \end{exercise}
 \begin{exercise}
-For $f(x,y)=xy/\sqrt{x^2+y^2}$, extended by zero, decide which of continuity,
+For
+\[
+f(x,y)=xy/\sqrt{x^2+y^2},
+\]
+ extended by zero, decide which of continuity,
 coordinate partials, all two-sided directional derivatives, and differentiability
 hold at zero. Explain why the direction $(1,1)$ is decisive.
 \end{exercise}
 \begin{exercise}
 Estimate directly the normalized remainder of $x^2+xy+2y^2$ at an arbitrary
-point. Find the tangent line and a unit normal to $x^2/4+y^2=1$ at
-$(\sqrt2,1/\sqrt2)$.
+point. Find the tangent line and a unit normal to
+\[
+x^2/4+y^2=1
+\]
+ at
+
+\[
+(\sqrt2,1/\sqrt2).
+\]
+
 \end{exercise}
 
 
@@ -3693,7 +4056,7 @@ Let $A$ be a matrix with
 \]
 Show that
 \[
-x_{k+1}=(I-A)x_k+b
+\mathbf{x}_{k+1}=(I-A)\mathbf{x}_k+b
 \]
 converges to the unique solution of
 \[
@@ -3724,7 +4087,11 @@ y^2=x^3
 \]
 has a full local zero set that is not the graph of one function on an
 open interval containing zero. Separately show that its one-sided branches
-$y=\pm x^{3/2}$, $x\geq0$, are $C^1$ up to the origin.
+
+\[
+y=\pm x^{3/2},
+\]
+ $x\geq0$, are $C^1$ up to the origin.
 \end{exercise}
 
 \begin{exercise}
@@ -3733,7 +4100,11 @@ the second-order Peano formula. Distinguish its quadratic term from the
 bilinear second derivative evaluated on two different vectors.
 \end{exercise}
 \begin{exercise}
-Iterate $T(x)=\cos x/2$ on $[0,1]$. Check self-map, contraction,
+Iterate
+\[
+T(x)=\cos x/2
+\]
+ on $[0,1]$. Check self-map, contraction,
 and completeness, then give an a priori error bound after ten steps
 starting at zero. Which bound uses the last observed step?
 \end{exercise}

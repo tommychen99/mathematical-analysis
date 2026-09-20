@@ -181,7 +181,9 @@ structure the inverse must preserve.
 Literal equality $A=B$ and isomorphism $A\cong B$ are different assertions.
 For example,
 \[
-T:\R^2\longrightarrow\{p\in\R[t]:\deg p\leq1\},
+\R_{\leq1}[t]:=\{a+bt:a,b\in\R\},
+\qquad
+T:\R^2\longrightarrow\R_{\leq1}[t],
 \qquad
 T(a,b)=a+bt,
 \]
@@ -508,16 +510,20 @@ Consequently
 \boxed{\Omega^k:\mathbf{Man}^{\mathrm{op}}
 \longrightarrow\mathbf{Vect}_{\R}}
 \]
-is a contravariant functor. In degree zero, $f^*u=u\circ f$ is ordinary
-precomposition; the reversal is already visible there.
+is a covariant functor. Equivalently, \(\Omega^k\) is contravariant on
+\(\mathbf{Man}\). In degree zero, $f^*u=u\circ f$ is ordinary
+precomposition; the reversal on \(\mathbf{Man}\) is already visible there.
 
 Exterior differentiation supplies a comparison between two such functors:
 \[
 d:\Omega^k\Rightarrow\Omega^{k+1}.
 \]
+Here \(\Omega^k\) and \(\Omega^{k+1}\) are viewed as covariant functors on
+\(\mathbf{Man}^{\mathrm{op}}\), as required by the definition of a natural
+transformation.
 Its component at a manifold $M$ is
 $d_M:\Omega^k(M)\to\Omega^{k+1}(M)$. For $f:M\to N$, the relevant
-contravariant naturality square is
+naturality square, written for the underlying map in \(\mathbf{Man}\), is
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
 \Omega^k(N) \arrow[r,"d_N"] \arrow[d,"f^*"'] &
@@ -534,7 +540,8 @@ Thus commutativity is exactly the identity
 proved in \cref{prop:manifold-exterior-derivative}.
 
 Appendix~\ref{app:cohomology} constructs de Rham cohomology and the maps
-induced by pullback. Those results give the contravariant functor
+induced by pullback. Thus \(H^k_{\mathrm{dR}}\) is contravariant on
+\(\mathbf{Man}\), or equivalently the covariant functor
 \[
 H^k_{\mathrm{dR}}:
 \mathbf{Man}^{\mathrm{op}}\longrightarrow\mathbf{Vect}_{\R}.

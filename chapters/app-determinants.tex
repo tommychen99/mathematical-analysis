@@ -182,7 +182,10 @@ We seek a nonzero expression whose value reacts predictably when two
 positions are exchanged. The Vandermonde expression has exactly this
 property: every transposition negates it. It can therefore determine
 whether a transposition decomposition has even or odd length. Consider
-$\Delta(t_1,\ldots,t_n)=\prod_{i<j}(t_j-t_i)$ over the integers.
+the integer polynomial
+\[
+\Delta(t_1,\ldots,t_n)=\prod_{i<j}(t_j-t_i).
+\]
 Swapping adjacent variables $t_i,t_{i+1}$ negates their mutual factor.
 For a third index $k<i$, the pair of factors is
 $(t_i-t_k)(t_{i+1}-t_k)$; for $k>i+1$ it is
@@ -212,7 +215,11 @@ gives an expression of the same length for the inverse, since each swap
 undoes itself. Therefore $\operatorname{sgn}(\sigma^{-1})
 =\operatorname{sgn}(\sigma)$. A $k$-cycle uses $k-1$ swaps; a
 permutation with disjoint cycles of lengths $k_1,\ldots,k_r$ has sign
-$(-1)^{\sum_j(k_j-1)}$. Fixed points contribute zero to this exponent.
+
+\[
+(-1)^{\sum_j(k_j-1)}.
+\]
+ Fixed points contribute zero to this exponent.
 \subsection{Counting inversions instead of choosing swaps}
 
 The Vandermonde argument explains why parity is intrinsic; inversion
@@ -277,7 +284,11 @@ alternation removes repeated choices, and permutation sign records the
 orientation of the surviving orderings.
 
 Let $(v_1,\ldots,v_n)$ be a basis of $V$ and write
-$x_j=\sum_i a_{ij}v_i$. The slot-by-slot uniqueness argument of
+
+\[
+x_j=\sum_i a_{ij}v_i.
+\]
+ The slot-by-slot uniqueness argument of
 \cref{thm:determinant-form} uses only multilinearity and alternation,
 so works over $F$: each alternating form is determined by its value on
 this basis. We now give the field-valid existence argument in full.
@@ -359,7 +370,11 @@ Define the adjugate by $(\operatorname{adj}A)_{ji}=C_{ij}(A)$.
 Using cofactor expansion of a matrix with one replaced row, prove
 $A\operatorname{adj}A=(\det A)I$. Derive the inverse formula when
 $\det A\ne0$. For $Ax=b$, use column multilinearity to derive
-$x_j=\det(A_1,\ldots,b,\ldots,A_n)/\det A$ (Cramer's rule).
+
+\[
+x_j=\det(A_1,\ldots,b,\ldots,A_n)/\det A
+\]
+ (Cramer's rule).
 \end{hexercise}
 
 \begin{exercise}

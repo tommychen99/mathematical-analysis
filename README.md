@@ -6,15 +6,13 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 
 **Author:** Tommy Chen
 
-**Current version:** Version 3.30.0
+**Current version:** Version 3.33.0
 
-**Revision date:** September 19, 2026
+**Revision date:** September 20, 2026
 
-**Status:** Controlled pedagogical revision of the authoritative Version
-3.29.0 manuscript. Chapter 8 now completes arbitrary-base exponential and
-logarithmic functions and gives a dependency-safe geometric development of
-trigonometry, curves, and polar coordinates. Appendix B remains narrow in
-scope but is substantially expanded for a first categorical encounter.
+**Status:** Part I completion and refinement of the authoritative Version
+3.32.0 working manuscript. The established architecture and the developed
+Part II are preserved.
 
 Historical manuscript PDFs are listed in [Historical PDF archive](HISTORICAL_PDFS.md).
 
@@ -25,6 +23,220 @@ integration. Part II develops the finite-dimensional topology and linear
 algebra needed for multivariable analysis, followed by multivariable
 integration, classical line and surface integrals, Green and patch Stokes,
 differential forms, manifolds, and the general Stokes theorem.
+
+## Version 3.33.0 — September 20, 2026
+
+- Completed a selective Part I audit under the policy that core theory
+  belongs in the exposition while exercises reinforce, apply, or locally
+  reconstruct it.
+- Added elementary and finite AM--GM, finite Jensen and Young inequalities,
+  finite and integral Hölder, and the scalar and integral
+  Cauchy--Schwarz specializations. Appendix A gives the independent Cauchy
+  forward--backward induction proof of equal-weight AM--GM.
+- Expanded Chapter 8 with domain-relative local extrema, critical points,
+  Fermat's theorem, first and second derivative tests, implicit
+  differentiation, one-sided limits and countable discontinuities of
+  monotone functions, concavity, and inflection points.
+- Introduced \(\sinh,\cosh,\tanh\) and selected inverse hyperbolic functions,
+  then used the hyperbolic identity to parametrize both branches of a
+  hyperbola alongside the existing ellipse discussion.
+- Promoted the harmonic and square-reciprocal series to main-text examples,
+  including the dyadic divergence argument, the inductive bound
+  \(S_n\leq2-1/n\), the stated Basel value, and the conditional
+  rearrangement theorem.
+- Moved Dini's theorem and its shorter sequential proof to Chapter 6.
+  Chapter 9 retains the internal Riemann uniform- and bounded-convergence
+  theory, while Section 9.7 states Lebesgue MCT and DCT without proof and
+  compares their mechanisms precisely.
+- Restored the formal Chapter 9 title **Riemann Integration**, added integral
+  Hölder/Cauchy--Schwarz, affine and inverse-hyperbolic antiderivative
+  variants, the tangent antiderivative, and one representative
+  trigonometric substitution.
+- Clarified interval measures in Section 9.6 and consistently writes
+  Lebesgue measure as \(\mu\) throughout Sections 9.6--9.7.
+- Factored the Archimedean integer-part and rational-density mechanism,
+  shortened root continuity through the monotone-inverse theorem, extended
+  the familiar-limit variants, and removed targeted formulaic prose.
+- Final validation produced a 604-page PDF with a clean LaTeX log, no printed
+  unresolved-reference markers, 2,722 valid named destinations, 1,404 valid
+  internal links, and all 71 exercise--hint pairs matched.
+
+## Version 3.32.0 — September 19, 2026
+
+- Expanded Chapter 8's familiar-limit toolkit with explicit derivative
+  quotients, Taylor–Peano calculations, parameterized limits, inverse
+  trigonometric identities, arccosine endpoint behavior, and local equivalents.
+- Organized the early Chapter 9 Darboux estimates around interval oscillation;
+  expanded the first refinement calculation, corrected the strict tolerance
+  in continuous integrability, and simplified both directions of the fine-mesh
+  characterization while preserving the monotone telescoping argument.
+- Added proof figures for refinement, uniform-continuity oscillation bands,
+  and good/crossing fine cells, plus a displacement-versus-distance figure.
+- Added representative antiderivative and scaling checks, explained the real
+  logarithm's absolute value, and treated arcsine/arccosine/arctangent
+  antiderivatives and hidden-product integration by parts symmetrically.
+- Strengthened the local-contribution modeling of rate, distance, mass,
+  average value, accumulated deviation, and improper tails, with selective
+  exercise prompts about units and cancellation.
+- Defined the interval-cover terminology locally before its first use and
+  retained proofs from earlier sequential compactness, avoiding reliance on
+  Chapter 10. Stated Lebesgue translation invariance without proof and used
+  overlapping translates to explain the disjointness condition in additivity.
+- Completed the Lebesgue measure-zero/null-set terminology cleanup, retaining
+  existing label identifiers for compatibility and distinguishing Jordan-null
+  sets in Chapter 12.
+- Applied the contextual Part II `\mathbf{x}, d\mathbf{x}` convention and
+  removed redundant ambiguity warnings while preserving scalar coordinates,
+  abstract points, covectors, oriented forms, and intrinsic differentials.
+- Promoted inline fractions and indexed operators to displays throughout the
+  active manuscript; diagram and table labels use display-style mathematics.
+  Corrected the Chapter 2 induction wording and the Chapter 4 recursive-sequence
+  heading and dependency on limit laws.
+
+Validation: the final 596-page PDF was built with repeated `pdflatex` passes
+until AUX, TOC, and bookmark output stabilized. The log contains no errors,
+warnings, or overfull/underfull boxes. All 1,382 internal links, 315 bookmarks,
+2,688 named destinations, and 71 bidirectional exercise–hint pairs were checked;
+there are no duplicate labels, broken internal links, or printed `??` markers.
+Comparison with the authoritative working baseline found no changes to existing
+label numbers or the order of numbered theorem/exercise environments. Four new
+Chapter 9 figures were added without renumbering existing figures.
+
+Visual review covered the rendered manuscript, including all changed Chapter
+8–9 pages, the new figures at ordinary and enlarged scale, the front notation
+page, and the Part II scalar-volume, differential-form, and null-set passages.
+Final layout corrections were re-rendered and checked against the reviewed
+pages. A source audit found no remaining targeted inline fractions or operators
+outside display-style diagram/table labels; quotient-space notation is retained.
+No Git commit, tag, release, or push was created.
+
+## Version 3.31.1 — September 19, 2026
+
+- Refined display mathematics throughout Chapters 1–9 by reviewing formulas
+  in context, including proof estimates, finite sums, calculus substitutions,
+  and exercise lists; restored short grammatical references to inline form.
+- Removed repetitive computational narration in Chapter 9 while retaining
+  method-selection guidance, domain checks, and worked variants.
+- Clarified Appendix A.1–A.2 as a Chapter 2 companion and A.3–A.5 as optional
+  foundations. Finite binomial identities are admitted background; the
+  Bernstein and root-limit proofs cite Appendix A only for optional proofs.
+- Made the Chapter 3 shrinking-width and nested-interval uniqueness arguments
+  explicit without using later limit laws. Added brief recursive-sequence
+  guidance and one conceptual exercise each in Chapters 2 and 3.
+- Standardized ordinary scalar exponential calculations to $e^x$ after its
+  definition, retaining `exp` in the construction and inverse-map discussion.
+- Added consistent TOC-visible computational headings in §9.4 and four broad
+  exercise headings without changing existing exercise numbers or hint links.
+- Added the uniform-series integration corollary in §9.3 and its power-series
+  specialization and geometric-series logarithm application after the FTC.
+- Replaced the temporary null-set terminology with Lebesgue measure zero and
+  a.e.; introduced generalized length, countable additivity/subadditivity, and
+  the interval-cover characterization without developing measure theory.
+- Highlighted the standard discontinuity-set criterion and its practical
+  Thomae/Dirichlet comparison, and improved the transition to the Lebesgue FTC.
+- Included the repeated irreducible-quadratic partial-fraction pattern and
+  made the interior domain explicit in the compact FTC-I summary.
+
+Validation: the full MiKTeX `pdflatex -interaction=nonstopmode -halt-on-error
+main.tex` build completed and stabilized its AUX, TOC, and PDF-outline files.
+The final PDF has 534 pages. The log contains no LaTeX errors, undefined
+references, duplicate-destination warnings, or overfull/underfull boxes.
+All 1,376 internal links resolve, all 315 bookmarks have valid destinations,
+and all 71 exercise–hint pairs were checked in both directions. Original
+label numbers and the order of all numbered theorem-like environments were
+verified against the starting workspace manuscript.
+
+Visual review covered the front matter, every Part I page, and all of
+Appendix A. After the last layout corrections, all 188 pages in those ranges
+were rendered again; image comparison isolated 16 changed pages, which were
+reinspected. The final adjustments keep Chapter 3's exercise heading with
+its first exercise and fit the contents into six pages without a nearly
+empty trailing page. The revision date remains September 19, 2026, the local
+calendar date of this finishing pass. Validation records and page renders
+are in `tmp/revision3311/`.
+No Git tag or release was created.
+
+## Version 3.31.0 — September 19, 2026
+
+This revision preserves the Version 3.30.0 architecture. It does not reopen
+Chapter 8 structurally or add an encyclopedic catalogue of integration
+techniques.
+
+- Chapter 3 now gives first-reading guidance that distinguishes structural
+  characterization from concrete construction, explains uniqueness up to the
+  canonical order-preserving field isomorphism fixing the rational copy, and
+  displays the proof architectures for uniqueness and existence. It explicitly
+  reassures readers that mastering every quotient and well-definedness detail
+  is not required before continuing to sequences and limits.
+- Chapter 8 promotes the one-variable $C^k$ and $C^\infty$ convention to a
+  numbered definition. Chapter 9 cites it at the first central FTC reuse, and
+  Chapter 11 explains that its definitions extend the convention using
+  Fréchet derivatives. No substantive $C^k$ dependency occurs before Chapter
+  8.
+- Chapter 9 now formalizes antiderivatives, proves the arbitrary-constant
+  theorem by the Mean Value Theorem, distinguishes definite from indefinite
+  integrals, and explains the connected-domain qualification. Its FTC
+  presentation separates accumulation from Newton--Leibniz evaluation and
+  distinguishes existence of an antiderivative from existence of an elementary
+  closed form.
+- The chapter collects the elementary antiderivative identities with domain
+  qualifications and develops recognition through scaled, shifted, composed,
+  and definite variants. Substitution is taught as reverse chain rule;
+  integration by parts includes factor choice, hidden products, repeated and
+  cyclic examples; and partial fractions covers division, distinct and
+  repeated linear factors, and irreducible quadratics without assuming a
+  general factorization theorem.
+- Integrability, definite-integral, method-selection, application, and
+  improper-integral workflows are explicit. Improper examples reuse direct
+  FTC evaluation, substitution, integration by parts, partial fractions, and
+  comparison, always after truncating and splitting the domain.
+- The FTC hierarchy now contrasts the $C^1$ and integrable-derivative settings
+  and supplies the requested counterexamples: discontinuous but integrable
+  derivatives, unbounded derivatives, jump functions that cannot be
+  derivatives, and accumulation functions that fail to differentiate at a
+  jump. The continuous/Riemann/Lebesgue conceptual arc culminates in absolute
+  continuity as the class on which differentiation and Lebesgue integration
+  become inverse operations.
+- Chapter 9 exercises now follow the chapter's progression through Darboux
+  arguments, method selection, elementary variants, substitution, parts,
+  partial fractions, applications, improper integrals, convergence, and FTC
+  counterexamples.
+- A selective, human-reviewed typography pass promoted central sums,
+  products, integrals, limits, and formula groups in Chapters 4, 6--8, 10,
+  and 13 and Appendix C without mechanically converting short inline
+  mathematics.
+- Appendix B now states correctly that differential forms and de Rham
+  cohomology are contravariant on $\mathbf{Man}$, equivalently covariant from
+  $\mathbf{Man}^{op}$, and treats exterior differentiation as a natural
+  transformation between those covariant functors. Its vector-space example
+  uses $\mathbb R_{\leq1}[t]=\{a+bt:a,b\in\mathbb R\}$, avoiding a convention
+  for the degree of zero. Chapter 8 also records the acute-angle qualification,
+  defers exact traversal multiplicity to the appropriate proposition, and
+  expands the proof of exact angular nonuniqueness.
+
+No Git tag or release accompanies this working revision.
+
+### Version 3.31.0 validation
+
+Two final pdfLaTeX passes produced a clean 527-page `main.pdf`. The stabilized
+log contains no LaTeX errors or warnings, undefined references, duplicate
+destinations, or overfull/underfull boxes. The PDF metadata and title page both
+identify Version 3.31.0 and September 19, 2026.
+
+Automated checks found 701 explicit source labels together with 71 generated
+hinted-exercise labels, with no duplicates or unresolved source references.
+All 71 hinted exercises have matching hints in both directions. The final PDF
+contains 1,378 links, including 1,366 resolved internal links, and 311 valid
+bookmarks with no empty or out-of-range destinations.
+
+All 17 Chapter 3 pages and all 41 Chapter 9 pages were rendered and visually
+inspected. Targeted renders also covered the revised Chapter 8 regularity,
+trigonometry, curve, and polar-coordinate passages and Appendix B's variance
+discussion. No clipping, overlaps, malformed glyphs, awkward displays, or bad
+page breaks were found. Figure placement, theorem and exercise numbering,
+hint links, and cross-references remain coherent. The Chapter 9 additions use
+only the established one-variable theory and do not depend on Chapter 11 or on
+undeveloped measure theory.
 
 ## Version 3.30.0 — September 19, 2026
 

@@ -16,10 +16,18 @@ Let $D\subseteq\R$ and $a\in\R$. The point $a$ is a \emph{limit point} of $D$ if
 There are points of $D$ other than $a$ arbitrarily close to $a$.
 Membership and approachability are different questions. For $D=(0,1)$,
 the point $0$ is a limit point although $0\notin D$: for any $\delta>0$,
-$x=\min\{\delta/2,1/2\}$ belongs to $D$ and satisfies $0<x<\delta$.
+
+\[
+x=\min\{\delta/2,1/2\}
+\]
+ belongs to $D$ and satisfies $0<x<\delta$.
 Thus a right-hand limit at this missing endpoint is meaningful.
 For $D=\{0\}\cup[1,2]$, however, $0\in D$ is not a limit point:
-no point of $D$ satisfies $0<|x|<1/2$.
+no point of $D$ satisfies
+\[
+0<|x|<1/2.
+\]
+
 
 \begin{definition}[Isolated point]
 A point $a\in D$ is \textbf{isolated in $D$} if some $\delta>0$ satisfies
@@ -34,7 +42,11 @@ The point $a$ is a limit point of $D$ if and only if there is a sequence
 $x_n\in D\setminus\{a\}$ with $x_n\to a$.
 \end{proposition}
 \begin{proof}
-Choose $0<|x_n-a|<1/n$ in one direction. Conversely, convergence puts
+Choose
+\[
+0<|x_n-a|<1/n
+\]
+ in one direction. Conversely, convergence puts
 some $x_n\ne a$ in every prescribed punctured neighborhood of $a$.
 \end{proof}
 We can therefore test function limits by sequences; the
@@ -64,7 +76,11 @@ $|x-a|$. During discovery we may start at the target and work backward.
 The proof must start with a positive $\delta$ chosen from $\eps$ and
 then verify the implication for \emph{every} admissible $x$.
 For $3x-1\to5$ at $2$, discovery gives $3|x-2|<\eps$;
-the forward proof chooses $\delta=\eps/3$ and checks
+the forward proof chooses
+\[
+\delta=\eps/3
+\]
+ and checks
 $0<|x-2|<\delta\Rightarrow |3x-6|<3\delta=\eps$.
 The next example adds a local bound before allocating the error.
 
@@ -75,14 +91,22 @@ $|x-a|<1$, which gives $|x+a|<1+2|a|$. Now choose
 \[
 \delta=\min\left\{1,\frac{\eps}{1+2|a|}\right\}.
 \]
-For $0<|x-a|<\delta$, the product is less than $\eps$. The reusable idea is
-to bound the uncontrolled factor locally and only then choose the accuracy.
+For $0<|x-a|<\delta$, the product is less than $\eps$. The pattern is to bound
+the uncontrolled factor locally and only then choose the accuracy.
 \end{example}
 
 \begin{example}[Controlling a denominator directly]
-To prove $1/x\to1/2$ as $x\to2$, first require $|x-2|<1$.
+To prove
+\[
+1/x\to1/2
+\]
+ as $x\to2$, first require $|x-2|<1$.
 Then $x>1$ and
-$|1/x-1/2|=|x-2|/(2|x|)\leq|x-2|/2$.
+
+\[
+|1/x-1/2|=|x-2|/(2|x|)\leq|x-2|/2.
+\]
+
 Given $\eps>0$, choose $\delta=\min\{1,2\eps\}$. For every
 $0<|x-2|<\delta$ the preceding estimate is strictly less than $\eps$.
 A restriction that keeps a denominator away from zero is part of the
@@ -94,7 +118,11 @@ proof, not an optional algebraic convenience.
 Under the hypotheses of \cref{def:function-limit}, there is at most one value $L$ for which the displayed limit holds.
 \end{theorem}
 \begin{proof}
-Suppose $L$ and $M$ both satisfy the definition. Given $\eps>0$, obtain positive numbers $\delta_L,\delta_M$ for tolerance $\eps/2$. Since $a$ is a limit point, choose $x\in D$ with
+Suppose $L$ and $M$ both satisfy the definition. Given $\eps>0$, obtain positive numbers $\delta_L,\delta_M$ for tolerance
+\[
+\eps/2.
+\]
+ Since $a$ is a limit point, choose $x\in D$ with
 \[
 0<\abs{x-a}<\min\{\delta_L,\delta_M\}.
 \]
@@ -124,15 +152,27 @@ fails. Negating the definition gives
 \quad 0<|x-a|<\delta\quad\text{and}\quad |f(x)-L|\geq\eps_0.
 \]
 The order of quantifiers gives one fixed $\eps_0$ for all choices of
-$\delta$. For each $n$, set $\delta=1/n$ and choose the corresponding
+$\delta$. For each $n$, set
+\[
+\delta=1/n
+\]
+ and choose the corresponding
 point $x_n\in D$, so
 \[
 0<\abs{x_n-a}<\frac1n
 \qquad\text{and}\qquad
 \abs{f(x_n)-L}\geq\eps_0.
 \]
-For any $\eta>0$, choose $N>1/\eta$; then $n\geq N$ implies
-$|x_n-a|<1/n\leq1/N<\eta$. Hence $x_n\to a$, while the second prevents $f(x_n)$ from converging to $L$, a contradiction.
+For any $\eta>0$, choose
+\[
+N>1/\eta;
+\]
+ then $n\geq N$ implies
+
+\[
+|x_n-a|<1/n\leq1/N<\eta.
+\]
+ Hence $x_n\to a$, while the second prevents $f(x_n)$ from converging to $L$, a contradiction.
 \end{proof}
 
 \begin{definition}[One-sided and infinite limits]
@@ -166,15 +206,27 @@ input or output inequalities gives the other cases.
 \begin{remark}[Infinity is behavior, not a value]
 The notation $f(x)\to+\infty$ does not assert convergence to a member of
 $\R$.  It abbreviates an eventual-inequality statement.  For example,
-$1/x\to+\infty$ as $x\to0^+$, but the two-sided limit at $0$ does not tend
-to either sign of infinity because $1/x\to-\infty$ from the left.
+
+\[
+1/x\to+\infty
+\]
+ as $x\to0^+$, but the two-sided limit at $0$ does not tend
+to either sign of infinity because
+\[
+1/x\to-\infty
+\]
+ from the left.
 \end{remark}
 
 \begin{theorem}[Algebraic function-limit laws]
 Let $a$ be a limit point of a common domain $D$, and suppose
 $f(x)\to L$ and $g(x)\to M$ as $x\to a$ through $D$.
 For constants $c,d$, $cf+dg\to cL+dM$, $fg\to LM$, and if
-$M\ne0$, $f/g\to L/M$ on a sufficiently small punctured domain.
+$M\ne0$,
+\[
+f/g\to L/M
+\]
+ on a sufficiently small punctured domain.
 \end{theorem}
 \begin{proof}
 For every $x_n\in D\setminus\{a\}$ tending to $a$, transfer the sequence
@@ -182,7 +234,15 @@ laws through the sequential criterion. The hypotheses give
 $f(x_n)\to L$, $g(x_n)\to M$. The sequence sum
 and product laws give the asserted limits on every such sequence, hence
 the function limits. If $M\ne0$, choose $\delta_0>0$ such that
-$0<|x-a|<\delta_0$ implies $|g(x)-M|<|M|/2$; then $|g(x)|>|M|/2$ and the quotient is defined locally. Apply the
+$0<|x-a|<\delta_0$ implies
+\[
+|g(x)-M|<|M|/2;
+\]
+ then
+\[
+|g(x)|>|M|/2
+\]
+ and the quotient is defined locally. Apply the
 sequence quotient law and the same criterion on that punctured domain.
 \end{proof}
 \begin{example}[Direct proof and rationalization]
@@ -191,31 +251,51 @@ To prove
 \lim_{x\to2}(3x-1)=5,
 \]
 observe that $\abs{(3x-1)-5}=3\abs{x-2}$ and choose
-$\delta=\eps/3$.  For a less direct example,
+
+\[
+\delta=\eps/3.
+\]
+  For a less direct example,
 \[
 \lim_{x\to0}\frac{\sqrt{1+x}-1}{x}
 =\lim_{x\to0}\frac1{\sqrt{1+x}+1}=\frac12,
 \]
 where the equality for $x\ne0$ follows by rationalization and the last
 step follows directly from an estimate, without invoking continuity.
-For $|x|<1/2$, the positive root is defined by the real-number root
+For
+\[
+|x|<1/2,
+\]
+ the positive root is defined by the real-number root
 construction, and
 \[
 \left|\frac1{\sqrt{1+x}+1}-\frac12\right|
 =\frac{|x|}{2(\sqrt{1+x}+1)^2}\leq\frac{|x|}{2}.
 \]
-Choosing $\delta=\min\{1/2,2\eps\}$ proves the limit.
+Choosing
+\[
+\delta=\min\{1/2,2\eps\}
+\]
+ proves the limit.
 \end{example}
 
 \begin{example}[One-sided limits detect nonexistence]
-For $f(x)=x/\abs{x}$ on $\R\setminus\{0\}$,
+For
+\[
+f(x)=x/\abs{x}
+\]
+ on $\R\setminus\{0\}$,
 \[
 \lim_{x\to0^-}f(x)=-1,
 \qquad
 \lim_{x\to0^+}f(x)=1.
 \]
 Hence the two-sided limit does not exist.  Indeed, the sequences
-$x_n=-1/n$ and $y_n=1/n$ approach the same point while their images have
+
+\[
+x_n=-1/n,\qquad y_n=1/n
+\]
+ approach the same point while their images have
 different limits.
 \end{example}
 
@@ -230,14 +310,38 @@ $\lim_{x\to a}f(x)$.
 \end{remark}
 
 \begin{example}[A zero denominator is a question, not an answer]
-At $x=1$, the quotient $(x^2-1)/(x-1)$ is undefined, but on the
+At $x=1$, the quotient
+\[
+(x^2-1)/(x-1)
+\]
+ is undefined, but on the
 punctured domain it equals $x+1$ and its limit is $2$.
-In contrast $1/x$ has incompatible infinite limits at zero, while
-$x^2/x=x$ has limit zero. In all three cases the denominator tends
+In contrast
+\[
+1/x
+\]
+ has incompatible infinite limits at zero, while
+
+\[
+x^2/x=x
+\]
+ has limit zero. In all three cases the denominator tends
 to zero, so the ordinary quotient theorem cannot decide the problem.
-For a direct disproof that $x/|x|\to1$ at zero, take $\eps_0=1$.
-For every $\delta>0$, $x=-\delta/2$ has $0<|x|<\delta$ and
-$|x/|x|-1|=2\geq\eps_0$. To exclude all proposed limits, use the
+For a direct disproof that
+\[
+x/|x|\to1
+\]
+ at zero, take $\eps_0=1$.
+For every $\delta>0$,
+\[
+x=-\delta/2
+\]
+ has $0<|x|<\delta$ and
+
+\[
+|x/|x|-1|=2\geq\eps_0.
+\]
+ To exclude all proposed limits, use the
 two approaching sequences in the preceding example.
 \end{example}
 
@@ -249,14 +353,34 @@ P(x)=a_nx^n+\cdots+a_0
 \quad\Longrightarrow\quad\lim_{x\to a}P(x)=P(a).
 \]
 If $Q(a)\ne0$, denominator control and the quotient law give
-$P(x)/Q(x)\to P(a)/Q(a)$. For example,
-$(x^2+1)/(x+2)\to5/4$ as $x\to2$.
+
+\[
+P(x)/Q(x)\to P(a)/Q(a).
+\]
+ For example,
+
+\[
+(x^2+1)/(x+2)\to5/4
+\]
+ as $x\to2$.
 
 The same algebraic laws hold at infinity. To justify this directly,
 in the sequence-limit proofs replace every tail condition $n\geq N_i$
 by $x>A_i$ and use $A=\max_i A_i$; the estimates do not otherwise
-change. The basic input is $1/x\to0$: choose
-$A=\max\{1,1/\eps\}$, so $x>A$ gives $|1/x|<\eps$.
+change. The basic input is
+\[
+1/x\to0:
+\]
+ choose
+
+\[
+A=\max\{1,1/\eps\},
+\]
+ so $x>A$ gives
+\[
+|1/x|<\eps.
+\]
+
 Integer powers and limit arithmetic handle all lower-order terms.
 
 For the expressions $f(x)=a_nx^n+\cdots+a_0$ and
@@ -267,16 +391,36 @@ F(x)=\frac{f(x)}{x^n}\to a_n,
 \qquad
 G(x)=\frac{g(x)}{x^m}\to b_m.
 \]
-Choose $A_0$ with $|G(x)-b_m|<|b_m|/2$ for $x>A_0$.
-Then $|G(x)|>|b_m|/2$, and $H(x)=F(x)/G(x)\to c=a_n/b_m$.
-Consequently $f(x)/g(x)=x^{n-m}H(x)$ tends to $0$ if $n<m$,
+Choose $A_0$ with
+\[
+|G(x)-b_m|<|b_m|/2
+\]
+ for $x>A_0$.
+Then
+\[
+|G(x)|>|b_m|/2,,\qquad H(x)=F(x)/G(x)\to c=a_n/b_m.
+\]
+
+Consequently
+\[
+f(x)/g(x)=x^{n-m}H(x)
+\]
+ tends to $0$ if $n<m$,
 to $c$ if $n=m$, and to the infinity with sign $c$ if $n>m$.
-For completeness, when $c>0$ choose $A_1$ with $H(x)>c/2$ for
+For completeness, when $c>0$ choose $A_1$ with
+\[
+H(x)>c/2
+\]
+ for
 $x>A_1$. For any target $M$, every
 \[
 x>A=\max\left\{A_0,A_1,1,\frac{2\max\{M,0\}}c\right\}
 \]
-satisfies $x^{n-m}H(x)>(c/2)x>M$. Negating handles $c<0$.
+satisfies
+\[
+x^{n-m}H(x)>(c/2)x>M.
+\]
+ Negating handles $c<0$.
 This is the mechanism of \cref{prop:polynomial-sequence}, now for
 genuine function limits, not just natural-number substitutions.
 
@@ -284,8 +428,16 @@ For $x\to-\infty$, put $t=-x\to+\infty$.
 The leading coefficients become $(-1)^na_n$ and $(-1)^mb_m$.
 The limit is still zero for $n<m$ and $c$ for $n=m$;
 for $n>m$ its infinite sign is that of $(-1)^{n-m}c$.
-For example $(2x^3+1)/(x+1)$ tends to $+\infty$ at both ends,
-whereas $(2x^2+1)/(x+1)$ tends to opposite infinities.
+For example
+\[
+(2x^3+1)/(x+1)
+\]
+ tends to $+\infty$ at both ends,
+whereas
+\[
+(2x^2+1)/(x+1)
+\]
+ tends to opposite infinities.
 
 \section{Asymptotic Notation}
 
@@ -342,7 +494,11 @@ $1$. For big-O use $|r|\leq C|g|$ and squeeze. Little-o implies big-O
 by choosing tolerance $1$, so the same argument applies.
 \end{proof}
 For example $\sin x=O(1)$ as $x\to\infty$ but has no limit (use
-$x=2\pi n+\pi/2$ and $x=2\pi n+3\pi/2$). As $x\to\infty$,
+
+\[
+x=2\pi n+\pi/2,\qquad x=2\pi n+3\pi/2
+\]
+). As $x\to\infty$,
 $x=o(x^2)$ and $\sqrt{x}=o(x)$, although both remainders diverge.
 Little-o means small \emph{relative to a scale}, not necessarily small
 in absolute size.
@@ -373,7 +529,15 @@ bounded or vanishing coefficient. For sums the coefficients add; for
 products they multiply. Sums of bounded coefficients are bounded, sums
 of vanishing coefficients vanish, and a vanishing coefficient times a
 bounded one vanishes. A vanishing coefficient is itself eventually bounded.
-For transitivity, multiply $r/f$ by $f/g$; these same facts apply.
+For transitivity, multiply
+\[
+r/f
+\]
+ by
+\[
+f/g;
+\]
+ these same facts apply.
 For big-O sums even at zeros of $g$, the triangle inequality gives
 $|r_1+r_2|\leq(C_1+C_2)|g|$; product bounds work in the same way.
 \end{proof}
@@ -382,8 +546,16 @@ they do not license cancellation as if $O(g)$ were a fixed number.
 In particular, $O(g)-O(g)$ need not be zero, and the reciprocal of an
 $O(1)$ function need not be $O(1)$ without a bound away from zero.
 
-For eventually nonzero $g$, write $f\sim g$ when $f/g\to1$.
-Equivalently $f=g+o(g)$, since $(f-g)/g=f/g-1$.
+For eventually nonzero $g$, write $f\sim g$ when
+\[
+f/g\to1.
+\]
+
+Equivalently $f=g+o(g)$, since
+\[
+(f-g)/g=f/g-1.
+\]
+
 Once the elementary sine limit is established, it says
 $\sin x=x+o(x)$ and $\sin x\sim x$ as $x\to0$.
 
@@ -393,7 +565,11 @@ Chapter~8's derivative condition is equivalent to
 f(a+h)=f(a)+f'(a)h+o(|h|)\qquad(h\to0).
 \]
 Indeed, for $r(h)=f(a+h)-f(a)-f'(a)h$, the absolute error quotient is
-$|r(h)|/|h|=|(f(a+h)-f(a))/h-f'(a)|$.
+
+\[
+|r(h)|/|h|=|(f(a+h)-f(a))/h-f'(a)|.
+\]
+
 Thus the nonlinear error is negligible compared with the first-order
 scale, not merely a function tending to zero. The multivariable condition
 $f(a+h)=f(a)+Df(a)h+o(\norm h)$ has exactly the same meaning.
@@ -450,7 +626,11 @@ $a\in D$; its test $0<|x-a|<\delta$ excludes $x=a$. Continuity
 requires $a\in D$ because $f(a)$ must exist, but need not require a
 limit point; its test $|x-a|<\delta$ includes $a$.
 
-For $D=\{0\}\cup[1,2]$, choose $\delta=1/2$. Any $x\in D$ with
+For $D=\{0\}\cup[1,2]$, choose
+\[
+\delta=1/2.
+\]
+ Any $x\in D$ with
 $|x|<\delta$ must equal $0$. The only comparison required for continuity
 is therefore $|f(0)-f(0)|=0<\eps$, for every $\eps>0$, regardless
 of the other values of $f$. Within that neighborhood the function is
@@ -458,7 +638,11 @@ defined only at the isolated point itself. This differs from a punctured
 limit, where there would be no admissible points at all.
 
 Consequently, if $a\in D$ is a limit point, $f$ is continuous at $a$
-if and only if $\lim_{x\to a}f(x)=f(a)$: the excluded case $x=a$
+if and only if
+\[
+\lim_{x\to a}f(x)=f(a):
+\]
+ the excluded case $x=a$
 adds only the comparison $0<\eps$. If $a\in D$ is isolated, every
 function on $D$ is continuous there, while its punctured function limit
 is not defined under the convention of these notes.
@@ -468,12 +652,20 @@ is not defined under the convention of these notes.
 Let $f:D\to\R$ and $a\in D$. Then $f$ is continuous at $a$ if and only if every sequence $(x_n)$ in $D$ satisfying $x_n\to a$ also satisfies $f(x_n)\to f(a)$.
 \end{theorem}
 \begin{proof}
-The proof is the same as \cref{thm:sequential-function-limit}, except that terms equal to $a$ require no exclusion: for such a term, $\abs{f(x_n)-f(a)}=0$. Conversely, failure of continuity gives, for each $n$, an $x_n\in D$ with $\abs{x_n-a}<1/n$ and $\abs{f(x_n)-f(a)}\geq\eps_0$.
+The proof is the same as \cref{thm:sequential-function-limit}, except that terms equal to $a$ require no exclusion: for such a term, $\abs{f(x_n)-f(a)}=0$. Conversely, failure of continuity gives, for each $n$, an $x_n\in D$ with
+\[
+\abs{x_n-a}<1/n
+\]
+ and $\abs{f(x_n)-f(a)}\geq\eps_0$.
 \end{proof}
 
 \begin{theorem}[Algebra of continuous functions]
 \label{thm:continuity-algebra}
-Let $f,g:D\to\R$ be continuous at $a\in D$, and let $c\in\R$. Then $f+g$, $cf$, and $fg$ are continuous at $a$. If $g(a)\ne0$, then $f/g$ is continuous at $a$ on the set where it is defined.
+Let $f,g:D\to\R$ be continuous at $a\in D$, and let $c\in\R$. Then $f+g$, $cf$, and $fg$ are continuous at $a$. If $g(a)\ne0$, then
+\[
+f/g
+\]
+ is continuous at $a$ on the set where it is defined.
 \end{theorem}
 \begin{proof}
 For every sequence $x_n\to a$ in $D$, continuity gives $f(x_n)\to f(a)$ and $g(x_n)\to g(a)$. Apply the sequence limit laws of \cref{thm:limit-algebra} and then \cref{thm:sequential-continuity}.
@@ -500,7 +692,11 @@ Let $f(x)=x+1$ for $x<0$ and $f(x)=x^2+c$ for $x\geq0$.
 Away from zero use polynomial continuity. At zero the left limit is
 $1$ and the right limit and assigned value are $c$, so continuity holds
 exactly when $c=1$. For a removable example, assign a value $d$ at
-$x=1$ to $(x^2-1)/(x-1)$. The punctured limit is $2$, so its
+$x=1$ to
+\[
+(x^2-1)/(x-1).
+\]
+ The punctured limit is $2$, so its
 extension is continuous exactly when $d=2$. Altering the value cannot
 repair a jump whose two side limits disagree.
 \end{example}
@@ -544,7 +740,11 @@ Let $f:D\to\R$. If there is $K\geq0$ such that
 then $f$ is uniformly continuous on $D$.
 \end{proposition}
 \begin{proof}
-If $K=0$, the function is constant. If $K>0$, choose $\delta=\eps/K$. Then the displayed inequality gives the conclusion of \cref{def:uniform-continuity}.
+If $K=0$, the function is constant. If $K>0$, choose
+\[
+\delta=\eps/K.
+\]
+ Then the displayed inequality gives the conclusion of \cref{def:uniform-continuity}.
 \end{proof}
 
  A function satisfying the displayed inequality is \textbf{Lipschitz
@@ -567,13 +767,21 @@ For uniform continuity, given $\eps>0$ choose its common $\delta>0$.
 Choose $N$ so that $|x_n-y_n|<\delta$ for $n\geq N$.
 Then $|f(x_n)-f(y_n)|<\eps$ for every $n\geq N$.
 Conversely, failure gives $\eps_0>0$ such that for each $n$ there are
-$x_n,y_n\in D$ with $|x_n-y_n|<1/n$ but
+$x_n,y_n\in D$ with
+\[
+|x_n-y_n|<1/n
+\]
+ but
 $|f(x_n)-f(y_n)|\geq\eps_0$. These pairs contradict the stated test.
 \end{proof}
 
 \begin{example}[The three levels of control]
 The function $x\mapsto x^2$ is not uniformly continuous on $\R$: with
-$x_n=n$ and $y_n=n+1/n$, the inputs approach one another while
+$x_n=n$ and
+\[
+y_n=n+1/n,
+\]
+ the inputs approach one another while
 \[
 y_n^2-x_n^2=2+\frac1{n^2}.
 \]
@@ -587,21 +795,38 @@ continuous because
 \abs{\sqrt{x}-\sqrt{y}}\leq\sqrt{\abs{x-y}},
 \]
 as follows: if $u=\sqrt{x}\geq v=\sqrt{y}$, then
-$(u-v)^2\leq(u-v)(u+v)=x-y$; interchange $x,y$ for the other order.
+
+\[
+(u-v)^2\leq(u-v)(u+v)=x-y;
+\]
+ interchange $x,y$ for the other order.
 The uniform-continuity proof chooses $\delta=\eps^2$.
 It is not Lipschitz: if a
 constant $K$ worked, then $\sqrt{x}\leq Kx$ for every $x>0$, equivalently
-$1/\sqrt{x}\leq K$, which fails near $0$.
+
+\[
+1/\sqrt{x}\leq K,
+\]
+ which fails near $0$.
 \end{example}
 
 \begin{example}[Continuity need not be uniform]
-The function $f:(0,1)\to\R$ given by $f(x)=\frac1x$ is continuous by
+The function $f:(0,1)\to\R$ given by
+\[
+f(x)=\frac1x
+\]
+ is continuous by
 \cref{thm:continuity-algebra}, but not uniformly continuous. Indeed, put
-$x_n=\frac1{n+1}$ and $y_n=\frac1{n+2}$. Then
+\[x_n=\frac1{n+1},\qquad y_n=\frac1{n+2}.\]
+Then
 $\abs{x_n-y_n}\to0$, whereas $\abs{f(x_n)-f(y_n)}=1$ for every $n$.
 \end{example}
 
-On $[a,\infty)$ with $a>0$, the same function $1/x$ is Lipschitz, since
+On $[a,\infty)$ with $a>0$, the same function
+\[
+1/x
+\]
+ is Lipschitz, since
 \[
 \abs{\frac1x-\frac1y}=\frac{\abs{x-y}}{xy}
 \leq\frac1{a^2}\abs{x-y}.
@@ -696,18 +921,37 @@ a solution.
 Positive square roots were constructed directly in
 \cref{prop:positive-square-roots}, in Chapter~\ref{ch:reals}.
 The general positive $n$th roots established above using the IVT
-also vary continuously. Fix $n\geq1$ and $a>0$, and put
-$u=\sqrt[n]{x}$, $v=\sqrt[n]{a}$. For $x\geq0$,
+also vary continuously. The map \(t\mapsto t^n\) is continuous and
+strictly increasing on \([0,\infty)\). Its inverse
+\(x\mapsto\sqrt[n]{x}\) is therefore continuous by
+\cref{thm:monotone-inverse-continuity}. At the endpoint this also has the
+explicit tolerance
 \[
-|x-a|=|u-v|(u^{n-1}+u^{n-2}v+\cdots+v^{n-1})
-\geq |u-v|v^{n-1}.
+0\leq x<\eps^n\quad\Longrightarrow\quad
+0\leq\sqrt[n]{x}<\eps.
 \]
-Thus $\delta=\eps v^{n-1}$ proves continuity at $a$. At $a=0$,
-choose $\delta=\eps^n$; $0\leq x<\delta$ implies
-$0\leq\sqrt[n]{x}<\eps$ by strict increase of integer powers.
-For odd roots on negative inputs use the sign formula above; continuity
-at zero follows from the same estimate with absolute values.
+For odd roots on negative inputs, use the sign formula above and the same
+conclusion on each side of zero.
 \end{remark}
+
+\begin{proposition}[Two-variable arithmetic--geometric mean inequality]
+\label{prop:two-variable-amgm}
+For \(a,b\geq0\),
+\[
+\boxed{\sqrt{ab}\leq\frac{a+b}{2}.}
+\]
+Equality holds exactly when \(a=b\).
+\end{proposition}
+\begin{proof}
+The quadratic inequality in \cref{prop:quadratic-bernoulli} says
+\(2uv\leq u^2+v^2\). Set \(u=\sqrt a\) and \(v=\sqrt b\), whose existence
+has now been established. Then
+\[
+2\sqrt{ab}=2\sqrt a\sqrt b\leq a+b.
+\]
+Equality in the quadratic inequality holds exactly when
+\(\sqrt a=\sqrt b\), equivalently \(a=b\).
+\end{proof}
 
 \begin{proposition}[Laws of real roots]
 \label{prop:real-root-laws}
@@ -725,13 +969,25 @@ the unique real odd roots are used.
 Both sides of the product identity are nonnegative, and raising the right
 side to the \(n\)th power gives \(ab\). Uniqueness in
 \cref{thm:real-roots} proves the equality. The quotient proof is identical:
-the displayed quotient is nonnegative and its \(n\)th power is \(a/b\).
+the displayed quotient is nonnegative and its \(n\)th power is
+\[
+a/b.
+\]
+
 For odd \(n\), signs multiply in the same way, and uniqueness among all real
 odd roots completes the argument.
 \end{proof}
 
-To extend integer exponent laws, the value $a^{1/n}$ for $a>0$ must
-satisfy $(a^{1/n})^n=a$. Requiring positive values therefore forces the
+To extend integer exponent laws, the value
+\[
+a^{1/n}
+\]
+ for $a>0$ must
+satisfy
+\[
+(a^{1/n})^n=a.
+\]
+ Requiring positive values therefore forces the
 positive $n$th root. The same laws then suggest
 \[
 a^{1/n}=\sqrt[n]{a},\qquad
@@ -775,7 +1031,11 @@ If \(0<a<b\) and \(r>0\), then \(a^r<b^r\). For fixed \(a>1\), the map
 strictly decreasing.
 \end{theorem}
 \begin{proof}
-Suppose \(m/n=p/q\), with \(n,q>0\), and set
+Suppose
+\[
+m/n=p/q,
+\]
+ with \(n,q>0\), and set
 \(u=\sqrt[n]{a^m}\), \(v=\sqrt[q]{a^p}\). Both are positive, and
 \[
 u^{nq}=a^{mq}=a^{pn}=v^{nq}.
@@ -792,15 +1052,27 @@ positive root. The quotient law follows from the addition law applied to
 \(r-s+s=r\), and the product law follows by raising both positive sides to a
 denominator of \(r\).
 
-If \(0<a<b\) and \(r=m/n>0\), then \(m,n\in\N\) may be chosen positive.
+If \(0<a<b\) and
+\[
+r=m/n>0,
+\]
+ then \(m,n\in\N\) may be chosen positive.
 Thus \(a^m<b^m\). Were \(a^r\geq b^r\), raising to the \(n\)th power would
 give \(a^m\geq b^m\), contradicting \(a^m<b^m\). Finally,
-\(a^s/a^r=a^{s-r}>1\) when \(a>1\) and \(s>r\); taking reciprocals gives
+
+\[
+a^s/a^r=a^{s-r}>1
+\]
+ when \(a>1\) and \(s>r\); taking reciprocals gives
 the statement for \(0<a<1\).
 \end{proof}
 
 \begin{remark}[Why the clean theory uses positive bases]
-The equality $\frac13=\frac26$ exposes a representation problem for
+The equality
+\[
+\frac13=\frac26
+\]
+ exposes a representation problem for
 negative bases. Interpreting each fraction through a principal radical gives
 \[
 \sqrt[3]{-8}=-2,\qquad \sqrt[6]{(-8)^2}=2.
@@ -808,7 +1080,11 @@ negative bases. Interpreting each fraction through a principal radical gives
 Thus the same rational exponent would give incompatible answers under a
 naive representation-by-representation rule.
 Some negative-base expressions are meaningful: for example,
-\((-8)^{1/3}=-2\), and more generally odd roots of negative numbers exist.
+
+\[
+(-8)^{1/3}=-2,
+\]
+ and more generally odd roots of negative numbers exist.
 Even roots of negative numbers are not real, however, and a reduced rational
 exponent may impose a parity restriction on its denominator. To avoid hiding
 these domain issues, the general rational-power theory is formulated for
@@ -837,7 +1113,11 @@ Let $(x_n)$ be a sequence in $[a,b]$. It is bounded, so \cref{thm:bolzano-weiers
 Boundedness of the domain supplies a convergent subsequence of trial
 points, closedness keeps its limit in the domain, and continuity transfers
 their function values to that limit. All three steps matter: $x$ on
-$(0,1)$ approaches its supremum without attaining it, while $1/x$ on
+$(0,1)$ approaches its supremum without attaining it, while
+\[
+1/x
+\]
+ on
 $(0,1]$ is continuous but unbounded.
 
 \begin{theorem}[Extreme value theorem]
@@ -849,7 +1129,11 @@ f(x_{\min})\leq f(x)\leq f(x_{\max})
 \]
 \end{theorem}
 \begin{proof}
-Let $s=\sup f([a,b])$. To justify that this supremum exists, suppose first that $f([a,b])$ were unbounded above. For each $n$, choose $x_n\in[a,b]$ with $f(x_n)>n$. By \cref{thm:compact-interval}, a subsequence $x_{n_k}$ converges to $x\in[a,b]$. Continuity gives $f(x_{n_k})\to f(x)$, but $f(x_{n_k})\geq n_k\to\infty$, an impossibility. Hence the image is bounded above, and it is nonempty. For each $n$, choose $x_n\in[a,b]$ with $f(x_n)>s-1/n$. A convergent subsequence has limit $x_{\max}\in[a,b]$. Continuity and the squeeze theorem give $f(x_{\max})=s$. Applying the same argument to $-f$ gives $x_{\min}$.
+Let $s=\sup f([a,b])$. To justify that this supremum exists, suppose first that $f([a,b])$ were unbounded above. For each $n$, choose $x_n\in[a,b]$ with $f(x_n)>n$. By \cref{thm:compact-interval}, a subsequence $x_{n_k}$ converges to $x\in[a,b]$. Continuity gives $f(x_{n_k})\to f(x)$, but $f(x_{n_k})\geq n_k\to\infty$, an impossibility. Hence the image is bounded above, and it is nonempty. For each $n$, choose $x_n\in[a,b]$ with
+\[
+f(x_n)>s-1/n.
+\]
+ A convergent subsequence has limit $x_{\max}\in[a,b]$. Continuity and the squeeze theorem give $f(x_{\max})=s$. Applying the same argument to $-f$ gives $x_{\min}$.
 \end{proof}
 
 \begin{theorem}[Heine--Cantor theorem]
@@ -913,9 +1197,17 @@ The varying input is time and the target is $V(t)=3$.
 The polynomial $V(t)-3$ is continuous, negative at $1$ and positive
 at $2$. The IVT guarantees a filling time in $(1,2)$ minutes;
 it does not by itself compute that time. Since
-$V(y)-V(x)=(y-x)(1+x+y)>0$ for $0\leq x<y\leq2$, it is unique.
+
+\[
+V(y)-V(x)=(y-x)(1+x+y)>0
+\]
+ for $0\leq x<y\leq2$, it is unique.
 Moreover $|V(t)-V(s)|\leq5|t-s|$ on this operating interval.
-An input error below $\eps/5$ minutes therefore produces an output
+An input error below
+\[
+\eps/5
+\]
+ minutes therefore produces an output
 error below $\eps$ litres, uniformly across the interval. If only
 continuity were known, Heine--Cantor would still supply one tolerance,
 but without this numerical value. Chapter~\ref{ch:differentiation}
@@ -926,19 +1218,43 @@ will obtain Lipschitz constants from derivative bounds.
 \addcontentsline{toc}{section}{Exercises}
 
 \begin{hexercise}{fun-direct}
-Prove directly that $5x+2\to7$ at $x=1$, $x^2\to9$ at $x=3$, and $1/(x+1)\to1/2$ at $x=1$. Display all auxiliary bounds and positive $\delta$ choices.
+Prove directly that $5x+2\to7$ at $x=1$, $x^2\to9$ at $x=3$, and
+\[
+1/(x+1)\to1/2
+\]
+ at $x=1$. Display all auxiliary bounds and positive $\delta$ choices.
 \end{hexercise}
 
 \begin{hexercise}{fun-infinity}
-Find the limits at both $+\infty$ and $-\infty$ of $(2x^2+1)/(x^3-1)$, $(3x^2-x)/(x^2+2)$, and $(-x^3+1)/(2x+3)$. For one infinite limit give the complete target-and-cutoff argument.
+Find the limits at both $+\infty$ and $-\infty$ of
+\[
+(2x^2+1)/(x^3-1),
+\]
+
+\[
+(3x^2-x)/(x^2+2),,\qquad (-x^3+1)/(2x+3).
+\]
+ For one infinite limit give the complete target-and-cutoff argument.
 \end{hexercise}
 
 \begin{hexercise}{fun-removable}
-Find all $c$ making the function $(x^2-4)/(x-2)$ for $x\ne2$, with value $c$ at $2$, continuous. Compare with $x/|x|$ at zero: can any assigned value remove its discontinuity?
+Find all $c$ making the function
+\[
+(x^2-4)/(x-2)
+\]
+ for $x\ne2$, with value $c$ at $2$, continuous. Compare with
+\[
+x/|x|
+\]
+ at zero: can any assigned value remove its discontinuity?
 \end{hexercise}
 
 \begin{hexercise}{fun-pairs}
-Prove $x^2$ is uniformly continuous on $[0,4]$ but not on $[0,\infty)$. Prove $1/x$ is Lipschitz on $[2,\infty)$ and determine whether it is uniformly continuous on $(0,2]$.
+Prove $x^2$ is uniformly continuous on $[0,4]$ but not on $[0,\infty)$. Prove
+\[
+1/x
+\]
+ is Lipschitz on $[2,\infty)$ and determine whether it is uniformly continuous on $(0,2]$.
 \end{hexercise}
 
 \begin{hexercise}{fun-ivt-model}
@@ -958,7 +1274,11 @@ Give continuous functions showing that the compact-interval hypotheses in the EV
 \end{exercise}
 
 \begin{exercise}
-For $D=\{0\}\cup\{1/n:n\in\N\}\cup[2,3)$, determine which of
+For
+\[
+D=\{0\}\cup\{1/n:n\in\N\}\cup[2,3),
+\]
+ determine which of
 $0,1,2,3$ belong to $D$, are limit points of $D$, or are isolated in $D$.
 At which of these points is every function on $D$ automatically continuous?
 \end{exercise}

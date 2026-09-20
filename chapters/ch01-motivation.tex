@@ -8,14 +8,26 @@ Calculus describes change and accumulation. Its central calculations often begin
 Mathematical analysis makes these meanings precise and proves the rules used in calculation. Its hypotheses tell us when a calculation is reliable and help locate the error in a plausible argument that fails.
 
 \begin{example}[A number suggested by geometry]
-The diagonal of a square of side length $1$ has a length customarily denoted by $\sqrt{2}$. If this length were a rational number $p/q$ in lowest terms, then $p^2=2q^2$. Thus $p^2$ is even. An odd integer has the form $2k+1$, whose square is $4k(k+1)+1$ and is odd; hence $p$ is even. Write $p=2r$. Then $q^2=2r^2$, so the same argument makes $q$ even. This contradicts that $p/q$ was in lowest terms. Hence no rational number has square $2$.
+The diagonal of a square of side length $1$ has a length customarily denoted by $\sqrt{2}$. If this length were a rational number
+\[
+p/q
+\]
+ in lowest terms, then $p^2=2q^2$. Thus $p^2$ is even. An odd integer has the form $2k+1$, whose square is $4k(k+1)+1$ and is odd; hence $p$ is even. Write $p=2r$. Then $q^2=2r^2$, so the same argument makes $q$ even. This contradicts that
+\[
+p/q
+\]
+ was in lowest terms. Hence no rational number has square $2$.
 \end{example}
 
 The example does not yet construct $\sqrt 2$; rather, it points out why rational numbers are not sufficient for familiar geometry. Chapter~\ref{ch:reals} will construct a number system containing such limits and isolate the property that makes it adequate: completeness.
 
 \section{A First Look at Limits}
 
-Consider the values $1,\frac12,\frac13,\ldots$. Their terms become as small as we wish. A rigorous definition should express exactly that statement without appealing to a last term, because there is no last positive integer.
+Consider the values
+\[
+1,\frac12,\frac13,\ldots.
+\]
+ Their terms become as small as we wish. A rigorous definition should express exactly that statement without appealing to a last term, because there is no last positive integer.
 
 \paragraph{Informal preview of convergence.}
 A sequence $(a_n)_{n\in\N}$ of real numbers \textbf{converges to} a real number $L$ when, for every positive tolerance $\eps$, all sufficiently late terms $a_n$ lie within distance $\eps$ of $L$. In symbols, the intended statement is
@@ -24,8 +36,20 @@ A sequence $(a_n)_{n\in\N}$ of real numbers \textbf{converges to} a real number 
 \]
 This is not yet a formal definition: the quantifiers, real numbers, and natural numbers will be developed formally in Chapters~\ref{ch:foundations}--\ref{ch:sequences}.
 
-For instance, $\frac1n$ converges to $0$: given $\eps>0$, choose a natural number $N>\frac1\eps$. Then $n\geq N$ implies
-$0<\frac1n\leq\frac1N<\eps$. The existence of such an $N$ is an Archimedean property, which will be proved from the construction of the real numbers rather than silently assumed.
+For instance,
+\[
+\frac1n
+\]
+ converges to $0$: given $\eps>0$, choose a natural number
+\[
+N>\frac1\eps.
+\]
+ Then $n\geq N$ implies
+
+\[
+0<\frac1n\leq\frac1N<\eps.
+\]
+ The existence of such an $N$ is an Archimedean property, which will be proved from the construction of the real numbers rather than silently assumed.
 
 \section{The Structural Ideas of Analysis}
 

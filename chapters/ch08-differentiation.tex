@@ -16,21 +16,31 @@ The number $f'(a)$ is the \textbf{derivative} of $f$ at $a$.
 
 \begin{example}[A derivative from its definition]
 For $f(x)=x^2$, the difference quotient at $a$ is
-$((a+h)^2-a^2)/h=2a+h$ for $h\ne0$.
+
+\[
+((a+h)^2-a^2)/h=2a+h
+\]
+ for $h\ne0$.
 It tends to $2a$: given $\eps>0$, choose $\delta=\eps$ and
 $0<|h|<\delta$ makes its error exactly $|h|<\eps$.
 More generally factor $x^n-a^n$ to obtain
-$(x^n-a^n)/(x-a)=x^{n-1}+x^{n-2}a+\cdots+a^{n-1}$.
+
+\[
+(x^n-a^n)/(x-a)=x^{n-1}+x^{n-2}a+\cdots+a^{n-1}.
+\]
+
 Polynomial limits give $(x^n)'=nx^{n-1}$ for integers $n\geq1$;
 constants have derivative zero directly.
 \end{example}
 
-\paragraph{Regularity notation.}
+\begin{definition}[Classes \(C^k\) and \(C^\infty\) in one variable]
+\label{def:one-variable-ck}
 For an open interval $I$, $f\in C^k(I)$ means that derivatives through
 order $k$ exist and are continuous (including $f$ itself at order zero).
 For $[a,b]$, the derivatives on $(a,b)$ extend continuously to $[a,b]$,
 using the standard one-sided endpoint convention. The notation $C^\infty$
 means this holds for every finite order.
+\end{definition}
 
 \begin{theorem}[Differentiability implies continuity]
 \label{thm:differentiability-continuity}
@@ -53,7 +63,11 @@ Let $f,g:D\to\R$ be differentiable at $a$, and let $c\in\R$. Then $f+g$, $cf$, a
 \[
 (fg)'(a)=f'(a)g(a)+f(a)g'(a).
 \]
-If $g(a)\ne0$, then $f/g$ is differentiable at $a$ and
+If $g(a)\ne0$, then
+\[
+f/g
+\]
+ is differentiable at $a$ and
 \[
 \left(\frac fg\right)'(a)=\frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}.
 \]
@@ -69,8 +83,16 @@ Divide by $x-a$, then use continuity of differentiable functions and the algebra
 =-\frac1{g(x)g(a)}\frac{g(x)-g(a)}{x-a}
 \longrightarrow-\frac{g'(a)}{g(a)^2}.
 \]
-This establishes differentiability of $1/g$ before any rule is applied to
-it. The product rule applied to $f(1/g)$ now gives the quotient formula.
+This establishes differentiability of
+\[
+1/g
+\]
+ before any rule is applied to
+it. The product rule applied to
+\[
+f(1/g)
+\]
+ now gives the quotient formula.
 \end{proof}
 
 \begin{example}[Exceptional points require the definition]
@@ -89,7 +111,11 @@ does not settle a junction point.
 \begin{example}[A piecewise differentiability check]
 Let $f(x)=x^2$ for $x\geq0$ and $f(x)=-x^2$ for $x<0$.
 At zero it is continuous since $|f(x)|=x^2\to0$.
-The quotient $f(h)/h$ equals $|h|$ on both sides, so $f'(0)=0$.
+The quotient
+\[
+f(h)/h
+\]
+ equals $|h|$ on both sides, so $f'(0)=0$.
 The derivative is $2x$ for $x>0$ and $-2x$ for $x<0$.
 By contrast replacing the negative branch by $x$ keeps continuity
 but makes the left quotient equal to $1$ and the right quotient
@@ -127,9 +153,64 @@ The identity is valid in the equal-value case because both sides are zero.
 For $x\ne a$ divide only by $x-a$. Continuity of $f$ at $a$ and
 \cref{prop:continuous-composition-real}, applied after restricting $D$
 to a neighborhood of $a$ mapped into $E$, give
-$H(f(x))\to H(b)=g'(b)$, while $(f(x)-b)/(x-a)\to f'(a)$.
+$H(f(x))\to H(b)=g'(b)$, while
+\[
+(f(x)-b)/(x-a)\to f'(a).
+\]
+
 The product limit gives $(g\circ f)'(a)=g'(b)f'(a)$. The auxiliary function
 removes the division-by-zero problem before the limit is taken.
+\end{proof}
+
+\paragraph{Implicit differentiation.}
+Suppose a differentiable function \(y=y(x)\) is already known to satisfy
+\[
+F(x,y(x))=0.
+\]
+One may differentiate this identity by the ordinary chain and product rules
+and solve for \(y'(x)\) where the resulting coefficient permits it. For
+example, from
+\[
+x^2+y(x)^2=1
+\]
+one obtains
+\[
+2x+2y(x)y'(x)=0,
+\qquad
+y'(x)=-\frac{x}{y(x)}
+\]
+where \(y(x)\ne0\). This calculation does not prove that a differentiable
+branch \(y(x)\) exists. The implicit function theorem
+\cref{thm:implicit-function} supplies a local existence result under
+appropriate hypotheses in Chapter~\ref{ch:multivariable-differentiation}.
+
+\begin{definition}[Local extrema and critical points]
+\label{def:local-extrema-critical}
+Let \(f:D\to\R\) and \(c\in D\). The point \(c\) is a \textbf{local
+maximum} if some neighborhood \(U\) of \(c\) satisfies
+\[
+f(x)\leq f(c)\qquad(x\in D\cap U).
+\]
+A \textbf{local minimum} reverses this inequality, and a
+\textbf{local extremum} is either one. Thus the definition is relative to
+the domain, and an endpoint can be a local extremum. If \(c\) is an interior
+point of \(D\), it is a \textbf{critical point} when either \(f'(c)=0\) or
+\(f'(c)\) does not exist.
+\end{definition}
+The nondifferentiable alternative matters: \(f(x)=|x|\) has a strict local
+minimum at \(0\), where its derivative does not exist.
+
+\begin{theorem}[Fermat's theorem on stationary points]
+\label{thm:fermat-stationary}
+If \(f\) is differentiable at an interior local extremum \(c\), then
+\[
+f'(c)=0.
+\]
+\end{theorem}
+\begin{proof}
+At a local maximum, the difference quotient is nonnegative for nearby
+\(x<c\) and nonpositive for nearby \(x>c\). Since its two-sided limit
+exists, that limit is zero. At a local minimum the signs are reversed.
 \end{proof}
 
 \begin{theorem}[Rolle's theorem]
@@ -137,7 +218,10 @@ removes the division-by-zero problem before the limit is taken.
 Let $f:[a,b]\to\R$ be continuous on $[a,b]$ and differentiable on $(a,b)$, where $a<b$. If $f(a)=f(b)$, then some $c\in(a,b)$ satisfies $f'(c)=0$.
 \end{theorem}
 \begin{proof}
-By \cref{thm:extreme-value}, $f$ attains a maximum and a minimum. If both values equal $f(a)$, then $f$ is constant and every interior point works. Otherwise an extremum occurs at an interior point $c$. At an interior maximum, the difference quotient is nonnegative for $x<c$ and nonpositive for $x>c$; since its two-sided limit exists, it is zero. The minimum case is identical with signs reversed.
+By \cref{thm:extreme-value}, $f$ attains a maximum and a minimum. If both
+values equal $f(a)$, then $f$ is constant and every interior point works.
+Otherwise an extremum occurs at an interior point \(c\), and
+\cref{thm:fermat-stationary} gives \(f'(c)=0\).
 \end{proof}
 
 \begin{theorem}[Mean value theorem]
@@ -196,6 +280,66 @@ x<y\quad\Longrightarrow\quad f(x)\geq f(y),
 and \emph{strictly decreasing} if the final inequality is strict. A function is \emph{monotone} if it is increasing or decreasing, and \emph{strictly monotone} if it is strictly increasing or strictly decreasing. Throughout these notes, ``increasing'' and ``decreasing'' are used in the non-strict sense; strict inequalities are indicated by ``strictly increasing'' and ``strictly decreasing.''
 \end{definition}
 
+\begin{theorem}[First derivative test]
+\label{thm:first-derivative-test}
+Let \(c\) be an interior critical point of \(f\), and suppose \(f\) is
+differentiable on each side of \(c\).
+\begin{enumerate}
+\item If \(f'>0\) immediately to the left of \(c\) and \(f'<0\)
+immediately to the right, then \(c\) is a strict local maximum.
+\item If \(f'<0\) immediately to the left and \(f'>0\) immediately to the
+right, then \(c\) is a strict local minimum.
+\item If \(f'\) has the same sign on both sides, this test gives no local
+extremum at \(c\).
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+The Mean Value Theorem makes \(f\) strictly increasing on any interval
+where \(f'>0\) and strictly decreasing where \(f'<0\). The two sign-change
+patterns therefore give the stated comparisons with \(f(c)\).
+\end{proof}
+The equation \(f'(c)=0\) alone is not sufficient. For \(f(x)=x^3\),
+\(f'(0)=0\), but \(f\) is increasing on both sides and \(0\) is not an
+extremum.
+
+\begin{theorem}[Discontinuities of monotone functions]
+\label{thm:monotone-discontinuities}
+Let \(f:I\to\R\) be monotone on an interval. At every interior point it
+has finite one-sided limits, and its set of discontinuities is at most
+countable.
+\end{theorem}
+\begin{proof}
+Suppose \(f\) is increasing and \(c\) is interior to \(I\). Define
+\[
+f(c^-)=\sup\{f(x):x\in I,\ x<c\},
+\qquad
+f(c^+)=\inf\{f(x):x\in I,\ x>c\}.
+\]
+These quantities are finite because values on either side are bounded by
+nearby values of \(f\). To see that the first is the left-hand limit, choose
+\(x_0<c\) with \(f(x_0)>f(c^-)-\eps\). For \(x_0<x<c\),
+\[
+f(c^-)-\eps<f(x)\leq f(c^-).
+\]
+The right-hand argument is identical. Monotonicity also gives
+\[
+f(c^-)\leq f(c)\leq f(c^+).
+\]
+Thus \(f\) is continuous at \(c\) exactly when the two one-sided limits
+agree, and every discontinuity has a nonempty jump interval
+\((f(c^-),f(c^+))\).
+
+Choose a rational number in each such interval. If \(c<d\), monotonicity
+gives \(f(c^+)\leq f(d^-)\), so the two jump intervals are disjoint.
+The chosen rationals are therefore distinct, giving an injection of the
+discontinuity set into \(\Q\). Endpoint discontinuities, when the endpoints
+belong to \(I\), add at most two points. For decreasing \(f\), apply the
+increasing case to \(-f\).
+\end{proof}
+Chapter~\ref{ch:riemann} will use both this countability result and a direct
+Darboux proof that monotone functions are Riemann integrable; the latter
+does not depend on measure theory.
+
 \begin{corollary}[Bounded derivative criterion for Lipschitz continuity]
 \label{cor:bounded-derivative-lipschitz}
 If $f$ is continuous on an interval $I$, differentiable in its interior,
@@ -247,12 +391,16 @@ The endpoint values of $h$ agree; setting $h'(c)=0$ gives the identity.
 
 \noindent\textbf{Infinite limits.} We use the eventual-inequality
 definitions from Chapter~\ref{ch:continuity}.  In particular, expressions
-such as $\infty/\infty$ name an
+such as
+\[
+\infty/\infty
+\]
+ name an
 \textbf{indeterminate limiting form}; they are not arithmetic quotients of
 numbers called infinity. The absolute-divergence formulation permits either
 sign for each function.
 
-\begin{theorem}[L'H\^opital's rule: the $0/0$ and $\infty/\infty$ forms]
+\begin{theorem}[L'H\^opital's rule: the $\displaystyle 0/0$ and $\displaystyle \infty/\infty$ forms]
 \label{thm:lhopital}
 Let $f,g:(a,b)\to\R$ be differentiable, where $a<b$. Assume that
 \[
@@ -302,7 +450,11 @@ $\xi_x\in(x,c)$ for which
 \frac{f(x)-f(c)}{g(x)-g(c)}
 =\frac{f'(\xi_x)}{g'(\xi_x)}.
 \]
-Thus this quotient differs from $L$ by less than $\eps/4$. Since
+Thus this quotient differs from $L$ by less than
+\[
+\eps/4.
+\]
+ Since
 $\abs{g(x)}\to\infty$, for all $x$ sufficiently close to $a$ we also have
 \[
 \abs{\frac{g(x)-g(c)}{g(x)}}\leq\frac32
@@ -321,14 +473,42 @@ the triangle inequality proves that its absolute value is less than $\eps$.
 
 \noindent\textbf{Infinite derivative-quotient variants.} Under the same
 hypotheses, if the derivative quotient tends to $+\infty$ (respectively,
-$-\infty$), then so does $f(x)/g(x)$. Here is a proof using only finite
-thresholds. Suppose first that $f'/g'\to+\infty$.
+$-\infty$), then so does
+\[
+f(x)/g(x).
+\]
+ Here is a proof using only finite
+thresholds. Suppose first that
+\[
+f'/g'\to+\infty.
+\]
 
-For the $0/0$ form, let $K>0$. Choose $\delta>0$ so that
-$f'(t)/g'(t)>K$ for $a<t<a+\delta$. For $a<x<a+\delta$, the identity
-$f(x)/g(x)=f'(c_x)/g'(c_x)$ with $a<c_x<x$ gives $f(x)/g(x)>K$.
 
-For the $\infty/\infty$ form, fix a finite target $K>0$, and choose
+For the
+\[
+0/0
+\]
+ form, let $K>0$. Choose $\delta>0$ so that
+
+\[
+f'(t)/g'(t)>K
+\]
+ for $a<t<a+\delta$. For $a<x<a+\delta$, the identity
+
+\[
+f(x)/g(x)=f'(c_x)/g'(c_x)
+\]
+ with $a<c_x<x$ gives
+\[
+f(x)/g(x)>K.
+\]
+
+
+For the
+\[
+\infty/\infty
+\]
+ form, fix a finite target $K>0$, and choose
 $c\in(a,b)$ sufficiently close to $a$ that
 \[
 \frac{f'(t)}{g'(t)}>2(K+1)\qquad(a<t<c).
@@ -350,10 +530,26 @@ to $1$ and the final term to $0$. Choose $x$ still closer to $a$ so that
 \frac{g(x)-g(c)}{g(x)}>\frac12,
 \qquad \left|\frac{f(c)}{g(x)}\right|<1.
 \]
-The identity yields $f(x)/g(x)>(K+1)-1=K$. The order of choices is
+The identity yields
+\[
+f(x)/g(x)>(K+1)-1=K.
+\]
+ The order of choices is
 finite target $K$, then $c$, then $x$ with $c$ fixed. This proves the
-positive infinite limit. If $f'/g'\to-\infty$, apply the positive case
-to $-f$ and $g$; it gives $-f/g\to+\infty$, hence $f/g\to-\infty$.
+positive infinite limit. If
+\[
+f'/g'\to-\infty,
+\]
+ apply the positive case
+to $-f$ and $g$; it gives
+\[
+-f/g\to+\infty,
+\]
+ hence
+\[
+f/g\to-\infty.
+\]
+
 No infinite quantity has been substituted for the finite scalar $L$.
 
 \noindent\textbf{Other domains and forms.} The same proof works for limits
@@ -367,7 +563,11 @@ For example,
 Here both the numerator and denominator have absolute value tending to
 infinity; their signs can affect the resulting quotient, but they require no
 separate theorem. L'H\^opital's Rule applies directly only to quotient forms
-of type $0/0$ and $\infty/\infty$. Forms such as $0\cdot\infty$,
+of type
+\[
+0/0,\qquad \infty/\infty.
+\]
+ Forms such as $0\cdot\infty$,
 $\infty-\infty$, $1^\infty$, $0^0$, and $\infty^0$ must first be transformed
 into a suitable quotient or logarithmic form.
 
@@ -381,7 +581,11 @@ the rational-function example above use only the results already proved.
 The rules now replace repeated expansion of difference quotients.
 For $u(x)=(2x-1)(x^2+3)$, the product rule gives
 $u'(x)=2(x^2+3)+(2x-1)2x$.
-For $v(x)=(x^2+1)/(x+2)$ on $\R\setminus\{-2\}$,
+For
+\[
+v(x)=(x^2+1)/(x+2)
+\]
+ on $\R\setminus\{-2\}$,
 \[
 v'(x)=\frac{2x(x+2)-(x^2+1)}{(x+2)^2}.
 \]
@@ -405,8 +609,13 @@ by \cref{cor:bounded-derivative-lipschitz}.
 A rectangle has perimeter $12$ metres. Let $x$ be one side in metres;
 the other is $6-x$. The area objective is $A(x)=x(6-x)$, with
 $0<x<6$. Extend it continuously to $[0,6]$ to include zero-area
-boundary candidates. The EVT guarantees a maximum there.
-Interior candidates satisfy $A'(x)=6-2x=0$, hence $x=3$.
+boundary candidates. The EVT guarantees a maximum there. The natural
+candidates for an absolute extremum on a closed interval are
+\[
+\boxed{\text{interior critical points and endpoints}.}
+\]
+Here the only interior critical point satisfies $A'(x)=6-2x=0$, hence
+$x=3$.
 The endpoint areas are zero, while $A(3)=9$; alternatively the
 derivative is positive before $3$ and negative after it. The optimum
 is therefore attained by a square with sides $3$ metres and area
@@ -433,14 +642,26 @@ constants. Convergence at one anchor fixes those constants; uniform Cauchy
 control of the derivatives then controls variation away from the anchor.
 
 Given $\eps>0$, choose $N_1$ from uniform Cauchyness of the derivatives
-with tolerance $\eps/(2(1+\beta-\alpha))$ and $N_2$ from Cauchyness
-at the anchor with tolerance $\eps/2$. For
+with tolerance
+\[
+\eps/(2(1+\beta-\alpha))
+\]
+ and $N_2$ from Cauchyness
+at the anchor with tolerance
+\[
+\eps/2.
+\]
+ For
 $m,n\geq N=\max\{N_1,N_2\}$, the Mean Value Theorem implies
 \[
 \abs{(F_m(x)-F_n(x))-(F_m(x_0)-F_n(x_0))}
 \leq\frac{\eps}{2(1+\beta-\alpha)}\abs{x-x_0}<\eps/2
 \]
-throughout $I$. Adding $|F_m(x_0)-F_n(x_0)|<\eps/2$ proves that
+throughout $I$. Adding
+\[
+|F_m(x_0)-F_n(x_0)|<\eps/2
+\]
+ proves that
 $(F_n)$ is uniformly Cauchy, hence uniformly convergent to $f$.
 
 Fix an interior point $x$ and define, for $h\ne0$ with $x+h\in I$,
@@ -449,21 +670,45 @@ Q_f(h)=\frac{f(x+h)-f(x)}h,\qquad
 Q_N(h)=\frac{F_N(x+h)-F_N(x)}h.
 \]
 Given $\eps>0$, choose $N_1$ so that the uniform Cauchy error of
-the derivatives is below $\eps/3$ for indices at least $N_1$.
-Choose $N_2$ so that $|F_j'(x)-g(x)|<\eps/3$ for $j\geq N_2$,
+the derivatives is below
+\[
+\eps/3
+\]
+ for indices at least $N_1$.
+Choose $N_2$ so that
+\[
+|F_j'(x)-g(x)|<\eps/3
+\]
+ for $j\geq N_2$,
 and set $N=\max\{N_1,N_2\}$. Then
-$|F_m'(u)-F_N'(u)|<\eps/3$ for all $m\geq N,u\in I$, and
-$|F_N'(x)-g(x)|<\eps/3$. The Mean Value Theorem for $F_m-F_N$ gives
+
+\[
+|F_m'(u)-F_N'(u)|<\eps/3
+\]
+ for all $m\geq N,u\in I$, and
+
+\[
+|F_N'(x)-g(x)|<\eps/3.
+\]
+ The Mean Value Theorem for $F_m-F_N$ gives
 \[
 \left|\frac{F_m(x+h)-F_m(x)}h-Q_N(h)\right|<\eps/3.
 \]
 For each admissible $h$, let $m\to\infty$, using the already established
-convergence of the functions. We obtain $|Q_f(h)-Q_N(h)|\leq\eps/3$
+convergence of the functions. We obtain
+\[
+|Q_f(h)-Q_N(h)|\leq\eps/3
+\]
+
 for every such $h$, with the same $N$.
 
 Now keep that $N$ fixed. Differentiability of this one function $F_N$ at
 $x$ supplies $\delta>0$ such that $0<|h|<\delta$ implies
-$|Q_N(h)-F_N'(x)|<\eps/3$, and shrink $\delta$ so $x+h\in I$. Then
+
+\[
+|Q_N(h)-F_N'(x)|<\eps/3,
+\]
+ and shrink $\delta$ so $x+h\in I$. Then
 \[
 |Q_f(h)-g(x)|\leq|Q_f(h)-Q_N(h)|
 +|Q_N(h)-F_N'(x)|+|F_N'(x)-g(x)|<\eps.
@@ -480,13 +725,28 @@ the anchor hypothesis is indispensable. The series version is now a
 direct application to its partial sums.
 \begin{corollary}[Termwise differentiation]
 \label{thm:termwise-differentiation}
-If each $f_n$ is differentiable on $I$, $\sum f_n(x_0)$ converges at
-one point, and $\sum f_n'$ converges uniformly to $g$, then
-$\sum f_n$ converges uniformly to a differentiable sum $f$ on the
+If each $f_n$ is differentiable on $I$,
+\[
+\sum_{n=0}^\infty f_n(x_0)
+\]
+converges at one point, and
+\[
+\sum_{n=0}^\infty f_n'
+\]
+converges uniformly to $g$, then
+\[
+\sum_{n=0}^\infty f_n
+\]
+ converges
+uniformly to a differentiable sum $f$ on the
 interior and $f'=g$ there.
 \end{corollary}
 \begin{proof}
-Set $F_N=\sum_{n=0}^Nf_n$. The three hypotheses and the conclusions
+Set
+\[
+F_N=\sum_{n=0}^Nf_n.
+\]
+ The three hypotheses and the conclusions
 are exactly those of \cref{thm:sequence-differentiation} for $(F_N)$.
 \end{proof}
 \begin{theorem}[Power-series differentiation]
@@ -514,8 +774,16 @@ The numerical series
 \[
 \sum_{n=0}^{\infty}\abs{c_n}t^n
 \]
-converges. Put $q=\rho/t<1$. The positive terms $nq^{n-1}$ have consecutive
-ratio $q(1+1/n)\to q<1$, so the ratio test makes their series converge;
+converges. Put
+\[
+q=\rho/t<1.
+\]
+ The positive terms $nq^{n-1}$ have consecutive
+ratio
+\[
+q(1+1/n)\to q<1,
+\]
+ so the ratio test makes their series converge;
 in particular these terms have a finite bound $C$. For $|x-a|\leq\rho$,
 \[
 |nc_n(x-a)^{n-1}|
@@ -589,7 +857,11 @@ the finite sum by the ordinary product rule gives two sums:
 \]
 The first sum was reindexed with $k=j+1$; the second merely renamed
 its index. For $1\leq k\leq n$, the two coefficients add to
-$\binom n{k-1}+\binom nk=\binom{n+1}k$ by Pascal's identity.
+
+\[
+\binom n{k-1}+\binom nk=\binom{n+1}k
+\]
+ by Pascal's identity.
 The terms $k=0$ and $k=n+1$ each occur once with coefficient $1$.
 This is the formula at order $n+1$, completing induction.
 \end{proof}
@@ -620,9 +892,17 @@ The $j$th derivative of $(x-a)^k$ at $a$ is zero if $k<j$ (the
 derivative vanishes identically) or $k>j$ (a positive power remains).
 For $k=j$ it is $j!$. Thus only term $j$ contributes to
 $P_{n,a}^{(j)}(a)$, and the factorial cancels. Every polynomial of degree
-at most $n$ can be written uniquely as $\sum_{j=0}^n c_j(x-a)^j$,
+at most $n$ can be written uniquely as
+\[
+\sum_{j=0}^n c_j(x-a)^j,
+\]
+
 by translating its variable. The same calculation forces
-$c_j=f^{(j)}(a)/j!$, proving uniqueness.
+
+\[
+c_j=f^{(j)}(a)/j!,
+\]
+ proving uniqueness.
 \end{proof}
 Matching derivatives at a point defines a polynomial. It does not yet
 bound its error away from the point. Taylor's theorem supplies that
@@ -656,7 +936,11 @@ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k
 \end{theorem}
 \begin{proof}
 The case $x=a$ is immediate. Fix $x\ne a$ and write
-$P_n(t)=\sum_{k=0}^n f^{(k)}(a)(t-a)^k/k!$. Choose
+
+\[
+P_n(t)=\sum_{k=0}^n\frac{f^{(k)}(a)}{k!}(t-a)^k.
+\]
+ Choose
 \[
 C=\frac{f(x)-P_n(x)}{(x-a)^{n+1}}.
 \]
@@ -694,7 +978,7 @@ next power.
 The same remainder proof works when $x<a$: apply Rolle's theorem on
 the closed interval with endpoints $x,a$. Thus a base point may lie
 inside the domain, and estimates apply on either side.
-\begin{corollary}[Practical Taylor error bound]\label{cor:ordinary-taylor-bound}
+\begin{corollary}[Taylor error bound]\label{cor:ordinary-taylor-bound}
 If $f$ has $n+1$ continuous derivatives on the segment from $a$ to $x$
 and $|f^{(n+1)}(t)|\leq M$ there, then
 \[
@@ -725,6 +1009,24 @@ uniformly over the possible intermediate points. Divide by $|h|^n$.
 This needs no $(n+1)$st derivative. It prepares the finite-order Peano
 formula for vector increments in Chapter~11.
 
+\begin{theorem}[Second derivative test]
+\label{thm:second-derivative-test}
+Suppose \(f'(c)=0\) and \(f''(c)\) exists. If \(f''(c)>0\), then \(c\) is
+a strict local minimum; if \(f''(c)<0\), then \(c\) is a strict local
+maximum.
+\end{theorem}
+\begin{proof}
+Taylor--Peano at \(c\) gives
+\[
+f(c+h)=f(c)+\frac12f''(c)h^2+o(h^2).
+\]
+For sufficiently small nonzero \(h\), the remainder has absolute value
+less than \(|f''(c)|h^2/4\). Since \(h^2>0\), the sign of
+\(f(c+h)-f(c)\) is then the sign of \(f''(c)\).
+\end{proof}
+The case \(f''(c)=0\) is inconclusive. At zero, \(x^3\) has no local
+extremum, whereas \(x^4\) has a strict local minimum.
+
 \begin{remark}[The multilinear notation hidden in one variable]
 For $f:\R\to\R$, Chapter~11 will write the $k$th derivative as
 \[
@@ -753,7 +1055,11 @@ E(x+y)=E(x)E(y),
 \qquad E(0)=1,
 \]
 and calculus suggests the normalization $E'=E$. If a power series
-$E(x)=\sum_{n=0}^{\infty}a_nx^n$ has this behavior, formal differentiation
+
+\[
+E(x)=\sum_{n=0}^{\infty}a_nx^n
+\]
+ has this behavior, formal differentiation
 forces
 \[
 (n+1)a_{n+1}=a_n,\qquad a_n=\frac{a_0}{n!},\qquad a_0=E(0)=1.
@@ -763,11 +1069,19 @@ convergence and legitimate differentiation come next.
 
 \begin{proposition}[Convergence of the exponential series]
 \label{prop:exponential-series-convergence}
-The series $\displaystyle\sum_{n=0}^{\infty}\frac{x^n}{n!}$ converges absolutely for every real $x$.
+The series
+\[
+\sum_{n=0}^{\infty}\frac{x^n}{n!}
+\]
+ converges absolutely for every real $x$.
 \end{proposition}
 \begin{proof}
 At zero this is immediate. Otherwise the ratio of consecutive absolute
-terms is $\frac{|x|}{n+1}$, which tends to zero; apply the Ratio Test.
+terms is
+\[
+\frac{|x|}{n+1},
+\]
+ which tends to zero; apply the Ratio Test.
 \end{proof}
 \begin{definition}[Analytic exponential]\label{def:analytic-exponential}
 For $x\in\R$, define
@@ -826,7 +1140,11 @@ For each fixed \(k\), the finite product tends to \(1\) as
 \]
 this is possible because the exponential series converges at \(1\). For
 the finitely many indices \(0\leq k\leq K\), choose \(N\) so large that
-the sum of the coefficient errors is less than \(\varepsilon/2\) whenever
+the sum of the coefficient errors is less than
+\[
+\varepsilon/2
+\]
+ whenever
 \(n\geq N\). The remaining terms, whether they occur in the binomial sum
 or only in the infinite exponential series, contribute at most the displayed
 tail. Hence
@@ -859,7 +1177,11 @@ The exponential identity gives
 \[
 \exp\left(\frac x2\right)\exp\left(-\frac x2\right)=\exp(0)=1.
 \]
-Thus $\exp(x/2)\ne0$, and consequently
+Thus
+\[
+\exp(x/2)\ne0,
+\]
+ and consequently
 \[
 \exp(x)=\exp\left(\frac x2\right)^2>0.
 \]
@@ -893,7 +1215,11 @@ symbol \(\ln\) is widespread and denotes exactly the same natural logarithm.
 Strict monotonicity gives one inverse value, but does not guarantee a
 finite derivative of the inverse. A nonzero slope permits division in
 the inverse difference quotient. For example, $x^3$ is strictly increasing,
-but its inverse has quotient $y^{1/3}/y=y^{-2/3}$ for $y>0$, which
+but its inverse has quotient
+\[
+y^{1/3}/y=y^{-2/3}
+\]
+ for $y>0$, which
 is unbounded as $y\to0^+$.
 
 \begin{theorem}[Inverse derivative theorem]
@@ -924,10 +1250,18 @@ in $f(I)$, put $x=g(y)$. Injectivity gives $x\ne x_0$, and
 =\left(\frac{f(x)-f(x_0)}{x-x_0}\right)^{-1}.
 \]
 As $y\to y_0$, continuity of $g$ gives $x\to x_0$. The last expression
-tends to $1/f'(x_0)$, since $f'(x_0)\ne0$. This proves differentiability
+tends to
+\[
+1/f'(x_0),
+\]
+ since $f'(x_0)\ne0$. This proves differentiability
 before any differentiation of $g\circ f=\operatorname{id}$ is legitimate.
 Applying the formula to $f=\exp$ gives
-$\log'(x)=1/\exp(\log x)=1/x$.
+
+\[
+\log'(x)=\frac{1}{\exp(\log x)}=\frac1x.
+\]
+
 \end{proof}
 
 \begin{proposition}[Arithmetic laws of the natural logarithm]
@@ -951,14 +1285,22 @@ law gives
 ab=\exp(\log a+\log b).
 \]
 Applying the inverse function $\log$ proves the product law. Since
-$a/b=a\,b^{-1}$, the identity
+
+\[
+a/b=a\,b^{-1},
+\]
+ the identity
 $\exp(-\log b)=b^{-1}$ and the product law give the remaining two formulas.
 \end{proof}
 Logarithms turn products, not sums, into sums. In general
 \[
 \log(a+b)\ne\log a+\log b;
 \]
-for instance, $\log(1+1)=\log2\ne0=\log1+\log1$.
+for instance,
+\[
+\log(1+1)=\log2\ne0=\log1+\log1.
+\]
+
 
 Chapter~\ref{ch:continuity} defined $a^q$ for rational $q$. What should
 $a^x$ mean when $x$ is irrational? This is an extension problem: the new
@@ -971,16 +1313,28 @@ following definition.
 \begin{definition}[Real powers of positive numbers]
 For \(a>0\) and \(x\in\R\), define
 \[
-\boxed{a^x:=\exp(x\log a).}
+\boxed{a^x:=e^{x\log a}.}
 \]
 \end{definition}
 
 The definition agrees with the rational powers constructed in
-\cref{def:rational-powers}. Indeed, for \(r=m/n\), \(n>0\), set
-\(y=\exp((m/n)\log a)>0\). The exponential addition law gives
-\(y^n=\exp(m\log a)=a^m\), also for negative \(m\) by the reciprocal
+\cref{def:rational-powers}. Indeed, for
+\[
+r=m/n,
+\]
+ \(n>0\), set
+
+\[
+y=e^{(m/n)\log a}>0.
+\]
+ The exponential addition law gives
+\(y^n=e^{m\log a}=a^m\), also for negative \(m\) by the reciprocal
 identity. Uniqueness of a positive \(n\)th root therefore identifies \(y\)
-with the Chapter~\ref{ch:continuity} value \(a^{m/n}\).
+with the Chapter~\ref{ch:continuity} value
+\[
+a^{m/n}.
+\]
+
 
 \begin{proposition}[Real-exponent laws]
 \label{prop:real-exponent-laws}
@@ -1003,7 +1357,7 @@ zero. A negative base has no real-valued power \(a^x\) for every real \(x\).
 The first two identities follow immediately from the exponential addition
 law. The inverse identity
 \[
-\log(a^x)=\log(\exp(x\log a))=x\log a
+\log(a^x)=\log(e^{x\log a})=x\log a
 \]
 proves the displayed logarithm law, and the third exponent law follows from
 it and the definition.
@@ -1016,7 +1370,7 @@ The identity \(\log(ab)=\log a+\log b\), obtained by applying the inverse of
 Fix $a>0$ and define
 \[
 E_a:\R\to(0,\infty),
-\qquad E_a(x)=a^x=\exp(x\log a).
+\qquad E_a(x)=a^x=e^{x\log a}.
 \]
 Then
 \[
@@ -1033,13 +1387,13 @@ $\log a$ control monotonicity. Surjectivity will come from solving the
 equation $a^x=y$ explicitly with the already constructed natural logarithm.
 The chain rule gives
 \[
-E_a'(x)=\exp(x\log a)\log a=a^x\log a.
+E_a'(x)=e^{x\log a}\log a=a^x\log a.
 \]
 The natural logarithm is strictly increasing because it is the inverse of
 the strictly increasing exponential, and $\log1=0$. Thus $\log a$ is
 positive when $a>1$ and negative when $0<a<1$. Since $a^x>0$, the Mean
 Value Theorem gives the stated strict monotonicity. If $a=1$, the definition
-gives $1^x=\exp(x\log1)=1$.
+gives $1^x=e^{x\log1}=1$.
 
 Now suppose $a\ne1$. Strict monotonicity gives injectivity. For any $y>0$,
 $\log a\ne0$, and
@@ -1048,8 +1402,8 @@ x=\frac{\log y}{\log a}
 \]
 satisfies
 \[
-a^x=\exp\!\left(\frac{\log y}{\log a}\log a\right)
-=\exp(\log y)=y.
+a^x=e^{\frac{\log y}{\log a}\log a}
+=e^{\log y}=y.
 \]
 Hence the actual range is all of $(0,\infty)$, proving bijectivity with the
 displayed codomain.
@@ -1128,8 +1482,8 @@ increasing. Applying the inverse, or using change of base, gives
 \[
 x=\log_2 5=\frac{\log5}{\log2}.
 \]
-This is the practical role of arbitrary-base logarithms: they recover an
-unknown exponent even when the base is not $e$.
+Thus arbitrary-base logarithms recover an unknown exponent even when the
+base is not \(e\).
 \end{example}
 
 \begin{theorem}[Derivative of a real power]
@@ -1146,8 +1500,8 @@ is differentiable on $(0,\infty)$ and
 \begin{proof}
 The chain rule and \cref{thm:log-and-inverses} give
 \[
-\frac{\dd}{\dd x}\exp(p\log x)
-=\exp(p\log x)\frac{p}{x}
+\frac{\dd}{\dd x}e^{p\log x}
+=e^{p\log x}\frac{p}{x}
 =px^{p-1}.
 \]
 \end{proof}
@@ -1161,7 +1515,11 @@ For every fixed \(x\in\R\),
 The base is positive for all sufficiently large \(n\).
 \end{proposition}
 \begin{proof}
-Choose \(N\) so that \(1+x/n>0\) for \(n\geq N\). Then
+Choose \(N\) so that
+\[
+1+x/n>0
+\]
+ for \(n\geq N\). Then
 \[
 \log\left(1+\frac xn\right)^n
 =n\log\left(1+\frac xn\right)
@@ -1170,17 +1528,29 @@ Choose \(N\) so that \(1+x/n>0\) for \(n\geq N\). Then
 \]
 with the case \(x=0\) immediate. The logarithmic quotient tends to \(1\)
 because it is the derivative of \(\log t\) at \(t=1\), after writing
-\(t=1+x/n\). Continuity of \(\exp\) and \cref{thm:exp-one-e} give the result.
+
+\[
+t=1+x/n.
+\]
+ Continuity of \(\exp\) and \cref{thm:exp-one-e} give the result.
 \end{proof}
 
 \subsection*{Recognizing hidden exponential limits}
 Logarithms turn a changing exponent into a multiplier:
 \[
-u_n^{v_n}=\exp\!\bigl(v_n\log u_n\bigr)\qquad(u_n>0).
+u_n^{v_n}=e^{v_n\log u_n}\qquad(u_n>0).
 \]
 The derivative of $\log$ at $1$ says that
-$\displaystyle\frac{\log(1+h)}h\to1$ as $h\to0$.
-Start with concrete cases. If $u_n=1+3/n$, then
+
+\[
+\frac{\log(1+h)}h\to1
+\]
+ as $h\to0$.
+Start with concrete cases. If
+\[
+u_n=1+3/n,
+\]
+ then
 \[
 n\log u_n=3\frac{\log(1+3/n)}{3/n}\longrightarrow3,
 \qquad u_n^n\longrightarrow e^3.
@@ -1219,7 +1589,11 @@ v_n\log(1+h_n)=v_nh_n\,\frac{\log(1+h_n)}{h_n}\longrightarrow L,
 At indices with $h_n=0$, assign the quotient its continuous extension $1$;
 the identity still holds. The assumptions $u_n\to1$ and $v_n\to\infty$
 alone do not determine $u_n^{v_n}$. With exponent $n$, the bases
-$1$, $1+1/n$, and $1+2/n$ already give three different limits.
+$1$,
+\[
+1+1/n,,\qquad 1+2/n
+\]
+ already give three different limits.
 
 The function-limit version uses the same normalization. For fixed real
 $a,b$, both $1+ax$ and $1+bx$ are positive near zero, and
@@ -1252,17 +1626,77 @@ The cubic approximation to $e^{0.1}$ is
 1+0.1+\frac{0.1^2}{2}+\frac{0.1^3}{6}=1.105166666\ldots.
 \]
 On $[0,0.1]$, comparison of the exponential and geometric series gives
-$e^x\leq\frac{10}{9}$. Thus \cref{cor:ordinary-taylor-bound} certifies
+
+\[
+e^x\leq\frac{10}{9}.
+\]
+ Thus \cref{cor:ordinary-taylor-bound} certifies
 \[
 |R_3(0.1)|\leq\frac{10}{9}\frac{0.1^4}{24}<0.00000463.
 \]
 This is a bound on the actual error, not just a formal series expression.
 \end{example}
 
+\subsection*{Hyperbolic functions}
+The exponential also produces a pair of functions adapted to the hyperbola:
+\[
+\cosh x=\frac{e^x+e^{-x}}2,
+\qquad
+\sinh x=\frac{e^x-e^{-x}}2.
+\]
+Their definitions immediately give
+\[
+\cosh(-x)=\cosh x,\qquad \sinh(-x)=-\sinh x,
+\]
+and differentiation gives
+\[
+(\sinh x)'=\cosh x,\qquad(\cosh x)'=\sinh x.
+\]
+Expanding the squares yields the fundamental identity
+\[
+\boxed{\cosh^2x-\sinh^2x=1.}
+\]
+Since \(\cosh x=(e^x+e^{-x})/2>0\), define
+\[
+\tanh x=\frac{\sinh x}{\cosh x}.
+\]
+The quotient rule and the boxed identity give
+\[
+(\tanh x)'=\frac{\cosh^2x-\sinh^2x}{\cosh^2x}
+=1-\tanh^2x.
+\]
+Structurally,
+\[
+(\sin x)''=-\sin x,\quad(\cos x)''=-\cos x,
+\qquad
+(\sinh x)''=\sinh x,\quad(\cosh x)''=\cosh x.
+\]
+
+The strictly increasing function \(\sinh:\R\to\R\) has inverse
+\(\operatorname{arsinh}\). Solving \(x=\sinh y\) for \(e^y>0\) gives
+\[
+\operatorname{arsinh}x
+=\log\!\left(x+\sqrt{x^2+1}\right),
+\qquad
+(\operatorname{arsinh}x)'=\frac1{\sqrt{1+x^2}}.
+\]
+Similarly, the restriction of \(\cosh\) to \([0,\infty)\) has inverse
+\[
+\operatorname{arcosh}x
+=\log\!\left(x+\sqrt{x^2-1}\right),\qquad x\geq1,
+\]
+with
+\[
+(\operatorname{arcosh}x)'=\frac1{\sqrt{x^2-1}},\qquad x>1.
+\]
+The derivative formulas follow either by differentiating the logarithmic
+expressions or by the inverse-derivative theorem.
+
 \section{Trigonometric and Inverse Trigonometric Functions}
 \label{sec:trigonometric-functions}
 \subsection*{Geometry suggests the construction}
-Recall first the right-triangle ratios, as motivation rather than definitions:
+Recall first the right-triangle ratios for an acute angle \(\theta\), as
+motivation rather than definitions:
 \[
 \sin\theta=\frac{\text{opposite}}{\text{hypotenuse}},\qquad
 \cos\theta=\frac{\text{adjacent}}{\text{hypotenuse}},\qquad
@@ -1285,7 +1719,11 @@ s'=c,\qquad c'=-s,\qquad s(0)=0,\qquad c(0)=1.
 \]
 These are still targets, not premises. They motivate equations that force the
 power-series coefficients:
-if $s(x)=\sum a_nx^n$ and $c(x)=\sum b_nx^n$, then formally
+if
+\[
+s(x)=\sum a_nx^n,\qquad c(x)=\sum b_nx^n,
+\]
+ then formally
 \[
 (n+1)a_{n+1}=b_n,\qquad (n+1)b_{n+1}=-a_n.
 \]
@@ -1350,7 +1788,11 @@ h'(x)
 =\cos(x+y)+\sin x\sin y-\cos x\cos y
 \]
 is the difference between the two sides of the proposed cosine addition formula. Differentiating the latter difference gives the negative of $h$. Writing the cosine difference as $k=h'$, we have $k'=-h$.
-The product rule now gives $(h^2+k^2)'=2hk+2k(-h)=0$.
+The product rule now gives
+\[
+(h^2+k^2)'=2hk+2k(-h)=0.
+\]
+
 The Mean Value Theorem makes $h^2+k^2$ constant. At $x=0$, both differences vanish, because
 \[
 \sin0=0,\qquad\cos0=1,
@@ -1410,11 +1852,7 @@ There is a least positive zero $c$ of $\cos$. Put
 \]
 Then
 \[
-\cos c=0,\quad \sin c=1,\quad \cos\pi=-1,\quad\sin\pi=0,
-\]
-and
-\[
-\cos(x+2\pi)=\cos x,\qquad\sin(x+2\pi)=\sin x.
+\cos c=0,\quad \sin c=1,\quad \cos\pi=-1,\quad\sin\pi=0,,\qquad \cos(x+2\pi)=\cos x,\qquad\sin(x+2\pi)=\sin x.
 \]
 Moreover, $\cos x>0$ for $-c<x<c$, and $\sin$ maps $[-c,c]$ continuously and strictly increasingly onto $[-1,1]$.
 \end{theorem}
@@ -1508,7 +1946,11 @@ The addition formulas and the values at \(\pi\) give
 \qquad
 \cos(x+\pi)=-\cos x.
 \]
-On \((-\pi/2,\pi/2)\), cosine is positive, and sine is strictly
+On
+\[
+(-\pi/2,\pi/2),
+\]
+ cosine is positive, and sine is strictly
 increasing with its only zero at \(0\). For every real \(x\), the
 integer-part lemma (\cref{lem:integer-part}), applied after division by
 \(\pi>0\), places \(x-k\pi\) in a half-open interval of length \(\pi\)
@@ -1516,21 +1958,57 @@ for some \(k\in\Z\). Translating that interval by the identities above
 therefore gives exactly the displayed zero sets and the usual alternating
 quadrant signs.
 
-At \(x=\pi/4\), the double-angle identity gives
-\(0=\cos(\pi/2)=\cos^2x-\sin^2x\). Both functions are positive there,
+At
+\[
+x=\pi/4,
+\]
+ the double-angle identity gives
+
+\[
+0=\cos(\pi/2)=\cos^2x-\sin^2x.
+\]
+ Both functions are positive there,
 so they are equal; the Pythagorean identity gives both values as
-\(\frac1{\sqrt2}\). Next the addition formulas give
+
+\[
+\frac1{\sqrt2}.
+\]
+ Next the addition formulas give
 \[
 \cos(3t)=4\cos^3t-3\cos t.
 \]
-For \(t=\pi/3\), let \(u=\cos t>0\). Since \(\cos\pi=-1\),
+For
+\[
+t=\pi/3,
+\]
+ let \(u=\cos t>0\). Since \(\cos\pi=-1\),
 \[
 0=4u^3-3u+1=(2u-1)^2(u+1),
 \]
-so \(u=\frac12\), and positivity plus the Pythagorean identity gives
-\(\sin(\pi/3)=\frac{\sqrt3}{2}\). Finally,
-\((\sin(\pi/2-t),\cos(\pi/2-t))=(\cos t,\sin t)\) supplies the
-\(\pi/6\) values. Taking \(3\pi/4=\pi-\pi/4\) proves the last pair.
+so
+\[
+u=\frac12,
+\]
+ and positivity plus the Pythagorean identity gives
+
+\[
+\sin(\pi/3)=\frac{\sqrt3}{2}.
+\]
+ Finally,
+
+\[
+(\sin(\pi/2-t),\cos(\pi/2-t))=(\cos t,\sin t)
+\]
+ supplies the
+
+\[
+\pi/6
+\]
+ values. Taking
+\[
+3\pi/4=\pi-\pi/4
+\]
+ proves the last pair.
 \end{proof}
 
 Before defining inverses, recall the distinction from
@@ -1591,11 +2069,23 @@ so the endpoint values and the Intermediate Value Theorem give the cosine assert
 \[
 \tan'(x)=\frac1{\cos^2x}>0.
 \]
-Thus tangent is strictly increasing. As $x\to(\pi/2)^-$, continuity gives $\sin x\to1$ and $\cos x\to0^+$. Given $M>0$, choose $x$ sufficiently close to $\pi/2$ that
+Thus tangent is strictly increasing. As
+\[
+x\to(\pi/2)^-,
+\]
+ continuity gives $\sin x\to1$ and $\cos x\to0^+$. Given $M>0$, choose $x$ sufficiently close to
+\[
+\pi/2
+\]
+ that
 \[
 \sin x>\frac12,\qquad0<\cos x<\frac{1}{2M};
 \]
-then $\tan x>M$. Oddness gives the corresponding limit $-\infty$ at $-\pi/2$. The Intermediate Value Theorem proves that tangent is onto $\R$.
+then $\tan x>M$. Oddness gives the corresponding limit $-\infty$ at
+\[
+-\pi/2.
+\]
+ The Intermediate Value Theorem proves that tangent is onto $\R$.
 \end{proof}
 
 The identity $\cos^2t+\sin^2t=1$ puts the series-defined pair
@@ -1616,7 +2106,11 @@ terms are defined.
 Solving $\sin\theta=y$ means finding an angle with a prescribed vertical
 coordinate. Periodicity gives many solutions, so a global inverse cannot
 exist. The right half of the unit circle, parametrized by
-$[-\pi/2,\pi/2]$, has each vertical coordinate exactly once. Similarly,
+
+\[
+[-\pi/2,\pi/2],
+\]
+ has each vertical coordinate exactly once. Similarly,
 the upper half, parametrized by $[0,\pi]$, has each horizontal coordinate
 exactly once. These observations explain the principal choices for arcsine
 and arccosine. Tangent measures slope on the open right semicircle, where
@@ -1636,11 +2130,23 @@ range as the codomain of a bijection. Define the inverse maps
 \arctan &: \R\longrightarrow\left(-\frac\pi2,\frac\pi2\right).
 \end{aligned}
 \]
-They invert, respectively, sine on $[-\pi/2,\pi/2]$, cosine on $[0,\pi]$,
-and tangent on $(-\pi/2,\pi/2)$.
+They invert, respectively, sine on
+\[
+[-\pi/2,\pi/2],
+\]
+ cosine on $[0,\pi]$,
+and tangent on
+\[
+(-\pi/2,\pi/2).
+\]
+
 These target intervals are the \textbf{principal ranges}. The notations
 \(\sin^{-1},\cos^{-1},\tan^{-1}\) are also widespread, but here
-\(\sin^{-1}x\) means inverse sine, not \(1/\sin x\).
+\(\sin^{-1}x\) means inverse sine, not
+\[
+1/\sin x.
+\]
+
 \end{definition}
 
 The two possible orders of composition must be distinguished. For example,
@@ -1651,8 +2157,16 @@ whereas
 \[
 \arcsin(\sin x)=x
 \]
-only for \(x\in[-\pi/2,\pi/2]\). Analogous statements hold for cosine
-on \([0,\pi]\) and tangent on \((-\pi/2,\pi/2)\). From
+only for
+\[
+x\in[-\pi/2,\pi/2].
+\]
+ Analogous statements hold for cosine
+on \([0,\pi]\) and tangent on
+\[
+(-\pi/2,\pi/2).
+\]
+ From
 \cref{prop:trigonometric-special-values},
 \[
 \begin{aligned}
@@ -1683,7 +2197,11 @@ The inverse-derivative theorem and
 \sin(\arccos x)>0
 \]
 give the first two formulas using $\sin^2+\cos^2=1$. In particular, if
-\(y=\arcsin x\in(-\pi/2,\pi/2)\), then cosine is positive there, so
+
+\[
+y=\arcsin x\in(-\pi/2,\pi/2),
+\]
+ then cosine is positive there, so
 \[
 \cos y=\sqrt{1-\sin^2y}=\sqrt{1-x^2};
 \]
@@ -1696,14 +2214,22 @@ the positive square root is forced by the principal range. The tangent formula f
 
 \begin{example}[An oscillating piecewise function revisited]
 The elementary functions and the bound $|\sin t|\leq1$ are now proved,
-so we can treat $f(x)=x^2\sin(1/x)$ for $x\ne0$, with $f(0)=0$,
+so we can treat
+\[
+f(x)=x^2\sin(1/x)
+\]
+ for $x\ne0$, with $f(0)=0$,
 without a calculus preview. For $h\ne0$,
 \[
 \left|\frac{f(h)-f(0)}h\right|=|h\sin(1/h)|\leq|h|.
 \]
 Given $\eps>0$, choose $\delta=\eps$; every $0<|h|<\delta$
 makes this quotient's absolute value less than $\eps$. Thus $f'(0)=0$.
-Away from zero the rules give $f'(x)=2x\sin(1/x)-\cos(1/x)$.
+Away from zero the rules give
+\[
+f'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+
 Rules handle each open piece, while the junction requires its own limit.
 \end{example}
 
@@ -1712,7 +2238,7 @@ Now that the elementary functions have been constructed and differentiated,
 the chain and product rules give, on their stated domains,
 \[
 \begin{aligned}
-\frac{\dd}{\dd x}\exp(x^2)&=2x\exp(x^2),&
+\frac{\dd}{\dd x}e^{x^2}&=2xe^{x^2},&
 \frac{\dd}{\dd x}\log(1+x^2)&=\frac{2x}{1+x^2},\\
 \frac{\dd}{\dd x}(x\sin x)&=\sin x+x\cos x,&
 \frac{\dd}{\dd x}\sqrt{x}&=\frac1{2\sqrt{x}}\quad(x>0).
@@ -1720,28 +2246,151 @@ the chain and product rules give, on their stated domains,
 \]
 The last identity follows from the real-power derivative theorem and
 the identification of positive rational powers with their roots.
-Difference quotients at zero now yield rigorously
+\paragraph{Derivative quotients and local equivalents.}
+The base point in a derivative quotient determines which derivative is
+being used. For sine and the exponential, the base point is zero:
 \[
-\frac{\sin x}{x}\to1,\qquad
-\frac{1-\cos x}{x}\to0,\qquad
-\frac{\exp x-1}{x}\to1,\qquad
-\frac{\log(1+x)}x\to1.
+\begin{aligned}
+\frac{\sin x}{x}&=\frac{\sin x-\sin0}{x-0}
+ \longrightarrow(\sin)'(0)=1,\\
+\frac{e^x-1}{x}&=\frac{e^x-e^0}{x-0}
+ \longrightarrow(e^x)'\big|_{x=0}=1.
+\end{aligned}
 \]
-The sine and exponential limits are derivative quotients at zero. The
-cosine limit follows from the derivative of cosine at zero, with the
-displayed sign. The logarithmic limit is instead the derivative quotient
-for \(\log t\) at \(t=1\), after the substitution \(t=1+x\).
-Taylor--Peano, already proved
-in \cref{cor:ordinary-peano}, gives
-$\cos x=1-x^2/2+o(x^2)$, hence
+For the logarithm put $t=1+x$. Then $t\to1$, with $t>0$ locally, and
 \[
-\frac{1-\cos x}{x^2}\to\frac12.
+\frac{\log(1+x)}x=\frac{\log t-\log1}{t-1}
+\longrightarrow(\log)'(1)=1.
 \]
-For an ordinary use of these benchmarks,
-$\sin(3x)/x=3\sin(3x)/(3x)\to3$ and
-$(\exp(2x)-1)/\sin x\to2$ after dividing numerator and denominator
-by $x$. The quotient theorem now applies because the normalized
-denominator tends to $1$, not zero.
+Continuity of cosine and the quotient limit law now give
+\[
+\frac{\tan x}{x}=\frac{\sin x}{x}\frac1{\cos x}\longrightarrow1.
+\]
+The first-order cosine limit is another derivative quotient:
+\[
+\frac{\cos x-\cos0}{x-0}\longrightarrow-\sin0=0,
+\qquad \frac{1-\cos x}{x}\longrightarrow0.
+\]
+The second-order limit instead uses Taylor--Peano
+(\cref{cor:ordinary-peano}):
+\[
+\begin{aligned}
+\cos x&=1-\frac{x^2}{2}+o(x^2),\\
+1-\cos x&=\frac{x^2}{2}+o(x^2),\\
+\frac{1-\cos x}{x^2}&=\frac12+\frac{o(x^2)}{x^2}
+ \longrightarrow\frac12.
+\end{aligned}
+\]
+For parameters, the chain rule for the exponential and the real-power
+derivative at $t=1$ give, respectively,
+\[
+\begin{aligned}
+\lim_{x\to0}\frac{a^x-1}{x}&=\log a &&(a>0),\\
+\lim_{x\to0}\frac{(1+x)^p-1}{x}
+ &=\lim_{t\to1}\frac{t^p-1}{t-1}=p &&(p\in\R).
+\end{aligned}
+\]
+In the second line $1+x>0$ locally. These are derivatives, rather than
+additional limit rules to memorize. For example,
+\[
+\frac{\sin(3x)}x=3\frac{\sin(3x)}{3x}\longrightarrow3,
+\qquad
+\frac{e^{2x}-1}{\sin x}
+=2\frac{e^{2x}-1}{2x}\frac{x}{\sin x}\longrightarrow2.
+\]
+The normalized denominator tends to one, so the quotient law applies.
+
+\paragraph{Inverse trigonometric limits and principal ranges.}
+The derivatives already established, and the zero values of arcsine and
+arctangent at zero, give
+\[
+\lim_{x\to0}\frac{\arcsin x}{x}=1,
+\qquad \lim_{x\to0}\frac{\arctan x}{x}=1.
+\]
+There is also an exact identity, including the endpoints:
+\[
+\arccos x=\frac\pi2-\arcsin x\qquad(-1\leq x\leq1).
+\]
+Indeed, put $y=\arcsin x$. The principal range gives
+\[
+-\frac\pi2\leq y\leq\frac\pi2,
+\qquad 0\leq\frac\pi2-y\leq\pi,
+\qquad \cos\left(\frac\pi2-y\right)=\sin y=x.
+\]
+Uniqueness in the principal range of arccosine proves the identity. Hence
+\[
+\lim_{x\to0}\frac{\arccos x-\pi/2}{x}
+=-\lim_{x\to0}\frac{\arcsin x}{x}=-1.
+\]
+At the endpoint put $t=\arccos x$. Continuity of the inverse gives
+$t\to0^+$ as $x\to1^-$, and $x=\cos t$. Thus
+\[
+\frac{\arccos x}{\sqrt{2(1-x)}}
+=\left(2\frac{1-\cos t}{t^2}\right)^{-1/2}\longrightarrow1.
+\]
+The identity $\arccos(-x)=\pi-\arccos x$, proved by the same principal-range
+argument, gives its symmetric companion:
+\[
+\lim_{x\to-1^+}\frac{\pi-\arccos x}{\sqrt{2(1+x)}}=1.
+\]
+This square-root behavior describes the endpoints at which
+\[
+(\arccos)'(x)=-\frac1{\sqrt{1-x^2}}
+\]
+becomes unbounded.
+
+\paragraph{The continuous-variable exponential limit.}
+For $x\ne0$ sufficiently near zero, real powers give
+\[
+(1+x)^{1/x}=\exp\left(\frac{\log(1+x)}x\right)\longrightarrow e
+\]
+by the logarithmic limit and continuity of the exponential. Taking
+\[
+x=\frac1n
+\]
+recovers the Chapter~4 sequence limit
+\[
+\left(1+\frac1n\right)^n\longrightarrow e.
+\]
+The same logarithm-then-exponential argument underlies the exponential
+limit family; no new differentiation rule is needed.
+
+\paragraph{Local asymptotic equivalents.}
+Here $f(x)\sim g(x)$ means
+\[
+\frac{f(x)}{g(x)}\longrightarrow1.
+\]
+As $x\to0$, the preceding calculations give
+\[
+\begin{gathered}
+\sin x\sim x,\qquad \tan x\sim x,\qquad e^x-1\sim x,
+\qquad \log(1+x)\sim x,\\
+\arcsin x\sim x,\qquad \arctan x\sim x,\\
+\arccos x-\frac\pi2\sim-x,\qquad 1-\cos x\sim\frac{x^2}{2}.
+\end{gathered}
+\]
+Scaling, substitution, reciprocals, and derivative quotients give the useful
+variants
+\[
+\begin{gathered}
+\frac{\sin(ax)}x\to a,\qquad
+\frac{\tan(ax)}x\to a,\qquad
+\frac{e^{ax}-1}{x}\to a,\qquad
+\frac{\log(1+ax)}x\to a,\\
+\frac{(1+ax)^p-1}{x}\to ap,\qquad
+\frac{1-\cos(ax)}{x^2}\to\frac{a^2}{2},\\
+\frac{x}{\sin x}\to1,\qquad
+\frac{x}{e^x-1}\to1,\qquad
+\frac{x}{\log(1+x)}\to1.
+\end{gathered}
+\]
+Here \(a,p\in\R\), with the expressions considered where defined. The
+logarithm-then-exponential argument also gives
+\[
+\lim_{x\to0}(1+ax)^{b/x}=e^{ab}
+\]
+whenever the base is positive near the limiting regime. These are
+consequences of the canonical limits, not additional formulas to memorize.
 
 \begin{example}[Two legitimate applications]
 With the elementary-function derivatives now established,
@@ -1750,24 +2399,56 @@ L'H\^opital's Rule gives
 \lim_{x\to0}\frac{e^x-1}{x}
 =\lim_{x\to0}\frac{e^x}{1}=1
 \]
-from the $0/0$ form, and
+from the
+\[
+0/0
+\]
+ form, and
 \[
 \lim_{x\to+\infty}\frac{\log x}{x}
 =\lim_{x\to+\infty}\frac{1/x}{1}=0
 \]
-from the $\infty/\infty$ form.  In each calculation the equal sign relates
+from the
+\[
+\infty/\infty
+\]
+ form.  In each calculation the equal sign relates
 two limits under the theorem's hypotheses; it is not the pointwise identity
-$f/g=f'/g'$.
+
+\[
+f/g=f'/g'.
+\]
+
 \end{example}
 
 \begin{remark}[When not to apply the rule]
-The quotient $(x^2+1)/x$ tends to $+\infty$ as $x\to0^+$, but it is not a
-$0/0$ or $\infty/\infty$ form, so differentiating numerator and denominator
+The quotient
+\[
+(x^2+1)/x
+\]
+ tends to $+\infty$ as $x\to0^+$, but it is not a
+
+\[
+0/0\qquad\text{or}\qquad \infty/\infty
+\]
+ form, so differentiating numerator and denominator
 would incorrectly suggest the limit $0$.  For
-$x^2\sin(1/x)/x$ at $0$, the derivative quotient is more complicated than
+
+\[
+x^2\sin(1/x)/x
+\]
+ at $0$, the derivative quotient is more complicated than
 the original expression, while the estimate
-$\abs{x\sin(1/x)}\leq\abs x$ settles the limit immediately.  Finally, if
-$f'/g'$ has no limit, the theorem gives no conclusion; the original quotient
+
+\[
+\abs{x\sin(1/x)}\leq\abs x
+\]
+ settles the limit immediately.  Finally, if
+
+\[
+f'/g'
+\]
+ has no limit, the theorem gives no conclusion; the original quotient
 may still have a limit by another method.  Always identify the form and
 verify the hypotheses before differentiating.
 \end{remark}
@@ -1811,14 +2492,15 @@ For $\gamma(t)=(\cos t,\sin t)$, coordinatewise differentiation gives
 \qquad
 \operatorname{speed}(t)=1.
 \]
-The coordinate progression proved in the preceding section shows that on
-$0\leq t\leq2\pi$ the curve starts at $(1,0)$ and, in the familiar
-orientation of the plane, makes one counterclockwise traversal. On the same
-interval, $(\cos2t,\sin2t)$ has speed two and traverses the same algebraic
-locus twice. A parametrization therefore records speed and multiplicity as
-well as its geometric image.
+The coordinate progression proved in the preceding section gives the
+familiar geometric interpretation that, on $0\leq t\leq2\pi$, the curve
+starts at $(1,0)$ and moves once counterclockwise around its algebraic locus;
+on the same interval, $(\cos2t,\sin2t)$ has speed two and appears to make two
+traversals. The exact multiplicities follow from angular nonuniqueness in
+\cref{prop:polar-angle-uniqueness}. A parametrization therefore records speed
+and multiplicity as well as its geometric image.
 
-\paragraph{A few reusable choices.}
+\paragraph{Standard parametrizations.}
 For a graph over $[a,b]$, use $\gamma(t)=(t,f(t))$, $a\leq t\leq b$;
 it moves from $(a,f(a))$ to $(b,f(b))$ in increasing horizontal coordinate.
 For two points $(x_0,y_0)$ and $(x_1,y_1)$, first define the set
@@ -1846,8 +2528,30 @@ the familiar ellipse equation. On $[0,2\pi]$ the coordinate progression
 \[
 (1,0)\to(0,1)\to(-1,0)\to(0,-1)\to(1,0)
 \]
-at $t=0,\pi/2,\pi,3\pi/2,2\pi$ shows that both parametrizations move
+at
+\[
+t=0,\pi/2,\pi,3\pi/2,2\pi
+\]
+shows that both parametrizations move
 counterclockwise in the familiar orientation.
+
+The hyperbolic identity gives the parallel parametrization
+\[
+x=a\cosh t,\qquad y=b\sinh t,
+\]
+for which
+\[
+\boxed{\frac{x^2}{a^2}-\frac{y^2}{b^2}=1.}
+\]
+Because \(\cosh t>0\), this parametrizes the right branch of the hyperbola;
+the left branch is obtained from \(x=-a\cosh t\). Thus
+\[
+\cos^2t+\sin^2t=1
+\qquad\text{and}\qquad
+\cosh^2t-\sinh^2t=1
+\]
+govern, respectively, circle/ellipse geometry and hyperbola geometry. This
+comparison motivates the term \emph{hyperbolic functions}.
 
 \begin{definition}[Polar coordinates]\label{def:polar-coordinates}
 A \textbf{polar representation} of an ordered pair $(x,y)$ is a pair
@@ -1927,20 +2631,41 @@ and of the two sines. The addition formulas then yield
 =\cos\theta\cos\phi+\sin\theta\sin\phi
 =\cos^2\phi+\sin^2\phi=1.
 \]
-The zero and special-value results in
-\cref{prop:trigonometric-special-values} imply that $\cos s=1$ exactly for
-$s\in2\pi\Z$. Hence $\theta-\phi\in2\pi\Z$. Conversely, $2\pi$-periodicity
-gives equality whenever the angles differ by such a multiple. For $r=0$,
-both coordinates vanish for every angle.
+Put \(s=\theta-\phi\). If \(\cos s=1\), the Pythagorean identity gives
+\(\sin s=0\). The zero-set result in
+\cref{prop:trigonometric-special-values} then gives \(s=k\pi\) for some
+\(k\in\Z\). Since
+\[
+\cos(k\pi)=(-1)^k=1,
+\]
+the integer \(k\) is even, so \(s\in2\pi\Z\). Conversely,
+\(2\pi\)-periodicity gives equality whenever the angles differ by a multiple
+of \(2\pi\). For \(r=0\), both coordinates vanish for every angle.
 \end{proof}
 
 Thus polar coordinates are not globally one-to-one. The quadrant information
 cannot be discarded.
-For example $(-1,1)$ has $r=\sqrt2$ and $\theta=3\pi/4$, since
-$\cos(3\pi/4)=-1/\sqrt2$ and $\sin(3\pi/4)=1/\sqrt2$.
-The value $\arctan(y/x)=\arctan(-1)=-\pi/4$ would select the wrong
+For example $(-1,1)$ has $r=\sqrt2$ and
+\[
+\theta=3\pi/4,
+\]
+ since
+
+\[
+\cos(3\pi/4)=-1/\sqrt2,\qquad \sin(3\pi/4)=1/\sqrt2.
+\]
+
+The value
+\[
+\arctan(y/x)=\arctan(-1)=-\pi/4
+\]
+ would select the wrong
 quadrant. For $r>0$, the chosen angle must satisfy \emph{both}
-$\cos\theta=x/r$ and $\sin\theta=y/r$.
+
+\[
+\cos\theta=x/r,\qquad \sin\theta=y/r.
+\]
+
 
 If radius is prescribed by $r=\rho(\theta)\geq0$, the resulting polar
 curve is
@@ -2011,7 +2736,11 @@ analytic on an open interval if this holds at every point there.
 \end{definition}
 Repeated termwise differentiation on smaller intervals
 (\cref{thm:power-series-differentiation}) shows that analytic functions
-are smooth and that the coefficients at $a$ must be $f^{(j)}(a)/j!$.
+are smooth and that the coefficients at $a$ must be
+\[
+f^{(j)}(a)/j!.
+\]
+
 Recall that $C^k$ means continuous derivatives through order $k$, while
 $C^\infty$ means continuous derivatives of every finite order. Thus
 \[
@@ -2029,7 +2758,11 @@ $C^\infty$ function the approximation
 \[
 f(a+h)=\sum_{j=0}^N\frac{f^{(j)}(a)}{j!}h^j+o(|h|^N).
 \]
-It does not assert $f(a+h)=\sum_{j=0}^\infty f^{(j)}(a)h^j/j!$.
+It does not assert
+\[
+f(a+h)=\sum_{j=0}^\infty\frac{f^{(j)}(a)}{j!}h^j.
+\]
+
 The first statement lets $h\to0$ with $N$ fixed. The second holds a
 nearby $h$ fixed and lets $N\to\infty$. A remainder estimate for each
 fixed order provides no common control as the order grows.
@@ -2038,12 +2771,16 @@ fixed order provides no common control as the order grows.
 \label{thm:smooth-cutoff}
 The function
 \[
-\theta(t)=\begin{cases}\exp(-1/t),&t>0,\\0,&t\leq0\end{cases}
+\theta(t)=\begin{cases}e^{-1/t},&t>0,\\0,&t\leq0\end{cases}
 \]
 is $C^\infty$ on $\R$, with $\theta^{(k)}(0)=0$ for every $k\geq0$.
 \end{theorem}
 \begin{proof}
-Each differentiation creates powers of $1/t$, but exponential
+Each differentiation creates powers of
+\[
+1/t,
+\]
+ but exponential
 decay dominates every fixed power, even after the extra division by $t$
 needed for a derivative at zero.
 For an integer $m\geq0$ and $u>0$, the exponential series gives
@@ -2056,12 +2793,24 @@ The first derivatives on $t>0$ are
 \theta'(t)=t^{-2}e^{-1/t},\qquad
 \theta''(t)=(t^{-4}-2t^{-3})e^{-1/t}.
 \]
-Each is a polynomial in $1/t$ times the same decaying exponential.
-On $t>0$, induction gives $\theta^{(k)}(t)=P_k(1/t)e^{-1/t}$,
+Each is a polynomial in
+\[
+1/t
+\]
+ times the same decaying exponential.
+On $t>0$, induction gives
+\[
+\theta^{(k)}(t)=P_k(1/t)e^{-1/t},
+\]
+
 where $P_0=1$ and $P_{k+1}(u)=u^2(P_k(u)-P'_k(u))$.
 Define $g_k$ by this formula on $t>0$ and by zero on $t\leq0$.
 The estimate makes each $g_k$ continuous at zero. Moreover
-$g_k(t)/t\to0$ as $t\to0^+$ by the same estimate with one extra power,
+
+\[
+g_k(t)/t\to0
+\]
+ as $t\to0^+$ by the same estimate with one extra power,
 while the quotient is zero on the negative side. Thus $g'_k(0)=0$;
 away from zero $g'_k=g_{k+1}$. Inductively $\theta^{(k)}=g_k$ everywhere.
 \end{proof}
@@ -2086,12 +2835,16 @@ multivariable chain rule is available. Chapter~\ref{ch:forms-stokes} uses
 translations and rescalings of this same building block to localize forms.
 
 \begin{exercise}
-Show that $\theta(t)/(\theta(t)+\theta(1-t))$ is smooth, equals zero for
+Show that
+\[
+\theta(t)/(\theta(t)+\theta(1-t))
+\]
+ is smooth, equals zero for
 $t\leq0$, and equals one for $t\geq1$. Explain why its denominator never
 vanishes. This constructs a smooth transition between two constant values.
 \end{exercise}
 
-\section{Convexity and a Continuous Nondifferentiable Example}
+\section{Convexity, Concavity, and Inequalities}
 
 Derivatives describe local slope and curvature; convexity turns inequalities
 between those slopes into a statement about the whole graph. Supporting
@@ -2122,8 +2875,11 @@ each of its chords.
 \end{tikzpicture}
 \end{center}
 For $x<z<y$, the chord slope across $[x,y]$ is the weighted average
-of the two smaller chord slopes, with weights $(z-x)/(y-x)$ and
-$(y-z)/(y-x)$. Convexity orders the smaller slopes; their weighted
+of the two smaller chord slopes, with weights
+\[
+(z-x)/(y-x),\qquad (y-z)/(y-x).
+\]
+ Convexity orders the smaller slopes; their weighted
 average lies between them. Passing to a tangent means taking a limit
 of these ordered secant slopes.
 \begin{theorem}[Derivative criteria for convexity]
@@ -2161,7 +2917,11 @@ $[z,y]$ supplies $\xi_1\in(x,z)$ and $\xi_2\in(z,y)$ with
 \]
 Multiply by the positive denominators and collect the $f(z)$ terms:
 $(y-x)f(z)\leq(y-z)f(x)+(z-x)f(y)$.
-Since $(y-z)/(y-x)=t$ and $(z-x)/(y-x)=1-t$, this is the chord inequality.
+Since
+\[
+(y-z)/(y-x)=t,\qquad (z-x)/(y-x)=1-t,
+\]
+ this is the chord inequality.
 The cases $t=0,1$ are equalities; reversing $x,y$ covers the other order.
 Finally, if $f''\geq0$, applying the Mean Value Theorem to $f'$ shows
 that $f'$ is nondecreasing, so the result applies.
@@ -2175,6 +2935,151 @@ estimate
 \[
 e^y\geq1+y.
 \]
+
+\begin{definition}[Concavity and inflection points]
+\label{def:concavity-inflection}
+A function \(f\) is \textbf{concave} on an interval when \(-f\) is convex.
+An interior point \(c\) is an \textbf{inflection point} when the function
+changes concavity at \(c\).
+\end{definition}
+Applying \cref{thm:convex-derivative-criteria} to \(-f\) shows that a
+differentiable function is concave exactly when \(f'\) is nonincreasing,
+and \(f''\leq0\) implies concavity. A sign change of \(f''\) across \(c\)
+is a useful sufficient condition for an inflection point when the relevant
+derivatives exist. The equation \(f''(c)=0\) alone is not sufficient:
+\(x^3\) changes concavity at zero, while \(x^4\) does not.
+
+\begin{theorem}[Finite Jensen inequality]
+\label{thm:finite-jensen}
+Let \(f\) be convex on an interval \(I\). If \(x_i\in I\),
+\(\lambda_i\geq0\), and
+\[
+\sum_{i=1}^n\lambda_i=1,
+\]
+then
+\[
+\boxed{
+f\!\left(\sum_{i=1}^n\lambda_i x_i\right)
+\leq\sum_{i=1}^n\lambda_i f(x_i).}
+\]
+For concave \(f\), the inequality is reversed.
+\end{theorem}
+\begin{proof}
+The assertion for \(n=2\) is the definition of convexity. Assume it for
+\(n-1\). If \(\lambda_n=1\), the result is equality. Otherwise put
+\[
+\Lambda=1-\lambda_n,\qquad
+y=\sum_{i=1}^{n-1}\frac{\lambda_i}{\Lambda}x_i.
+\]
+The induction hypothesis gives
+\[
+f(y)\leq\sum_{i=1}^{n-1}\frac{\lambda_i}{\Lambda}f(x_i).
+\]
+Apply two-point convexity to
+\(\Lambda y+\lambda_nx_n\), then substitute this bound. The concave form
+follows by applying the result to \(-f\).
+\end{proof}
+
+\begin{corollary}[Weighted arithmetic--geometric mean inequality]
+\label{cor:weighted-amgm}
+If \(x_i>0\), \(\lambda_i\geq0\), and
+\(\sum_i\lambda_i=1\), then
+\[
+\boxed{\prod_{i=1}^n x_i^{\lambda_i}
+\leq\sum_{i=1}^n\lambda_i x_i.}
+\]
+If every weight is positive, equality holds exactly when all \(x_i\) are
+equal; zero-weight terms are irrelevant. The conclusion extends to
+nonnegative \(x_i\) by treating a positive-weight zero factor separately.
+\end{corollary}
+\begin{proof}
+The logarithm is strictly concave because
+\[
+(\log x)''=-1/x^2<0.
+\]
+The concave form of Jensen gives
+\[
+\log\!\left(\sum_i\lambda_i x_i\right)
+\geq\sum_i\lambda_i\log x_i
+=\log\!\left(\prod_i x_i^{\lambda_i}\right).
+\]
+Apply the increasing exponential. Strict concavity gives the equality
+condition.
+\end{proof}
+For equal weights this becomes
+\[
+\sqrt[n]{x_1\cdots x_n}\leq\frac{x_1+\cdots+x_n}{n}.
+\]
+Appendix~\ref{app:foundations} gives an independent proof of this equal-weight
+case by Cauchy forward--backward induction, starting from the elementary
+two-variable result \cref{prop:two-variable-amgm}.
+
+\begin{corollary}[Young's inequality]
+\label{cor:young-inequality}
+If \(p,q>1\) and \(1/p+1/q=1\), then for \(a,b\geq0\),
+\[
+\boxed{ab\leq\frac{a^p}{p}+\frac{b^q}{q}.}
+\]
+\end{corollary}
+\begin{proof}
+Apply weighted AM--GM to \(a^p,b^q\) with weights \(1/p,1/q\).
+\end{proof}
+
+\begin{theorem}[Finite H\"older inequality]
+\label{thm:finite-holder}
+For conjugate exponents \(p,q>1\) and real numbers \(a_i,b_i\),
+\[
+\boxed{
+\sum_{i=1}^n|a_ib_i|
+\leq
+\left(\sum_{i=1}^n|a_i|^p\right)^{1/p}
+\left(\sum_{i=1}^n|b_i|^q\right)^{1/q}.}
+\]
+\end{theorem}
+\begin{proof}
+Put
+\[
+A=\left(\sum_i|a_i|^p\right)^{1/p},
+\qquad
+B=\left(\sum_i|b_i|^q\right)^{1/q}.
+\]
+If \(A=0\) or \(B=0\), every term on the corresponding side is zero.
+Otherwise apply Young's inequality \cref{cor:young-inequality} to
+\[
+\frac{|a_i|}{A},\qquad\frac{|b_i|}{B},
+\]
+and sum:
+\[
+\sum_i\frac{|a_ib_i|}{AB}
+\leq\frac1p\sum_i\frac{|a_i|^p}{A^p}
+ \frac1q\sum_i\frac{|b_i|^q}{B^q}
+=\frac1p+\frac1q=1.
+\]
+Multiplication by \(AB\) proves the result.
+\end{proof}
+
+For \(p=q=2\), H\"older first gives
+\[
+\sum_{i=1}^n|a_ib_i|
+\leq
+\left(\sum_i a_i^2\right)^{1/2}
+\left(\sum_i b_i^2\right)^{1/2}.
+\]
+Together with
+\[
+\left|\sum_i a_ib_i\right|\leq\sum_i|a_ib_i|,
+\]
+this is the familiar finite scalar Cauchy--Schwarz inequality:
+\[
+\boxed{
+\left|\sum_{i=1}^n a_ib_i\right|
+\leq
+\left(\sum_i a_i^2\right)^{1/2}
+\left(\sum_i b_i^2\right)^{1/2}.}
+\]
+Here it appears as the \(p=2\) case of H\"older. Chapter~\ref{ch:topology-linear-algebra}
+retains an independent proof and develops its geometric interpretation
+through inner products.
 
 \begin{example}[A continuous trigonometric series]
 For $0<a<1$ and any positive integer $b$, the series
@@ -2197,15 +3102,35 @@ are $-1$ and $1$, so it is continuous there but not differentiable.
 \addcontentsline{toc}{section}{Exercises}
 
 \begin{hexercise}{derivative-definition}
-Prove from the difference quotient that $(1/x)^{\prime}=-1/x^2$ for $x\ne0$. Give denominator control explicitly. For the function equal to $x^2$ on $x\geq0$ and $cx$ on $x<0$, determine all $c$ for differentiability at zero.
+Prove from the difference quotient that
+\[
+(1/x)^{\prime}=-1/x^2
+\]
+ for $x\ne0$. Give denominator control explicitly. For the function equal to $x^2$ on $x\geq0$ and $cx$ on $x<0$, determine all $c$ for differentiability at zero.
 \end{hexercise}
 
 \begin{exercise}
-Differentiate $(x^2+1)\exp x$, $\sin(x^2)$, $\log(1+x^2)$, and $(x+1)/(x^2+1)$. State domains and identify the rule used at each step.
+Differentiate $(x^2+1)e^x$, $\sin(x^2)$, $\log(1+x^2)$, and
+\[
+(x+1)/(x^2+1).
+\]
+ State domains and identify the rule used at each step.
 \end{exercise}
 
 \begin{exercise}
-Evaluate $\sin(2x)/x$, $(\exp(3x)-1)/x$, $\log(1+2x)/x$, and $(1-\cos(2x))/x^2$ as $x\to0$, using the established elementary limits.
+Evaluate
+\[
+\sin(2x)/x,
+\]
+
+\[
+(e^{3x}-1)/x,
+\]
+
+\[
+\log(1+2x)/x,,\qquad (1-\cos(2x))/x^2
+\]
+ as $x\to0$, using the established elementary limits.
 \end{exercise}
 
 \begin{hexercise}{optimization-model}
@@ -2217,7 +3142,11 @@ A position is $s(t)=t^3$ metres for $0\leq t\leq2$ seconds. Find its average vel
 \end{exercise}
 
 \begin{exercise}
-Use Taylor\textquotesingle s theorem to approximate $\exp(0.1)$ by $1+0.1+0.1^2/2$ and prove an error bound using $\exp(t)\leq\exp(1)$ on $[0,0.1]$.
+Use Taylor\textquotesingle s theorem to approximate $e^{0.1}$ by
+\[
+1+0.1+0.1^2/2
+\]
+ and prove an error bound using $e^t\leq e$ on $[0,0.1]$.
 \end{exercise}
 
 \begin{exercise}
@@ -2250,7 +3179,11 @@ Prove from the definitions that
 \end{exercise}
 
 \begin{exercise}
-For $F_n(x)=x+x^2/n$ on $[-1,1]$, verify the sequence differentiation
+For
+\[
+F_n(x)=x+x^2/n
+\]
+ on $[-1,1]$, verify the sequence differentiation
 theorem including the anchor. Then explain why $F_n(x)=n+x$ fails it
 despite uniformly convergent derivatives.
 \end{exercise}

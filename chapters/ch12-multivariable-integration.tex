@@ -10,12 +10,12 @@ compactness and uniform-continuity facts that make continuous functions
 integrable on these higher-dimensional compact rectangles.
 
 We begin with \emph{scalar-valued} functions $f:Q\subseteq\R^n\to\R$.
-The tuple $x=(x_1,\ldots,x_n)$ is one point of $Q$, and
-$f(x)=f(x_1,\ldots,x_n)$ is one real number. Several variables occur
-in the input, not the output. These outputs are ordered real numbers.
-For bounded $f$, the set $f(R)\subseteq\R$ is nonempty and bounded on a cell $R$. Completeness
-therefore gives its finite infimum and supremum, written
-$\inf_{x\in R}f(x)$ and $\sup_{x\in R}f(x)$. Here $x$ is a vector input.
+The scalar outputs are ordered real numbers, so on every nonempty cell
+$R$ a bounded $f$ has a finite infimum and supremum by completeness:
+\[
+\inf_{\mathbf{x}\in R}f(\mathbf{x}),\qquad
+\sup_{\mathbf{x}\in R}f(\mathbf{x}).
+\]
 \begin{center}
 \begin{tabular}{ll}
 Chapter 9 & Chapter 12\\\hline
@@ -45,9 +45,17 @@ Its \textbf{volume} is
 \paragraph{A grid you can see.}
 On $Q=[0,2]\times[0,1]$, choose horizontal-coordinate cuts
 $0=x_0<x_1=1<x_2=2$ and vertical-coordinate cuts
-$0=y_0<y_1=1/2<y_2=1$. A typical cell is
+
+\[
+0=y_0<y_1=1/2<y_2=1.
+\]
+ A typical cell is
 $[x_{i-1},x_i]\times[y_{j-1},y_j]$, with area
-$(x_i-x_{i-1})(y_j-y_{j-1})$. There are four cells, each of area $1/2$.
+$(x_i-x_{i-1})(y_j-y_{j-1})$. There are four cells, each of area
+\[
+1/2.
+\]
+
 \begin{center}
 \begin{tikzpicture}[x=2cm,y=2cm]
 \fill[blue!15] (1,0) rectangle (2,.5);
@@ -56,7 +64,7 @@ $(x_i-x_{i-1})(y_j-y_{j-1})$. There are four cells, each of area $1/2$.
 \node at (1.5,.25) {$Q_{2,1}$};
 \node[below] at (0,0) {$0$}; \node[below] at (1,0) {$1$};
 \node[below] at (2,0) {$2$};
-\node[left] at (0,.5) {$1/2$}; \node[left] at (0,1) {$1$};
+\node[left] at (0,.5) {$\displaystyle 1/2$}; \node[left] at (0,1) {$1$};
 \end{tikzpicture}
 \end{center}
 Higher dimensions add no new idea: partition every coordinate interval and
@@ -69,7 +77,11 @@ The resulting closed cells are
 Q_{i_1,\ldots,i_n}=[x_{1,i_1-1},x_{1,i_1}]\times\cdots
 \times[x_{n,i_n-1},x_{n,i_n}],\quad 1\leq i_j\leq m_j.
 \]
-There are $r=\prod_jm_j$ cells. From now on, when only this finite
+There are
+\[
+r=\prod_jm_j
+\]
+ cells. From now on, when only this finite
 collection and its volumes matter, suppress the multi-indices and relabel
 them $Q_1,\ldots,Q_r$. Then explicitly
 \[
@@ -105,7 +117,11 @@ The function $f$ is \textbf{Riemann integrable} on $Q$ if
 \inf_{\mathcal P}U(f,\mathcal P)
 =\sup_{\mathcal P}L(f,\mathcal P).
 \]
-We may subsequently write the same finite sums as $\sum_{R\in\mathcal P}$
+We may subsequently write the same finite sums as
+\[
+\sum_{R\in\mathcal P}
+\]
+
 when individual cell numbers do not matter. The common value is the multiple Riemann integral (a double integral for
 $n=2$, a triple integral for $n=3$), denoted by
 \[
@@ -113,17 +129,26 @@ $n=2$, a triple integral for $n=3$), denoted by
 \]
 \end{definition}
 
-In scalar-integral notation we abbreviate $x=(x_1,\ldots,x_n)$ and
-$\dd x=\dd(x_1,\ldots,x_n)$, writing $\int_Qf(x)\,\dd x$.
-This is unsigned scalar Riemann-integration notation. It is distinct from
-$\dd x_1\wedge\cdots\wedge\dd x_n$, the oriented top-degree form to be
-defined in Chapter~13. The latter is built from the coordinate covectors
-of \cref{def:coordinate-differentials}; it retains orientation information
-that scalar volume does not.
-This is an $n$-variable integral, not integration in the first coordinate.
-For $n=2$ we also write $\iint_Qf(x,y)\,\dd A=\int_Qf(x,y)\,\dd(x,y)$;
-for $n=3$, $\iiint_Qf(x,y,z)\,\dd V$. These denote scalar coordinate
-volume, not identities between differential forms.
+In scalar-integral notation we use
+\[
+\mathbf{x}=(x_1,\ldots,x_n),\qquad
+\int_Q f(\mathbf{x})\,\dd\mathbf{x}.
+\]
+Here $\dd\mathbf{x}$ is shorthand for unsigned scalar coordinate-volume
+integration in the variables $x_1,\ldots,x_n$. It is not an exterior
+derivative applied to the vector $\mathbf{x}$. In particular, it is distinct
+from the individual coordinate covectors $\dd x_i$ of
+\cref{def:coordinate-differentials} and from the oriented top-degree form
+\[
+\dd x_1\wedge\cdots\wedge\dd x_n
+\]
+introduced in Chapter~13. That form retains orientation information that
+scalar volume does not. We retain the useful geometric notations
+\[
+\iint_Qf(x,y)\,\dd A,\qquad
+\iiint_Qf(x,y,z)\,\dd V,
+\]
+as well as explicit coordinate lists in scalar integrals.
 
 \paragraph{Refinement puts approximations on the same grid.}
 A refinement adds coordinate cuts and removes none. Every old cell becomes
@@ -196,7 +221,11 @@ Lower sums approximate from below and upper sums from above. Refinement
 narrows their uncertainty; when both reach the same number, the integral
 is determined.
 \begin{example}[A four-cell calculation]
-For $f(x,y)=x+y$ on $[0,1]^2$, split each axis at $1/2$.
+For $f(x,y)=x+y$ on $[0,1]^2$, split each axis at
+\[
+1/2.
+\]
+
 \[
 \begin{array}{c|c|c|c}
 \text{cell (lower left corner)}&\text{area}&\inf f&\sup f\\\hline
@@ -213,8 +242,24 @@ L=\frac{0+\frac12+\frac12+1}{4}=\frac12,
 U=\frac{1+\frac32+\frac32+2}{4}=\frac32.
 \]
 On an $m$-by-$m$ equal grid the heights on cell $(i,j)$ are
-$(i+j)/m$ and $(i+j+2)/m$, $0\leq i,j<m$. Finite summation gives
-$L=1-1/m$, $U=1+1/m$. Refinement narrows the gap to $2/m$ and squeezes
+
+\[
+(i+j)/m,\qquad (i+j+2)/m,
+\]
+ $0\leq i,j<m$. Finite summation gives
+
+\[
+L=1-1/m,
+\]
+
+\[
+U=1+1/m.
+\]
+ Refinement narrows the gap to
+\[
+2/m
+\]
+ and squeezes
 the integral to $1$, using the definition without Fubini.
 \end{example}
 \begin{center}
@@ -234,7 +279,15 @@ the integral to $1$, using the definition without Fubini.
 \end{center}
 The red outline is $z=x+y$ on $[0,1]^2$. On each of the four cells,
 the lower column stops at the minimum and the upper column at the maximum.
-Each base has area $1/4$; the total column volumes are $1/2$ and $3/2$.
+Each base has area
+\[
+1/4;
+\]
+ the total column volumes are
+\[
+1/2,\qquad 3/2.
+\]
+
 
 
 Define the mesh $|\mathcal P|=\max_{R\in\mathcal P}\operatorname{diam}(R)$.
@@ -250,7 +303,7 @@ $\operatorname{osc}_R(f)=\sup_R f-\inf_R f$ from the pointwise
 oscillation $\omega_f(a)$ of Chapter~9. For a continuous function on a
 compact domain $K$, its modulus of continuity is instead
 \[
-\mu_f(\delta)=\sup\{|f(x)-f(y)|:x,y\in K,\ \|x-y\|\leq\delta\}.
+\mu_f(\delta)=\sup\{|f(\mathbf{x})-f(y)|:\mathbf{x},y\in K,\ \|\mathbf{x}-y\|\leq\delta\}.
 \]
 Uniform continuity gives $\mu_f(\delta)\to0$ as $\delta\to0$, and
 $\operatorname{osc}_R(f)\leq\mu_f(\operatorname{diam}R)$ for $R\subseteq K$.
@@ -319,7 +372,11 @@ on each owned cell. Define its step integral by
 \]
 This is height times length in one dimension, height times area in two,
 and height times $n$-dimensional volume in general. Refining a cell gives
-$c\operatorname{vol}(R)=\sum_j c\operatorname{vol}(R_j)$, so refinement
+
+\[
+c\operatorname{vol}(R)=\sum_j c\operatorname{vol}(R_j),
+\]
+ so refinement
 does not change the answer. Two representations have a common refinement;
 on each owned refined cell their values agree. Thus this definition is
 independent of representation, without any theory of null sets.
@@ -364,11 +421,11 @@ its integral with $I_s$. If $M=0$ the conclusion is immediate.
 \label{thm:multivariable-integral-properties}
 If $f,g:Q\to\R$ are integrable and $c\in\R$, then
 \[
-\int_Q(f+g)\,\dd x
-=\int_Qf\,\dd x+\int_Qg\,\dd x,
+\int_Q(f+g)\,\dd\mathbf{x}
+=\int_Qf\,\dd\mathbf{x}+\int_Qg\,\dd\mathbf{x},
 \qquad
-\int_Qcf\,\dd x
-=c\int_Qf\,\dd x.
+\int_Qcf\,\dd\mathbf{x}
+=c\int_Qf\,\dd\mathbf{x}.
 \]
 If
 \[
@@ -376,19 +433,19 @@ f\leq g,
 \]
 then their integrals have the same order.  Also,
 \[
-\left\lvert\int_Qf\,\dd x\right\rvert
+\left\lvert\int_Qf\,\dd\mathbf{x}\right\rvert
 \leq
-\int_Q\abs f\,\dd x,
+\int_Q\abs f\,\dd\mathbf{x},
 \]
 and
 \[
-\left\lvert\int_Qf\,\dd x\right\rvert
+\left\lvert\int_Qf\,\dd\mathbf{x}\right\rvert
 \leq M\operatorname{vol}(Q)
 \]
 whenever
 \[
-\abs{f(x)}\leq M
-\qquad(x\in Q).
+\abs{f(\mathbf{x})}\leq M
+\qquad(\mathbf{x}\in Q).
 \]
 \end{theorem}
 \begin{proof}
@@ -404,8 +461,11 @@ U(f+g,\mathcal P)\leq U(f,\mathcal P)+U(g,\mathcal P),
 L(f+g,\mathcal P)\geq L(f,\mathcal P)+L(g,\mathcal P).
 \]
 Taking a common refinement of partitions that make the two individual gaps
-small proves integrability of the sum. Both $\int_Q(f+g)$ and
-$\int_Qf+\int_Qg$ lie in
+small proves integrability of the sum. Both
+\[
+\int_Q(f+g),\qquad \int_Qf+\int_Qg
+\]
+ lie in
 \[
 [L(f,\mathcal P)+L(g,\mathcal P),\ U(f,\mathcal P)+U(g,\mathcal P)].
 \]
@@ -447,7 +507,11 @@ and then
 \]
 \end{lemma}
 \begin{proof}
-Write $Q=Q_1\cup\cdots\cup Q_N$, with disjoint interiors and possible
+Write
+\[
+Q=Q_1\cup\cdots\cup Q_N,
+\]
+ with disjoint interiors and possible
 shared faces. Insert all subdivision planes into any testing grid. Each refined cell
 belongs to one $Q_i$, although their closed faces can be shared. Upper
 and lower sums are exactly the sums of the corresponding local sums:
@@ -460,7 +524,11 @@ Every small cell contributes its height times its volume to exactly one
 local sum; shared closed faces do not add any extra cell volume.
 If $f$ is integrable, make its total nonnegative gap small; each local
 gap is at most that total, proving restriction. Conversely choose a grid
-on each $Q_i$ with gap below $\eps/N$ and extend all its coordinate cuts
+on each $Q_i$ with gap below
+\[
+\eps/N
+\]
+ and extend all its coordinate cuts
 through $Q$. Refinement decreases local gaps, so the total is below $\eps$.
 The criterion gives gluing. The sum of the local integrals and the global
 integral both lie between the same total lower and upper sums with
@@ -488,8 +556,12 @@ containing rectangles, enlarge both to a common rectangle.
 \end{proof}
 
 \begin{lemma}[Translation of rectangular integrals]\label{lem:integral-translation}
-For $a\in\R^n$, set $Q+a=\{x+a:x\in Q\}$ and $g(y)=f(y-a)$ there.
-Then $g$ is integrable exactly when $f$ is, and $\int_{Q+a}g=\int_Qf$.
+For $a\in\R^n$, set $Q+a=\{\mathbf{x}+a:\mathbf{x}\in Q\}$ and $g(y)=f(y-a)$ there.
+Then $g$ is integrable exactly when $f$ is, and
+\[
+\int_{Q+a}g=\int_Qf.
+\]
+
 \end{lemma}
 \begin{proof}
 Translate every coordinate cut by the corresponding coordinate of $a$.
@@ -513,14 +585,22 @@ For integrable $f,g:Q\to\R^m$, scalars $a,b$, and a linear map
 $T:\R^m\to\R^k$, the functions $af+bg$ and $T\circ f$ are integrable and
 \[
 \int_Q(af+bg)=a\int_Qf+b\int_Qg,\qquad
-\int_QT(f(x))\,\dd x=T\left(\int_Qf(x)\,\dd x\right).
+\int_QT(f(\mathbf{x}))\,\dd\mathbf{x}=T\left(\int_Qf(\mathbf{x})\,\dd\mathbf{x}\right).
 \]
 Continuous vector-valued functions on $Q$ are integrable.
 \end{proposition}
 \begin{proof}
 Apply scalar linearity to each component. If $[T]=(t_{ij})$, the $i$th
-component of $T\circ f$ is $\sum_jt_{ij}f_j$, whose integral is
-$\sum_jt_{ij}\int_Qf_j$. Continuity also passes to each component, so
+component of $T\circ f$ is
+\[
+\sum_jt_{ij}f_j,
+\]
+ whose integral is
+
+\[
+\sum_jt_{ij}\int_Qf_j.
+\]
+ Continuity also passes to each component, so
 \cref{thm:continuous-multivariable-riemann} proves the last assertion.
 \end{proof}
 
@@ -548,20 +628,36 @@ regrouping to a limit; the estimates ensure both limiting operations
 describe the same integral.
 A \emph{multiple integral} is the directly defined Riemann integral over
 a multidimensional rectangle. An \emph{iterated integral} performs successive
-integrations. On $Q=[a,b]\times[c,d]$, $\iint_Qf\,\dd A$ is defined
-by two-dimensional grids, whereas $\int_a^b(\int_c^df(x,y)\,\dd y)\,\dd x$
+integrations. On $Q=[a,b]\times[c,d]$,
+\[
+\iint_Qf\,\dd A
+\]
+ is defined
+by two-dimensional grids, whereas
+\[
+\int_a^b(\int_c^df(x,y)\,\dd y)\,\dd x
+\]
+
 is a later computational representation. Fubini proves their equality
 under its hypotheses; it does not define the multiple integral.
 
 For $A\subseteq\R^p$, $B\subseteq\R^q$, write
-$x=(x_1,\ldots,x_p)$ and $y=(y_1,\ldots,y_q)$. With $x$ fixed,
-$f(x,\cdot):B\to\R$ is a scalar function of $q$ variables.
-Its integral $g(x)=\int_B f(x,y)\,\dd y$ is one real number, defining
-$g:A\to\R$. The integral $\int_A g(x)\,\dd x$ handles the remaining
+$\mathbf{x}=(x_1,\ldots,x_p)$ and $y=(y_1,\ldots,y_q)$. With $\mathbf{x}$ fixed,
+$f(\mathbf{x},\cdot):B\to\R$ is a scalar function of $q$ variables.
+Its integral
+\[
+g(\mathbf{x})=\int_B f(\mathbf{x},y)\,\dd y
+\]
+ is one real number, defining
+$g:A\to\R$. The integral
+\[
+\int_A g(\mathbf{x})\,\dd\mathbf{x}
+\]
+ handles the remaining
 $p$ variables. In order, these operations are
 \[
-f(x,y)\ \xrightarrow{\text{integrate in }y\text{ with }x\text{ fixed}}\
-g(x)\ \xrightarrow{\text{integrate in }x}\ \text{a scalar}.
+f(\mathbf{x},y)\ \xrightarrow{\text{integrate in }y\text{ with }\mathbf{x}\text{ fixed}}\
+g(\mathbf{x})\ \xrightarrow{\text{integrate in }\mathbf{x}}\ \text{a scalar}.
 \]
 For general $p,q$, either stage can itself be a multiple integral.
 
@@ -584,7 +680,11 @@ For general $p,q$, either stage can itself be a multiple integral.
 \end{tikzpicture}
 \end{center}
 Both pictures contain exactly the same twenty contributions:
-$\sum_i\sum_j a_{ij}=\sum_j\sum_i a_{ij}$. With $a_{ij}$ equal to a
+
+\[
+\sum_i\sum_j a_{ij}=\sum_j\sum_i a_{ij}.
+\]
+ With $a_{ij}$ equal to a
 tagged function value times cell volume, this is the finite model behind
 Riemann--Fubini. The theorem justifies passing from that identity to integrals.
 
@@ -600,36 +700,44 @@ f:Q\longrightarrow\R
 \]
 be continuous.  Then the functions
 \[
-x\longmapsto\int_Bf(x,y)\,\dd y,
+\mathbf{x}\longmapsto\int_Bf(\mathbf{x},y)\,\dd y,
 \qquad
-y\longmapsto\int_Af(x,y)\,\dd x
+y\longmapsto\int_Af(\mathbf{x},y)\,\dd\mathbf{x}
 \]
 are continuous, and
 \[
-\int_{A\times B}f(x,y)\,\dd(x,y)
+\int_{A\times B}f(\mathbf{x},y)\,\dd(\mathbf{x},y)
 =
-\int_A\left(\int_Bf(x,y)\,\dd y\right)\dd x
+\int_A\left(\int_Bf(\mathbf{x},y)\,\dd y\right)\dd\mathbf{x}
 =
-\int_B\left(\int_Af(x,y)\,\dd x\right)\dd y.
+\int_B\left(\int_Af(\mathbf{x},y)\,\dd\mathbf{x}\right)\dd y.
 \]
 \end{theorem}
 \begin{proof}
 Every section is continuous on its rectangle, so its integral exists.
 Write $a=\operatorname{vol}(A)>0$, $b=\operatorname{vol}(B)>0$, and
-$G(x)=\int_B f(x,y)\,\dd y$. The bounded-integral estimate gives
+
 \[
-|G(x')-G(x)|\leq b\sup_{y\in B}|f(x',y)-f(x,y)|.
+G(\mathbf{x})=\int_B f(\mathbf{x},y)\,\dd y.
 \]
-Uniform continuity of $f$ makes the supremum less than $\eps/b$ whenever
-$x'$ is sufficiently close to $x$, proving continuity of $G$.
+ The bounded-integral estimate gives
+\[
+|G(\mathbf{x}')-G(\mathbf{x})|\leq b\sup_{y\in B}|f(\mathbf{x}',y)-f(\mathbf{x},y)|.
+\]
+Uniform continuity of $f$ makes the supremum less than
+\[
+\eps/b
+\]
+ whenever
+$\mathbf{x}'$ is sufficiently close to $\mathbf{x}$, proving continuity of $G$.
 Thus its outer integral also exists.
 
 \textbf{Strategy.} The section integral and the multiple integral lie
 between the same product Darboux sums. For a product cell $R\times S$ put
 $m_{R,S}=\inf_{R\times S}f$ and $M_{R,S}=\sup_{R\times S}f$.
-For $x\in R$, integration over the $S$ cells gives
+For $\mathbf{x}\in R$, integration over the $S$ cells gives
 \[
-\sum_Sm_{R,S}\operatorname{vol}(S)\leq G(x)
+\sum_Sm_{R,S}\operatorname{vol}(S)\leq G(\mathbf{x})
 \leq\sum_SM_{R,S}\operatorname{vol}(S).
 \]
 Integrate over $R$ and add, using rectangular restriction and gluing:
@@ -662,8 +770,12 @@ Continuity is sufficient, but not necessary, for the equality of multiple
 and iterated integrals. It buys us two conveniences: every section is
 integrable, and its integral varies continuously with the parameter.
 For a bounded $f:A\times B\to\R$ that is merely Riemann integrable,
-a section $f(x,\cdot):B\to\R$ need not be integrable for every $x$.
-Thus $x\mapsto\int_B f(x,y)\,\dd y$ may not even be defined everywhere.
+a section $f(\mathbf{x},\cdot):B\to\R$ need not be integrable for every $\mathbf{x}$.
+Thus
+\[
+\mathbf{x}\mapsto\int_B f(\mathbf{x},y)\,\dd y
+\]
+ may not even be defined everywhere.
 The multiple integral still makes sense; the difficulty lies in requiring
 an ordinary Riemann integral on every slice.
 
@@ -672,10 +784,10 @@ an ordinary Riemann integral on every slice.
 Let $A\subseteq\R^p$ and $B\subseteq\R^q$ be compact rectangles and
 $f:A\times B\to\R$ bounded. Define functions on $A$ by
 \[
-\underline I_B(x)=\underline{\int_B}f(x,y)\,\dd y
- :=\sup_{\mathcal P_B}L(f(x,\cdot),\mathcal P_B),\qquad
-\overline I_B(x)=\overline{\int_B}f(x,y)\,\dd y
- :=\inf_{\mathcal P_B}U(f(x,\cdot),\mathcal P_B).
+\underline I_B(\mathbf{x})=\underline{\int_B}f(\mathbf{x},y)\,\dd y
+ :=\sup_{\mathcal P_B}L(f(\mathbf{x},\cdot),\mathcal P_B),\qquad
+\overline I_B(\mathbf{x})=\overline{\int_B}f(\mathbf{x},y)\,\dd y
+ :=\inf_{\mathcal P_B}U(f(\mathbf{x},\cdot),\mathcal P_B).
 \]
 Define functions on $B$ by reversing the roles:
 \[
@@ -688,7 +800,7 @@ These are Darboux integrals, whether or not the sections are integrable.
 If $|f|\leq K$, both functions on $A$ lie between
 $-K\operatorname{vol}(B)$ and $K\operatorname{vol}(B)$.
 Common refinement gives $\underline I_B\leq\overline I_B$; equality
-at $x$ holds exactly when $f(x,\cdot)$ is Riemann integrable.
+at $\mathbf{x}$ holds exactly when $f(\mathbf{x},\cdot)$ is Riemann integrable.
 The same statements hold with $A,B$ interchanged.
 
 \begin{theorem}[Darboux--Fubini theorem for a Riemann-integrable function]
@@ -698,8 +810,8 @@ rectangles. All four lower and upper section-integral functions are
 Riemann integrable on their parameter rectangles, and
 \[
 \begin{aligned}
-\int_A\underline I_B(x)\,\dd x
- &=\int_A\overline I_B(x)\,\dd x=\int_{A\times B}f,\\
+\int_A\underline I_B(\mathbf{x})\,\dd\mathbf{x}
+ &=\int_A\overline I_B(\mathbf{x})\,\dd\mathbf{x}=\int_{A\times B}f,\\
 \int_B\underline I_A(y)\,\dd y
  &=\int_B\overline I_A(y)\,\dd y=\int_{A\times B}f.
 \end{aligned}
@@ -711,16 +823,16 @@ Take grid partitions $\mathcal P_A,\mathcal P_B$. For their product cells put
 \[
 m_{R,S}=\inf_{R\times S}f,\qquad M_{R,S}=\sup_{R\times S}f.
 \]
-For each $x\in R$, comparison with the section sums gives
+For each $\mathbf{x}\in R$, comparison with the section sums gives
 \[
 \sum_Sm_{R,S}\operatorname{vol}(S)
-\leq\underline I_B(x)\leq\overline I_B(x)
+\leq\underline I_B(\mathbf{x})\leq\overline I_B(\mathbf{x})
 \leq\sum_SM_{R,S}\operatorname{vol}(S).
 \]
 Indeed the left sum is at most the section's lower sum on $\mathcal P_B$,
 which is at most its lower integral; the upper comparison is the reverse.
 For either $h=\underline I_B$ or $h=\overline I_B$, take the infimum and
-supremum over $x\in R$, multiply by $\operatorname{vol}(R)$, and sum:
+supremum over $\mathbf{x}\in R$, multiply by $\operatorname{vol}(R)$, and sum:
 \[
 L(f,\mathcal P_A\times\mathcal P_B)
 \leq L(h,\mathcal P_A)\leq U(h,\mathcal P_A)
@@ -738,7 +850,11 @@ $p$ coordinate-cut lists from its last $q$ lists. Integrability of $f$
 therefore supplies product grids with gap smaller than any prescribed
 $\eps>0$. The first chain bounds the outer Darboux gap for each $h$ by
 this gap, proving its integrability by \cref{prop:multivariable-darboux}.
-Both $\int_Ah$ and $\int_{A\times B}f$ lie between the same product
+Both
+\[
+\int_Ah,\qquad \int_{A\times B}f
+\]
+ lie between the same product
 lower and upper sums. Their difference has absolute value less than
 $\eps$, so they agree. For the other order, hold $y\in S$ fixed and use
 \[
@@ -754,10 +870,14 @@ Only finite Darboux sums and the Darboux criterion have been used.
 \begin{corollary}[Ordinary iterated integrals]
 \label{cor:ordinary-iterated-riemann}
 Under the hypotheses of \cref{thm:darboux-fubini}, if every section
-$f(x,\cdot)$ is Riemann integrable, then
-$G(x)=\int_Bf(x,y)\,\dd y$ is Riemann integrable on $A$ and
+$f(\mathbf{x},\cdot)$ is Riemann integrable, then
+
 \[
-\int_{A\times B}f=\int_A G(x)\,\dd x.
+G(\mathbf{x})=\int_Bf(\mathbf{x},y)\,\dd y
+\]
+ is Riemann integrable on $A$ and
+\[
+\int_{A\times B}f=\int_A G(\mathbf{x})\,\dd\mathbf{x}.
 \]
 The corresponding conclusion holds in the reverse order. If every section
 in both directions is integrable, both iterated integrals exist and equal
@@ -774,7 +894,15 @@ automatically supplies every section integral, and even continuity of $G$.
 \label{ex:thomae-dirichlet-sections}
 Recall Thomae's function from \cref{ex:thomae-function}, writing it as
 $t$ on $[0,1]$: $t(x)=0$ at irrational
-$x$ and $t(a/b)=1/b$ for a reduced rational with $b>0$ (including $0/1$).
+$x$ and
+\[
+t(a/b)=1/b
+\]
+ for a reduced rational with $b>0$ (including
+\[
+0/1
+\]
+).
 It is Riemann integrable with integral zero. Set
 \[
 f(x,y)=t(x)\mathbf1_{\Q}(y),\qquad (x,y)\in[0,1]^2.
@@ -787,7 +915,11 @@ U(f,\mathcal P_x\times\mathcal P_y)
 =\sum_I(\sup_I t)|I|\sum_J|J|=U(t,\mathcal P_x).
 \]
 The one-dimensional upper sums can be made arbitrarily small, so the
-two-dimensional Darboux criterion gives $\int_{[0,1]^2}f=0$.
+two-dimensional Darboux criterion gives
+\[
+\int_{[0,1]^2}f=0.
+\]
+
 For irrational $x$ the vertical section is zero. For rational $x$ it is
 a positive multiple of the Dirichlet function: every lower sum is zero
 and every upper sum is $t(x)>0$. It is not Riemann integrable.
@@ -816,7 +948,11 @@ The continuous theorem gives the simplest computational case; the
 Darboux theorem above also treats Riemann-integrable functions with bad sections. In Lebesgue integration on Euclidean product spaces, Tonelli applies to
 nonnegative measurable functions: the product integral and iterated
 integrals agree, possibly with common value $+\infty$. In the standard
-absolute-integrability formulation, Fubini assumes $\int|f|<\infty$.
+absolute-integrability formulation, Fubini assumes
+\[
+\int|f|<\infty.
+\]
+
 Almost every section is then integrable, and both iterated integrals are
 finite and equal to the product integral. Exceptional sections are ignored
 in the almost-everywhere sense of that later theory.
@@ -832,12 +968,20 @@ greater flexibility; those measure-theoretic results are not proved here.
 \Needspace{12\baselineskip}
 \subsection{Coordinatewise calculus on rectangles}
 \begin{corollary}[Coordinatewise FTC on a rectangle]\label{cor:coordinatewise-ftc}
-Let $F$ be $C^1$ on a neighborhood of $Q=\prod_{i=1}^n[a_i,b_i]$.
-Write $x_{\widehat j}$ for the tuple omitting coordinate $j$, and
-$Q_{\widehat j}=\prod_{i\ne j}[a_i,b_i]$. Then
+Let $F$ be $C^1$ on a neighborhood of
 \[
-\int_Q\partial_jF(x)\,\dd x
-=\int_{Q_{\widehat j}}\bigl[F(x)\bigr]_{x_j=a_j}^{x_j=b_j}\,\dd x_{\widehat j}.
+Q=\prod_{i=1}^n[a_i,b_i].
+\]
+
+Write $\mathbf{x}_{\widehat j}$ for the tuple omitting coordinate $j$, and
+
+\[
+Q_{\widehat j}=\prod_{i\ne j}[a_i,b_i].
+\]
+ Then
+\[
+\int_Q\partial_jF(\mathbf{x})\,\dd\mathbf{x}
+=\int_{Q_{\widehat j}}\bigl[F(\mathbf{x})\bigr]_{x_j=a_j}^{x_j=b_j}\,\dd\mathbf{x}_{\widehat j}.
 \]
 For $n=1$, integration over the remaining empty tuple means evaluation.
 \end{corollary}
@@ -866,10 +1010,10 @@ For $Q=[a,b]\times[c,d]$, coordinatewise integration by parts reads
 \]
 Evaluating at $x=a,b$ removes the $x$ variable but leaves a function of $y$.
 In $n$ dimensions, write
-$x_{\widehat j}=(x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n)$.
+$\mathbf{x}_{\widehat j}=(x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n)$.
 The hat means that the indicated coordinate is omitted.
 The rectangle $Q_{\widehat j}$ contains these remaining coordinates, and
-$\dd x_{\widehat j}$ is their scalar coordinate volume. The face term
+$\dd\mathbf{x}_{\widehat j}$ is their scalar coordinate volume. The face term
 below is an $(n-1)$-dimensional integral. For $n=1$ the remaining
 zero-dimensional integral is evaluation at the single empty tuple, so
 the formula is the ordinary one-variable integration-by-parts identity.
@@ -890,29 +1034,29 @@ Q_{\widehat j}
 =
 \prod_{\substack{1\leq i\leq n\\ i\ne j}}[a_i,b_i],
 \qquad
-\dd x_{\widehat j}
+\dd\mathbf{x}_{\widehat j}
 =
 \dd x_1\cdots\dd x_{j-1}\dd x_{j+1}\cdots\dd x_n.
 \]
 Then
 \[
-\int_Q u(x)\frac{\partial v}{\partial x_j}(x)\,\dd x
+\int_Q u(\mathbf{x})\frac{\partial v}{\partial x_j}(\mathbf{x})\,\dd\mathbf{x}
 =
 \int_{Q_{\widehat j}}
 \left[
-u(x)v(x)
-\right]_{x_j=a_j}^{x_j=b_j}\,\dd x_{\widehat j}
+u(\mathbf{x})v(\mathbf{x})
+\right]_{x_j=a_j}^{x_j=b_j}\,\dd\mathbf{x}_{\widehat j}
 -
-\int_Q v(x)\frac{\partial u}{\partial x_j}(x)\,\dd x.
+\int_Q v(\mathbf{x})\frac{\partial u}{\partial x_j}(\mathbf{x})\,\dd\mathbf{x}.
 \]
 In the middle integral, the coordinates other than \(x_j\) are held fixed
 while the bracket is evaluated at the two endpoints.
 \end{theorem}
 \begin{proof}
-For fixed \(x_{\widehat j}\in Q_{\widehat j}\), apply
+For fixed \(\mathbf{x}_{\widehat j}\in Q_{\widehat j}\), apply
 \cref{thm:one-variable-integration-by-parts} to the \(C^1\) functions of
 \(x_j\) obtained from \(u\) and \(v\).  The resulting identity has continuous
-dependence on \(x_{\widehat j}\).  Integrating it over \(Q_{\widehat j}\) and
+dependence on \(\mathbf{x}_{\widehat j}\).  Integrating it over \(Q_{\widehat j}\) and
 using \cref{thm:riemann-fubini} gives the displayed formula.
 \end{proof}
 
@@ -924,11 +1068,27 @@ We have $v_x=y$ and $u_x=1$. The formula in the $x$ coordinate gives
 =\int_0^1[(x+y)xy]_{x=0}^{x=1}\,\dd y-\iint_Qxy\,\dd A.
 \]
 The face term is
-$\int_0^1(y+y^2)\,\dd y=\frac12+\frac13=\frac56$.
+
+\[
+\int_0^1(y+y^2)\,\dd y=\frac12+\frac13=\frac56.
+\]
+
 The remaining integral is
-$\int_0^1[ x^2y/2]_{x=0}^{x=1}\,\dd y=\int_0^1y/2\,\dd y=1/4$.
-Thus the answer is $\frac56-\frac14=\frac7{12}$. Direct integration of
-$xy+y^2$ checks it: $\frac14+\frac13=\frac7{12}$. The endpoint term has
+
+\[
+\int_0^1[ x^2y/2]_{x=0}^{x=1}\,\dd y=\int_0^1y/2\,\dd y=1/4.
+\]
+
+Thus the answer is
+\[
+\frac56-\frac14=\frac7{12}.
+\]
+ Direct integration of
+$xy+y^2$ checks it:
+\[
+\frac14+\frac13=\frac7{12}.
+\]
+ The endpoint term has
 become a face integral.
 \end{example}
 \begin{center}
@@ -961,15 +1121,15 @@ the integrand is $1$ inside, $0$ outside: the indicator function.
 Let $E$ be a bounded subset of $\R^n$ and choose a rectangle $Q$ containing
 $E$.  The set $E$ is \textbf{Jordan measurable} if its indicator
 \[
-\mathbf 1_E(x)=
+\mathbf 1_E(\mathbf{x})=
 \begin{cases}
-1,&x\in E,\\
-0,&x\notin E
+1,&\mathbf{x}\in E,\\
+0,&\mathbf{x}\notin E
 \end{cases}
 \]
 is Riemann integrable on $Q$.  Its \textbf{Jordan volume} is
 \[
-\operatorname{vol}(E)=\int_Q\mathbf 1_E(x)\,\dd x.
+\operatorname{vol}(E)=\int_Q\mathbf 1_E(\mathbf{x})\,\dd\mathbf{x}.
 \]
 \end{definition}
 
@@ -982,10 +1142,10 @@ it can be covered by finitely many rectangles whose total volume is less
 than \(\varepsilon\).
 \end{definition}
 
-The word ``negligible'' has two different meanings in our two integration
-chapters. Chapter~\ref{ch:riemann} allows countably many covering intervals;
+Chapter~\ref{ch:riemann} uses Lebesgue measure-zero (null) sets,
+allowing countably many covering intervals;
 Jordan-nullness requires finitely many rectangles. The rationals in $[0,1]$
-are negligible in the former sense, by \cref{prop:countable-negligible},
+have Lebesgue measure zero, by \cref{prop:countable-negligible},
 but are not Jordan-null. A finite union of closed intervals covering this
 dense set is closed, so it covers its closure $[0,1]$ and has total length
 at least one. Countably many small intervals need not have this property.
@@ -999,10 +1159,10 @@ open rectangles of combined volume $v$, the total volume of such cells
 in any fixed finite grid is at most $v$.
 \end{lemma}
 \begin{proof}
-For each $x\in K$ choose $r_x>0$ with $B(x,2r_x)\subset G$.
-Finitely many balls $B(x,r_x)$ cover $K$; let $d$ be the minimum of
-their radii. If a cell contains $y\in K\cap B(x,r_x)$, then for every
-point $z$ in the cell, $|z-x|<d+r_x\leq2r_x$, so $z\in G$.
+For each $\mathbf{x}\in K$ choose $r_{\mathbf{x}}>0$ with $B(\mathbf{x},2r_{\mathbf{x}})\subset G$.
+Finitely many balls $B(\mathbf{x},r_{\mathbf{x}})$ cover $K$; let $d$ be the minimum of
+their radii. If a cell contains $y\in K\cap B(\mathbf{x},r_{\mathbf{x}})$, then for every
+point $z$ in the cell, $|z-\mathbf{x}|<d+r_{\mathbf{x}}\leq2r_{\mathbf{x}}$, so $z\in G$.
 For the volume bound, subdivide at all grid and covering-rectangle faces.
 Each resulting cell is counted at most once in the grid union and at
 least once among the covering rectangles. Adding its elementary volume
@@ -1034,12 +1194,24 @@ points remains in $C$, giving a path and hence connectedness by
 indicator is constant on $C$. Its Darboux gap is consequently
 at most the combined volume of the boundary cells, less than $\eps$.
 
-Conversely choose a partition whose indicator gap is less than $\eps/2$.
+Conversely choose a partition whose indicator gap is less than
+\[
+\eps/2.
+\]
+
 Its mixed cells, where the indicator takes both values, have combined
-volume less than $\eps/2$. Any boundary point in the interior of a
+volume less than
+\[
+\eps/2.
+\]
+ Any boundary point in the interior of a
 grid cell makes that cell mixed by the definition of boundary. The other
 boundary points lie on finitely many grid faces, coverable by thin boxes
-of combined volume less than $\eps/2$. Together these rectangles cover
+of combined volume less than
+\[
+\eps/2.
+\]
+ Together these rectangles cover
 the boundary with total volume less than $\eps$.
 \end{proof}
 
@@ -1054,8 +1226,8 @@ If $E,F\subseteq\R^n$ are Jordan measurable, so are
 $E\cup F$, $E\cap F$, and $E\setminus F$.
 \end{proposition}
 \begin{proof}
-All three sets are bounded. If $x\notin\partial E\cup\partial F$, choose
-one ball about $x$ on which membership in $E$ is constant and another on
+All three sets are bounded. If $\mathbf{x}\notin\partial E\cup\partial F$, choose
+one ball about $\mathbf{x}$ on which membership in $E$ is constant and another on
 which membership in $F$ is constant. On the smaller ball, membership in
 each of the three displayed sets is constant. Therefore
 \[
@@ -1063,14 +1235,18 @@ each of the three displayed sets is constant. Therefore
 \ \subseteq\ \partial E\cup\partial F.
 \]
 The right side is Jordan-null: combine finite rectangle covers of its two
-parts with total volumes below $\eps/2$ each. Each boundary on the left is
+parts with total volumes below
+\[
+\eps/2
+\]
+ each. Each boundary on the left is
 thus Jordan-null, and \cref{prop:jordan-boundary-criterion} proves the claims.
 \end{proof}
 
 For $f:E\to\R$ and $E\subseteq Q$, its zero extension is the new map
 \[
 \widetilde f:Q\to\R,\qquad
-\widetilde f(x)=\begin{cases}f(x),&x\in E,\\0,&x\in Q\setminus E.\end{cases}
+\widetilde f(\mathbf{x})=\begin{cases}f(\mathbf{x}),&\mathbf{x}\in E,\\0,&\mathbf{x}\in Q\setminus E.\end{cases}
 \]
 Thus $\widetilde f|_E=f$ and $\widetilde f|_{Q\setminus E}=0$.
 They have different domains and are not literally the same function.
@@ -1090,20 +1266,36 @@ extension to a containing rectangle is Riemann integrable.
 from small oscillation. Let $\widetilde f$ be the zero extension to $Q$
 and choose $M\geq1$ with $|\widetilde f|\leq M$.
 Given $\eps>0$, cover $\partial E$ by a finite union $G$ of open boxes
-with total volume less than $\eps/(4M)$. At every
-$x\in Q\setminus\partial E$, the extension is continuous: locally the
+with total volume less than
+\[
+\eps/(4M).
+\]
+ At every
+$\mathbf{x}\in Q\setminus\partial E$, the extension is continuous: locally the
 point is inside $E^\circ$ or outside $\overline E$.
-Choose a relatively open neighborhood $U_x$ in $Q$ with
-$\operatorname{osc}_{U_x}\widetilde f<\eta$, where
-$\eta=\eps/[2(1+\operatorname{vol}Q)]$.
-The open cover consisting of $G\cap Q$ and these $U_x$ has a Lebesgue
+Choose a relatively open neighborhood $U_{\mathbf{x}}$ in $Q$ with
+$\operatorname{osc}_{U_{\mathbf{x}}}\widetilde f<\eta$, where
+
+\[
+\eta=\eps/[2(1+\operatorname{vol}Q)].
+\]
+
+The open cover consisting of $G\cap Q$ and these $U_{\mathbf{x}}$ has a Lebesgue
 number by \cref{lem:compact-metric-lebesgue-number}. Choose a grid with
 cell diameters below that number. Assign every cell contained in $G$ to
-the bad collection; every remaining cell lies in some $U_x$.
+the bad collection; every remaining cell lies in some $U_{\mathbf{x}}$.
 The bad cells have disjoint interiors and total volume at most the sum
 of the covering-box volumes (subdivide along all box faces to see this).
-Their Darboux contribution is less than $2M\eps/(4M)=\eps/2$.
-All other cells contribute at most $\eta\operatorname{vol}Q<\eps/2$.
+Their Darboux contribution is less than
+\[
+2M\eps/(4M)=\eps/2.
+\]
+
+All other cells contribute at most
+\[
+\eta\operatorname{vol}Q<\eps/2.
+\]
+
 The Darboux criterion proves integrability. No uniform continuity on
 the possibly noncompact set $Q\setminus\partial E$ was assumed.
 \end{proof}
@@ -1171,7 +1363,11 @@ from the union is integrable and
 \end{proposition}
 \begin{proof}
 Given $\eps>0$, cover $N$ by finitely many closed rectangles of
-combined volume less than $\eps/2$. Their union also contains
+combined volume less than
+\[
+\eps/2.
+\]
+ Their union also contains
 $\overline N$. Enlarge them to open rectangles with combined volume
 less than $\eps$. The compact set $\overline N$ has a positive margin
 inside this open union, so \cref{lem:fine-grid-boundary} puts every
@@ -1193,7 +1389,11 @@ N_0=\bigcup_{i<j}(E_i\cap E_j).
 \]
 If \(m\leq1\), there is nothing to prove.  If \(m\geq2\), this finite union
 is Jordan-null: combine finite covers whose total volumes are each less than
-\(\varepsilon/\binom m2\).  Away from \(N_0\),
+
+\[
+\varepsilon/\binom m2.
+\]
+  Away from \(N_0\),
 \[
 \mathbf1_{\cup_iE_i}=\sum_i\mathbf1_{E_i}.
 \]
@@ -1206,15 +1406,15 @@ applied to the zero extensions of \(h|_{E_i}\) proves the final assertion.
 Let $E\subseteq\R^n$ be Jordan measurable and let $f:E\to\R$ be bounded.
 If the extension
 \[
-\widetilde f(x)=
+\widetilde f(\mathbf{x})=
 \begin{cases}
-f(x),&x\in E,\\
-0,&x\notin E
+f(\mathbf{x}),&\mathbf{x}\in E,\\
+0,&\mathbf{x}\notin E
 \end{cases}
 \]
 is integrable on a containing rectangle $Q$, define
 \[
-\int_Ef(x)\,\dd x=\int_Q\widetilde f(x)\,\dd x.
+\int_Ef(\mathbf{x})\,\dd\mathbf{x}=\int_Q\widetilde f(\mathbf{x})\,\dd\mathbf{x}.
 \]
 \end{definition}
 
@@ -1240,8 +1440,16 @@ needed even to define the ordinary outer integrand.
 \begin{lemma}[Riemann--Fubini with integrable sections]
 \label{lem:fubini-integrable-sections}
 Let $g$ be Riemann integrable on $A\times B$, and suppose every section
-$y\mapsto g(x,y)$ is integrable on $B$. Then $G(x)=\int_Bg(x,y)\,\dd y$
-is integrable on $A$ and $\int_A G=\int_{A\times B}g$.
+$y\mapsto g(\mathbf{x},y)$ is integrable on $B$. Then
+\[
+G(\mathbf{x})=\int_Bg(\mathbf{x},y)\,\dd y
+\]
+
+is integrable on $A$ and
+\[
+\int_A G=\int_{A\times B}g.
+\]
+
 \end{lemma}
 \begin{proof}
 Apply \cref{cor:ordinary-iterated-riemann} to $g$.
@@ -1321,7 +1529,11 @@ the two square roots. Consequently
 =\int_0^1 2\sqrt y\,\dd y=\frac43.
 \]
 For a nonconstant integrand the same bounds give
-$\int_E y=\int_0^1 2y^{3/2}\,\dd y=4/5$.
+
+\[
+\int_E y=\int_0^1 2y^{3/2}\,\dd y=4/5.
+\]
+
 \end{minipage}
 \end{example}
 
@@ -1343,7 +1555,11 @@ segments. The graph-region theorem gives
 \int_D(x+y)=\int_0^1\int_0^x(x+y)\,\dd y\,\dd x
 =\int_0^1\tfrac32x^2\,\dd x=\tfrac12.
 \]
-Reversing the order gives $\int_0^1\int_y^1(x+y)\,\dd x\,\dd y=1/2$.
+Reversing the order gives
+\[
+\int_0^1\int_y^1(x+y)\,\dd x\,\dd y=1/2.
+\]
+
 For a region requiring a split, take
 $E=\{(x,y):0\leq x\leq2,\ 0\leq y\leq\min(x,2-x)\}$.
 Horizontal slices have $0\leq y\leq1$, $y\leq x\leq2-y$;
@@ -1402,7 +1618,15 @@ nonempty open $V\subseteq\R^m$ cannot be surjective.
 \begin{proof}
 On $Q$, bound $\|Df\|$ by $L>0$. Its convexity makes $f|_Q$
 $L$-Lipschitz. Subdivide a cube of side $s$ into $k^n$ cubes of side
-$s/k$. Each image lies in an $m$-box of side $2L\sqrt n\,s/k$.
+
+\[
+s/k.
+\]
+ Each image lies in an $m$-box of side
+\[
+2L\sqrt n\,s/k.
+\]
+
 Their total $m$-volume is at most
 \[
 (2L\sqrt n\,s)^m k^{n-m}\longrightarrow0.
@@ -1469,7 +1693,11 @@ are Lipschitz. Their images are therefore Jordan-null by
 No regularity of the cone as a surface at its apex is needed for this argument.
 The flat disk pieces lie in planes and are also null in three dimensions.
 For the sphere use the six coordinate graph pieces where one coordinate
-has magnitude at least $R/\sqrt3$; the corresponding square-root graphs
+has magnitude at least
+\[
+R/\sqrt3;
+\]
+ the corresponding square-root graphs
 have bounded derivatives on their compact disk domains. The same covering
 argument applies to these pieces. Thus each solid has Jordan-null boundary.
 All horizontal sections are disks, whose circular boundaries are Lipschitz
@@ -1502,13 +1730,25 @@ For the cone
 \[
 K=\{(x,y,z):0\leq z\leq h,\ x^2+y^2\leq R^2(1-z/h)^2\},
 \]
-fixing $z$ leaves a disk with radius $r(z)=R(1-z/h)$, since $1-z/h\geq0$.
+fixing $z$ leaves a disk with radius
+\[
+r(z)=R(1-z/h),
+\]
+ since
+\[
+1-z/h\geq0.
+\]
+
 Consequently
 \[
 A(z)=\pi r(z)^2=\pi R^2(1-z/h)^2.
 \]
 The radius decreases linearly with height, so area decreases quadratically.
-Integrating this quadratic profile is what produces the factor $1/3$:
+Integrating this quadratic profile is what produces the factor
+\[
+1/3:
+\]
+
 \begin{align*}
 \operatorname{vol}(K)
 &=\int_0^h\pi R^2(1-z/h)^2\,\dd z\\
@@ -1530,7 +1770,7 @@ third of the volume because its sections shrink according to this profile.
 \draw (-1,0)--(0,2.5)--(1,0);\draw (0,0) ellipse (1 and .25);
 \filldraw[fill=blue!15,draw=blue] (0,1.2) ellipse (.52 and .13);
 \draw[->] (0,1.2)--(.52,1.2);
-\node[right] at (.6,1.35) {$R(1-z/h)$};
+\node[right] at (.6,1.35) {$\displaystyle R(1-z/h)$};
 \draw[dashed] (-1.3,1.2)--(0,1.2);
 \draw[<->] (-1.3,0)--(-1.3,1.2) node[midway,left] {$z$};
 \node[below] at (0,-.35) {cone: shrinking disks};
@@ -1720,7 +1960,7 @@ have an integrable zero extension.  Then $L(E)$ is Jordan measurable and
 \[
 \int_{L(E)}f(y)\,\dd y
 =
-\int_Ef(Lx)\abs{\det L}\,\dd x.
+\int_Ef(L\mathbf{x})\abs{\det L}\,\dd\mathbf{x}.
 \]
 \end{theorem}
 \begin{proof}
@@ -1747,7 +1987,7 @@ common grid face, which is Jordan-null by \cref{lem:lipschitz-box-face}.  Hence 
 =
 \sum_{i=1}^{N}c_i\operatorname{vol}(L(R_i))
 =
-\abs{\det L}\int_Rs(x)\,\dd x.
+\abs{\det L}\int_Rs(\mathbf{x})\,\dd\mathbf{x}.
 \]
 Thus the formula is established first for rectangular step functions; their
 transforms are finite sums of indicators of the Jordan sets \(L(R_i)\),
@@ -1791,7 +2031,7 @@ the two transformed step-function integrals proves
 \[
 \int_{L(R)}h(L^{-1}y)\,\dd y
 =
-\abs{\det L}\int_Rh(x)\,\dd x.
+\abs{\det L}\int_Rh(\mathbf{x})\,\dd\mathbf{x}.
 \]
 All integrations here may be read through zero extensions to containing
 rectangles, as in the definition of integration over a Jordan set.
@@ -1806,13 +2046,13 @@ Finally, choose a rectangle \(P\) containing \(L(E)\), and let
 Apply the preceding argument to \(L^{-1}\) and \(\widetilde f\).  It proves
 that
 \[
-x\longmapsto\widetilde f(Lx)
+\mathbf{x}\longmapsto\widetilde f(L\mathbf{x})
 \]
 has an integrable zero extension from \(L^{-1}(P)\), and
 \[
 \int_P\widetilde f(y)\,\dd y
 =
-\abs{\det L}\int_{L^{-1}(P)}\widetilde f(Lx)\,\dd x.
+\abs{\det L}\int_{L^{-1}(P)}\widetilde f(L\mathbf{x})\,\dd\mathbf{x}.
 \]
 The integrands vanish, respectively, outside \(L(E)\) and outside \(E\).
 Using the definition of integration over Jordan sets therefore turns this
@@ -1823,7 +2063,11 @@ identity into the asserted formula.
 \Needspace{19\baselineskip}
 \begin{example}[An ellipse and an ellipsoid by scaling]\label{ex:ellipse-scaling}
 Let $a,b,c>0$. The map $\sigma(u,v)=(au,bv)$ takes the unit disk $D$
-onto $E=\{x^2/a^2+y^2/b^2\leq1\}$. Its derivative is
+onto
+\[
+E=\{x^2/a^2+y^2/b^2\leq1\}.
+\]
+ Its derivative is
 $\operatorname{diag}(a,b)$, so $|\det D\sigma|=ab$ and
 $\operatorname{area}(E)=ab\operatorname{area}(D)=\pi ab$.
 \begin{center}
@@ -1841,8 +2085,16 @@ $\operatorname{area}(E)=ab\operatorname{area}(D)=\pi ab$.
 \end{tikzpicture}
 \end{center}
 Likewise $(u,v,w)\mapsto(au,bv,cw)$ has determinant $abc$ and takes
-the unit ball to $x^2/a^2+y^2/b^2+z^2/c^2\leq1$. Hence the ellipsoid
-volume is $4\pi abc/3$. Slicing found the ball's volume; linear scaling
+the unit ball to
+\[
+x^2/a^2+y^2/b^2+z^2/c^2\leq1.
+\]
+ Hence the ellipsoid
+volume is
+\[
+4\pi abc/3.
+\]
+ Slicing found the ball's volume; linear scaling
 now transfers it to a new solid.
 \end{example}
 
@@ -1873,40 +2125,40 @@ independence of this rectangle. No improper integral is being introduced.
 Let $q:U\to V$ be a primitive $C^1$ diffeomorphism of open sets.
 For every $f\in C_c(V)$,
 \[
-\int_V f(y)\,\dd y=\int_U f(q(x))|\det Dq(x)|\,\dd x.
+\int_V f(y)\,\dd y=\int_U f(q(\mathbf{x}))|\det Dq(\mathbf{x})|\,\dd\mathbf{x}.
 \]
 \end{lemma}
 \begin{proof}
 First suppose the changed coordinate is the last one, so
-$q(x',t)=(x',p(x',t))$ and $\det Dq=\partial_t p$.
+$q(\mathbf{x}',t)=(\mathbf{x}',p(\mathbf{x}',t))$ and $\det Dq=\partial_t p$.
 Both $f$ and $g=(f\circ q)|\partial_t p|$ have continuous zero
 extensions with compact support: the support of $g$ is contained in
 $q^{-1}(\operatorname{supp}f)$, which is compact by continuity of $q^{-1}$.
 Choose enclosing rectangles for these two supports.
 
-Fix $x'$. The source slice $U_{x'}=\{t:(x',t)\in U\}$ is open in
+Fix $\mathbf{x}'$. The source slice $U_{\mathbf{x}'}=\{t:(\mathbf{x}',t)\in U\}$ is open in
 $\R$, and its components are open intervals. On each such interval
 $\partial_t p$ is continuous and never zero, so has constant sign;
-the mean value theorem makes $p(x',\cdot)$ strictly monotone there.
+the mean value theorem makes $p(\mathbf{x}',\cdot)$ strictly monotone there.
 Injectivity of $q$ makes the images of distinct component intervals
-disjoint, and surjectivity onto $V$ makes their union $V_{x'}$.
+disjoint, and surjectivity onto $V$ makes their union $V_{\mathbf{x}'}$.
 
 Only finitely many of these intervals meet the compact slice of
 $q^{-1}(\operatorname{supp}f)$. Indeed, every point of that slice has
-an interval neighborhood contained in $U_{x'}$, and a finite subcover
+an interval neighborhood contained in $U_{\mathbf{x}'}$, and a finite subcover
 meets only finitely many components. Within each relevant component
 choose a closed subinterval $[\alpha,\beta]$ with that component's
 compact support slice in its interior. Define
 \[
 \begin{aligned}
-s_-&=\min\{p(x',\alpha),p(x',\beta)\},\\
-s_+&=\max\{p(x',\alpha),p(x',\beta)\}.
+s_-&=\min\{p(\mathbf{x}',\alpha),p(\mathbf{x}',\beta)\},\\
+s_+&=\max\{p(\mathbf{x}',\alpha),p(\mathbf{x}',\beta)\}.
 \end{aligned}
 \]
 One-variable substitution, \cref{thm:one-variable-substitution}, gives
 \[
-\int_\alpha^\beta f(x',p(x',t))|\partial_t p(x',t)|\,\dd t
-=\int_{s_-}^{s_+}f(x',s)\,\dd s.
+\int_\alpha^\beta f(\mathbf{x}',p(\mathbf{x}',t))|\partial_t p(\mathbf{x}',t)|\,\dd t
+=\int_{s_-}^{s_+}f(\mathbf{x}',s)\,\dd s.
 \]
 For an increasing fiber map this is substitution directly. For a
 decreasing map, $|\partial_t p|=-\partial_t p$; the negative sign
@@ -1915,10 +2167,10 @@ and maximum therefore give the same formula in both cases.
 Outside these finitely many subintervals and their images the slice
 integrands are zero.
 Adding yields equality of the integrals of the full zero-extended slices.
-This uses only finitely many ordinary interval integrals for each $x'$,
+This uses only finitely many ordinary interval integrals for each $\mathbf{x}'$,
 even if the open domain has infinitely many slice components.
 Fubini for the continuous zero extensions now integrates that equality
-over $x'$. For $n=1$ there are no parameter coordinates. Any other
+over $\mathbf{x}'$. For $n=1$ there are no parameter coordinates. Any other
 changed coordinate is moved to the last position by coordinate
 permutations, which preserve integrals by Fubini and have absolute
 determinant one.
@@ -1941,11 +2193,11 @@ $\tau^{-1}(\operatorname{supp}f)$. Applying the two formulas gives
 \int_W f
  &=\int_V(f\circ\tau)|\det D\tau|\\
  &=\int_U(f\circ\tau\circ\sigma)
-       |\det D\tau(\sigma(x))|\,|\det D\sigma(x)|\,\dd x.
+       |\det D\tau(\sigma(\mathbf{x}))|\,|\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}.
 \end{aligned}
 \]
 The chain rule and multiplicativity of the determinant identify the
-product as $|\det D(\tau\circ\sigma)(x)|$.
+product as $|\det D(\tau\circ\sigma)(\mathbf{x})|$.
 For a restriction $\sigma|_{U_0}$, $U_0\subset U$ open, extend a function in
 $C_c(\sigma(U_0))$ by zero to $V$ and use the original formula. Its
 pullback vanishes outside $U_0$, giving exactly the restricted identity.
@@ -1970,7 +2222,7 @@ Let $\sigma:U\to V$ be a $C^1$ diffeomorphism between open subsets of
 $\R^n$. For every $f\in C_c(V)$,
 \[
 \boxed{\int_V f(y)\,\dd y
-=\int_U f(\sigma(x))|\det D\sigma(x)|\,\dd x.}
+=\int_U f(\sigma(\mathbf{x}))|\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}.}
 \]
 If $\det D\sigma>0$ the absolute value may be omitted. If it is negative
 everywhere, omitting it reverses the sign.
@@ -1990,16 +2242,20 @@ Its support is contained in the compact subset
 $\sigma(\operatorname{supp}\rho_i)\subset\sigma(N_i)$, so $f_i$ belongs
 to $C_c(\sigma(N_i))$ and extends continuously by zero to $V$.
 Where $f(y)\ne0$, $\sigma^{-1}(y)\in L$ and the weights sum to one;
-where $f(y)=0$, all $f_i$ vanish. Thus $\sum_i f_i=f$ on $V$.
+where $f(y)=0$, all $f_i$ vanish. Thus
+\[
+\sum_i f_i=f
+\]
+ on $V$.
 The local formula says
 \[
 \int_{\sigma(N_i)}f_i
-=\int_{N_i}\rho_i(x)f(\sigma(x))|\det D\sigma(x)|\,\dd x.
+=\int_{N_i}\rho_i(\mathbf{x})f(\sigma(\mathbf{x}))|\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}.
 \]
 All these functions have compact support in their displayed domains.
 Their zero extensions permit a finite sum on containing rectangles.
 On $U$ the sum of the source integrands is
-$f(\sigma(x))|\det D\sigma(x)|$, because that function vanishes outside
+$f(\sigma(\mathbf{x}))|\det D\sigma(\mathbf{x})|$, because that function vanishes outside
 $L$. Summing gives the claimed formula. The sign assertions follow
 from the absolute determinant.
 \end{proof}
@@ -2045,7 +2301,7 @@ Let $\sigma:U\to V$ be a $C^1$ diffeomorphism of open sets,
 $E\subset U$ compact and Jordan measurable, and $f$ continuous on
 $\sigma(E)$. Then
 \[
-\int_{\sigma(E)}f=\int_E f(\sigma(x))|\det D\sigma(x)|\,\dd x.
+\int_{\sigma(E)}f=\int_E f(\sigma(\mathbf{x}))|\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}.
 \]
 \end{corollary}
 \begin{proof}
@@ -2091,19 +2347,23 @@ of $f$ beyond its given region has been assumed.
 \begin{theorem}[Change of variables on a rectangle]\label{thm:change-of-variables}
 Let $Q\subseteq\R^n$ be a rectangle, $U$ an open neighborhood of $Q$,
 and $\sigma:U\to\R^n$ be $C^1$. Suppose $\sigma$ is injective on $Q$
-and $\det D\sigma(x)\ne0$ for $x\in Q$. Then $\sigma(Q)$ is Jordan
+and $\det D\sigma(\mathbf{x})\ne0$ for $\mathbf{x}\in Q$. Then $\sigma(Q)$ is Jordan
 measurable and, for continuous $f$ on $\sigma(Q)$,
 \[
 \int_{\sigma(Q)}f(y)\,\dd y
-=\int_Q f(\sigma(x))|\det D\sigma(x)|\,\dd x.
+=\int_Q f(\sigma(\mathbf{x}))|\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}.
 \]
 \end{theorem}
 \begin{proof}
 There is an open neighborhood of $Q$ on which $\sigma$ is injective.
-Otherwise, in neighborhoods of distance less than $1/j$ from $Q$
+Otherwise, in neighborhoods of distance less than
+\[
+1/j
+\]
+ from $Q$
 inside a fixed compact neighborhood in $U$, there would be distinct
-$x_j,y_j$ with $\sigma(x_j)=\sigma(y_j)$. Subsequences converge to
-$x,y\in Q$. Continuity and injectivity on $Q$ give $x=y$.
+$\mathbf{x}_j,y_j$ with $\sigma(\mathbf{x}_j)=\sigma(y_j)$. Subsequences converge to
+$\mathbf{x},y\in Q$. Continuity and injectivity on $Q$ give $\mathbf{x}=y$.
 The inverse theorem gives a neighborhood of this common limit where
 $\sigma$ is injective; eventually both sequences lie there, a contradiction.
 Continuity of the determinant and compactness also give a neighborhood
@@ -2120,21 +2380,21 @@ Its inner estimate uses the inverse already supplied by Chapter~11.
 
 \paragraph{The maximum-norm segment estimate.}
 Let $H:\Omega\subseteq\R^n\to\R^m$ be differentiable on an open
-neighborhood of $[x,y]$ and suppose
+neighborhood of $[\mathbf{x},y]$ and suppose
 $\|DH(z)\|_{\infty\to\infty}\leq M$ along that segment.
 Choose a coordinate $i$ with
-$|H_i(y)-H_i(x)|=\|H(y)-H(x)\|_\infty$.
+$|H_i(y)-H_i(\mathbf{x})|=\|H(y)-H(\mathbf{x})\|_\infty$.
 The scalar mean value theorem applied to
-$t\mapsto H_i(x+t(y-x))$ on $[0,1]$ gives some $z\in[x,y]$ with
+$t\mapsto H_i(\mathbf{x}+t(y-\mathbf{x}))$ on $[0,1]$ gives some $z\in[\mathbf{x},y]$ with
 \[
 \begin{aligned}
-\|H(y)-H(x)\|_\infty
-&=|DH_i(z)(y-x)|\\
-&\leq\|DH(z)(y-x)\|_\infty
-\leq M\|y-x\|_\infty.
+\|H(y)-H(\mathbf{x})\|_\infty
+&=|DH_i(z)(y-\mathbf{x})|\\
+&\leq\|DH(z)(y-\mathbf{x})\|_\infty
+\leq M\|y-\mathbf{x}\|_\infty.
 \end{aligned}
 \]
-For $x=y$ the conclusion is immediate. In particular the estimate applies
+For $\mathbf{x}=y$ the conclusion is immediate. In particular the estimate applies
 on a convex region with this derivative bound, with the exact same constant.
 
 \begin{proposition}[Local Jacobian volume distortion]\label{lem:local-volume-comparison}
@@ -2149,7 +2409,7 @@ In particular this ratio tends to $|\det D\sigma(a)|$ as the cubes
 shrink to $a$.
 \end{proposition}
 \begin{proof}
-Put $A=D\sigma(a)$ and $T(x)=a+A^{-1}(\sigma(x)-\sigma(a))$.
+Put $A=D\sigma(a)$ and $T(\mathbf{x})=a+A^{-1}(\sigma(\mathbf{x})-\sigma(a))$.
 Then $T(a)=a$, $DT(a)=I$, and the inverse theorem provides a local
 inverse $S$ with $DS(a)=I$. Use the maximum norm and its operator norm.
 Choose a convex ball about $a$ in the source and a convex ball about
@@ -2163,22 +2423,42 @@ Continuity of $DT,DS$ allows this for any $\delta>0$.
 Shrink $N$ so that cubes $C\subset N$ stay in the source ball and
 all points within their half side length of $T(c)$ stay in the image
 ball, where $c$ is the cube center. Concretely, if the image ball has
-radius $R$, take $N=B_\infty(a,r)$ with $r<R/4$, inside the source
-ball, and $T(N)\subset B_\infty(a,R/2)$. A cube in $N$ has side
-$h\leq2r$, so these target points lie in $B_\infty(a,3R/4)$.
+radius $R$, take $N=B_\infty(a,r)$ with
+\[
+r<R/4,
+\]
+ inside the source
+ball, and
+\[
+T(N)\subset B_\infty(a,R/2).
+\]
+ A cube in $N$ has side
+$h\leq2r$, so these target points lie in
+\[
+B_\infty(a,3R/4).
+\]
+
 The maximum-norm segment estimate just proved, applied to $T-I$ and
 $S-I$ on their respective convex balls, gives
 \[
-\|T(x)-T(c)-(x-c)\|_\infty\leq\delta\|x-c\|_\infty
-\qquad(x\in C).
+\|T(\mathbf{x})-T(c)-(\mathbf{x}-c)\|_\infty\leq\delta\|\mathbf{x}-c\|_\infty
+\qquad(\mathbf{x}\in C).
 \]
 Thus $T(C)$ lies in the cube centered at $T(c)$ of side $(1+\delta)h$.
-Conversely, if $\|y-T(c)\|_\infty\leq h/(2(1+\delta))$, the segment
+Conversely, if
+\[
+\|y-T(c)\|_\infty\leq h/(2(1+\delta)),
+\]
+ the segment
 from $T(c)$ to $y$ is in the chosen image ball and
 \[
 \|S(y)-c\|_\infty\leq(1+\delta)\|y-T(c)\|_\infty\leq h/2.
 \]
-So the cube of side $h/(1+\delta)$ about $T(c)$ lies in $T(C)$.
+So the cube of side
+\[
+h/(1+\delta)
+\]
+ about $T(c)$ lies in $T(C)$.
 The image is Jordan measurable by \cref{lem:c1-jordan-null}, independently
 of the integral formula. Monotonicity of volume and linear volume scaling yield
 \[
@@ -2192,13 +2472,17 @@ than $\varepsilon$. This proves the uniform neighborhood assertion.
 
 \paragraph{Schwartz's 1954 perspective.}
 An alternative direct Riemann/Jordan proof is Schwartz's
-\cite{schwartz-change}. Its reusable principle is to obtain the easy
+\cite{schwartz-change}. Its proof principle is to obtain the easy
 one-sided volume or integral bound from local derivative estimates,
 then apply that bound to the inverse map. For example, once the upper
-bound $\int_{\sigma(E)}q\leq\int_E(q\circ\sigma)J_\sigma$ is known for
+bound
+\[
+\int_{\sigma(E)}q\leq\int_E(q\circ\sigma)J_\sigma
+\]
+ is known for
 nonnegative continuous $q$, apply it to $\sigma^{-1}$ and
 $h=(q\circ\sigma)J_\sigma$. Since
-$J_{\sigma^{-1}}(\sigma(x))J_\sigma(x)=1$, this gives the reverse inequality.
+$J_{\sigma^{-1}}(\sigma(\mathbf{x}))J_\sigma(\mathbf{x})=1$, this gives the reverse inequality.
 This avoids solving a hard inner-containment problem directly:
 \[
 \boxed{\text{one inequality for }\sigma
@@ -2211,7 +2495,7 @@ viewpoint can also be compared with \cite{pugh-analysis,bartle-elements}.
 \paragraph{Lebesgue perspective (unproved preview).}
 In Lebesgue theory the theorem first describes transformed measure:
 \[
-m(\sigma(E))=\int_E |\det D\sigma(x)|\,\dd x
+m(\sigma(E))=\int_E |\det D\sigma(\mathbf{x})|\,\dd\mathbf{x}
 \]
 for measurable $E\subset U$. More precisely, the measure on $U$ defined
 by $\nu(E)=m(\sigma(E))$ is $(\sigma^{-1})_*m|_V$; its Radon--Nikodym
@@ -2260,7 +2544,11 @@ by zero only across artificial chart boundaries.
 \begin{proof}
 Such an extension is continuous within the half-space, so its integral over
 a half-rectangle exists. For $\delta>0$ let
-$\chi_\delta(t)=\min\{1,\max\{0,(t-\delta)/\delta\}\}$.
+
+\[
+\chi_\delta(t)=\min\{1,\max\{0,(t-\delta)/\delta\}\}.
+\]
+
 Apply \cref{cor:compact-support-change-variables} on the interiors to the target function
 $f(y)\chi_\delta((\sigma^{-1}(y))_n)$. It has compact support away from the
 boundary. The source error is supported in a fixed bounded box intersected
@@ -2269,14 +2557,14 @@ The target error is likewise bounded on $K=\operatorname{supp}f$.
 By compactness of $\sigma^{-1}(K)$ and boundary preservation, its support
 lies in $0\leq y_n\leq\eta(\delta)$ with $\eta(\delta)\to0$.
 Otherwise there would be $\varepsilon_0>0$, numbers $\delta_j\to0$, and
-$y_j\in K$ such that, with $x_j=\sigma^{-1}(y_j)$,
+$y_j\in K$ such that, with $\mathbf{x}_j=\sigma^{-1}(y_j)$,
 \[
-0\leq(x_j)_n\leq2\delta_j,
+0\leq(\mathbf{x}_j)_n\leq2\delta_j,
 \qquad (y_j)_n\geq\varepsilon_0.
 \]
-A subsequence of $(x_j)$ converges in the compact set $\sigma^{-1}(K)$ to
-$x$ with $x_n=0$. Continuity gives $y_j=\sigma(x_j)\to\sigma(x)$, while boundary
-preservation gives $(\sigma(x))_n=0$, a contradiction. In a fixed containing
+A subsequence of $(\mathbf{x}_j)$ converges in the compact set $\sigma^{-1}(K)$ to
+$\mathbf{x}$ with $x_n=0$. Continuity gives $y_j=\sigma(\mathbf{x}_j)\to\sigma(\mathbf{x})$, while boundary
+preservation gives $(\sigma(\mathbf{x}))_n=0$, a contradiction. In a fixed containing
 box, a strip of height $\eta(\delta)$ has volume at most
 $C\eta(\delta)$. If the target integrand is bounded there by $M$, its error
 is at most $MC\eta(\delta)\to0$. Pass to the limit. No zero extension across the
@@ -2298,7 +2586,7 @@ Accordingly, the scalar formula just proved has the schematic form
 \[
 \int_V f(y)\,\dd y
 =
-\int_U f(\sigma(x))\abs{\det D\sigma(x)}\,\dd x.
+\int_U f(\sigma(\mathbf{x}))\abs{\det D\sigma(\mathbf{x})}\,\dd\mathbf{x}.
 \]
 The absolute value occurs because ordinary scalar volume is unsigned.
 Chapter~13 gives a complementary interpretation.  For a top-degree form on
@@ -2310,7 +2598,7 @@ the pullback by a smooth map \(\sigma:U\to V\) is
 \[
 \sigma^*\omega
 =
-f(\sigma(x))\det D\sigma(x)\,
+f(\sigma(\mathbf{x}))\det D\sigma(\mathbf{x})\,
 \dd x_1\wedge\cdots\wedge\dd x_n.
 \]
 Indeed,
@@ -2417,7 +2705,11 @@ Letting $\varepsilon,\eta\to0^+$ gives
 \]
 The following discarded-area bounds are deliberately independent of the
 disk area already computed by Cartesian slices. The central disk lies in $[-\varepsilon,\varepsilon]^2$,
-so its area is at most $4\varepsilon^2$. For $0<\eta<\pi/2$, the omitted
+so its area is at most $4\varepsilon^2$. For
+\[
+0<\eta<\pi/2,
+\]
+ the omitted
 angular seam has $0\leq x\leq1$ and $|y|\leq\sin\eta\leq\eta$;
 it lies in $[0,1]\times[-\eta,\eta]$, of area $2\eta$.
 Their combined outer area is at most $4\varepsilon^2+2\eta\to0$.
@@ -2450,7 +2742,11 @@ coordinates, an ellipse suggests scaling, the linear expressions $x+y,x-y$
 suggest oblique coordinates, and a cone suggests cylindrical coordinates.
 
 \begin{example}[Two substitutions for an ellipse]
-Use \cref{ex:ellipse-scaling}. For $f(x,y)=x^2/a^2+y^2/b^2$,
+Use \cref{ex:ellipse-scaling}. For
+\[
+f(x,y)=x^2/a^2+y^2/b^2,
+\]
+
 $f(\sigma(u,v))=u^2+v^2$ and $|\det D\sigma|=ab$. On the source disk
 use $(u,v)=(r\cos\theta,r\sin\theta)$, now with parameter order
 $(r,\theta)$ and determinant $r$. The preceding polar truncation justifies
@@ -2468,7 +2764,11 @@ Solving for the old variables gives the required source-to-target map
 \sigma(u,v)=((u+v)/2,(u-v)/2),\quad (u,v)\in[-1,1]^2,
 \qquad D\sigma=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}.
 \]
-It is globally invertible and $|\det D\sigma|=1/2$, whereas the inverse
+It is globally invertible and
+\[
+|\det D\sigma|=1/2,
+\]
+ whereas the inverse
 coordinate map has absolute determinant $2$. For the adapted integrand,
 \[
 \int_E\bigl((x+y)^2+(x-y)^2\bigr)\,\dd(x,y)
@@ -2501,7 +2801,11 @@ $E=\{0\leq x\leq1,\ 0\leq y\leq1+x\}$, and
 \[
 D\sigma=\begin{pmatrix}1&0\\v&1+u\end{pmatrix},\qquad \det D\sigma=1+u.
 \]
-The inverse is $(x,y)\mapsto(x,y/(1+x))$, smooth on $x>-1$.
+The inverse is
+\[
+(x,y)\mapsto(x,y/(1+x)),
+\]
+ smooth on $x>-1$.
 For $f(x,y)=y$, there are two separate transformations:
 \[
 f(\sigma(u,v))=(1+u)v,\qquad \dd(x,y)=(1+u)\,\dd(u,v).
@@ -2511,7 +2815,11 @@ Therefore
 \int_E y\,\dd(x,y)=\int_0^1\int_0^1(1+u)^2v\,\dd v\,\dd u
 =\frac12\int_0^1(1+u)^2\,\dd u=\frac76.
 \]
-With integrand $1$ the area is $\int_0^1(1+u)\,\dd u=3/2$.
+With integrand $1$ the area is
+\[
+\int_0^1(1+u)\,\dd u=3/2.
+\]
+
 \begin{center}
 \begin{tikzpicture}[scale=1.3]
 \draw[step=.25,blue!35] (0,0) grid (1,1);\draw[thick] (0,0) rectangle(1,1);
@@ -2560,9 +2868,17 @@ D\sigma=\begin{pmatrix}\cos\theta&-r\sin\theta&0\\
 \sin\theta&r\cos\theta&0\\0&0&1\end{pmatrix},\qquad \det D\sigma=r.
 \]
 The cone in \cref{ex:cylinder-cone-slices} has source bounds
-$0\leq z\leq h$, $0\leq\theta\leq2\pi$, $0\leq r\leq R(1-z/h)$.
+$0\leq z\leq h$, $0\leq\theta\leq2\pi$,
+\[
+0\leq r\leq R(1-z/h).
+\]
+
 On $r>0$, $0<\theta<2\pi$ the map is a diffeomorphism onto the slit
-space. For $0<\varepsilon<R$ and $0<\eta<\pi/2$, retain the compact source
+space. For $0<\varepsilon<R$ and
+\[
+0<\eta<\pi/2,
+\]
+ retain the compact source
 \[
 \begin{split}
 E_{\varepsilon,\eta}=\{(r,\theta,z):\ &0\leq z\leq h(1-\varepsilon/R),\quad
@@ -2571,7 +2887,11 @@ E_{\varepsilon,\eta}=\{(r,\theta,z):\ &0\leq z\leq h(1-\varepsilon/R),\quad
 \end{split}
 \]
 The shortened height range follows by solving
-$\varepsilon\leq R(1-z/h)$ for $z$; it prevents reversed radial bounds near
+
+\[
+\varepsilon\leq R(1-z/h)
+\]
+ for $z$; it prevents reversed radial bounds near
 the apex. This Jordan region lies inside the diffeomorphism domain, so
 \cref{cor:jordan-nonlinear-change} applies. The omitted target lies in a
 central box of volume $4\varepsilon^2h$ and a seam box of volume at most
@@ -2620,7 +2940,11 @@ For $R>0$ the resulting formula is
 Here is the justification at the coordinate exceptions. The map is a
 diffeomorphism on $\rho>0$, $0<\varphi<\pi$, $0<\theta<2\pi$ onto
 the complement of the polar axis and angular seam: recover $\rho$ as
-the norm, $\varphi=\arccos(z/\rho)$, and the unique azimuth in that interval.
+the norm,
+\[
+\varphi=\arccos(z/\rho),
+\]
+ and the unique azimuth in that interval.
 These inverses are smooth locally. At the origin all angles coincide;
 on the polar axis azimuth is undetermined; and the closed angular box
 repeats the seam at $\theta=0,2\pi$. Thus the full box is not a global
@@ -2628,7 +2952,11 @@ diffeomorphism domain.
 
 Apply \cref{cor:jordan-nonlinear-change} first on
 $[\delta,R]\times[\eta,\pi-\eta]\times[\eta,2\pi-\eta]$,
-where $0<\delta<R$ and $0<\eta<\pi/2$. The omitted target lies in
+where $0<\delta<R$ and
+\[
+0<\eta<\pi/2.
+\]
+ The omitted target lies in
 a central cube of volume $8\delta^3$, an axis box of volume at most
 $8R^3\sin^2\eta$, and a seam slab of volume at most $4R^3\sin\eta$.
 These tend to zero. The omitted nonnegative source integral is bounded by
@@ -2670,13 +2998,13 @@ f_k:Q\longrightarrow\R
 is Riemann integrable and that \(f_k\) converges uniformly to \(f\) on
 \(Q\).  Then \(f\) is Riemann integrable and
 \[
-\lim_{k\to\infty}\int_Qf_k(x)\,\dd x
+\lim_{k\to\infty}\int_Qf_k(\mathbf{x})\,\dd\mathbf{x}
 =
-\int_Qf(x)\,\dd x.
+\int_Qf(\mathbf{x})\,\dd\mathbf{x}.
 \]
 Moreover,
 \[
-\lim_{k\to\infty}\int_Q\abs{f_k(x)-f(x)}\,\dd x=0.
+\lim_{k\to\infty}\int_Q\abs{f_k(\mathbf{x})-f(\mathbf{x})}\,\dd\mathbf{x}=0.
 \]
 \end{theorem}
 \begin{proof}
@@ -2688,11 +3016,11 @@ U(f_k,\mathcal P)-L(f_k,\mathcal P)+2\|f-f_k\|_\infty\operatorname{vol}(Q)$:
 the interval length in Chapter~9 has become volume.  Once integrability of \(f\) is known,
 \cref{thm:multivariable-integral-properties} gives
 \[
-\left\lvert\int_Qf_k\,\dd x-\int_Qf\,\dd x\right\rvert
+\left\lvert\int_Qf_k\,\dd\mathbf{x}-\int_Qf\,\dd\mathbf{x}\right\rvert
 \leq
-\int_Q\abs{f_k-f}\,\dd x
+\int_Q\abs{f_k-f}\,\dd\mathbf{x}
 \leq
-\operatorname{vol}(Q)\sup_{x\in Q}\abs{f_k(x)-f(x)}.
+\operatorname{vol}(Q)\sup_{\mathbf{x}\in Q}\abs{f_k(\mathbf{x})-f(\mathbf{x})}.
 \]
 The right-hand side tends to zero, and the same estimate gives the final
 claim.
@@ -2728,11 +3056,23 @@ Every such total is at most $\operatorname{vol}(Q)$, by a common grid.
 \begin{lemma}[Open-box content tools]\label{lem:open-box-content}
 For open subsets of $Q^\circ$, the following hold:
 \begin{enumerate}[label=(\arabic*)]
-\item If $G\subseteq\bigcup_jG_j$, then $c(G)\leq\sum_jc(G_j)$.
+\item If
+\[
+G\subseteq\bigcup_jG_j,
+\]
+ then
+\[
+c(G)\leq\sum_jc(G_j).
+\]
+
 \item Given $\eta>0$, there is a finite union $K$ of closed boxes in $G$
 with $c(G\setminus K)<\eta$.
 \item If open $G_N$ decrease and $c(G_N)\geq c_0>0$ for every $N$,
-then $\bigcap_N G_N$ is nonempty.
+then
+\[
+\bigcap_N G_N
+\]
+ is nonempty.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -2751,11 +3091,27 @@ of $K$ and still lies in $G$ with disjoint interiors. Its total is at
 most $c(G)-\operatorname{vol}(K)<\eta$; the same bound holds for its
 supremum. Here volume of a finite box union means its finite grid volume.
 
-For (3), choose $K_i\subset G_i$ as in (2) with error $c_0/2^{i+1}$.
-The compact sets $H_N=K_1\cap\cdots\cap K_N$ decrease. If $H_N$ were
+For (3), choose $K_i\subset G_i$ as in (2) with error
+\[
+c_0/2^{i+1}.
+\]
+
+The compact sets
+\[
+H_N=K_1\cap\cdots\cap K_N
+\]
+ decrease. If $H_N$ were
 empty, nesting would imply
-$G_N\subseteq\bigcup_{i=1}^N(G_i\setminus K_i)$; (1) would give
-$c(G_N)<c_0/2$, a contradiction. Thus all $H_N$ are nonempty and
+
+\[
+G_N\subseteq\bigcup_{i=1}^N(G_i\setminus K_i);
+\]
+ (1) would give
+
+\[
+c(G_N)<c_0/2,
+\]
+ a contradiction. Thus all $H_N$ are nonempty and
 compact; their intersection is nonempty by compactness, and lies in every $G_N$.
 \end{proof}
 For a finite collection of boxes with disjoint interiors, the content of
@@ -2766,7 +3122,7 @@ needed in the next proof; it does not assert Jordan measurability of arbitrary o
 
 \begin{theorem}[Multivariable Arzel\`a bounded convergence]\label{thm:multivariable-arzela-bounded}
 Let $Q$ be a compact rectangle, let $f_k:Q\to\R$ be Riemann integrable,
-and suppose $f_k\to f$ pointwise and $|f_k(x)|\leq M$ for all $k,x$.
+and suppose $f_k\to f$ pointwise and $|f_k(\mathbf{x})|\leq M$ for all $k,\mathbf{x}$.
 Assume separately that $f$ is Riemann integrable. Then
 \[
 \int_Q|f_k-f|\longrightarrow0,\qquad \int_Q f_k\longrightarrow\int_Q f.
@@ -2778,20 +3134,40 @@ error regions; compact inner approximations force one point into arbitrarily
 late regions, contradicting pointwise convergence.
 Set $g_k=|f_k-f|$. The integral algebra makes $g_k$ integrable and
 $0\leq g_k\leq2M$, since the pointwise limit also satisfies $|f|\leq M$.
-The case $M=0$ is immediate. Otherwise replace $g_k$ by $g_k/(2M)$,
+The case $M=0$ is immediate. Otherwise replace $g_k$ by
+\[
+g_k/(2M),
+\]
+
 so $0\leq g_k\leq1$. Write $V=\operatorname{vol}(Q)>0$.
 If its integrals do not tend to zero, select a subsequence with
-$\int_Qg_k>2\eps V$ for one fixed $\eps>0$.
+
+\[
+\int_Qg_k>2\eps V
+\]
+ for one fixed $\eps>0$.
 Choose a lower sum exceeding $2\eps V$. Cells of lower height at most
 $\eps$ contribute at most $\eps V$; the remaining cells therefore
 have combined volume greater than $\eps V$, since their heights are at most one.
 Let $U_k$ be the union of their interiors. Then $c(U_k)>\eps V$ and
-$g_k(x)>\eps$ throughout $U_k$. The open sets
-$G_N=\bigcup_{k\geq N}U_k$ decrease and each has content at least $\eps V$.
-By \cref{lem:open-box-content}, there is a fixed $x\in\bigcap_NG_N$.
-For every $N$ some $k\geq N$ then satisfies $g_k(x)>\eps$, contrary to
-$g_k(x)\to0$. Undoing the height normalization proves the first limit.
-Finally $|\int_Q f_k-\int_Q f|\leq\int_Q|f_k-f|$ proves the second.
+$g_k(\mathbf{x})>\eps$ throughout $U_k$. The open sets
+
+\[
+G_N=\bigcup_{k\geq N}U_k
+\]
+ decrease and each has content at least $\eps V$.
+By \cref{lem:open-box-content}, there is a fixed
+\[
+\mathbf{x}\in\bigcap_NG_N.
+\]
+
+For every $N$ some $k\geq N$ then satisfies $g_k(\mathbf{x})>\eps$, contrary to
+$g_k(\mathbf{x})\to0$. Undoing the height normalization proves the first limit.
+Finally
+\[
+|\int_Q f_k-\int_Q f|\leq\int_Q|f_k-f|
+\]
+ proves the second.
 \end{proof}
 Uniform convergence controls the whole domain by one error bound.
 Arzel\`a bounded convergence uses compactness to prevent regions of large
@@ -2800,7 +3176,11 @@ fixed point. The integrability of the limit is still a separate assumption.
 For example $f_k(x,y)=x^k$ on $[0,1]^2$ has a limit supported on the face
 $x=1$, hence integrable with integral zero by the face-strip lemma.
 The convergence is not uniform, but this theorem gives integral convergence;
-direct calculation yields $\int f_k=1/(k+1)$.
+direct calculation yields
+\[
+\int f_k=1/(k+1).
+\]
+
 
 
 
@@ -2819,15 +3199,15 @@ f_k:Q\longrightarrow\R
 \]
 be continuous functions satisfying
 \[
-f_k(x)\leq f_{k+1}(x)
-\qquad(x\in Q,\ k\in\N).
+f_k(\mathbf{x})\leq f_{k+1}(\mathbf{x})
+\qquad(\mathbf{x}\in Q,\ k\in\N).
 \]
 If \(f_k\) converges pointwise on \(Q\) to a continuous function \(f\),
 then the convergence is uniform and
 \[
-\lim_{k\to\infty}\int_Qf_k(x)\,\dd x
+\lim_{k\to\infty}\int_Qf_k(\mathbf{x})\,\dd\mathbf{x}
 =
-\int_Qf(x)\,\dd x.
+\int_Qf(\mathbf{x})\,\dd\mathbf{x}.
 \]
 The same conclusion holds for a pointwise decreasing sequence.
 \end{theorem}
@@ -2836,12 +3216,24 @@ The same conclusion holds for a pointwise decreasing sequence.
 uniform index. In the increasing case set $h_n=f-f_n\geq0$ on $K=Q$.
 For $\eps>0$, the relatively open sets
 \[
-U_n=\{x\in K:h_n(x)<\eps/2\}
+U_n=\{\mathbf{x}\in K:h_n(\mathbf{x})<\eps/2\}
 \]
-are increasing, and pointwise convergence gives $K=\bigcup_n U_n$.
+are increasing, and pointwise convergence gives
+\[
+K=\bigcup_n U_n.
+\]
+
 Compactness of $K$ supplies a finite subcover. Its largest-index member
-$U_N$ already covers $K$. For $n\geq N$ and every $x\in K$,
-$0\leq h_n(x)<\eps/2$, hence $\sup_K|f-f_n|\leq\eps/2<\eps$.
+$U_N$ already covers $K$. For $n\geq N$ and every $\mathbf{x}\in K$,
+
+\[
+0\leq h_n(\mathbf{x})<\eps/2,
+\]
+ hence
+\[
+\sup_K|f-f_n|\leq\eps/2<\eps.
+\]
+
 This proves uniform convergence, and \cref{thm:uniform-multivariable-riemann} gives the integral formula.
 Apply the increasing case to $-f_n$ for a decreasing sequence.
 \end{proof}
@@ -2952,7 +3344,11 @@ Two simple integrals can be clearer than one complicated bound.
 \item \textbf{Use symmetry precisely.} Name a transformation preserving
 the domain and check how the integrand changes. For example if
 $(x,y)\mapsto(-x,y)$ preserves $E$ and $f(-x,y)=-f(x,y)$, its absolute
-Jacobian determinant is $1$ and substitution gives $\int_Ef=-\int_Ef=0$.
+Jacobian determinant is $1$ and substitution gives
+\[
+\int_Ef=-\int_Ef=0.
+\]
+
 \item \textbf{Look for adapted coordinates.} Expressions $x^2+y^2$
 suggest polar or cylindrical coordinates; ellipses suggest scaling;
 $x+y$ and $x-y$ boundaries suggest using those expressions as coordinates.
@@ -2962,10 +3358,18 @@ the parameter domain, $D\sigma$, $|\det D\sigma|$, the transformed integrand,
 and the hypotheses or controlled exceptions before integrating.
 \item \textbf{Check the answer.} Area and volume are nonnegative and no
 larger than those of containing boxes. If $0\leq f\leq M$, then
-$0\leq\int_Ef\leq M\operatorname{vol}(E)$. Scaling every length by
+
+\[
+0\leq\int_Ef\leq M\operatorname{vol}(E).
+\]
+ Scaling every length by
 $c>0$ scales $n$-dimensional volume by $c^n$.
 \end{enumerate}
-For the cone, cross-sections immediately give $A(z)=\pi R^2(1-z/h)^2$.
+For the cone, cross-sections immediately give
+\[
+A(z)=\pi R^2(1-z/h)^2.
+\]
+
 Cylindrical coordinates instead compute that area as the inner two
 integrals and accommodate densities depending on $r,\theta,z$ naturally.
 Neither method is universally superior. Choose the description in which
@@ -2974,14 +3378,34 @@ the geometry and the resulting integral are easiest to handle.
 \begin{exercise}[Choose and justify a method]
 \begin{enumerate}
 \item Reverse the order in the picture of \cref{ex:parabolic-slices} and
-compute $\int_E x^2$. Label a representative slice of each kind.
-\item Compute the volume of $0\leq z\leq h$, $x^2+y^2\leq R^2z/h$
+compute
+\[
+\int_E x^2.
+\]
+ Label a representative slice of each kind.
+\item Compute the volume of $0\leq z\leq h$,
+\[
+x^2+y^2\leq R^2z/h
+\]
+
 by cross-sections, and independently by cylindrical coordinates.
-\item Find the volume of $x^2/4+y^2/9+z^2/16\leq1$ by scaling.
+\item Find the volume of
+\[
+x^2/4+y^2/9+z^2/16\leq1
+\]
+ by scaling.
 \item On $|x+y|\leq2$, $|x-y|\leq1$, integrate $(x+y)^2$ using these
 two linear expressions as coordinates.
 \item Compare Cartesian, polar, and symmetry methods for
-$\int_{x^2+y^2\leq1}x$ and for $\int_{x^2+y^2\leq1}(x^2+y^2)$.
+
+\[
+\int_{x^2+y^2\leq1}x
+\]
+ and for
+\[
+\int_{x^2+y^2\leq1}(x^2+y^2).
+\]
+
 Explain which steps each choice saves.
 \end{enumerate}
 \end{exercise}

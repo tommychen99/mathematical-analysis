@@ -4,12 +4,31 @@
 \section*{Introduction}
 Chapter~\ref{ch:foundations} uses natural numbers, induction, and finite
 recursive constructions directly. This optional appendix separates their
-logical roles and gives practical instruction in induction before turning to
+logical roles and gives worked guidance in induction before turning to
 the genuinely different issue of choice. Throughout,
 \[
 \boxed{\N=\{1,2,3,\ldots\},\qquad 0\notin\N,\qquad \N_0=\N\cup\{0\}.}
 \]
 No particular set-theoretic realization of the natural numbers is needed.
+
+Sections A.1--A.2 of Appendix~\ref{app:foundations} are a companion to
+Chapter~\ref{ch:foundations}. They review induction, recursive definitions
+and proofs, factorials, binomial coefficients, Pascal's identity, the finite
+binomial theorem, and the equivalence of induction and well-ordering of $\N$.
+Readers unfamiliar with these tools may consult those sections alongside
+Chapter~2. Elementary finite algebraic identities such as the binomial
+theorem may be used in the main text without proof; Appendix~A gives proofs
+by induction for readers who want the foundational details.
+
+Sections A.3--A.5 are fully optional foundations. Neither the equivalence
+of Choice, Zorn's Lemma, and the Well-Ordering Theorem nor its transfinite
+recursion and Hartogs arguments is needed for Chapters~3--9. For the main
+text, knowing the statement and a typical use of Zorn's Lemma is more than
+enough: if every chain in a nonempty partially ordered set has an upper
+bound in that set, then the poset has a maximal element. A standard use is
+the existence of a basis of an arbitrary vector space. The detailed
+foundational proofs may be read purely for interest.
+
 
 \section{The Natural Numbers and the Peano Axioms}
 The \textbf{Peano axioms} express the elementary structure of \(\N\). At
@@ -23,11 +42,7 @@ They assert:
 \item if \(m+1=n+1\), then \(m=n\);
 \item if \(A\subseteq\N\) satisfies
 \[
-1\in A
-\]
-and
-\[
-n\in A\Longrightarrow n+1\in A\qquad(n\in\N),
+1\in A,\qquad n\in A\Longrightarrow n+1\in A\qquad(n\in\N),
 \]
 then \(A=\N\).
 \end{enumerate}
@@ -254,6 +269,53 @@ The two initial cases give \(Q(n_0)\), and the two-step hypothesis turns
 the previous two stages. The same idea extends to any fixed finite number of
 preceding stages.
 
+\paragraph{Cauchy forward--backward induction.}
+This different pattern proves a statement at powers of two and then steps
+backward to every smaller index. Its classical model is the finite
+arithmetic--geometric mean inequality. Let \(P_n\) denote
+\[
+\sqrt[n]{a_1\cdots a_n}\leq\frac{a_1+\cdots+a_n}{n},
+\qquad a_i\geq0.
+\]
+We prove every \(P_n\), using the two-variable case
+\cref{prop:two-variable-amgm}.
+
+First, \(P_n\Rightarrow P_{2n}\). Apply \(P_n\) to each block of \(n\)
+numbers and write their arithmetic means as \(A\) and \(B\). Then
+\[
+\sqrt[2n]{a_1\cdots a_{2n}}
+\leq\sqrt{AB}\leq\frac{A+B}{2}
+=\frac{a_1+\cdots+a_{2n}}{2n}.
+\]
+The first inequality follows by multiplying the two block inequalities and
+taking the nonnegative square root; the second is two-variable AM--GM.
+
+Second, \(P_n\Rightarrow P_{n-1}\) for \(n\geq2\). Given
+\(a_1,\ldots,a_{n-1}\geq0\), put
+\[
+A=\frac{a_1+\cdots+a_{n-1}}{n-1}
+\]
+and append \(a_n=A\). The assertion \(P_n\) gives
+\[
+\sqrt[n]{a_1\cdots a_{n-1}A}\leq A.
+\]
+If \(A=0\), every \(a_i=0\) and \(P_{n-1}\) is immediate. If \(A>0\),
+raise the inequality to the \(n\)th power and cancel \(A>0\):
+\[
+a_1\cdots a_{n-1}\leq A^{n-1}.
+\]
+Taking the nonnegative \((n-1)\)st root proves \(P_{n-1}\).
+
+The forward steps give
+\[
+P_2\Longrightarrow P_4\Longrightarrow P_8\Longrightarrow\cdots.
+\]
+For a prescribed \(n\), choose a power \(2^k\geq n\), prove \(P_{2^k}\),
+and apply the backward step until reaching \(P_n\). This completes the
+equal-weight finite AM--GM proof. It is called Cauchy forward--backward
+induction, not two-step induction: its two implications are
+\(P_n\Rightarrow P_{2n}\) and \(P_n\Rightarrow P_{n-1}\).
+
 \subsection*{Binomial coefficients and the binomial theorem}
 Using the arithmetic developed in Chapter~\ref{ch:foundations}, define, for
 \(n\in\N_0\) and \(0\leq k\leq n\),
@@ -266,7 +328,11 @@ Adopt the extended convention
 \[
 \boxed{\binom nk=0\qquad\text{if }k<0\text{ or }k>n.}
 \]
-In particular, \(n<k\) implies \(\binom nk=0\). This convention simplifies
+In particular, \(n<k\) implies
+\[
+\binom nk=0.
+\]
+ This convention simplifies
 endpoint formulas and reindexing.
 
 \begin{proposition}[Pascal's identity]
@@ -495,10 +561,18 @@ f:J\longrightarrow\bigcup_{i\in I}X_i,
 \]
 Order partial choice functions by extension. This poset is nonempty because
 it contains the empty function. If $\mathcal C$ is a chain, then
-$f=\bigcup_{g\in\mathcal C}g$ is a function: two members that assign a value
+
+\[
+f=\bigcup_{g\in\mathcal C}g
+\]
+ is a function: two members that assign a value
 at the same index are comparable by extension and hence agree. It is again a
 partial choice function and upper-bounds the chain. Zorn gives a maximal
-partial choice function $f:J\to\bigcup_iX_i$. If $J\ne I$, choose one
+partial choice function
+\[
+f:J\to\bigcup_iX_i.
+\]
+ If $J\ne I$, choose one
 $i_0\in I\setminus J$ and one $x_0\in X_{i_0}$. Then
 $f\cup\{(i_0,x_0)\}$ is a larger partial choice function, a contradiction.
 Thus $J=I$ and $f$ is a choice function. Selecting a single element from
@@ -520,7 +594,11 @@ Every vector space over a field has a basis.
 \begin{proof}
 Order the linearly independent subsets of \(V\) by inclusion. The poset is
 nonempty because it contains \(\varnothing\). For a nonempty chain
-\(\mathcal C\), let \(U=\bigcup_{E\in\mathcal C}E\). Every finite collection
+\(\mathcal C\), let
+\[
+U=\bigcup_{E\in\mathcal C}E.
+\]
+ Every finite collection
 of vectors of \(U\) lies in one member of the chain, so \(U\) is independent
 and bounds the chain; the empty chain is bounded by \(\varnothing\). Zorn's
 Lemma gives a maximal independent set \(B\). If
