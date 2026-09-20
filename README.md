@@ -6,13 +6,14 @@ Repository: <https://github.com/tommychen99/mathematical-analysis>
 
 **Author:** Tommy Chen
 
-**Current version:** Version 3.33.0
+**Current version:** Version 3.34.1
 
 **Revision date:** September 20, 2026
 
-**Status:** Part I completion and refinement of the authoritative Version
-3.32.0 working manuscript. The established architecture and the developed
-Part II are preserved.
+**Status:** Final localized Part I cleanup of the authoritative Version 3.34.0
+working manuscript. Part II is preserved. After Version 3.34.1, Part I is
+regarded as stable and should be reopened only for concrete mathematical
+corrections, dependency repairs, or necessary later cross-references.
 
 Historical manuscript PDFs are listed in [Historical PDF archive](HISTORICAL_PDFS.md).
 
@@ -23,6 +24,52 @@ integration. Part II develops the finite-dimensional topology and linear
 algebra needed for multivariable analysis, followed by multivariable
 integration, classical line and surface integrals, Green and patch Stokes,
 differential forms, manifolds, and the general Stokes theorem.
+
+## Version 3.34.1 — September 20, 2026
+
+- Completed a final localized Part I finishing pass: introduced the
+  \(\uparrow/\downarrow\) conventions before use, repaired the Chapter 5
+  topology-definition order, and moved the asymptotic-size clarification back
+  to §5.2.
+- Corrected the §9.7 qualification for continuous measurable maps, typed the
+  simple-function definition by its measurable domain, and added the
+  unproved compatibility theorem between proper Riemann and Lebesgue
+  integration, including its improper-integral scope warning.
+- Repaired the Chapter 10 closed-interval compactness cross-reference and
+  synchronized the deferred-proof documentation for the Chapter 9 previews.
+- Validation: repeated pdfLaTeX passes stabilized the auxiliary files and
+  produced a clean log; the final PDF and all changed pages were visually
+  inspected, with cross-references, destinations, and exercise--hint pairs
+  audited.
+
+## Version 3.34.0 — September 20, 2026
+
+- Established a visible Chapter 5 foundation for real-line topology:
+  neighborhoods, intervals, open and closed sets, relative topology, dense
+  sets, interval components of open sets, covers, compactness, sequential
+  compactness, and the closed-interval common-scale lemma.
+- Reorganized Part I's compactness language to agree with Chapter 10, moved
+  monotone inverses beside the IVT, and defined bounded and piecewise
+  continuous functions before their later use.
+- Expanded selected proof mechanisms in Chapters 6--8, including Bernstein
+  near/far estimates, the Arzelà--Ascoli finite net, rearrangements, Cauchy
+  products, radii of convergence, one-sided derivatives, first-order
+  linearization, and the corrected first derivative test.
+- Made `\operatorname{mesh}(P)`, interval oscillation, and the Darboux gap
+  the structural language of Chapter 9; moved cover machinery to Chapter 5
+  and clarified finite-discontinuity, fine-mesh, bounded-convergence,
+  Lebesgue-criterion, and exceptional-set Newton--Leibniz proofs.
+- Added the improper-integral Cauchy criterion, corrected the representative
+  trigonometric-substitution formula, and promoted average value and finite
+  modifications to explicit results.
+- Expanded Section 9.7 with a concise working preview of sigma-algebras,
+  measures, Borel and Lebesgue measurable sets, measurable functions,
+  simple functions, and the nonnegative and signed Lebesgue integrals.
+- Adopted a manuscript-wide deferred-proof convention: mathematical headings
+  contain only mathematical titles, while prose immediately after a result
+  explains any omission. Chapter 9's intentionally unproved results are the
+  Lipschitz/a.e. Newton--Leibniz theorem, Cantor-function existence, Lebesgue
+  MCT, Lebesgue DCT, and the Lebesgue FTC.
 
 ## Version 3.33.0 — September 20, 2026
 
@@ -1767,8 +1814,9 @@ examples and explicitly labelled informal previews. The core development is
 proved internally except for the cited manifold-refinement theorem used in
 Chapter 13. Optional topics are explicitly stated without proof:
 analytic Lagrange inversion in Chapter 11; Lebesgue change of variables and
-transformation of measure in Chapter 12; and stronger FTC results and the
-Cantor function in Chapter 9. These optional previews carry local references
+transformation of measure in Chapter 12; and the Riemann/Lebesgue
+compatibility theorem, stronger FTC results, the Cantor function, Lebesgue MCT,
+and Lebesgue DCT in Chapter 9. These optional previews carry local references
 and are not prerequisites for the later internally proved development.
 Section 13.17 also contains explicitly unproved previews, including dominated
 convergence, Hilbert-space Riesz representation, Cauchy’s integral formula,
@@ -1796,8 +1844,9 @@ The document contains a short bibliography. The core development is proved
 internally except for the explicitly cited manifold-refinement theorem used
 in Chapter 13. The stated-but-unproved optional results are analytic Lagrange
 inversion (Chapter 11), Lebesgue change of variables / transformation of
-measure (Chapter 12), and the Lipschitz/a.e. and Lebesgue FTC extensions and
-Cantor function (Chapter 9), together with the additional explicitly unproved
+measure (Chapter 12), and the Riemann/Lebesgue compatibility theorem,
+Lipschitz/a.e. and Lebesgue FTC extensions, Cantor function, Lebesgue MCT, and
+Lebesgue DCT (Chapter 9), together with the additional explicitly unproved
 preview theorems in §13.17. None of these optional
 previews is a prerequisite for the later internally proved development.
 Appendix A states ordinary and transfinite recursion without proof, proves

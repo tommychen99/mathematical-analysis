@@ -34,7 +34,10 @@ These notes start from familiar calculus questions but use a different
 standard of explanation: every formal assertion has hypotheses, and every
 main claim is justified from material already established or from an
 explicitly identified external theorem. A definition fixes meaning; a theorem
-requires proof unless it is marked as external. Examples provide intuition,
+requires proof unless the prose immediately after its statement explains why
+the proof is omitted or deferred and, where useful, supplies a later or
+external reference. Proof status is not placed in a mathematical heading.
+Examples provide intuition,
 but not proof of a general assertion. Occasionally, an explicitly identified
 informal preview uses familiar notation to motivate a later formal
 development; such previews are not used as formal justification.
@@ -74,11 +77,14 @@ lemma, or concept needed later is established only in an exercise. They
 supply calculations, short corollaries, counterexamples, comparisons of
 hypotheses, and nearby applications. A reader should attempt them after the
 relevant section, consulting the stated hypotheses and earlier results rather
-than relying on calculus folklore. Results stated without proof are identified where they occur. The
+than relying on calculus folklore. Results not proved in the notes are
+identified immediately after their statements. The
 bibliography also distinguishes the imported topological result from
 further-reading references. In particular, Chapter~9 states without proof
-the Lipschitz/a.e. and Lebesgue versions of the Fundamental Theorem of
-Calculus and the existence of the Cantor function. These previews clarify
+the compatibility of proper Riemann and Lebesgue integration, the
+Lipschitz/a.e. Newton--Leibniz theorem, existence of the Cantor function,
+Lebesgue monotone and dominated convergence, and the Lebesgue Fundamental
+Theorem of Calculus. These previews clarify
 the limits of the Riemann theory but are not prerequisites for later chapters.
 The optional analytic Lagrange inversion result in Chapter~11 and the
 Lebesgue change-of-variables preview in Chapter~12 are likewise stated
@@ -103,8 +109,9 @@ least-upper-bound property. Return to the implementation as these ideas
 become familiar. In Part~II, watch these same tools reappear as norm estimates,
 compactness arguments, linear approximation, and local-to-global integration.
 
-Chapter~10 assumes no previous topology or linear algebra course. Its
-distance examples lead to open sets and metric continuity before abstract
+Chapter~10 assumes no previous topology or linear algebra course. It
+generalizes the real-line topology and compactness introduced in Chapter~5;
+its distance examples lead to metric continuity before abstract
 topology; its coordinate calculations lead to bases, direct sums, linear
 maps, and matrices. Appendices~\ref{app:foundations} and~\ref{app:categories}
 collect foundational and structural language occasionally useful throughout

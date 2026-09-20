@@ -44,31 +44,61 @@ Let $a<b$. A \textbf{partition} of $[a,b]$ is a finite ordered set
 \[
 P=\set{x_0,x_1,\ldots,x_n}
 \]
-with $a=x_0<x_1<\cdots<x_n=b$. Its norm is
+with $a=x_0<x_1<\cdots<x_n=b$. Its mesh is
 \[
-\norm{P}=\max_{1\leq i\leq n}(x_i-x_{i-1}).
+\operatorname{mesh}(P)=\max_{1\leq i\leq n}(x_i-x_{i-1}).
 \]
 \end{definition}
+Thus $\operatorname{mesh}(P)<\delta$ means that every cell has width less
+than $\delta$. Refinement cannot increase mesh. Equal partitions $P_N$
+satisfy
+\[
+\operatorname{mesh}(P_N)=\frac{b-a}{N}\longrightarrow0,
+\]
+so arbitrarily fine partitions exist.
+
+\begin{definition}[Interval oscillation]
+For a bounded function $f$ on a nonempty interval $I$, define
+\[
+\operatorname{osc}_I(f)=\sup_I f-\inf_I f.
+\]
+This is the largest possible vertical variation of $f$ on $I$:
+\[
+\boxed{\operatorname{osc}_I(f)=\sup_{x,y\in I}|f(x)-f(y)|.}
+\]
+\end{definition}
+Indeed, every difference is at most $\sup_I f-\inf_I f$. Conversely, for
+each $\eta>0$, choose $x,y\in I$ with
+\[
+f(x)>\sup_I f-\eta/2,
+\qquad
+f(y)<\inf_I f+\eta/2.
+\]
+Then $|f(x)-f(y)|>\operatorname{osc}_I(f)-\eta$, so taking the supremum
+proves the reverse inequality without assuming extrema are attained.
+Restriction can only reduce the available pairs, and hence
+\[
+J\subseteq I\Longrightarrow\operatorname{osc}_J(f)
+\leq\operatorname{osc}_I(f).
+\]
+Also $\operatorname{osc}_I(f)=0$ exactly when $f$ is constant on $I$.
 
 \begin{definition}[Upper and lower sums]
 Let $f:[a,b]\to\R$ be bounded and let $P$ be a partition. Put
+\[
+I_i=[x_{i-1},x_i],\qquad \Delta x_i=x_i-x_{i-1},
+\]
+and
 \[
 M_i=\sup\set{f(x):x\in[x_{i-1},x_i]},
 \qquad
 m_i=\inf\set{f(x):x\in[x_{i-1},x_i]}.
 \]
-For any nonempty interval $I\subseteq[a,b]$, its \textbf{interval oscillation} is
-\[
-\operatorname{osc}_I(f)=\sup_I f-\inf_I f
-=\sup_{x,y\in I}|f(x)-f(y)|.
-\]
-The last equality follows by choosing values arbitrarily close to the
-supremum and infimum; neither needs to be attained.
 The \textbf{upper sum} and \textbf{lower sum} are
 \[
-U(f,P)=\sum_{i=1}^{n}M_i(x_i-x_{i-1}),
+U(f,P)=\sum_{i=1}^{n}M_i\Delta x_i,
 \qquad
-L(f,P)=\sum_{i=1}^{n}m_i(x_i-x_{i-1}).
+L(f,P)=\sum_{i=1}^{n}m_i\Delta x_i.
 \]
 \end{definition}
 
@@ -76,7 +106,9 @@ The two panels of Figure~\ref{fig:darboux-sums} use the same function
 and partition. The excess height on cell $I_i$ is its oscillation
 $M_i-m_i$, so, writing $\Delta x_i=x_i-x_{i-1}$,
 \[
-U(f,P)-L(f,P)=\sum_i\operatorname{osc}_{I_i}(f)\,\Delta x_i.
+\boxed{U(f,P)-L(f,P)=\sum_i
+\underbrace{\operatorname{osc}_{I_i}(f)}_{\text{vertical uncertainty}}
+\underbrace{\Delta x_i}_{\text{horizontal width}}.}
 \]
 This cellwise quantity is distinct from the pointwise oscillation introduced
 in section~9.6. It organizes the next several estimates: uniform continuity
@@ -141,6 +173,13 @@ The gap is
 this partition lies between them, regardless of the tags. The Darboux
 criterion asks whether such gaps can be made arbitrarily small.
 \end{example}
+
+The Darboux criterion below is therefore the default integrability tool in
+this chapter:
+\[
+\boxed{\text{to prove Riemann integrability, make }
+U(f,P)-L(f,P)\text{ arbitrarily small}.}
+\]
 \paragraph{Refinement narrows the Darboux gap.}
 A refinement inserts division points and removes none. To see explicitly
 what happens to one old cell $[u,v]$, insert
@@ -252,11 +291,12 @@ Choose $\delta>0$ so that
 \[
 |x-y|<\delta\quad\Longrightarrow\quad |f(x)-f(y)|<\eta.
 \]
-For a partition of mesh less than $\delta$, each cell has oscillation at
-most $\eta$. Consequently
+Choose, for example, an equal partition $P$ with
+$\operatorname{mesh}(P)<\delta$. Then every cell $I_i$ has
+$\operatorname{osc}_{I_i}(f)<\eta$. Consequently
 \[
-U(f,P)-L(f,P)=\sum_i\operatorname{osc}_{I_i}(f)|I_i|
-\leq\eta\sum_i|I_i|=\eta(b-a)<\eps.
+U(f,P)-L(f,P)=\sum_i\operatorname{osc}_{I_i}(f)\Delta x_i
+<\eta\sum_i\Delta x_i=\eta(b-a)<\eps.
 \]
 The Darboux criterion proves integrability. Figure~\ref{fig:uniform-bands}
 depicts the cellwise height control used in this estimate.
@@ -303,18 +343,20 @@ U(f+g,P)-L(f+g,P)
 &\leq[U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps.
 \end{aligned}
 \]
-Thus $f+g$ is integrable. To prove additivity, place both candidate values
+Thus $f+g$ is integrable. Cellwise infimum and supremum inequalities give
 \[
-\int_a^b(f+g)\,\dd x\qquad\text{and}\qquad
+L(f,P)+L(g,P)\leq L(f+g,P)
+\leq\int_a^b(f+g)\,\dd x
+\leq U(f+g,P)\leq U(f,P)+U(g,P),
+\]
+while separately
+\[
+L(f,P)+L(g,P)\leq
 \int_a^b f\,\dd x+\int_a^b g\,\dd x
+\leq U(f,P)+U(g,P).
 \]
-in the same interval, because on every cell the infimum of the sum
-is at least the sum of the infima, and its supremum is at most the sum
-of the suprema:
-\[
-[L(f,P)+L(g,P),\ U(f,P)+U(g,P)].
-\]
-Its length is $[U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps$.
+The common enclosing interval has length
+$[U(f,P)-L(f,P)]+[U(g,P)-L(g,P)]<\eps$.
 Since $\eps$ is arbitrary, the two values agree.
 
 The scalar oscillation identity proves integrability of $cf$ by the Darboux
@@ -508,16 +550,16 @@ Thus
 \[
 U(f,P)-L(f,P)
 =\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr)(x_i-x_{i-1})
-\leq\norm{P}\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr).
+\leq\operatorname{mesh}(P)\sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr).
 \]
-Here $x_i-x_{i-1}\leq\norm{P}$ and each difference
+Here $x_i-x_{i-1}\leq\operatorname{mesh}(P)$ and each difference
 $f(x_i)-f(x_{i-1})$ is nonnegative.  The sum telescopes:
 \[
 \sum_{i=1}^{n}\bigl(f(x_i)-f(x_{i-1})\bigr)=f(b)-f(a).
 \]
 Therefore
 \[
-U(f,P)-L(f,P)\leq\norm{P}\bigl(f(b)-f(a)\bigr).
+U(f,P)-L(f,P)\leq\operatorname{mesh}(P)\bigl(f(b)-f(a)\bigr).
 \]
 Choose a partition with norm less than
 \[
@@ -548,7 +590,7 @@ $\xi_i\in[x_{i-1},x_i]$. Its tagged sum is
 S(f,P,\xi)=\sum_i f(\xi_i)(x_i-x_{i-1});
 \]
  its mesh is
-$|P|=\max_i(x_i-x_{i-1})$.
+$\operatorname{mesh}(P)=\max_i(x_i-x_{i-1})$.
 
 \begin{theorem}[Fine-mesh characterization]
 \label{thm:tagged-riemann}
@@ -564,20 +606,33 @@ U(f,P_0)-L(f,P_0)<\frac\eps2,
 \]
 and let $r$ be its number of interior division points. For any partition
 $P$, the good cells inside a fixed coarse cell have total length at most
-that coarse cell's length, and their oscillations are no larger. Hence
-their combined contribution is at most the coarse Darboux gap. There are
-at most $r$ crossing cells, each of length at most $|P|$ and oscillation
+that coarse cell's length, and their oscillations are no larger. More
+explicitly, if $I_j$ is a coarse cell and $\mathcal G_j$ is the family of
+fine cells contained in it, then
+\[
+\sum_{J\in\mathcal G_j}\operatorname{osc}_J(f)\ell(J)
+\leq\operatorname{osc}_{I_j}(f)
+\sum_{J\in\mathcal G_j}\ell(J)
+\leq\operatorname{osc}_{I_j}(f)\ell(I_j).
+\]
+Summing over $j$ bounds all good cells by the coarse Darboux gap. There are
+at most $r$ crossing cells, each of length at most $\operatorname{mesh}(P)$ and oscillation
 at most $2M$. Therefore
 \[
-U(f,P)-L(f,P)<\frac\eps2+2Mr|P|.
+U(f,P)-L(f,P)<\frac\eps2+2Mr\operatorname{mesh}(P).
 \]
 If $Mr>0$, choose $\delta>0$ so small that
 \[
 2Mr\delta<\frac\eps2.
 \]
 If $Mr=0$, the crossing contribution is already zero and any $\delta>0$
-works. For $|P|<\delta$, both $I$ and every tagged sum lie between
-$L(f,P)$ and $U(f,P)$, whose gap is less than $\eps$.
+works. On each fine cell, $m_i\leq f(\xi_i)\leq M_i$; multiplying by
+$\Delta x_i$ and summing gives
+\[
+L(f,P)\leq S(f,P,\xi)\leq U(f,P).
+\]
+For $\operatorname{mesh}(P)<\delta$, both $I$ and every tagged sum therefore
+lie between $L(f,P)$ and $U(f,P)$, whose gap is less than $\eps$.
 
 Conversely, fix $\eps>0$, use the tagged-sum hypothesis with tolerance
 \[
@@ -632,39 +687,47 @@ Lebesgue criterion when the discontinuity set is easier to analyze than
 partitions are.
 \end{enumerate}
 Continuity and monotonicity supply the first two positive tests just proved.
-A bounded function continuous except at finitely many points is also
-integrable:
-choose $M$ with $|f|\leq M$ and cover the exceptional points by finitely
-many intervals of total length $\ell$, where
+
+\begin{theorem}[Finitely many discontinuities]
+\label{thm:finite-discontinuities-integrable}
+A bounded function on $[a,b]$ that is continuous except at finitely many
+points is Riemann integrable. In particular, every piecewise-continuous
+function in the sense of \cref{def:piecewise-continuous} is integrable.
+\end{theorem}
+\begin{proof}
+The mechanism is
+\[
+\boxed{\text{one bad point}\longrightarrow\text{one short bad interval}
+\longrightarrow\text{finitely many bad points}.}
+\]
+Suppose first that only $c$ is exceptional and choose $M$ with
+$|f|\leq M$. Enclose $c$ in an interval of length less than
+$\eps/[4(M+1)]$. On the two remaining closed pieces, continuity and
+\cref{thm:continuous-riemann-integrable} give partitions whose combined
+Darboux gap is less than $\eps/2$. Insert the endpoints of the short bad
+interval. Its oscillation is at most $2M$, so its contribution is less
+than $\eps/2$.
+
+For finitely many exceptional points, choose their surrounding intervals
+with total length
 \[
 \ell<\frac{\eps}{4(M+1)}.
 \]
-On the remaining finitely many
-closed intervals, continuity gives partitions with total Darboux gap
-less than
-\[
-\eps/2.
-\]
- Include the covering endpoints in a common partition.
-Writing $\mathcal G$ for cells in the remaining good pieces and $\mathcal E$
-for cells in the exceptional neighborhoods, the estimate has the form
+Repeat the preceding construction on the finitely many complementary
+closed pieces. With $\mathcal G$ and $\mathcal E$ denoting the good and bad
+cells of the resulting common partition,
 \[
 \begin{aligned}
 U(f,P)-L(f,P)
-&=\sum_{I\in\mathcal G}\operatorname{osc}_I(f)|I|
- +\sum_{I\in\mathcal E}\operatorname{osc}_I(f)|I|,\\
-\sum_{I\in\mathcal E}\operatorname{osc}_I(f)|I|
-&\leq2M\sum_{I\in\mathcal E}|I|\leq2M\ell.
+&=\sum_{I\in\mathcal G}\operatorname{osc}_I(f)\ell(I)
+ +\sum_{I\in\mathcal E}\operatorname{osc}_I(f)\ell(I),\\
+\sum_{I\in\mathcal E}\operatorname{osc}_I(f)\ell(I)
+&\leq2M\sum_{I\in\mathcal E}\ell(I)\leq2M\ell<\eps/2.
 \end{aligned}
 \]
-The exceptional intervals contribute at most $2M$ times their total
-length, less than
-\[
-\eps/2.
-\]
- Thus the whole gap is below $\eps$.
-This justifies the usual bounded piecewise-continuous test, including
-finite jumps, without assuming the later Lebesgue criterion.
+The good contribution was chosen below $\eps/2$, so the Darboux criterion
+proves the result.
+\end{proof}
 
 \begin{example}[A direct Darboux calculation]
 For $f(x)=x^2$ on $[0,1]$, the equal partition $P_n$ has
@@ -739,26 +802,27 @@ In fact,
 \]
 \end{theorem}
 \begin{proof}
-Fix \(\eps>0\).  Choose \(n\) such that
+\textbf{Stage 1: integrability of the limit.}
+Put $d_n=\|f-f_n\|_\infty$. For $x,y$ in any interval $I$,
 \[
-\sup_{x\in[a,b]}\abs{f_n(x)-f(x)}
-<
-\frac{\eps}{4(b-a)}.
+|f(x)-f(y)|\leq|f(x)-f_n(x)|+|f_n(x)-f_n(y)|
+                   +|f_n(y)-f(y)|,
 \]
-Choose a partition \(P\) for which the Darboux gap of \(f_n\) is less than
+so
+\[
+\operatorname{osc}_I(f)\leq\operatorname{osc}_I(f_n)+2d_n.
+\]
+Consequently, for every partition $P$,
+\[
+U(f,P)-L(f,P)
+\leq U(f_n,P)-L(f_n,P)+2d_n(b-a).
+\]
+Given $\eps>0$, first choose $n$ so that $2d_n(b-a)<\eps/2$, and then
+choose $P$ so that the Darboux gap of $f_n$ is below $\eps/2$. The Darboux
+criterion proves that $f$ is integrable.
 
-\[
-\eps/2.
-\]
-  On each subinterval of \(P\), the oscillation of \(f\) is at
-most the oscillation of \(f_n\) plus twice the displayed uniform error.
-Consequently,
-\[
-U(f,P)-L(f,P)<\eps,
-\]
-and \(f\) is integrable by \cref{prop:darboux-criterion}.
-
-The basic integral estimates give
+\textbf{Stage 2: convergence of the integrals.}
+The basic integral estimates give the sup-norm bound
 \[
 \left\lvert
 \int_a^b f_n\,\dd x-\int_a^b f\,\dd x
@@ -794,92 +858,16 @@ Nevertheless bounded heights and an integrable limit suffice for integral
 convergence. We need an elementary fact about intervals.
 We prove it explicitly, without introducing Lebesgue integration.
 
-\paragraph{Interval covers, without a Chapter 10 dependency.}
-For $K\subseteq[a,b]$, an \emph{open cover} is a family $\mathcal U$ of
-open subsets of $\R$ whose union contains $K$. A \emph{finite subcover}
-is a finite selection from that family whose union still contains $K$.
-Open subsets of the line were defined in Chapter~5. A set is relatively
-open in $[a,b]$ if it is the intersection of $[a,b]$ with an open subset
-of $\R$; relative closedness means that the relative complement is open.
-These local meanings suffice below. We now prove the required cover
-properties from \cref{thm:compact-interval}; the general topological
-definitions and compactness equivalences are postponed to Chapter~10.
-\begin{lemma}[Lebesgue number for a closed interval]
-\label{lem:lebesgue-number-interval}
-Let $\mathcal U$ be an open cover of $[a,b]$.  There is a number
-$\lambda>0$ such that every interval contained in $[a,b]$ and having length
-less than $\lambda$ is contained in a member of $\mathcal U$.
-\end{lemma}
-\begin{proof}
-Suppose no such $\lambda$ exists.  For every $n\in\N$, choose an interval
-\[
-J_n\subseteq[a,b]
-\]
-of length less than
-\[
-1/n
-\]
- that is contained in no member of $\mathcal U$, and choose
-$x_n\in J_n$.  By \cref{thm:bolzano-weierstrass}, some subsequence of
-$(x_n)$ converges to a point $x\in[a,b]$.  Choose
-$U\in\mathcal U$ containing $x$.  Since $U$ is open, there is $r_0>0$ such that
-\[
-(x-r_0,x+r_0)\cap[a,b]\subseteq U.
-\]
-Write the subsequence as $x_{n_k}$. Choose $K_1$ so that
+The open-cover, relative-topology, compactness, finite-subcover, and
+common-scale terminology used below is established in
+\cref{sec:real-line-topology,sec:real-line-compactness}.
 
+For an open subset $G$ of $(a,b)$, use the component-interval decomposition
+of \cref{prop:real-open-interval-components} and define
 \[
-|x_{n_k}-x|<r_0/2
+\ell(G)=\sum_j\ell(I_j),\qquad \ell((u,v))=v-u,
 \]
- for $k\geq K_1$, and choose
-\[
-K_2>2/r_0.
-\]
-
-For $k\geq\max\{K_1,K_2\}$, the length of $J_{n_k}$ is less than
-
-\[
-1/n_k\leq1/k<r_0/2.
-\]
- Every $y\in J_{n_k}$ then satisfies
-$|y-x|\leq|y-x_{n_k}|+|x_{n_k}-x|<r_0$, so
-\[
-J_{n_k}\subseteq U,
-\]
-a contradiction.
-\end{proof}
-
-\begin{corollary}[Finite subcovers of closed subsets]
-\label{cor:closed-subset-finite-subcover}
-Let $K\subseteq[a,b]$ be closed in $[a,b]$.  Every cover of $K$ by open
-intervals has a finite subcover.
-\end{corollary}
-\begin{proof}
-Let $\mathcal V$ be an open cover of $K$.  For every point of
-\[
-[a,b]\setminus K,
-\]
-there is an open interval in $\R$ whose intersection with $K$ is empty and
-which contains that point.  Let $W$ be the union of all open intervals with
-this property.
-Then
-\[
-\mathcal V\cup\{W\}
-\]
-is an open cover of $[a,b]$.  By \cref{lem:lebesgue-number-interval}, a
-finite partition of $[a,b]$ having sufficiently small mesh has each of its
-intervals contained in one member of this cover.  For every partition
-interval meeting $K$, that member cannot be $W$, so it belongs to
-$\mathcal V$.  The finitely many members thereby selected cover $K$.
-\end{proof}
-
-
-For an open subset $G$ of $(a,b)$, define its length $\ell(G)$ as the
-sum of the lengths of its disjoint component intervals. These intervals
-are countable: each contains a different rational number. To obtain a
-component containing $x$, take the union of all open intervals containing
-$x$ that lie in $G$; overlapping such intervals merge into an interval.
-Two resulting maximal intervals are either identical or disjoint.
+where $G=\bigsqcup_j I_j$.
 Every finite sum of their lengths is at most $b-a$, so the full sum
 exists. This definition is only a tool for open interval covers.
 \begin{lemma}[Two elementary facts about open-set lengths]
@@ -898,33 +886,40 @@ open $G\subset(a,b)$ contains a finite union $K$ of compact intervals
 such that $\ell(G\setminus K)<\eta$.
 \end{lemma}
 \begin{proof}
-Reduce comparisons to finite interval covers by
-\cref{cor:closed-subset-finite-subcover}.
-The length of $G$ is the supremum of lengths of finite unions of compact
-intervals contained in it: retain finitely many component intervals and
-shorten their endpoints slightly. Any such compact union has a finite
-subcover from the component intervals of all the $G_j$. A finite family
-of intervals covering disjoint compact intervals has total length at
-least their combined length. To verify this elementary inequality, sort
-all endpoints and subdivide: every covered subinterval is counted at
-least once in the sum of covering lengths. Thus the compact union has
-length at most
+\textbf{Claim 1: inner approximation.} If $\ell(K)$ denotes the combined
+length of a finite union of disjoint closed intervals, then
 \[
-\sum_j\ell(G_j),
+\ell(G)=\sup\{\ell(K):K\subset G,\ K\text{ a finite union of closed intervals}\}.
 \]
- and taking the supremum proves the
-first assertion. For the second, retain finitely many components whose
-omitted tail has length less than
+Indeed, retain finitely many component intervals of $G$ and shorten their
+endpoints slightly. These finite inner approximations approach the defining
+component sum from below.
+
+\textbf{Claim 2: finite interval covers.} If finitely many open intervals
+cover a finite union $K$ of disjoint closed intervals, their total length
+is at least $\ell(K)$. Sort all endpoints and subdivide at them. Every
+subinterval belonging to $K$ is counted at least once among the covering
+lengths, which proves the inequality.
+
+\textbf{Claim 3: reduce to the finite case.} The component intervals of
+all $G_j$ form an open cover of any such $K$. Compactness from
+\cref{cor:closed-subset-finite-subcover} selects a finite subcover, and
+Claim~2 gives
+\[
+\ell(K)\leq\sum_j\ell(G_j).
+\]
+Taking the supremum over $K$ in Claim~1 proves subadditivity.
+
+\textbf{Claim 4: finite approximation with controlled loss.} Retain
+finitely many components of $G$ whose omitted tail has length less than
 \[
 \eta/2;
 \]
- shorten the retained finitely
-many intervals by a combined length less than
+then shorten those retained intervals by a combined length less than
 \[
 \eta/2.
 \]
- Their compact
-union is $K$, and the components of $G\setminus K$ consist of the
+Their compact union is $K$, and the components of $G\setminus K$ consist of the
 discarded tail and endpoint strips. Their total length is less than $\eta$.
 \end{proof}
 \begin{lemma}[Nested open sets of uniformly positive length]
@@ -937,6 +932,12 @@ $\ell(G_n)\geq c>0$ for every $n$, then
 
 \end{lemma}
 \begin{proof}
+The roadmap is
+\[
+G_n\supset K_n\longrightarrow H_m=K_1\cap\cdots\cap K_m
+\longrightarrow H_m\ne\varnothing
+\longrightarrow\bigcap_mH_m\ne\varnothing.
+\]
 The sets \(G_n\) are open, so the nested-closed-set argument does not apply
 directly. Choose finite unions of closed bounded intervals
 $K_n\subset G_n$ with
@@ -954,9 +955,9 @@ H_m=K_1\cap\cdots\cap K_m
 degenerate), hence satisfies the local finite-subcover result just proved,
 and $H_{m+1}\subseteq H_m$. We must still show
 nonemptiness; the summable errors were chosen for exactly this purpose.
-If $H_m$ were empty, every point
-of $G_m$ would fail to belong to some $K_i$, $i\leq m$.
-Since $G_m\subset G_i$, this would give
+If $H_m$ were empty, then every $x\in G_m$ belongs to $G_i$ for $i\leq m$
+by nestedness, but failure of membership in $H_m$ means that $x\notin K_i$
+for at least one such $i$. Hence
 \[
 G_m\subset\bigcup_{i=1}^m(G_i\setminus K_i),\qquad
 \ell(G_m)<\sum_{i=1}^m c/2^{i+1}<c/2,
@@ -978,40 +979,47 @@ then
 \]
 \end{theorem}
 \begin{proof}
-Large integrals with bounded heights force open intervals
-of substantial combined length on which the errors stay large. The two
-lemmas force one point to lie in infinitely many such sets, contradicting
-pointwise convergence.
+The proof follows
+\[
+\boxed{\text{large error integral}\Rightarrow\text{large bad set}
+\Rightarrow\text{one fixed point is bad infinitely often}
+\Rightarrow\text{contradiction}.}
+\]
 Let $g_n=|f_n-f|$. These are integrable by the integral algebra already
 proved, satisfy $0\leq g_n\leq2M$, and tend pointwise to zero.
-The cases $a=b$ or $M=0$ are immediate. Otherwise rescale domain and
-height to reduce to $0\leq g_n\leq1$ on $[0,1]$.
-If the integrals do not tend to zero, pass to a subsequence with
-
+The cases $a=b$ or $M=0$ are immediate. If the integrals do not tend to
+zero, pass to a subsequence and choose $\eta>0$ such that
 \[
-\int g_n>2\eps
+\int_a^b g_n\geq\eta
 \]
- for a fixed $\eps>0$. For each $n$, integrability
-supplies a lower Darboux sum greater than $2\eps$. Cells whose lower
-height is at most $\eps$ contribute at most $\eps$ in total; the
-remaining cells therefore contribute more than $\eps$. Since heights
-are at most $1$, their combined lengths exceed $\eps$.
-Let $U_n$ be the union of the interiors of these remaining cells. Then
-$\ell(U_n)>\eps$ and $g_n(x)>\eps$ throughout $U_n$.
+for every term of the subsequence. Put
+\[
+h=\frac{\eta}{2(b-a)}.
+\]
+For each $n$, integrability supplies a lower Darboux sum greater than
+$3\eta/4$. Call a cell low when its lower height is at most $h$ and high
+otherwise. The low cells contribute at most $h(b-a)=\eta/2$, so the high
+cells contribute more than $\eta/4$. Because all heights are at most
+$2M$, their combined length is at least
+\[
+c=\frac{\eta}{8M}>0.
+\]
+Let $U_n$ be the union of the interiors of the high cells. Endpoints do not
+change interval length, so $\ell(U_n)\geq c$, and $g_n>h$ on $U_n$.
 The open sets
 \[
 G_N=\bigcup_{n\geq N}U_n
 \]
- decrease and each has
-length greater than $\eps$. By \cref{lem:nested-open-length}, some
+decrease and each has length at least $c$. By
+\cref{lem:nested-open-length}, some
 $x$ belongs to every $G_N$. Unpacking the union and intersection,
 \[
 x\in\bigcap_NG_N\quad\Longleftrightarrow\quad
 \text{for every }N\text{ there exists }n\geq N\text{ with }x\in U_n.
 \]
 It is one fixed point $x$ lying in arbitrarily late bad sets, so
-$g_n(x)>\eps$ at arbitrarily large indices. Pointwise convergence at this
-fixed $x$ says all sufficiently late errors are less than $\eps$, a
+$g_n(x)>h$ at arbitrarily large indices. Pointwise convergence at this
+fixed $x$ says all sufficiently late errors are less than $h$, a
 contradiction. The point cannot vary with $N$ in this last step. This proves convergence of the absolute
 error integrals. Finally
 
@@ -1192,7 +1200,7 @@ antiderivatives of
 \int\frac{\dd x}{x}=\log|x|+C
 \]
 is understood on one interval avoiding zero. More generally, one constant
-is available on each connected component of a disconnected domain.
+is available on each maximal interval contained in the domain.
 
 In the first line below, $F$ is the accumulation function just defined.
 The two FTC statements read in opposite directions:
@@ -1545,7 +1553,7 @@ Hence
 \int\sqrt{a^2-x^2}\,\dd x
 =a^2\int\cos^2\theta\,\dd\theta
 =\frac{x}{2}\sqrt{a^2-x^2}
- \frac{a^2}{2}\arcsin(x/a)+C.
++\frac{a^2}{2}\arcsin(x/a)+C.
 \]
 The recognition principle is to match a radical with an identity:
 \(\sqrt{a^2-x^2}\) suggests sine,
@@ -1847,6 +1855,12 @@ split into independent one-sided improper integrals. In particular,
 \]
 \end{remark}
 
+\begin{definition}[Average value]
+For an integrable function $f:[a,b]\to\R$, its \emph{average value} is
+\[
+\boxed{f_{\mathrm{avg}}=\frac1{b-a}\int_a^b f(x)\,\dd x.}
+\]
+\end{definition}
 
 \begin{theorem}[Mean value theorem for integrals]
 Let \(f:[a,b]\to\R\) be continuous, where \(a<b\).  There is a point
@@ -1857,6 +1871,8 @@ such that
 \[
 \int_a^b f(x)\,\dd x=f(c)(b-a).
 \]
+Equivalently, a continuous function on $[a,b]$ attains its average value:
+$f(c)=f_{\mathrm{avg}}$.
 \end{theorem}
 \begin{proof}
 By the Extreme Value Theorem, \(f\) has a minimum \(m\) and maximum \(M\).
@@ -2146,6 +2162,35 @@ exists as a finite real number. Define an improper integral at a finite endpoint
 
 Thus an improper integral is not a new kind of finite-interval integral: it is a limit of ordinary Riemann integrals whose existence must be proved.
 
+\begin{theorem}[Cauchy criterion for improper integrals]
+\label{thm:improper-cauchy}
+The improper integral $\int_a^\infty f$ converges if and only if, for every
+$\eps>0$, there is $A>a$ such that
+\[
+d>c>A\quad\Longrightarrow\quad
+\left|\int_c^d f(x)\,\dd x\right|<\eps.
+\]
+At a finite singular endpoint, $\int_a^b f$ converges from the right if
+and only if, for every $\eps>0$, some $\delta>0$ satisfies
+\[
+a<c<d<a+\delta\quad\Longrightarrow\quad
+\left|\int_c^d f(x)\,\dd x\right|<\eps.
+\]
+\end{theorem}
+\begin{proof}
+For the infinite endpoint, put $F(t)=\int_a^t f$. Additivity gives
+\[
+F(d)-F(c)=\int_c^d f.
+\]
+Thus the displayed condition is exactly the Cauchy criterion for the real
+limit of $F(t)$ as $t\to\infty$. The finite-endpoint statement is the same
+argument for the truncation function $F(c)=\int_c^b f$ as $c\to a^+$.
+\end{proof}
+This is the integral analogue of the series tail criterion:
+\[
+\sum_{n=N+1}^M a_n\quad\longleftrightarrow\quad\int_c^d f.
+\]
+
 At a singular left endpoint, the definition is
 \[
 \int_a^b f(x)\,\dd x
@@ -2262,43 +2307,13 @@ If $f$ is integrable on every finite truncation and its improper integral
 converges absolutely, then its improper integral converges.
 \end{proposition}
 \begin{proof}
-Write
+By the Cauchy criterion applied to $|f|$, for every $\eps>0$ there is
+$A$ such that $d>c>A$ implies
 \[
-H(b)=\int_a^b|f|
+\left|\int_c^d f\right|\leq\int_c^d|f|<\eps.
 \]
- and suppose $H(b)\to H$.
-Given $\eps>0$, choose $A$ so that
-\[
-|H(t)-H|<\eps/4
-\]
- for $t>A$.
-Then for $d>c>\max\{a,A\}$,
-\[
-\left|\int_a^d f-\int_a^c f\right|
-\leq\int_c^d|f|=H(d)-H(c)<\eps/2.
-\]
-For any tolerance the same argument applies, so the integer truncations
-
-\[
-F_n=\int_a^{a+n}f
-\]
- form a Cauchy sequence and converge to $L$.
-Choose $N_1$ with
-\[
-|F_n-L|<\eps/2
-\]
- for $n\geq N_1$ and fix an
-integer $n_0\geq N_1$ with $a+n_0>A$. For every
-$b>\max\{A,a+n_0\}$ the displayed estimate and the triangle
-inequality give
-\[
-|\int_a^b f-L|<\eps.
-\]
- Thus the real endpoint limit
-exists. At a finite endpoint, apply the identical argument to
-truncations approaching that endpoint; convergence of the absolute
-integrals bounds every pair of sufficiently close truncations.
-For multiple improper endpoints apply the result to each separately.
+The criterion for $f$ now proves convergence. Finite-endpoint and multiple
+improper-endpoint cases are handled one side at a time in the same way.
 \end{proof}
 
 \begin{theorem}[Comparison for improper integrals]
@@ -2549,7 +2564,7 @@ length less than $\varepsilon$, then
 \begin{aligned}
 \mu(E)&\leq \mu\!\left(\bigcup_{j=1}^{\infty}I_j\right)
 \leq\sum_{j=1}^{\infty}\mu(I_j)\\
-&=\sum_{j=1}^{\infty}\operatorname{length}(I_j)<\varepsilon.
+&=\sum_{j=1}^{\infty}\ell(I_j)<\varepsilon.
 \end{aligned}
 \]
 If such a cover exists for every $\varepsilon>0$, then \(\mu(E)=0\).
@@ -2568,16 +2583,19 @@ cannot be removed by choosing a smaller neighborhood.
 \begin{definition}[Oscillation and measure-zero sets]
 Let $f:[a,b]\to\R$ be bounded.  For each $x\in[a,b]$, define
 \[
-\omega_f(x)=
-\inf_{\delta>0}
-\sup\bigl\{\lvert f(y)-f(z)\rvert:
-y,z\in[a,b],\ \lvert y-x\rvert<\delta,\ \lvert z-x\rvert<\delta\bigr\}.
+N_\delta(x)=[a,b]\cap(x-\delta,x+\delta),
+\qquad
+\boxed{\omega_f(x)=\inf_{\delta>0}
+\operatorname{osc}_{N_\delta(x)}(f).}
 \]
+Shrinking the neighborhood can only decrease its oscillation by restriction
+monotonicity. Thus $\omega_f(x)$ is the variation that cannot be removed by
+zooming in at $x$.
 A set $E\subseteq[a,b]$ has \textbf{Lebesgue measure zero} if, for every $\eta>0$, there are open intervals $I_1,I_2,\ldots$ such that
 \[
 E\subseteq\bigcup_{j=1}^{\infty}I_j
 \qquad\text{and}\qquad
-\sum_{j=1}^{\infty}\operatorname{length}(I_j)<\eta.
+\sum_{j=1}^{\infty}\ell(I_j)<\eta.
 \]
 Finite covers are allowed as a special case.
 \end{definition}
@@ -2604,7 +2622,11 @@ in a sufficiently small relative neighborhood of $x$ lie within
 \varepsilon/2
 \]
  of $f(x)$.  Their pairwise differences are therefore less
-than $\varepsilon$, so the defining infimum is zero.  Conversely, if
+than $\varepsilon$, since
+\[
+|f(y)-f(z)|\leq|f(y)-f(x)|+|f(z)-f(x)|.
+\]
+Thus the defining infimum is zero. Conversely, if
 $\omega_f(x)=0$, then the defining infimum supplies a $\delta>0$ for which
 the pairwise oscillation in the relative $\delta$-neighborhood of $x$ is
 less than $\varepsilon$.  Taking one of the two points to be $x$ gives
@@ -2623,18 +2645,16 @@ D_{\varepsilon}=\bigl\{x\in[a,b]:\omega_f(x)\geq\varepsilon\bigr\}
 is closed in $[a,b]$.
 \end{proposition}
 \begin{proof}
-If $\omega_f(x)<\varepsilon$, then some neighborhood of $x$ has pairwise
-oscillation less than $\varepsilon$.  If this neighborhood has radius
-$\delta$, then the relative
+If $\omega_f(x)<\varepsilon$, choose $r>0$ with
 \[
-\delta/2
+\operatorname{osc}_{N_r(x)}(f)<\varepsilon.
 \]
--neighborhood of every sufficiently
-nearby point is contained in it.  Thus
+If $|y-x|<r/2$, then $N_{r/2}(y)\subseteq N_r(x)$, and hence
 \[
-\omega_f(y)<\varepsilon
+\omega_f(y)\leq\operatorname{osc}_{N_{r/2}(y)}(f)
+\leq\operatorname{osc}_{N_r(x)}(f)<\varepsilon.
 \]
-for every $y$ sufficiently near $x$.  Hence the complement of
+Hence the complement of
 $D_{\varepsilon}$ is open.
 \end{proof}
 
@@ -2673,8 +2693,9 @@ than
 \[
 \frac{\eta}{2^{m+1}}.
 \]
-The combined countable family covers the displayed union and has total
-length less than $\eta$.
+The combined doubly indexed family is countable by the countability result
+of Chapter~2, covers the displayed union, and has total length less than
+$\eta$.
 \end{proof}
 
 The criterion uses two error accounts. On good intervals the oscillation
@@ -2725,88 +2746,69 @@ integrability}.  Some sources use a name such as the
 Riemann--Lebesgue lemma from Fourier analysis.
 \end{remark}
 \begin{proof}
-Assume (a), and let $\varepsilon,\eta>0$.  Choose a partition $P$ satisfying
+\textbf{(a)$\Rightarrow$(b): small gap forces short large-oscillation
+cells.} Fix an oscillation threshold $\alpha>0$ and a cover budget
+$\eta>0$. By the Darboux criterion choose $P$ with
+$U(f,P)-L(f,P)<\alpha\eta/4$. Then
 \[
-U(f,P)-L(f,P)<\frac{\varepsilon\eta}{4}.
+\alpha\sum_{\operatorname{osc}_{I_i}(f)\geq\alpha}\ell(I_i)
+\leq\sum_{\operatorname{osc}_{I_i}(f)\geq\alpha}
+\operatorname{osc}_{I_i}(f)\ell(I_i)
+\leq U(f,P)-L(f,P).
 \]
-Except for the finitely many partition points, $D_{\varepsilon}$ lies in
-partition intervals having oscillation at least $\varepsilon$: otherwise a
-small neighborhood of such a point contained in its partition interval
-would give oscillation less than $\varepsilon$.  Since
+Thus the large-oscillation cells have combined length below $\eta/4$.
+Every non-partition point $x\in D_\alpha$ lies in the interior of one such
+cell: otherwise a small relative neighborhood of $x$ inside its cell would
+have oscillation below $\alpha$, contradicting
+$\omega_f(x)\geq\alpha$. Enlarge the finitely many large cells slightly to
+open intervals of total length below $\eta/2$, and cover the finitely many
+partition points separately with total length below $\eta/2$. This covers
+$D_\alpha$ within budget $\eta$.
+
+\textbf{(b)$\Rightarrow$(a): four stages.} Fix $\eps>0$ and choose
+$M\geq1$ with $|f|\leq M$.
+
+\emph{Stage 1: choose the vertical threshold.} Select $\alpha>0$ so that
 \[
+\alpha(b-a)<\eps/2.
+\]
+
+\emph{Stage 2: make the bad cover short and finite.} Cover $D_\alpha$ by
+open intervals with total length below $\eps/(4M)$. The set $D_\alpha$ is
+relatively closed by \cref{prop:closed-oscillation-sets}, hence compact by
+\cref{cor:closed-subset-finite-subcover}; retain a finite subcover and let
+$O$ be its union.
+
+\emph{Stage 3: obtain one common horizontal scale.} For each
+$x\in[a,b]\setminus O$, the inequality $\omega_f(x)<\alpha$ supplies an
+open interval $V_x$ on which $\operatorname{osc}(f)<\alpha$. The finitely
+many bad intervals together with the $V_x$ cover $[a,b]$. Apply
+\cref{lem:lebesgue-number-interval} and choose $P$ with
+$\operatorname{mesh}(P)<\lambda$.
+
+\emph{Stage 4: split the Darboux gap.} A cell is bad if it lies in one of
+the selected bad intervals; every other cell lies in some $V_x$ and is
+good. Assigning each bad cell to one selected interval shows that their
+combined length is below $\eps/(4M)$. Therefore
+\[
+\begin{aligned}
 U(f,P)-L(f,P)
+&=\sum_{\text{good }I}\operatorname{osc}_I(f)\ell(I)
+ +\sum_{\text{bad }I}\operatorname{osc}_I(f)\ell(I)\\
+&<\alpha(b-a)+2M\frac{\eps}{4M}<\eps.
+\end{aligned}
 \]
-is the sum of each partition interval's oscillation times its length, the
-total length of the indicated intervals is less than
-\[
-\eta/4.
-\]
-  Enlarge the finitely many
-closed partition intervals in question to open intervals whose total length
-is less than
-\[
-\eta/2.
-\]
-  Cover the finitely many partition points by open
-intervals having total length less than
-\[
-\eta/2.
-\]
-  These two finite families
-form an open cover of $D_{\varepsilon}$ of total length less than $\eta$.
-Thus (b) holds.
-
-Conversely, let
-\[
-\lvert f(x)\rvert\leq M
-\qquad(x\in[a,b]),
-\]
-where $M\geq1$, and fix $\varepsilon>0$.  Put
-\[
-\delta=\frac{\varepsilon}{2(b-a+1)}.
-\]
-By (b), cover $D_\delta$ by open intervals whose total length is less than
-\[
-\frac{\varepsilon}{8M+4}.
-\]
-By \cref{prop:closed-oscillation-sets,cor:closed-subset-finite-subcover},
-finitely many of these intervals still cover $D_\delta$.  Let $O$ be their
-union.  For every
-\[
-x\in[a,b]\setminus O,
-\]
-one has $\omega_f(x)<\delta$, so there is an open interval $V_x$ containing
-$x$ on which the oscillation of $f$ is less than $\delta$.  The selected
-intervals together with all the intervals $V_x$ form an open cover of
-$[a,b]$.  Apply \cref{lem:lebesgue-number-interval}, and choose a partition
-of mesh less than the resulting number $\lambda$.
-
-Classify a partition interval as bad if it is contained in one of the
-selected intervals covering $D_\delta$; classify all other partition
-intervals as good.  A bad interval has oscillation at most $2M$, and the
-sum of the lengths of all bad intervals is at most the sum of the lengths
-of the selected intervals.  Hence the bad intervals contribute less than
-\[
-2M\frac{\varepsilon}{8M+4}<\frac{\varepsilon}{2}
-\]
-to the Darboux gap.  Every good interval lies in one of the intervals
-$V_x$ and therefore has oscillation less than $\delta$.  Thus the good
-intervals contribute less than
-\[
-\delta(b-a)<\frac{\varepsilon}{2}.
-\]
-
 The Darboux criterion proves (a).
 
-By \cref{prop:oscillation-continuity}, the discontinuity set is
+Finally, \cref{prop:oscillation-continuity} and the Archimedean property
+give
 \[
-\bigcup_{m=1}^{\infty}D_{1/m}.
+\operatorname{Disc}(f)=\bigcup_{m=1}^\infty D_{1/m}.
 \]
-By \cref{lem:countable-union-negligible}, (b) implies (c).  Conversely,
-\[
-D_{\varepsilon}
-\]
-is contained in the discontinuity set, so (c) implies (b).
+Indeed, discontinuity is equivalent to $\omega_f(x)>0$, and then some
+$m$ satisfies $1/m\leq\omega_f(x)$. Countable-union stability proves
+(b)$\Rightarrow$(c), while $D_\alpha\subseteq\operatorname{Disc}(f)$
+proves (c)$\Rightarrow$(b).
 \end{proof}
 
 \begin{example}[The Dirichlet function]
@@ -3030,18 +3032,24 @@ f\text{ Riemann integrable}\ \not\Longrightarrow\
 \]
 \end{example}
 
-\paragraph{Finite changes of an integrand.}
-If $\widetilde f$ differs from a Riemann-integrable $f$ on a finite set
-$E\subset[a,b]$, then $u=\widetilde f-f$ is bounded and supported on $E$.
-Choose a partition for which the cells meeting $E$ have arbitrarily small
-total length, by enclosing each point of $E$ in a short interval and
-including its endpoints in the partition. On all other cells $u=0$.
-If $|u|\leq B$, both $|L(u,P)|$ and $|U(u,P)|$ are bounded by $B$ times
-that total length. Hence $u$ is integrable with integral zero, and
+\begin{lemma}[Finite modifications]
+\label{lem:finite-modifications}
+If bounded functions $f,g:[a,b]\to\R$ differ only at finitely many points
+and $f$ is Riemann integrable, then $g$ is Riemann integrable and
 \[
-\int_a^b\widetilde f=\int_a^b f.
+\int_a^b g=\int_a^b f.
 \]
-This argument includes changes at $a$ or $b$.
+\end{lemma}
+\begin{proof}
+Put $u=g-f$. Then $u=0$ off a finite set $E$ and $|u|\leq B$ for some
+$B$. Surround the points of $E$ by intervals of arbitrarily small total
+length and insert their endpoints in a partition. Every other cell has
+zero oscillation, while each bad cell has oscillation at most $2B$.
+Consequently the Darboux gap for $u$ can be made arbitrarily small, so $u$
+is integrable. Moreover both $|L(u,P)|$ and $|U(u,P)|$ are at most $B$
+times the total bad length; squeezing gives $\int u=0$. Linearity yields
+the conclusion. Endpoint modifications are included.
+\end{proof}
 
 \Needspace{12\baselineskip}
 \begin{theorem}[Newton--Leibniz with finitely many exceptions]
@@ -3072,6 +3080,9 @@ countable and $F'(x)=f(x)$ for $x\in(a,b)\setminus E$. Then
 \begin{proof}
 \textbf{Strategy.} Transfer local bounds on $f$ to $F'$ by Darboux's
 theorem, then squeeze increments of $F$ between the Darboux sums of $f$.
+\medskip
+
+\textbf{Stage 1: transfer local bounds from $f$ to $F'$.}
 First let $J\subset(a,b)$ be a nonempty open interval on which
 $\alpha\leq f\leq\beta$. We claim that the same bounds hold for $F'$.
 If $F'(t_0)>\beta$, choose $s\in J\setminus E$, possible because every
@@ -3084,6 +3095,7 @@ same argument to $-F,-f$ for the lower bound. Thus
 \[
 \alpha\leq F'(t)\leq\beta\qquad(t\in J).
 \]
+\textbf{Stage 2: compare increments with Darboux sums.}
 For a partition $a=x_0<\cdots<x_n=b$, put
 $m_i=\inf_{[x_{i-1},x_i]}f$ and $M_i=\sup_{[x_{i-1},x_i]}f$.
 The local bound applies on $(x_{i-1},x_i)$. The Mean Value Theorem,
@@ -3110,7 +3122,7 @@ Countability excludes an interval of such values. The local bounds then
 place each increment of $F$ between the corresponding lower and upper
 Darboux contributions of $f$, so integrability of $f$ completes the proof.
 
-\begin{theorem}[Lipschitz, almost-everywhere Riemann form; stated without proof]
+\begin{theorem}[Lipschitz, almost-everywhere Riemann form]
 \label{thm:ftc-lipschitz-ae}
 Let $F:[a,b]\to\R$ be Lipschitz and let $f:[a,b]\to\R$ be Riemann
 integrable. If $F'=f$ almost everywhere on $(a,b)$ (in particular, $F'$ exists
@@ -3122,7 +3134,8 @@ outside a set of Lebesgue measure zero), then
 Here \emph{almost everywhere}, abbreviated a.e., means outside a
 set of Lebesgue measure zero. This is the strongest form developed here whose
 right-hand side remains an ordinary Riemann integral.
-For the measure-theoretic results behind this stated theorem, see for example
+The proof is not developed here because it requires the measure-theoretic
+structure of Lipschitz functions. For the needed results, see for example
 \cite{pugh-analysis,rudin-pma}.
 For
 \[
@@ -3178,17 +3191,185 @@ The resulting progression is:
 \end{gathered}}
 \]
 
-Only the minimum measure-theoretic terminology needed for the comparison is
-used here. A \emph{measurable function} has its standard measure-theoretic
-meaning, and
-\[
-\int_E f\,\dd\mu
-\]
-denotes its Lebesgue integral over a measurable set \(E\subseteq\R\).
-The constructions of measurable functions and the Lebesgue integral belong
-to a subsequent real-analysis course.
+\subsection*{An informal working framework for Lebesgue integration}
+A notion of size is generally assigned not to every subset of a set $X$,
+but to a specified collection on which it behaves consistently. Some
+measures, including counting measure and the zero measure, can be defined on
+all of $\mathcal P(X)$. The obstruction is instead geometric: ordinary
+length on $\R$ cannot be extended to every subset while remaining countably
+additive, translation invariant, and consistent with interval length, for
+example $\mu([0,1])=1$. Lebesgue measure is therefore defined on a large
+family of Lebesgue-measurable sets, not on all of $\mathcal P(\R)$.
 
-\begin{theorem}[Lebesgue monotone convergence theorem; stated without proof]
+\begin{definition}[$\sigma$-algebra and measurable space]
+For a set $X$, a \emph{$\sigma$-algebra} is a family
+$\mathcal A\subseteq\mathcal P(X)$ such that
+\[
+X\in\mathcal A,
+\qquad E\in\mathcal A\Longrightarrow X\setminus E\in\mathcal A,
+\]
+and
+\[
+E_1,E_2,\ldots\in\mathcal A
+\Longrightarrow \bigcup_{n=1}^\infty E_n\in\mathcal A.
+\]
+Its members are \emph{measurable sets}, and $(X,\mathcal A)$ is a
+\emph{measurable space}. Complements and countable unions repeatedly arise
+in limiting arguments, so the admissible sets must remain stable under them.
+\end{definition}
+
+\begin{definition}[Measure]
+A \emph{measure} on $(X,\mathcal A)$ is a function
+\[
+\mu:\mathcal A\to[0,\infty]
+\]
+such that $\mu(\varnothing)=0$ and, for pairwise disjoint measurable sets,
+\[
+\mu\!\left(\bigcup_{n=1}^\infty E_n\right)
+=\sum_{n=1}^\infty\mu(E_n).
+\]
+\end{definition}
+
+The \emph{Borel $\sigma$-algebra} on the line is
+\[
+\mathcal B(\R)=\sigma(\{\text{open subsets of }\R\}).
+\]
+Here ``generated by'' means
+\[
+\boxed{\mathcal B(\R)\text{ is the smallest $\sigma$-algebra containing
+every open subset of }\R.}
+\]
+Starting with the open sets, one repeatedly closes the family under
+complements and countable unions. De Morgan's law also supplies countable
+intersections:
+\[
+\bigcap_{n=1}^\infty E_n
+=\left(\bigcup_{n=1}^\infty E_n^c\right)^c.
+\]
+The word \emph{repeatedly} matters: one round of these operations does not
+describe all Borel sets. By \cref{prop:real-open-interval-components}, open
+intervals generate the same $\sigma$-algebra. The Lebesgue $\sigma$-algebra
+is larger: it contains all Borel sets and all subsets of Lebesgue-null sets.
+
+\begin{definition}[Measurable maps]
+A map
+\[
+f:(X,\mathcal A)\to(Y,\mathcal B)
+\]
+is \emph{measurable} if $f^{-1}(B)\in\mathcal A$ for every
+$B\in\mathcal B$. A real-valued measurable function has target
+$(\R,\mathcal B(\R))$.
+\end{definition}
+
+\begin{proposition}[Threshold criterion for real-valued measurability]
+\label{prop:measurable-threshold-preview}
+A real-valued function $f$ on $(X,\mathcal A)$ is measurable if and only if
+\[
+\{x\in X:f(x)>\alpha\}\in\mathcal A
+\qquad\text{for every }\alpha\in\R.
+\]
+\end{proposition}
+The proof is not developed here. The threshold form says concretely that
+the region on which $f$ lies above each prescribed level is measurable.
+If $X$ is a topological space equipped with its Borel $\sigma$-algebra, every
+continuous map $f:X\to\R$ is Borel measurable. In particular, a continuous
+real-valued function on an interval is Lebesgue measurable.
+
+\begin{definition}[Simple functions and their integrals]
+Let $E\in\mathcal A$. A nonnegative measurable \emph{simple function}
+$s:E\to[0,\infty)$ has the form
+\[
+s=\sum_{k=1}^m a_k\mathbf1_{E_k},
+\qquad a_k\geq0,
+\]
+where the measurable sets $E_k\subseteq E$ may be taken pairwise disjoint.
+Define
+\[
+\int_Es\,\dd\mu=\sum_{k=1}^ma_k\mu(E_k).
+\]
+Each value is weighted by the measure of the set on which it occurs.
+\end{definition}
+This highlights two organizing ideas:
+\[
+\begin{gathered}
+\boxed{\text{Riemann: partition the domain into short intervals;}}\\[2mm]
+\boxed{\text{Lebesgue: measure sets on which values lie in specified ranges.}}
+\end{gathered}
+\]
+The second box is a conceptual contrast, not a claim that every later
+calculation literally uses level sets.
+
+For a nonnegative measurable function, the defining idea is approximation
+from below:
+\[
+\boxed{
+\int_E f\,\dd\mu
+=\sup\left\{\int_Es\,\dd\mu:
+0\leq s\leq f, s\text{ nonnegative measurable simple}\right\}.}
+\]
+For a real-valued measurable function define
+\[
+f^+=\max\{f,0\},\qquad f^-=\max\{-f,0\}.
+\]
+Then $f=f^+-f^-$ and $|f|=f^++f^-$. The function $f$ is \emph{Lebesgue
+integrable} on $E$ when
+\[
+\int_E|f|\,\dd\mu<\infty;
+\]
+in that case
+\[
+\int_Ef\,\dd\mu=\int_Ef^+\,\dd\mu-\int_Ef^-\,\dd\mu.
+\]
+
+Changing a measurable function on a set of Lebesgue measure zero does not
+change its Lebesgue integral. This null-set invariance is not proved here;
+it explains why equality and convergence almost everywhere are natural in
+the convergence theorems and the Lebesgue FTC.
+
+For an open $G=\bigsqcup_jI_j\subset(a,b)$, countable additivity bridges
+the elementary length of Section~9.3 with Lebesgue measure:
+\[
+\mu(G)=\sum_j\mu(I_j)=\sum_j\ell(I_j)=\ell(G).
+\]
+
+The conceptual progression is
+\[
+\boxed{\sigma\text{-algebras}\longrightarrow\text{measures}
+\longrightarrow\text{measurable functions}\longrightarrow
+\text{simple functions}\longrightarrow\text{Lebesgue integral}.}
+\]
+Because nonnegative integration is built from approximation from below,
+monotone increasing limits fit naturally. An integrable majorant controls
+the absolute size in dominated convergence, and null-set invariance makes
+almost-everywhere identities sufficient in the Lebesgue FTC.
+
+This subsection supplies only the working framework needed for the theorem
+statements below. A systematic construction of Lebesgue measure and
+development of the Lebesgue integral belongs to a subsequent real-analysis
+course.
+
+\begin{theorem}[Compatibility of Riemann and Lebesgue integration]
+\label{thm:riemann-lebesgue-compatibility-preview}
+If $f:[a,b]\to\R$ is Riemann integrable, then $f$ is Lebesgue measurable and
+Lebesgue integrable, and
+\[
+\boxed{\int_a^b f(x)\,\dd x=\int_{[a,b]}f\,\dd\mu.}
+\]
+\end{theorem}
+This concerns the proper Riemann integral on a bounded closed interval. Its
+proof belongs to the systematic measure-theoretic construction omitted from
+these notes. Conceptually, Lebesgue integration extends ordinary proper
+Riemann integration without changing its value. The converse fails:
+$\mathbf1_{\Q\cap[0,1]}$ is not Riemann integrable, but it is Lebesgue
+integrable and
+\[
+\int_{[0,1]}\mathbf1_{\Q}\,\dd\mu=0
+\]
+because it vanishes almost everywhere. A conditionally convergent improper
+Riemann integral need not define a Lebesgue-integrable function with
+$\int|f|\,\dd\mu<\infty$.
+
+\begin{theorem}[Lebesgue monotone convergence theorem]
 \label{thm:lebesgue-mct-preview}
 Let \(E\subseteq\R\) be measurable. If
 \[
@@ -3204,8 +3385,12 @@ allowing the value \(+\infty\). Equivalently,
 \int_E f_n\,\dd\mu\uparrow\int_E f\,\dd\mu.
 \]
 \end{theorem}
+Its proof is not given here because it depends on the systematic
+development of the Lebesgue integral just placed outside our scope.
+The arrow in the displayed equivalent form means that the numerical sequence
+of integrals is increasing and converges to the displayed limit.
 
-\begin{theorem}[Lebesgue dominated convergence theorem; stated without proof]
+\begin{theorem}[Lebesgue dominated convergence theorem]
 \label{thm:lebesgue-dct-preview}
 Let \(E\subseteq\R\) be measurable. Suppose \(f_n\) are measurable,
 \[
@@ -3225,6 +3410,7 @@ Consequently,
 \boxed{\int_E f_n\,\dd\mu\longrightarrow\int_E f\,\dd\mu.}
 \]
 \end{theorem}
+Its proof is likewise deferred to measure-theoretic real analysis.
 
 \paragraph{Dini and monotone convergence.}
 Dini's theorem \cref{thm:dini-riemann} says that
@@ -3250,8 +3436,8 @@ of all relevant functions; it concludes
 \int_a^b|f_n-f|\,\dd x\to0.
 \]
 Lebesgue DCT allows almost-everywhere convergence and a variable integrable
-dominator \(g(x)\), and it supplies integrability of the limit. The common
-\(L^1\)-error conclusion makes the analogy visible, but the hypotheses and
+dominator \(g(x)\), and it supplies integrability of the limit. The same
+absolute-error integral conclusion makes the analogy visible, but the hypotheses and
 proof mechanisms are genuinely different.
 
 For continuous functions, integration and differentiation are cleanly
@@ -3297,15 +3483,12 @@ increasing functions; it gives the broader framework previewed again in
 \cref{sec:perspective-further-directions}.
 \end{remark}
 
-Measure theory introduces a systematic notion of size for sets that is fine
-enough to distinguish a dense null set from an interval. The Lebesgue integral
-then organizes summation by the values of a function and by the sizes of
-their level sets, rather than solely by partitions of the domain.  This gives
-stronger convergence theorems and integrates many functions beyond the
-Riemann class.  We will not define measures or the Lebesgue integral in these
-notes. The Lebesgue criterion already relates Riemann integrability to
-the size of the discontinuity set; measure theory extends the use of set
-size to the definition of the integral itself.
+Measure theory introduces a systematic notion of size fine enough to
+distinguish a dense null set from an interval. The definitions above explain
+the objects in the preview theorems; their construction and full theory are
+not developed here. The Lebesgue criterion relates Riemann integrability to
+the size of the discontinuity set, while Lebesgue theory uses set size in
+the definition of the integral itself.
 
 
 
@@ -3342,24 +3525,24 @@ and choose
 one interval.
 
 \Needspace{10\baselineskip}
-\begin{theorem}[Lebesgue FTC; stated without proof]
+\begin{theorem}[Lebesgue FTC]
 \label{thm:lebesgue-ftc-preview}
 If $F:[a,b]\to\R$ is absolutely continuous, then $F'$ exists almost
 everywhere, is Lebesgue integrable, and
 \[
-F(x)=F(a)+\int_a^x F'(t)\,\dd t\qquad(x\in[a,b]).
+F(x)=F(a)+\int_a^x F'(t)\,\dd\mu(t)\qquad(x\in[a,b]).
 \]
 Conversely, if $f$ is Lebesgue integrable and
 \[
-F(x)=c+\int_a^x f(t)\,\dd t,
+F(x)=c+\int_a^x f(t)\,\dd\mu(t),
 \]
 then $F$ is absolutely continuous and $F'=f$ almost everywhere.
-Both integrals in this theorem are Lebesgue integrals.
 \end{theorem}
 Lebesgue integrability means integrability in the later measure-theoretic
 sense, with finite integral of the absolute value. Values assigned to
 $F'$ where it does not exist do not affect this integral. Almost everywhere has the same measure-zero meaning as in section~9.6. No construction of the Lebesgue
-integral or proof of this theorem is attempted in these notes.
+integral or proof of this theorem is attempted in these notes; the omission
+reflects the measure-theoretic machinery required.
 Standard proofs may be found, for example, in
 \cite{pugh-analysis,rudin-pma}.
 The two directions characterize the same functions:
@@ -3416,7 +3599,6 @@ Evaluate
 \]
 Name the operation that simplifies each.
 \end{exercise}
-
 \begin{hexercise}{flow-model}
 Water enters an initially empty container at a rate of $3+2t$ litres per minute for $0\leq t\leq4$, with no outflow. Determine the volume at four minutes and the average inflow rate. Formulate the integrand and bounds before evaluating. Explain why rate times
 a short time interval approximates the volume added, check the units, and

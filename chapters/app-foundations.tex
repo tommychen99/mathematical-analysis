@@ -53,7 +53,7 @@ qualifications nor a separate successor function for these analysis notes.
 \subsection*{Addition by recursion}
 The recursion principle permits a value at the next stage to be specified
 from values already constructed.
-\begin{theorem}[Recursion principle; stated without proof]
+\begin{theorem}[Recursion principle]
 \label{thm:natural-recursion}
 Let $X$ be a set, let $x_0\in X$, and let
 \[
@@ -67,6 +67,8 @@ f(n+1)=\Phi(n,f(n))
 \quad(n\in\N_0).
 \]
 \end{theorem}
+The proof is not included here because this appendix uses the recursion
+principle as a foundational construction theorem.
 
 Before using induction from zero, record the required form explicitly.
 \begin{proposition}[Induction on \(\N_0\)]
@@ -469,13 +471,15 @@ its elements are precisely the earlier stages. At a successor stage one
 uses the preceding value, while at a limit stage one uses the entire family
 of earlier values.
 
-\begin{theorem}[Transfinite recursion; stated without proof]
+\begin{theorem}[Transfinite recursion]
 \label{thm:transfinite-recursion}
 Let $\alpha$ be an ordinal. If a typed rule assigns an element of a set $Y$
 to every function whose domain is an initial segment $\beta<\alpha$, then
 there is a unique function $f:\alpha\to Y$ whose value at each $\beta$ is
 the value prescribed from $f|_\beta$.
 \end{theorem}
+The full set-theoretic proof is not developed here; the following paragraph
+records its construction mechanism.
 The construction is the same ``define from earlier stages'' mechanism as
 ordinary recursion. Existence is proved by taking the union of all compatible
 partial solutions; uniqueness follows by considering the first stage at which

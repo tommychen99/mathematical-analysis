@@ -466,20 +466,37 @@ If \(\sum a_n\) converges conditionally, then for every \(L\in\R\) there is
 a rearrangement of the series that converges to \(L\).
 \end{theorem}
 \begin{proof}
-Write \(a_n^+=\max(a_n,0)\) and \(a_n^-=\min(a_n,0)\). The positive
-subseries must diverge to \(+\infty\) and the negative subseries to
-\(-\infty\): if either had a finite sum, convergence of the original
-series would force the other to have a finite sum, and then
-\(\sum|a_n|=\sum a_n^+-\sum a_n^-\) would converge.
+Write $a_n^+=\max(a_n,0)$ and $a_n^-=\min(a_n,0)$.
 
+\textbf{Stage 1: the two one-sign subseries diverge.}
+The positive subseries diverges to $+\infty$ and the negative subseries to
+$-\infty$. If either had a finite sum, convergence of the original series
+would force the other to have a finite sum, and then
+$\sum|a_n|=\sum a_n^+-\sum a_n^-$ would converge, contradicting
+conditional convergence.
+
+\textbf{Stage 2: alternate crossings.}
 Starting from zero, add unused positive terms in their original order until
-the running sum first exceeds \(L\). Then add unused negative terms until it
-first falls below \(L\). Repeat. Both divergent subseries guarantee that
-every crossing occurs and that every term is eventually used. At an upper
-crossing the overshoot is at most the last positive term; at a lower
-crossing its magnitude is at most the absolute value of the last negative
-term. Since \(a_n\to0\), these overshoots tend to zero. The running sums
-are trapped between successive crossings and therefore converge to \(L\).
+the running sum first exceeds $L$. Then add unused negative terms until it
+first falls below $L$, and repeat. Stage~1 guarantees every crossing.
+
+\textbf{Stage 3: no nonzero term is lost.}
+If a particular positive term were never used, only finitely many earlier
+positive terms could have been used, contradicting the infinitely many
+upper crossings. The same argument applies to negative terms. Thus every
+nonzero term eventually appears.
+
+\textbf{Stage 4: crossing errors vanish.}
+At an upper crossing the overshoot is no larger than the last positive term
+used; at a lower crossing the undershoot is no larger than the absolute
+value of the last negative term used. Since convergence of the original
+series implies $a_n\to0$, both errors tend to zero. Every intervening
+partial sum lies between the most recent upper and lower crossing values,
+so squeezing gives convergence to $L$.
+
+After arranging all nonzero terms, insert zero terms at arbitrary unused
+positions; this changes neither convergence nor the sum and completes a
+rearrangement of the entire original series.
 \end{proof}
 
 Thus absolute convergence gives rearrangement invariance, whereas
@@ -523,6 +540,12 @@ converges absolutely and
 \]
 \end{theorem}
 \begin{proof}
+The proof follows the scheme
+\[
+\boxed{\text{absolute convergence}
+\longrightarrow\text{rectangle versus triangle}
+\longrightarrow\text{small missing corner}.}
+\]
 The partial sums of
 \[
 \sum_{n=0}^{\infty}\abs{c_n}
@@ -542,16 +565,27 @@ Thus the Cauchy product converges absolutely. Let $\eps>0$. Choose $K$ so large 
 \left(\sum_{k=K+1}^{\infty}\abs{b_k}\right)
 <\eps.
 \]
-For $N\geq2K$, every pair $(j,k)$ with
+Put
 \[
-0\leq j,k\leq N,\qquad j+k>N
+A_N=\sum_{j=0}^Na_j,\qquad B_N=\sum_{k=0}^Nb_k,
+\qquad C_N=\sum_{n=0}^Nc_n.
 \]
-has either $j>K$ or $k>K$. Distributivity of finite sums gives the exact identity
+Then
 \[
-\left(\sum_{j=0}^N a_j\right)\left(\sum_{k=0}^N b_k\right)
--\sum_{n=0}^N c_n
+A_NB_N=\sum_{0\leq j,k\leq N}a_jb_k,
+\qquad
+C_N=\sum_{j+k\leq N}a_jb_k,
+\]
+and hence
+\[
+A_NB_N-C_N
 =\sum_{\substack{0\leq j,k\leq N\\j+k>N}}a_jb_k.
 \]
+For $N\geq2K$, every pair $(j,k)$ in this missing corner has
+\[
+ j>K\quad\hbox{or}\quad k>K,
+\]
+because $j\leq K$ and $k\leq K$ would imply $j+k\leq2K\leq N$.
 The absolute value of the right side is bounded by
 \[
 \left(\sum_{j>K}|a_j|\right)\left(\sum_{k\geq0}|b_k|\right)
@@ -1037,7 +1071,10 @@ converges, with $0^0=1$. Then $0\in E$. If $t\in E$ and $0\leq u<t$, comparison 
 \[
 R=\sup E,
 \]
-with $R=\infty$ if $E$ is unbounded. If $\abs{x-a}<R$, choose $t\in E$ with
+with $R=\infty$ if $E$ is unbounded. Thus $E$ is downward closed.
+
+Suppose first that $0<R<\infty$. If $\abs{x-a}<R$, the defining property
+of the supremum supplies $t\in E$ with
 \[
 \abs{x-a}<t;
 \]
@@ -1047,13 +1084,21 @@ Conversely, suppose the series converges at a point with
 \[
 z=\abs{x-a}>0.
 \]
-Its terms tend to zero, so choose $N_0$ and $M>0$ such that
-$|c_n|z^n\leq M$ for every $n\geq N_0$. Thus, for $0\leq t<z$
-and every $n\geq N_0$,
+The convergent terms $|c_n|z^n$ tend to zero and are therefore bounded;
+choose $M>0$ such that $|c_n|z^n\leq M$ for every $n$. Thus, for
+$0\leq t<z$ and every $n$,
 \[
 \abs{c_n}t^n\leq M\left(\frac tz\right)^n.
 \]
-Geometric comparison gives $t\in E$. If $z>R$, choosing $t$ strictly between $R$ and $z$ contradicts the definition of $R$. Hence the series diverges outside its radius.
+Geometric comparison gives $t\in E$. If $z>R$, choosing $t$ strictly
+between $R$ and $z$ contradicts the definition of $R$. Hence the series
+diverges outside its radius.
+
+If $R=\infty$, then for every finite $z=|x-a|$ there is $t\in E$ with
+$t>z$, so comparison gives absolute convergence everywhere. If $R=0$,
+there are no points with $0<|x-a|<R$; and convergence at any $z>0$ would,
+by the preceding geometric comparison, put every $t<z$ in $E$, contradicting
+$\sup E=0$. These cases complete the theorem.
 \end{proof}
 
 The theorem intentionally makes no assertion at points satisfying

@@ -299,6 +299,11 @@ x_n=-1/n,\qquad y_n=1/n
 different limits.
 \end{example}
 
+For one-sided approach, $t\downarrow a$ means $t\to a$ from above
+($t\to a^+$), while $t\uparrow a$ means $t\to a$ from below
+($t\to a^-$). This related notation concerns a variable approaching a point;
+it is grammatically distinct from the sequence notation $a_n\uparrow L$.
+
 \begin{remark}[A working strategy for function limits]
 First discover a plausible answer by substitution, simplification, a graph,
 or comparison.  Next prove it: use limit laws only after their hypotheses
@@ -502,6 +507,8 @@ x=2\pi n+\pi/2,\qquad x=2\pi n+3\pi/2
 $x=o(x^2)$ and $\sqrt{x}=o(x)$, although both remainders diverge.
 Little-o means small \emph{relative to a scale}, not necessarily small
 in absolute size.
+For vector-valued remainders the same definitions use the norm of the
+remainder; Chapter~10 proves the norm estimates needed for composition.
 
 Near $h=0$, the three conditions are strictly ordered:
 \[
@@ -574,51 +581,142 @@ Thus the nonlinear error is negligible compared with the first-order
 scale, not merely a function tending to zero. The multivariable condition
 $f(a+h)=f(a)+Df(a)h+o(\norm h)$ has exactly the same meaning.
 
+\section{Basic Topology of the Real Line}
+\label{sec:real-line-topology}
+
+The local language used throughout analysis can be organized with a small
+amount of topology.  We develop here only the real-line notions needed in
+the remainder of Part~I; Chapter~\ref{ch:topology-linear-algebra} places them
+in the general setting of metric and topological spaces.
+
+\begin{definition}[Euclidean balls]
+For $x\in\R$ and $r>0$, put
+\[
+B(x,r)=\set{y\in\R:|y-x|<r}=(x-r,x+r).
+\]
+\end{definition}
+
+\begin{definition}[Intervals, open sets, and closed sets]
+A set $I\subseteq\R$ is an \emph{interval} if $x,y\in I$ and $x<z<y$
+imply $z\in I$.  A set $U\subseteq\R$ is \emph{open} if
+\[
+\forall x\in U\ \exists r>0:\quad B(x,r)\subseteq U.
+\]
+A set $F\subseteq\R$ is \emph{closed} if $\R\setminus F$ is open.
+\end{definition}
+
+An \emph{open neighborhood} of $x$ is an open subset of $\R$ containing
+$x$. More generally, a \emph{neighborhood} of $x$ is a set containing an
+open neighborhood of $x$.
+
+The intervals $(a,b)$, $(-\infty,a)$, and $(a,\infty)$ are open, while
+$[a,b]$, $(-\infty,a]$, and $[a,\infty)$ are closed.  Both $\varnothing$
+and $\R$ are open and closed: the defining condition is vacuous for the
+empty set, and every real point has a ball contained in $\R$.
+
+\begin{proposition}[Elementary set operations]
+Arbitrary unions and finite intersections of open subsets of $\R$ are
+open.  Arbitrary intersections and finite unions of closed subsets of
+$\R$ are closed.
+\end{proposition}
+\begin{proof}
+If $x\in\bigcup_\alpha U_\alpha$, then $x\in U_\alpha$ for at least one
+index, and a ball witnessing openness of that member lies in the union.
+If $x\in U_1\cap\cdots\cap U_n$, choose radii $r_i>0$ with
+$B(x,r_i)\subseteq U_i$ and set
+\[
+r=\min\{r_1,\ldots,r_n\}>0.
+\]
+Then $B(x,r)$ lies in every $U_i$.  The closed-set assertions follow by
+taking complements and using De Morgan's laws.
+\end{proof}
+
+Finiteness matters: for example,
+\[
+\bigcap_{n=1}^\infty(-1/n,1/n)=\{0\},
+\]
+which is not open.  Taking complements also gives an infinite union of
+closed sets that is not closed.
+
+\begin{definition}[Relative openness and closedness]
+Let $A\subseteq Y\subseteq\R$.  The set $A$ is \emph{relatively open in
+$Y$} if $A=Y\cap U$ for some open $U\subseteq\R$.  It is
+\emph{relatively closed in $Y$} if $A=Y\cap F$ for some closed
+$F\subseteq\R$; equivalently, $Y\setminus A$ is relatively open in $Y$.
+\end{definition}
+For instance, if $a<c<b$, then
+\[
+[a,c)=[a,b]\cap(-\infty,c)
+\]
+is relatively open in $[a,b]$ although it is not open in $\R$.
+
+Limit points and isolated points were defined in \cref{prop:limit-point-sequence}
+and the paragraphs preceding it.  Those notions record whether every
+punctured neighborhood meets a set; the sequential test there will remain
+our principal tool.
+
+\begin{theorem}[Sequential characterization of closed sets]
+\label{thm:sequentially-closed}
+A set $F\subseteq\R$ is closed if and only if every convergent sequence in
+$F$ has its limit in $F$.
+\end{theorem}
+\begin{proof}
+Suppose first that $F$ is closed and $x_n\in F$ converges to $x$. If
+$x\notin F$, the open set $F^c$ contains a ball $B(x,r)$. Eventually
+$x_n\in B(x,r)$, a contradiction. Conversely, suppose the sequential
+condition holds and let $x\in F^c$. If no ball about $x$ lay in $F^c$,
+then for every $n$ one could choose $x_n\in F$ with $|x_n-x|<1/n$.
+This sequence converges to $x$, contradicting the hypothesis. Hence $F^c$
+is open.
+\end{proof}
+
+\begin{definition}[Dense subsets]
+For $E\subseteq Y\subseteq\R$, the set $E$ is \emph{dense in $Y$} if
+every nonempty relatively open subset of $Y$ meets $E$. Equivalently, every
+neighborhood of a point of the subspace $Y$ meets $E$.
+\end{definition}
+By \cref{cor:rationals-countable,thm:rational-density},
+$\Q\cap[a,b]$ is countable and dense in $[a,b]$.
+
+\begin{proposition}[Interval components of an open set]
+\label{prop:real-open-interval-components}
+Every open subset of $\R$ is a disjoint union of at most countably many
+open intervals.
+\end{proposition}
+\begin{proof}
+Let $G\subseteq\R$ be open.  For each $x\in G$, take the union of all open
+intervals that contain $x$ and lie in $G$.  Overlapping intervals merge
+into an interval, so this union is a maximal open interval contained in
+$G$. Two such maximal intervals are either equal or disjoint, and together
+they cover $G$. Fix an enumeration $\Q=\{q_1,q_2,\ldots\}$. Associate to
+each component interval the first $q_n$ that it contains. Distinct disjoint
+components receive distinct rationals, so this gives an injection of the
+component intervals into $\N$.
+\end{proof}
+
 \section{Continuity}
 
 Continuity compares nearby function values with the value at a domain point.
 At a limit point it removes the separation between the limiting value and
-the assigned value; isolated points require a separate explanation.  Open and closed sets provide a
-second language for this stability and prepare for compactness.
-
-An estimate near $a$ needs room around $a$ inside its allowed set.
-An open set provides such room at each of its points, possibly with
-different radii. Closed sets will instead retain limits of sequences;
-the next theorem derives that interpretation from the complement definition.
-
-\begin{definition}[Neighborhoods, open sets, and closed sets]
-For $a\in\R$ and $r>0$, the open interval
-\[
-B(a,r)=\set{x\in\R:\abs{x-a}<r}
-\]
-is the \textbf{open ball} of radius $r$ about $a$. A set $U\subseteq\R$ is \textbf{open} if every $a\in U$ has some $r>0$ for which
-\[
-B(a,r)\subseteq U.
-\]
-A set $C\subseteq\R$ is \textbf{closed} if its complement is open.
-\end{definition}
-
-\begin{theorem}[Sequential characterization of closed sets]
-\label{thm:sequentially-closed}
-A set $C\subseteq\R$ is closed if and only if every convergent sequence in $C$ has its limit in $C$.
-\end{theorem}
-\begin{proof}
-Suppose first that $C$ is closed and that $x_n\in C$ converges to $x$. If $x\notin C$, then the open set $C^c$ contains a ball
-\[
-B(x,r).
-\]
-Choose $N$ with $|x_n-x|<r$ for every $n\geq N$.
-Then $x_N\in B(x,r)$, contradicting $x_N\in C$. Conversely, suppose the sequential condition holds and let $x\in C^c$. If no ball about $x$ were contained in $C^c$, then for every $n$ one could choose
-\[
-x_n\in C,\qquad \abs{x_n-x}<\frac1n.
-\]
-Then $x_n\to x$, contradicting the sequential condition. Hence $C^c$ is open.
-\end{proof}
+the assigned value; isolated points require a separate explanation.  The
+topology of \cref{sec:real-line-topology} gives a second language for this
+stability.
 
 \begin{definition}[Continuity]
 \label{def:continuity}
 Let $f:D\to\R$ and let $a\in D$. The function $f$ is \emph{continuous at $a$} if, for every $\eps>0$, there is $\delta>0$ such that every $x\in D$ satisfying $\abs{x-a}<\delta$ satisfies $\abs{f(x)-f(a)}<\eps$. It is \emph{continuous on $D$} if it is continuous at every point of $D$.
 \end{definition}
+
+\begin{theorem}[Open-set characterization of continuity]
+\label{thm:real-open-set-continuity}
+For $f:D\to\R$, the function $f$ is continuous on $D$ if and only if
+$f^{-1}(U)$ is relatively open in $D$ for every open $U\subseteq\R$.
+Equivalently, inverse images of closed sets are relatively closed in $D$.
+\end{theorem}
+This result is recorded to connect the $\eps$--$\delta$ definition with the
+topological language used later. Its proof is not given here; Chapter~10
+proves the corresponding statement for general topological spaces in
+\cref{thm:topological-continuity}.
 
 \paragraph{Limits and continuity have different domain requirements.}
 A function limit requires $a$ to be a limit point but need not have
@@ -700,6 +798,27 @@ $x=1$ to
 extension is continuous exactly when $d=2$. Altering the value cannot
 repair a jump whose two side limits disagree.
 \end{example}
+
+\begin{definition}[Bounded functions]
+\label{def:bounded-function}
+A function $f:D\to\R$ is \emph{bounded} if
+\[
+\exists M\geq0\ \forall x\in D:\quad |f(x)|\leq M.
+\]
+Equivalently, its range $f(D)$ is a bounded subset of $\R$.
+\end{definition}
+
+\begin{definition}[Piecewise continuity]
+\label{def:piecewise-continuous}
+A function $f:[a,b]\to\R$ is \emph{piecewise continuous} if there is a
+finite partition
+\[
+a=x_0<x_1<\cdots<x_n=b
+\]
+such that, on every $(x_{i-1},x_i)$, the restriction of $f$ extends
+continuously to $[x_{i-1},x_i]$. Thus only finitely many breakpoints are
+allowed, and finite one-sided limits exist there.
+\end{definition}
 
 \section{Uniform Continuity}
 
@@ -880,6 +999,41 @@ c-\delta<x\leq c,
 which contradicts $f(x)\leq u$. Therefore $f(c)=u$.
 \end{proof}
 
+\begin{theorem}[Continuity of a monotone inverse]
+\label{thm:monotone-inverse-continuity}
+If $f$ is continuous and strictly monotone on an interval $I$, then
+$f:I\to f(I)$ is bijective and its inverse is continuous.
+\end{theorem}
+\begin{proof}
+Strict monotonicity gives injectivity, while surjectivity onto $f(I)$ is
+automatic. The IVT shows that $f(I)$ is an interval. Suppose first that
+$f$ is increasing, fix $a\in I$, and write $y_0=f(a)$.
+
+If $a$ is an interior point of $I$, then for a given $\eps>0$ choose
+\[
+a-\eps<\ell<a<r<a+\eps,
+\qquad \ell,r\in I.
+\]
+The number
+\[
+\delta=\min\{f(a)-f(\ell),\,f(r)-f(a)\}>0
+\]
+has the desired effect: if $y\in f(I)$ and $|y-y_0|<\delta$, then
+\[
+f(\ell)<y<f(r),
+\]
+so monotonicity traps $f^{-1}(y)$ between $\ell$ and $r$, and hence within
+$\eps$ of $a$.
+
+At a left endpoint $a$, choose only $r\in I$ with
+$a<r<a+\eps$ and take $\delta=f(r)-f(a)$.  Then
+$a\leq f^{-1}(y)<r$ whenever $y\in f(I)$ and $|y-y_0|<\delta$.
+The right-endpoint argument is symmetric; a singleton interval is
+immediate. Thus $f^{-1}$ is continuous at every point of $f(I)$. If $f$
+is decreasing, apply the increasing case to $-f$. Since
+$f^{-1}(y)=(-f)^{-1}(-y)$, continuity follows by composition with negation.
+\end{proof}
+
 Integer powers are already defined. We now reverse the question: given
 $a$, can we solve $x^n=a$? Elementary algebra uses radical notation for a
 chosen solution; analysis must justify its existence and uniqueness.
@@ -1044,13 +1198,26 @@ Uniqueness of positive \(nq\)th roots gives \(u=v\). This is the promised
 well-definedness: the notation depends on the rational number, not on how it
 is written as a fraction.
 
-For the laws, write all exponents over a common positive denominator. Raise
-the two proposed positive quantities to that denominator (or to a further
-common denominator for the iterated-power law), use the integer exponent
-laws and \cref{prop:real-root-laws}, and invoke uniqueness of the resulting
-positive root. The quotient law follows from the addition law applied to
-\(r-s+s=r\), and the product law follows by raising both positive sides to a
-denominator of \(r\).
+For addition, put the exponents over one positive denominator,
+say $r=m/n$ and $s=p/n$. Both sides below are positive, and
+\[
+(a^ra^s)^n=(a^r)^n(a^s)^n=a^ma^p=a^{m+p}
+                 =(a^{r+s})^n.
+\]
+Uniqueness of the positive $n$th root therefore gives
+$a^{r+s}=a^ra^s$.
+
+For the iterated-power law, write $r=m/n$ and $s=p/q$, with $n,q>0$.
+After raising both positive candidates to the common power $nq$, integer
+exponent laws give
+\[
+\bigl((a^r)^s\bigr)^{nq}=a^{mp}
+               =\bigl(a^{rs}\bigr)^{nq}.
+\]
+Uniqueness of the positive $nq$th root proves $(a^r)^s=a^{rs}$.
+The quotient law follows from the addition law applied to $r-s+s=r$, and
+the product law follows by raising both positive sides to a positive
+denominator of $r$ and using \cref{prop:real-root-laws}.
 
 If \(0<a<b\) and
 \[
@@ -1092,22 +1259,95 @@ positive bases. Chapter~\ref{ch:differentiation} will extend it to arbitrary
 real exponents, still for positive bases, by means of \(\exp\) and \(\log\).
 \end{remark}
 
-\section{Compact Intervals}
+\section{Compactness on the Real Line}
+\label{sec:real-line-compactness}
 
-Closed bounded intervals are the domains on which local information can be
-made global.  Compactness will turn subsequential control into maxima,
-minima, and uniform continuity.
+Compactness is the mechanism that turns local information into finitely
+many choices and one common scale. We record both formulations used in
+Part~I.
 
-\begin{definition}[Sequential compactness]
-A set $K\subseteq\R$ is \textbf{sequentially compact} if every sequence in $K$ has a subsequence converging to an element of $K$.
+\begin{definition}[Covers and subcovers]
+Let $K\subseteq\R$. A family $\{U_\alpha\}_{\alpha\in A}$ \emph{covers}
+$K$ if $K\subseteq\bigcup_{\alpha\in A}U_\alpha$. It is an \emph{open
+cover} if every $U_\alpha$ is open in $\R$. If $B\subseteq A$ and the
+members indexed by $B$ still cover $K$, they form a \emph{subcover}; it is
+a \emph{finite subcover} when $B$ is finite.
+\end{definition}
+A subcover selects members of the original family; it does not replace
+them by newly constructed sets. The cover condition is containment, not
+equality: the single interval $(-1,2)$ covers $[0,1]$.
+
+\begin{definition}[Compactness and sequential compactness]
+\label{def:real-compactness}
+A set $K\subseteq\R$ is \emph{compact} if every open cover of $K$ has a
+finite subcover. It is \emph{sequentially compact} if every sequence in
+$K$ has a subsequence converging to an element of $K$.
 \end{definition}
 
-\begin{theorem}[Compactness of closed bounded intervals]
+\begin{theorem}[Compactness and sequential compactness on the line]
+\label{thm:real-compact-sequential}
+A subset of $\R$ is compact if and only if it is sequentially compact.
+\end{theorem}
+The general equivalence is not proved here. Part~I develops the two
+formulations directly in the concrete settings it needs; Chapter~10 proves
+the corresponding metric-space result in
+\cref{thm:metric-compact-sequential}.
+
+\begin{theorem}[Sequential compactness of closed bounded intervals]
 \label{thm:compact-interval}
 If $a\leq b$, then $[a,b]$ is sequentially compact.
 \end{theorem}
 \begin{proof}
 Let $(x_n)$ be a sequence in $[a,b]$. It is bounded, so \cref{thm:bolzano-weierstrass} gives a subsequence converging to some $x\in\R$. Since $a\leq x_{n_k}\leq b$ for every $k$, \cref{thm:limit-order} gives $a\leq x\leq b$. Thus $x\in[a,b]$.
+\end{proof}
+
+For an interval $J$, write $\ell(J)$ for its ordinary length.
+
+\begin{lemma}[Common scale for an interval cover]
+\label{lem:lebesgue-number-interval}
+For every open cover $\mathcal U$ of $[a,b]$, there is $\lambda>0$ such
+that every subinterval of $[a,b]$ having length less than $\lambda$ is
+contained in one member of $\mathcal U$.
+\end{lemma}
+\begin{proof}
+Suppose no such $\lambda$ exists. For each $n\in\N$, choose an interval
+$J_n\subseteq[a,b]$ of length less than $1/n$ that lies in no member of
+$\mathcal U$, and choose $x_n\in J_n$. By
+\cref{thm:compact-interval}, some subsequence $x_{n_k}$ converges to
+$x\in[a,b]$. Choose $U\in\mathcal U$ containing $x$ and $r>0$ with
+$B(x,r)\subseteq U$. For all sufficiently large $k$,
+\[
+|x_{n_k}-x|<r/2,
+\qquad
+\ell(J_{n_k})<1/n_k<r/2.
+\]
+Every $y\in J_{n_k}$ then satisfies
+$|y-x|\leq|y-x_{n_k}|+|x_{n_k}-x|<r$, so $J_{n_k}\subseteq U$, a
+contradiction.
+\end{proof}
+
+\begin{theorem}[Compactness of closed intervals]
+\label{thm:compact-closed-interval}
+Every closed bounded interval $[a,b]$ is compact.
+\end{theorem}
+\begin{proof}
+Given an open cover, take $\lambda$ from
+\cref{lem:lebesgue-number-interval}. Choose a finite partition of
+$[a,b]$ whose cells have length less than $\lambda$. Each cell lies in one
+member of the cover, and selecting one such member for each of the finitely
+many cells gives a finite subcover.
+\end{proof}
+
+\begin{corollary}[Closed subsets of compact intervals]
+\label{cor:closed-subset-finite-subcover}
+If $K\subseteq[a,b]$ is relatively closed in $[a,b]$, then $K$ is compact.
+\end{corollary}
+\begin{proof}
+Let $\mathcal U$ be an open cover of $K$. Relative closedness makes
+$[a,b]\setminus K$ relatively open, so it equals $[a,b]\cap W$ for some
+open $W\subseteq\R$. Then $\mathcal U\cup\{W\}$ covers $[a,b]$ and has a
+finite subcover by \cref{thm:compact-closed-interval}. Discarding $W$, if
+it was selected, leaves finitely many original members that cover $K$.
 \end{proof}
 
 Boundedness of the domain supplies a convergent subsequence of trial
@@ -1158,34 +1398,6 @@ would lose the paired estimate, which concerns $x_n$ and $y_n$ at one index. Con
 
 
 
-\begin{theorem}[Continuity of a monotone inverse]
-\label{thm:monotone-inverse-continuity}
-If $f$ is continuous and strictly monotone on an interval $I$, then
-$f:I\to f(I)$ is bijective and its inverse is continuous.
-\end{theorem}
-\begin{proof}
-Strict monotonicity gives injectivity, and the intermediate value theorem
-makes $f(I)$ an interval. Suppose $f$ is increasing, fix $a\in I$, and let
-$\eps>0$. If $I$ contains points to the left of $a$, choose such a point
-$\ell$ with $a-\eps<\ell<a$; similarly choose $r\in I$ with
-$a<r<a+\eps$ when the right side exists. Each available difference
-$f(a)-f(\ell)$ or $f(r)-f(a)$ is positive. Choose $\delta$ smaller than
-these differences. For $y\in f(I)$ with $|y-f(a)|<\delta$, monotonicity
-forces $\ell<f^{-1}(y)<r$ on the available sides; a missing side is
-automatically bounded by the endpoint $a$. Thus $|f^{-1}(y)-a|<\eps$.
-For a singleton interval the assertion is immediate. For decreasing $f$,
-apply the argument to $-f$.
-\end{proof}
-
-\begin{remark}[Relative size is not absolute smallness]
-The statement $r=o(1)$ means $r\to0$, while $r=O(1)$ means boundedness
-near the limiting point. If $g\to0$, either $r=O(g)$ or $r=o(g)$
-forces $r\to0$, by the respective absolute-value estimates. Without
-$g\to0$ there is no such conclusion: as $x\to+\infty$,
-$x=o(x^2)$ although $x$ diverges. Little-$o$ compares scales.
-For vector-valued remainders the same definitions use the norm of $r$;
-Chapter 10 proves the norm estimates needed for composition.
-\end{remark}
 \subsection*{Roots, tolerances, and existence in use}
 The continuous roots constructed near \cref{thm:real-roots} now join
 our earlier continuity tools in concrete existence and tolerance problems.

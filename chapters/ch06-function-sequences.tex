@@ -358,9 +358,12 @@ Let \(f_n\in C([a,b])\), suppose \(f_n\uparrow f\) pointwise on \([a,b]\),
 and suppose \(f\in C([a,b])\). Then \(f_n\to f\) uniformly. The same
 conclusion holds when \(f_n\downarrow f\).
 \end{theorem}
+Here $f_n\uparrow f$ pointwise means that for every fixed $x$, the numerical
+sequence $f_n(x)$ is increasing and converges to $f(x)$; the decreasing
+notation has the analogous meaning.
 \begin{proof}
 Suppose the increasing case is not uniform. Then there are \(\eps>0\), integers
-\(n_j\uparrow\infty\), and points \(x_j\in[a,b]\) such that
+\(n_j\) that are strictly increasing with $n_j\to\infty$, and points \(x_j\in[a,b]\) such that
 \[
 f(x_j)-f_{n_j}(x_j)\geq\eps.
 \]
@@ -475,22 +478,34 @@ $\delta>0$ such that $|s-t|<\delta$ implies
 \[
 |f(s)-f(t)|<\eps/2.
 \]
-  Split the defining weighted average for
-$B_n(f)(x)-f(x)$ according as
+The mechanism is
+\[
+\boxed{\text{near samples are accurate; far samples carry little total weight}.}
+\]
+Indeed,
+\[
+|B_n(f)(x)-f(x)|
+\leq\sum_{k=0}^nw_{n,k}(x)\left|f(k/n)-f(x)\right|.
+\]
+Split this sum according as
 \[
 |k/n-x|<\delta
 \]
- or not.  The first part has
-absolute value at most
+or not. The near part is at most
 \[
-\eps/2.
+\frac\eps2\sum_{|k/n-x|<\delta}w_{n,k}(x)
+\leq\frac\eps2.
 \]
-  On the second part, the error is at most
-$2M$, while
+On the far part, the error is at most $2M$, and therefore its contribution
+is at most
 \[
-\sum_{|k/n-x|\geq\delta}\binom nkx^k(1-x)^{n-k}
+2M\sum_{|k/n-x|\geq\delta}w_{n,k}(x).
+\]
+The second-moment estimate gives
+\[
+\sum_{|k/n-x|\geq\delta}w_{n,k}(x)
 \leq\frac1{\delta^2}\sum_{k=0}^n\left(\frac{k}{n}-x\right)^2
-\binom nkx^k(1-x)^{n-k}
+ w_{n,k}(x)
 \leq\frac1{4n\delta^2}.
 \]
 Choose
@@ -541,7 +556,8 @@ For a compact Hausdorff space $X$, the real Stone--Weierstrass theorem says
 that a subalgebra of $C(X,\R)$ which contains the constants and separates
 points is dense in the sup norm.  On $[a,b]$, polynomials have these
 properties, so the classical theorem is its first example.  The general
-result belongs naturally to functional analysis and is not used here.
+result belongs naturally to functional analysis and is not used here; the
+term \emph{Hausdorff} is defined in \cref{def:hausdorff}.
 \end{remark}
 
 \section{Equicontinuity}
@@ -678,8 +694,11 @@ $\delta>0$ such that
 \abs{g_k(x)-g_k(y)}<\eps/3
 \qquad(k\in\N).
 \]
-Using density and a finite partition of $[a,b]$, choose finitely many of the
-$q_j$ so that every $x\in[a,b]$ lies within $\delta$ of one of them.  List the selected points as $q_{j_1},\ldots,q_{j_\ell}$.
+Partition $[a,b]$ into finitely many cells of length less than $\delta/2$.
+For each cell with nonempty relative interior, density supplies one $q_j$
+in that interior; include an endpoint separately if needed. Every
+$x\in[a,b]$ then lies within less than $\delta$ of one selected point.
+List them as $q_{j_1},\ldots,q_{j_\ell}$.
 At $q_{j_i}$ choose a Cauchy stage $N_i$ for tolerance
 \[
 \eps/3.

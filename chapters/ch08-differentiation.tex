@@ -14,6 +14,35 @@ f'(a)=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}.
 The number $f'(a)$ is the \textbf{derivative} of $f$ at $a$.
 \end{definition}
 
+\begin{definition}[One-sided derivatives]
+\label{def:one-sided-derivatives}
+Where the domain permits, define
+\[
+f'_+(a)=\lim_{h\to0^+}\frac{f(a+h)-f(a)}h,
+\qquad
+f'_-(a)=\lim_{h\to0^-}\frac{f(a+h)-f(a)}h.
+\]
+At an interior point, $f'(a)$ exists if and only if both one-sided
+derivatives exist and are equal; their common value is then $f'(a)$.
+\end{definition}
+
+Differentiability says precisely that the function has a first-order linear
+approximation:
+\[
+\boxed{f(a+h)=f(a)+f'(a)h+o(|h|)\qquad(h\to0,\ a+h\in D).}
+\]
+Indeed, after subtracting the first two terms and dividing by $|h|$, the
+absolute value of the remainder quotient is
+\[
+\left|\frac{f(a+h)-f(a)}h-f'(a)\right|\longrightarrow0.
+\]
+Thus the linearization, or tangent-line approximation,
+\[
+L_a(x)=f(a)+f'(a)(x-a)
+\]
+satisfies $f(x)-L_a(x)=o(|x-a|)$ as $x\to a$ through $D$. This is the one-dimensional precursor of
+$f(a+h)=f(a)+Df(a)h+o(\|h\|)$ in Chapter~11.
+
 \begin{example}[A derivative from its definition]
 For $f(x)=x^2$, the difference quotient at $a$ is
 
@@ -38,7 +67,8 @@ constants have derivative zero directly.
 For an open interval $I$, $f\in C^k(I)$ means that derivatives through
 order $k$ exist and are continuous (including $f$ itself at order zero).
 For $[a,b]$, the derivatives on $(a,b)$ extend continuously to $[a,b]$,
-using the standard one-sided endpoint convention. The notation $C^\infty$
+with endpoint values given by the one-sided derivatives of
+\cref{def:one-sided-derivatives}. The notation $C^\infty$
 means this holds for every finite order.
 \end{definition}
 
@@ -208,9 +238,15 @@ f'(c)=0.
 \]
 \end{theorem}
 \begin{proof}
-At a local maximum, the difference quotient is nonnegative for nearby
-\(x<c\) and nonpositive for nearby \(x>c\). Since its two-sided limit
-exists, that limit is zero. At a local minimum the signs are reversed.
+At a local maximum, for all sufficiently nearby points,
+\[
+x<c\Longrightarrow \frac{f(x)-f(c)}{x-c}\geq0,
+\qquad
+x>c\Longrightarrow \frac{f(x)-f(c)}{x-c}\leq0.
+\]
+The two-sided derivative exists, so its left-hand value is nonnegative and
+its right-hand value is nonpositive; equality of the two forces
+$f'(c)=0$. At a local minimum the signs are reversed.
 \end{proof}
 
 \begin{theorem}[Rolle's theorem]
@@ -282,21 +318,28 @@ and \emph{strictly decreasing} if the final inequality is strict. A function is 
 
 \begin{theorem}[First derivative test]
 \label{thm:first-derivative-test}
-Let \(c\) be an interior critical point of \(f\), and suppose \(f\) is
-differentiable on each side of \(c\).
+Suppose $f$ is continuous at $c$ and differentiable on a punctured
+neighborhood of $c$.
 \begin{enumerate}
-\item If \(f'>0\) immediately to the left of \(c\) and \(f'<0\)
-immediately to the right, then \(c\) is a strict local maximum.
-\item If \(f'<0\) immediately to the left and \(f'>0\) immediately to the
-right, then \(c\) is a strict local minimum.
-\item If \(f'\) has the same sign on both sides, this test gives no local
-extremum at \(c\).
+\item If some $\delta>0$ satisfies $f'(x)>0$ for
+$c-\delta<x<c$ and $f'(x)<0$ for $c<x<c+\delta$, then $c$ is a strict
+local maximum.
+\item If the two signs are reversed on those same sides, then $c$ is a
+strict local minimum.
+\item If $f'$ is positive on both sides or negative on both sides, then
+$c$ is not a local extremum.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-The Mean Value Theorem makes \(f\) strictly increasing on any interval
-where \(f'>0\) and strictly decreasing where \(f'<0\). The two sign-change
-patterns therefore give the stated comparisons with \(f(c)\).
+Take $x\in(c-\delta,c)$. Continuity at $c$ and differentiability on
+$(x,c)$ allow the Mean Value Theorem on $[x,c]$, so
+\[
+f(c)-f(x)=f'(\xi)(c-x)
+\]
+for some $\xi\in(x,c)$. Thus the left sign determines the strict comparison
+between $f(x)$ and $f(c)$. Applying the same argument on $[c,x]$ for
+$x\in(c,c+\delta)$ gives the right comparison. The three conclusions now
+follow from their respective sign patterns.
 \end{proof}
 The equation \(f'(c)=0\) alone is not sufficient. For \(f(x)=x^3\),
 \(f'(0)=0\), but \(f\) is increasing on both sides and \(0\) is not an
@@ -315,8 +358,11 @@ f(c^-)=\sup\{f(x):x\in I,\ x<c\},
 \qquad
 f(c^+)=\inf\{f(x):x\in I,\ x>c\}.
 \]
-These quantities are finite because values on either side are bounded by
-nearby values of \(f\). To see that the first is the left-hand limit, choose
+Choose $u,v\in I$ with $u<c<v$. Then values to the left of $c$ are bounded
+above by $f(c)$ and below by $f(u)$ once $x\geq u$; the remaining farther
+left values are also at most $f(u)$. Similarly, values to the right lie
+between $f(c)$ and $f(v)$ locally. Hence the displayed supremum and
+infimum are finite. To see that the first is the left-hand limit, choose
 \(x_0<c\) with \(f(x_0)>f(c^-)-\eps\). For \(x_0<x<c\),
 \[
 f(c^-)-\eps<f(x)\leq f(c^-).
@@ -1003,8 +1049,11 @@ f(a+h)-T_nf(a;h)
 =\frac{f^{(n)}(a+\theta h)-f^{(n)}(a)}{n!}h^n,
 \qquad 0<\theta<1.
 \]
-Continuity of $f^{(n)}$ at $a$ makes the coefficient tend to zero,
-uniformly over the possible intermediate points. Divide by $|h|^n$.
+Continuity of $f^{(n)}$ at $a$ makes the coefficient tend to zero, because
+\[
+|a+\theta h-a|=|\theta h|\leq|h|\longrightarrow0
+\]
+for every possible $0<\theta<1$. Divide by $|h|^n$.
 \end{proof}
 This needs no $(n+1)$st derivative. It prepares the finite-order Peano
 formula for vector increments in Chapter~11.
@@ -1190,11 +1239,15 @@ Its derivative is positive, so the Mean Value Theorem makes it strictly increasi
 \exp(n)\geq1+n
 \qquad(n\in\N),
 \]
-so monotonicity implies that $\exp(x)$ tends to infinity as $x\to\infty$. For $t>0$, the addition law gives
+so for any $M>0$, choose an integer $n>M$; then $x\geq n$ implies
+$\exp(x)\geq\exp(n)\geq1+n>M$. Hence $\exp(x)\to\infty$ as
+$x\to\infty$. For $t>0$, the addition law gives
 \[
-\exp(-t)=\frac{1}{\exp(t)},
+\exp(-t)=\frac{1}{\exp(t)}.
 \]
-and hence $\exp(x)$ tends to $0$ as $x\to-\infty$. If $y>0$, choose real numbers $A<B$ such that
+Given $\eps>0$, choose $T$ with $\exp(T)>1/\eps$. Then $x<-T$ gives
+$0<\exp(x)<\eps$, so $\exp(x)\to0$ as $x\to-\infty$. If $y>0$, the two
+limits provide real numbers $A<B$ such that
 \[
 \exp(A)<y<\exp(B).
 \]
@@ -1673,14 +1726,23 @@ Structurally,
 \]
 
 The strictly increasing function \(\sinh:\R\to\R\) has inverse
-\(\operatorname{arsinh}\). Solving \(x=\sinh y\) for \(e^y>0\) gives
+\(\operatorname{arsinh}\). To solve $x=\sinh y$, put $u=e^y>0$. Then
+\[
+x=\frac{u-u^{-1}}2
+\quad\Longrightarrow\quad
+u^2-2xu-1=0.
+\]
+The positive root is $u=x+\sqrt{x^2+1}$, and therefore
 \[
 \operatorname{arsinh}x
 =\log\!\left(x+\sqrt{x^2+1}\right),
 \qquad
 (\operatorname{arsinh}x)'=\frac1{\sqrt{1+x^2}}.
 \]
-Similarly, the restriction of \(\cosh\) to \([0,\infty)\) has inverse
+Similarly, solving $x=(u+u^{-1})/2$ gives
+$u^2-2xu+1=0$; on $y\geq0$ the appropriate root is
+$u=x+\sqrt{x^2-1}$. Thus the restriction of \(\cosh\) to
+\([0,\infty)\) has inverse
 \[
 \operatorname{arcosh}x
 =\log\!\left(x+\sqrt{x^2-1}\right),\qquad x\geq1,
@@ -1767,7 +1829,16 @@ The analytic functions satisfy $\sin'=\cos$ and $\cos'=-\sin$.
 \end{theorem}
 \begin{proof}
 Their series have infinite radius of convergence. Apply
-\cref{thm:power-series-differentiation} and reindex the resulting series.
+\cref{thm:power-series-differentiation}. In full for sine,
+\[
+\frac{d}{dx}\sum_{n=0}^\infty\frac{(-1)^nx^{2n+1}}{(2n+1)!}
+=\sum_{n=0}^\infty\frac{(-1)^nx^{2n}}{(2n)!}=\cos x.
+\]
+For cosine, the constant term disappears and reindexing gives
+\[
+\cos'(x)=\sum_{n=1}^\infty\frac{(-1)^nx^{2n-1}}{(2n-1)!}
+=-\sin x.
+\]
 \end{proof}
 \begin{theorem}[Trigonometric addition and fundamental identities]
 \label{thm:elementary-identities}
@@ -1782,12 +1853,19 @@ For all $x,y\in\R$,
 The series also give oddness of sine and evenness of cosine.
 \end{theorem}
 \begin{proof}
-Fix $y$ and let the difference between the two sides of the proposed sine addition formula be $h(x)$. By \cref{thm:elementary-series},
+Fix $y$ and define
 \[
-h'(x)
-=\cos(x+y)+\sin x\sin y-\cos x\cos y
+h(x)=\sin(x+y)-\sin x\cos y-\cos x\sin y,
 \]
-is the difference between the two sides of the proposed cosine addition formula. Differentiating the latter difference gives the negative of $h$. Writing the cosine difference as $k=h'$, we have $k'=-h$.
+\[
+k(x)=\cos(x+y)-\cos x\cos y+\sin x\sin y.
+\]
+By \cref{thm:elementary-series},
+\[
+h'=k,
+\qquad
+k'=-h.
+\]
 The product rule now gives
 \[
 (h^2+k^2)'=2hk+2k(-h)=0.
@@ -2830,7 +2908,7 @@ The cutoff is also useful:
 \[
 b(x)=\theta(1-\|x\|_2^2)
 \]
-will be a smooth function supported in the closed unit ball once the
+will be a smooth function that vanishes outside the closed unit ball once the
 multivariable chain rule is available. Chapter~\ref{ch:forms-stokes} uses
 translations and rescalings of this same building block to localize forms.
 
@@ -2965,7 +3043,8 @@ f\!\left(\sum_{i=1}^n\lambda_i x_i\right)
 For concave \(f\), the inequality is reversed.
 \end{theorem}
 \begin{proof}
-The assertion for \(n=2\) is the definition of convexity. Assume it for
+For $n=1$ the assertion is equality. The assertion for $n=2$ is the
+definition of convexity. Assume it for
 \(n-1\). If \(\lambda_n=1\), the result is equality. Otherwise put
 \[
 \Lambda=1-\lambda_n,\qquad
